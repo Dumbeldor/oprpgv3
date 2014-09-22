@@ -10,3 +10,9 @@ The OPrpg v3
 		`...
 	`- assets
 		`... 		# depot des style, js et img pour client
+
+
+# Lors du passage sur le serveur officiel (pas en local)
+# Ne pas oublier de modifier :
+
+# dev > app > config > database.php : connexion a la bdd
