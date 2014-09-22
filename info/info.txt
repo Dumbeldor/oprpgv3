@@ -1,1 +1,12 @@
 The OPrpg v3
+
+# Configuration du framework CodeIgniter
+
+# Arborescence de fichier :
+	OPrpg
+	`- dev
+		`- app 		# Repertoire de taff
+		`- config 	# Le fichier config.php sera a modifier pour la publication
+		`...
+	`- assets
+		`... 		# depot des style, js et img pour client
