@@ -26,6 +26,10 @@ $config['base_url']	= 'http://localhost/oprpg/dev/';
 | variable so that it is blank.
 |
 */
+// Dans le cas ou mod_rewrite est active
+$config['index_page'] = '';
+
+// Dans le cas contraire
 $config['index_page'] = 'index.php';
 
 /*
@@ -69,7 +73,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'english';
+$config['language']	= 'french';
 
 /*
 |--------------------------------------------------------------------------
