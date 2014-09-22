@@ -29,9 +29,6 @@ $config['base_url']	= 'http://localhost/oprpg/dev/';
 // Dans le cas ou mod_rewrite est active
 $config['index_page'] = '';
 
-// Dans le cas contraire
-$config['index_page'] = 'index.php';
-
 /*
 |--------------------------------------------------------------------------
 | URI PROTOCOL
@@ -61,7 +58,7 @@ $config['uri_protocol']	= 'AUTO';
 | http://codeigniter.com/user_guide/general/urls.html
 */
 
-$config['url_suffix'] = '';
+$config['url_suffix'] = '.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -228,7 +225,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] = 'maxmondieu';
 
 /*
 |--------------------------------------------------------------------------
