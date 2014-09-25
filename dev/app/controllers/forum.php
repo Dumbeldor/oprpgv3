@@ -10,4 +10,9 @@
 		public function accueil(){
 			echo "Hello World - Forum";
 		}
+
+		public function index()
+		{
+			$this->accueil();
+		}
 	}
