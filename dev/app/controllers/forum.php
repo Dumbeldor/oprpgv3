@@ -8,11 +8,16 @@
 	{
 		// Accessible a : http://localhost/oprpg/dev/index.php/forum/accueil
 		public function accueil(){
-			echo "Hello World - Forum";
+			$this->load->view('forum');
 		}
 
 		public function index()
 		{
 			$this->accueil();
+		}
+
+		public function quelquepart()
+		{
+			$this->load->view('quelquepart');
 		}
 	}

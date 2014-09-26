@@ -19,8 +19,8 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		echo "Welcome OPrpg";
-		//$this->load->view('welcome_message');
+		echo "Welcome OPrpg <br> <hr>";
+		$this->load->view('index');
 	}
 }
 
