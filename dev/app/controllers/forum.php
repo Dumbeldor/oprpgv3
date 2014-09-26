@@ -8,7 +8,7 @@
 	{
 		// Accessible a : http://localhost/oprpg/dev/index.php/forum/accueil
 		public function accueil(){
-			$this->load->view('forum');
+			echo "<h1>Forum - Accueil</h1>";
 		}
 
 		public function index()
@@ -19,5 +19,10 @@
 		public function quelquepart()
 		{
 			$this->load->view('quelquepart');
+		}
+
+		public function sampleTest()
+		{
+			$this->load->view('sample');
 		}
 	}

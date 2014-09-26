@@ -20,6 +20,7 @@
 			<li><a href="./forum/">Forum</a></li>
 			<ul>
 				<li><a href="./forum/quelquepart">Forum - Quelquepart</a></li>
+				<li><a href="./forum/sampleTest">Sample de reference</a></li>
 			</ul>
 		</ul>
 	</nav>
