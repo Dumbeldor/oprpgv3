@@ -15,15 +15,16 @@
 			//$this->load->helper('url');
 		}
 
-		// Accessible a : http://localhost/oprpg/dev/index.php/forum/accueil
-		public function accueil()
-		{
-			echo "<h1>Forum - Accueil</h1>";
-		}
-
+		// Accessible a : http://localhost/oprpg/dev/forum/
 		public function index()
 		{
 			$this->accueil();
+		}
+
+		// Accessible a : http://localhost/oprpg/dev/forum/accueil
+		public function accueil()
+		{
+			echo "<h1>Forum - Accueil</h1>";
 		}
 
 		public function quelquepart()

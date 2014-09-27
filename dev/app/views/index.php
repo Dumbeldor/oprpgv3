@@ -13,20 +13,22 @@
 
 <body>
 
-	<h1>OnePiece-Rpg</h1>
-	<p><?php echo img('image.png', 'luffy'); ?></p>
-	<p>Bienvenue sur le site de OnePiece. Celui ci est encore en construction :)</p>
-	<nav>
-		<ul>
-			<li><a href="<?php echo site_url(); ?>">Accueil</a></li>
-			<li><a href="<?php echo site_url('forum'); ?>">Forum</a></li>
+	<div class="preview">
+		
+		<div class="preview-logo">
+			<h1>OnePiece-Rrpg</h1>
+			<h1><small>Sous-titre sympa</small></h1>
+			<img src="./img/preview/logo_preview.png">
+		</div><!-- preview-logo -->
+
+		<div class="preview-choice">
 			<ul>
-				<li><a href="<?php echo site_url('forum/quelquepart'); ?>">Forum - Quelquepart</a></li>
-				<li><a href="<?php echo site_url(array('forum', 'quelquepart')); ?>">Forum - Quelquepart Autre</a></li>
-				<li><a href="<?php echo site_url('forum/sampleTest'); ?>">Sample de reference</a></li>
+				<li><a href="./inscription.php">Inscription</a></li>
+				<li><a href="./connexion.php">Connexion</a></li>
 			</ul>
-		</ul>
-	</nav>
+		</div><!-- preview-choice -->
+
+	</div> <!-- /preview -->
 
 </body>
 
