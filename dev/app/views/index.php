@@ -23,6 +23,7 @@
 
 		<div class="preview-choice">
 			<ul>
+				<li><a href="./news/infos">News - Infos</a></li>
 				<li><a href="./inscription.php">Inscription</a></li>
 				<li><a href="./connexion.php">Connexion</a></li>
 			</ul>

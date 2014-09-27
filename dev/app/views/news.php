@@ -133,7 +133,7 @@
 				<h2>Read News</h2>
 
 				<div class="span1 align-justify">
-					<h3>News from hell ! <small>2014-08-18 by <div class="[color]">Admin</div> at 20:00:54</small></h3>
+					<h3>News from hell ! <small>2014-08-18 by <div class="[color]"><?php echo $cpt_pseudo.'('.$cpt_email.')'; ?></div> at 20:00:54</small></h3>
 					<div class="group-socialnetwork">F - T - G+ - Other</div>
 					<p>Apud has gentes, quarum exordiens initium ab Assyriis ad Nili cataractas porrigitur et confinia Blemmyarum, omnes pari sorte sunt bellatores seminudi coloratis sagulis pube tenus amicti, equorum adiumento pernicium graciliumque camelorum per diversa se raptantes, in tranquillis vel turbidis rebus: nec eorum quisquam aliquando stivam adprehendit vel arborem colit aut arva subigendo quaeritat victum, sed errant semper per spatia longe lateque distenta sine lare sine sedibus fixis aut legibus: nec idem perferunt diutius caelum aut tractus unius soli illis umquam placet.</p>
 				</div> <!-- /oneblock -->
