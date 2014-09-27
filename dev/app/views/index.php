@@ -7,13 +7,14 @@
 	<title>OPrpg - Index</title>
 	<meta name="description" content="Accueil du site OnePiece-Rpg" />
 	<meta name="author" content="OPrpg" />
-	<link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
-	<script type="text/javascript" src="../../assets/js/script.js"></script>
+	<link rel="stylesheet" type="text/css" href="<?php echo css_url('style'); ?>">
+	<script type="text/javascript" src="<?php echo js_url('script'); ?>"></script>
 </head>
 
 <body>
 
 	<h1>OnePiece-Rpg</h1>
+	<p><?php echo img('image.png', 'luffy'); ?></p>
 	<p>Bienvenue sur le site de OnePiece. Celui ci est encore en construction :)</p>
 	<nav>
 		<ul>
