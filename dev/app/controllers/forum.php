@@ -6,8 +6,18 @@
 	*/
 	class Forum extends CI_Controller
 	{
+
+		public function __construct()
+		{
+			parent::__construct();
+
+			//	Décommenter cette ligne pour charger le helper url
+			//$this->load->helper('url');
+		}
+
 		// Accessible a : http://localhost/oprpg/dev/index.php/forum/accueil
-		public function accueil(){
+		public function accueil()
+		{
 			echo "<h1>Forum - Accueil</h1>";
 		}
 

@@ -17,10 +17,12 @@
 	<p>Bienvenue sur le site de OnePiece. Celui ci est encore en construction :)</p>
 	<nav>
 		<ul>
-			<li><a href="./forum/">Forum</a></li>
+			<li><a href="<?php echo site_url(); ?>">Accueil</a></li>
+			<li><a href="<?php echo site_url('forum'); ?>">Forum</a></li>
 			<ul>
-				<li><a href="./forum/quelquepart">Forum - Quelquepart</a></li>
-				<li><a href="./forum/sampleTest">Sample de reference</a></li>
+				<li><a href="<?php echo site_url('forum/quelquepart'); ?>">Forum - Quelquepart</a></li>
+				<li><a href="<?php echo site_url(array('forum', 'quelquepart')); ?>">Forum - Quelquepart Autre</a></li>
+				<li><a href="<?php echo site_url('forum/sampleTest'); ?>">Sample de reference</a></li>
 			</ul>
 		</ul>
 	</nav>
