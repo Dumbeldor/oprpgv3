@@ -3,7 +3,7 @@
   /*
    *
    */
-  class Tchat extends MY_Controller {
+  class Tchat extends CI_Controller {
 
     // Default Constructor
     public function __construct() {
@@ -11,6 +11,22 @@
     	$this->load->model('tchat_model');
       $this->load->model('users_model');
       $this->load->helper('smiley');
+    }
+    
+    // ...
+    public function construct_page($page, $data = array()) {
+      if($this->users_model->is_connected()) {
+        $data_nav['connecte'] = TRUE;
+      }
+      else {
+        $data_nav['connecte'] = FALSE;
+      }
+      
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/navbar', $data_nav);
+      $this->load->view('templates/sidebar');
+      $this->load->view($page, $data);
+      $this->load->view('templates/footer');
     }
     
     public function index() {

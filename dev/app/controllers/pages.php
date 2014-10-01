@@ -3,7 +3,7 @@
   /* 
    * 
    */
-  class Pages extends MY_Controller {
+  class Pages extends CI_Controller {
 
     // Default constructor for all pages
     public function __construct() {

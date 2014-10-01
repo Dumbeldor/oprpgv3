@@ -38,16 +38,7 @@
 |
 */
 
-$route['tchat/get'] = 'tchat/get';
-$route['tchat/post'] = 'tchat/post';
-$route['tchat'] = 'tchat/index';
-$route['users/disconnect'] = 'users/disconnect';
-$route['users/create'] = 'users/create';
-$route['users/connect'] = 'users/connect';
-$route['users/(:any)'] = 'users/view/$1';
-$route['users'] = 'users';
-$route['default_controller'] = "pages/view";
-$route['(:any)'] = 'pages/view/$1';
+$route['default_controller'] = "welcome";
 $route['404_override'] = '';
 
 
