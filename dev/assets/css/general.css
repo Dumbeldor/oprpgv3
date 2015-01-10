@@ -37,6 +37,24 @@
   padding-top: 60px;
 }
 
-.container-oprpg {
+.container-general-oprpg {
   width: 100%;
+  background-color: #E5E5E5;
+}
+
+.navbar-oprpg {
+    background-color: #222;
+}
+
+.group-item-oprpg {
+    background-color: #CCCCCC;
+}
+
+.sidebar {
+    background-color: #E5E5E5;
+}
+
+.container-oprpg {
+    background-color: white;
+    height: 100%;
 }
