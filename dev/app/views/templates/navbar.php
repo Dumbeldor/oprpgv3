@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <nav class="navbar navbar-default navbar-fixed-top navbar-oprpg" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -32,25 +31,6 @@
 </nav>
 <div id="wrap">
   <div class="container container-general-oprpg">
-=======
-  
-  <!-- En cours de modification -->
-  <div class="pure-menu pure-menu-open">
-    <a class="pure-menu-heading">Yahoo! Sites</a>
-    <ul>
-      <li class="pure-menu-heading">MyConfig</li>
-      <li><a href="#">Flickr</a></li>
-      <li><a href="#">Messenger</a></li>
-      <li><a href="#">Sports</a></li>
-      <li><a href="#">Finance</a></li>
-      <li class="pure-menu-heading">World</li>
-      <li><a href="#">Games</a></li>
-      <li><a href="#">News</a></li>
-      <li><a href="#">OMG!</a></li>
-    </ul>
-  </div>
-
-
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -84,4 +64,3 @@
   </nav>
   <div id="wrap">
     <div class="container container-oprpg">
->>>>>>> origin/master
