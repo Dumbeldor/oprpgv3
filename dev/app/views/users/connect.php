@@ -1,6 +1,6 @@
 <h2>Connexion</h2>
 <?php if(isset($error)) echo $error; ?>
-<form class="form-horizontal" method="POST" action="<?php echo base_url();?>index.php/users/connect">   
+<?php echo form_open('users/connect'); ?> 
   <div class="form-group">
     <label for="pseudo" class="col-sm-2 control-label">Pseudo</label>
     <div class="col-sm-10"> 
@@ -18,4 +18,4 @@
       <input type="submit" name="submit" class="btn btn-default" value="Let's Go !" />
     </div>
   </div>
-</form>
+<?php echo form_close(); ?>

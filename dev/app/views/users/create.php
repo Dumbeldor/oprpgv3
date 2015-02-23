@@ -1,5 +1,5 @@
 <h2>Inscription</h2>
-<form class="form-horizontal" method="POST" action="<?php echo base_url();?>index.php/users/create">   
+<?php echo form_open('users/create'); ?>
   <div class="form-group">
     <label for="pseudo" class="col-sm-2 control-label">Pseudo</label>
     <?php echo form_error('pseudo'); ?>
@@ -21,9 +21,14 @@
       <input type="input" name="email" value="<?php echo set_value('email'); ?>" />
     </div>
   </div>
+  <select name="perso">
+    <?php foreach($persos as $perso): ?>
+      <option value="<?php echo $perso['perso_id']; ?>"><?php echo $perso['perso_name']; ?></option>
+    <?php endforeach; ?>
+  </select>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <input type="submit" name="submit" class="btn btn-default" value="S'inscire !" />
     </div>
   </div>
-</form>
+<?php echo form_close(); ?>
