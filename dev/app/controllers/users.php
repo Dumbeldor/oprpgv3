@@ -1,8 +1,9 @@
 <?php
 class Users extends MY_Controller {
   public function __construct() {
-	parent::__construct();
-	$this->load->model('users_model');
+    parent::__construct();
+    $this->load->model('users_model');
+    $this->load->model('personnages_model');
   }
   
   /*
@@ -30,21 +31,24 @@ class Users extends MY_Controller {
    */
   public function create() {
     $this->load->helper('form');
-	$this->load->library('form_validation');
+    $this->load->library('form_validation');
     
     $data['title'] = 'Inscription';
     
-    $this->form_validation->set_rules('pseudo', 'Pseudonyme', 'required|min_length[4]|max_length[15]|is_unique[users.pseudo]');
-	$this->form_validation->set_rules('password', 'password', 'required|min_length[6]');
-    $this->form_validation->set_rules('email', 'email', 'required|valid_email|is_unique[users.email]');
+    $this->form_validation->set_rules('pseudo', 'Pseudonyme', 'required|min_length[3]|max_length[15]|is_unique[users.user_pseudo]');
+    $this->form_validation->set_rules('password', 'password', 'required|min_length[6]');
+    $this->form_validation->set_rules('email', 'email', 'required|valid_email|is_unique[users.user_email]');
+    $this->form_validation->set_rules('perso', 'perso', 'callback_is_perso_deblocable');
     
     if ($this->form_validation->run() === FALSE) {
+      $query_persos_jouables = $this->db->query('SELECT * FROM personnages');
+      $data['persos'] = $query_persos_jouables->result_array();
       $this->construct_page('users/create', $data);
     }
-	else {
+    else {
       $this->users_model->set_user();
       $this->construct_page('users/success', $data);
-	}
+    }
   }
   
   /*
@@ -52,7 +56,7 @@ class Users extends MY_Controller {
    */
   public function connect() {
     $this->load->helper('form');
-	$this->load->library('form_validation');
+    $this->load->library('form_validation');
     
     $data['title'] = 'Connexion';
     $pseudo = $this->input->post('pseudo');
