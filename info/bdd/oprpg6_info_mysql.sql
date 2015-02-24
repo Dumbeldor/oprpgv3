@@ -436,6 +436,7 @@ CREATE TABLE forums_topics_messages(
 
 CREATE TABLE tchats_messages(
         message       Longtext NOT NULL ,
+        message_date    Date NOT NULL ,
         message_block Bool NOT NULL ,
         tchat_id      Int NOT NULL ,
         user_id       Int NOT NULL ,
