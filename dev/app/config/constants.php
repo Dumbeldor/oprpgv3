@@ -36,6 +36,13 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
+/*
+ * Personnal constants for oprpg
+ */
+
+define('SALT', 'D6MB1qYMTP5QSBKwxomGM2ufjpjOzzeAW0NB1JO5');
+
+/* End of personnal constants*/
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

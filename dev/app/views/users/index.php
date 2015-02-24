@@ -8,8 +8,8 @@
   <tbody>  
     <?php foreach ($users as $user): ?>
       <tr>  
-        <td><a href="users/<?php echo $user['id'] ?>"><?php echo $user['pseudo'] ?></a></td>
-        <td><?php echo $user['id'] ?></td>
+        <td><a href="users/<?php echo $user['user_id'] ?>"><?php echo $user['user_pseudo'] ?></a></td>
+        <td><?php echo $user['user_id'] ?></td>
       </tr>
     <?php endforeach ?>
   </tbody> 
