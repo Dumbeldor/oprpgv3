@@ -134,3 +134,26 @@ $ git push -u origin master
 
 # Pour verifier les differences entre fichiers
 $ git diff
+
+
+# Edit de Sumo
+# =====================================
+
+- Créer une nouvelle branche : git checkout -b nom_de_la_branche
+- Naviguer entre les branches : git checkout branche
+- Afficher toutes les branches : git branch
+
+Pour envoyer les modifs sur le dépôt, il y a 5 étapes : 
+- Créer une branche pour la fonctionnalité à partir de master donc :
+1. git checkout master
+2. git pull
+3. git pull origin master (ces 2 pulls servent à télécharger toutes les modifications qui ont été faites sur le dépôt depuis le dernier pull donc ça permet de mettre notre branche master à jour)
+4. git checkout -b fonctionnalité
+
+- Effectuer les modifs dans le code
+- Lorsque c'est fini, on veut envoyer les fichiers dans le dépôt donc on ajoute les fichiers à l'ensemble des fichiers qu'on veut commiter puis on commit.
+5. git add fichier1.php fichier2.php fichier3.php
+6. git commit -am "explication du commit"
+
+- Finalement, on push le commit sur la branche "fonctionnalité" du dépot:
+7. git push origin fonctionnalité

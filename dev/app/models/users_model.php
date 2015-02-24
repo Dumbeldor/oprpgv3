@@ -10,23 +10,27 @@ class Users_model extends CI_Model {
       return $query->result_array();
     }
     
-    $query = $this->db->get_where('users', array('id' => $id));
+    $query = $this->db->get_where('users', array('user_id' => $id));
     return $query->row_array();
   }
   
   public function set_user() {
     $password_hash = hash('sha512', SALT . $this->input->post('password'));
     $data = array(
-        'pseudo' => $this->input->post('pseudo'),
-        'password' => $password_hash,
-        'email' => $this->input->post('email'),
+        'user_pseudo' => $this->input->post('pseudo'),
+        'user_password' => $password_hash,
+        'user_email' => $this->input->post('email'),
+        'perso_id' => $this->input->post('perso'),
+        'lev_id' => 1,
+        'usert_id' => 1,
+        'obj_id' => 1,
     );
     return $this->db->insert('users', $data);
   }
   
   public function validate_connexion($pseudo, $password) {
     $password_hash = hash('sha512', SALT . $password);
-    $query = $this->db->query("SELECT * FROM users WHERE pseudo = ? AND password = ?", array($pseudo, $password_hash));
+    $query = $this->db->query("SELECT * FROM users WHERE user_pseudo = ? AND user_password = ?", array($pseudo, $password_hash));
     
     if($query->num_rows() == 1) {
       return TRUE;
@@ -37,7 +41,7 @@ class Users_model extends CI_Model {
   }
   
   public function setup_connexion($pseudo) {
-    $query = $this->db->query("SELECT * FROM users WHERE pseudo = ?", array($pseudo));
+    $query = $this->db->query("SELECT * FROM users WHERE user_pseudo = ?", array($pseudo));
     $user = $query->result_array();
     $this->session->set_userdata('user_data', $user[0]);
   }
