@@ -6,13 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo $title; ?></title>
 
-    <!--[if lte IE 8]>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
-    <![endif]-->
-    <!--[if gt IE 8]><!-->
-      <link href="<?php echo base_url('assets/css/pure-0.5.0/pure-min.css'); ?>" rel="stylesheet">
-      <link href="<?php echo base_url('assets/css/general.css'); ?>" rel="stylesheet">
-    <!--<![endif]-->
-
+    <link href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/general.css'); ?>" rel="stylesheet">
   </head>
+  
   <body>
+    <div class="container-fluid">
+      <div class="row navbar-oprpg"></div>
+      <div class="row row-oprpg">

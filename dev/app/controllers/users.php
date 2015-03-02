@@ -59,6 +59,7 @@ class Users extends MY_Controller {
     $this->load->library('form_validation');
     
     $data['title'] = 'Connexion';
+    $data['largeur'] = 'small';
     $pseudo = $this->input->post('pseudo');
     $password = $this->input->post('password');
     if ($pseudo == null XOR $password == null) {

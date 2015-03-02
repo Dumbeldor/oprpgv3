@@ -1,60 +1,91 @@
-.mini-submenu{
-  display:none;  
-  background-color: rgba(0, 0, 0, 0);  
-  border: 1px solid rgba(0, 0, 0, 0.9);
-  border-radius: 4px;
-  padding: 9px;  
-  /*position: relative;*/
-  width: 42px;
-
+* {
+  border-radius: 0 !important;
+  font-family: 'AvenirNextLTW01-Regular';
 }
 
-.mini-submenu:hover{
-  cursor: pointer;
+html, body {
+    height: 100%;
 }
 
-.mini-submenu .icon-bar {
-  border-radius: 1px;
-  display: block;
-  height: 2px;
-  width: 22px;
-  margin-top: 3px;
-}
-
-.mini-submenu .icon-bar {
-  background-color: #000;
-}
-
-#slide-submenu{
-  background: rgba(0, 0, 0, 0.45);
-  display: inline-block;
-  padding: 0 8px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.sidebar-oprpg {
-  padding-top: 60px;
-}
-
-.container-general-oprpg {
-  width: 100%;
-  background-color: #E5E5E5;
+.container-fluid {
+    height: 100%;
 }
 
 .navbar-oprpg {
-    background-color: #222;
+    height: 10%;
 }
 
-.group-item-oprpg {
-    background-color: #CCCCCC;
+div.row-oprpg {
+    height: 90%;
 }
 
-.sidebar {
-    background-color: #E5E5E5;
+div.container-oprpg {
+    background-color: #333333;
+    box-shadow: 1px 1px 6px 0px rgba(50, 50, 50, 0.69);
+    height: 60%;
+    min-height: 320px;
 }
 
-.container-oprpg {
-    background-color: white;
-    height: 100%;
+input {
+    border: none;
+}
+
+.center_form_connexion {
+    margin: 0 auto;
+    width: 65%;
+    height: 70%;
+}
+
+.form-connexion-bas {
+    margin-top: 15%;
+}
+
+.center_redirection_inscription {
+    margin: 0 auto;
+    margin-top: 5%;
+    width: 45%;
+    height: 20%;
+}
+
+.center_form_connexion .form_pseudo input {
+    width: 100%;
+    height: 30px;
+    color: #0071BC;
+}
+
+.center_form_connexion .form_password input {
+    width: 100%;
+    height: 30px;
+    color: #C1272D;
+}
+
+.center_form_connexion .form_submit input {
+    float: right;
+    background-color: #0071BC;
+    color: white;
+}
+
+.center_form_connexion .form_submit .btn-connexion {
+    @include button-variant(red, white, blue);
+}
+
+.center_form_connexion .form_submit a {
+    vertical-align: central;
+}
+
+a.connexion-reset-password {
+    padding-top: 10px;
+    color: white;
+}
+
+span.texte_redirection_inscription {
+    color: white;
+}
+
+.form-connexion-header {
+    height: 30%;
+}
+
+.form-connexion {
+    height: 70%;
 }

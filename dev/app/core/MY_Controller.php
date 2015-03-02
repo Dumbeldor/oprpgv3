@@ -17,7 +17,7 @@
       }
       $this->load->view('templates/header', $data);
       $this->load->view('templates/navbar', $data);
-      $this->load->view('templates/sidebar');
+      $this->load->view('templates/sidebar', $data);
       $this->load->view($page, $data);
       $this->load->view('templates/footer');
     }
