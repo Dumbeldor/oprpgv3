@@ -23,7 +23,7 @@ class Tchat extends MY_Controller {
 
   public function post() {
     $session = $this->session->all_userdata();
-    $user_id = $session['user_data']['id'];
+    $user_id = $session['user_data']['user_id'];
     $message = $this->input->post('message');
     $this->tchat_model->save_msg($user_id, parse_smileys($message, base_url('assets/smileys/')));
   }
