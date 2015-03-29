@@ -17,7 +17,11 @@ class Private_messages extends MY_Controller {
 		$data['title'] = 'MP';
 	    $data['messages'] = $this->private_messages_model->get_messages($session['user_data']['user_id']); //Chargement des messages et des infos sur l'envoyeur
 		$data['messages_sent'] = $this->private_messages_model->get_messages_sent($session['user_data']['user_id']); // Chargement des messages envoyés
+<<<<<<< HEAD
 		$this->construct_page('private_messages/index', $data);
+=======
+	    $this->construct_page('private_messages/index', $data);
+>>>>>>> 7e8e45a0a7721a61b1a874c743dae5aea6e08724
 	}
 	
 	/* Nouveau MP */
@@ -36,7 +40,11 @@ class Private_messages extends MY_Controller {
 		
 		$data['title'] = 'MP';
 		$data['id_receiver'] = $this->input->post('id_receiver');
+<<<<<<< HEAD
 		$data['content'] = $this->input->post('content'); //On récupère l'ancien message
+=======
+		$data['content'] = $this->input->post('content');
+>>>>>>> 7e8e45a0a7721a61b1a874c743dae5aea6e08724
 		$this->construct_page('private_messages/answer_message', $data);
 	}
 	
@@ -47,14 +55,22 @@ class Private_messages extends MY_Controller {
 		
 		/* On vérifie si l'utilisateur créé un nouveau message ou répond à un message */
 		if($this->input->post('old_content') != null):
+<<<<<<< HEAD
 			$content = $content.'
 			--------------Message Précédent------------ 
 			'.$this->input->post('old_content'); //Si l'utilisateur créé un message, on rajoute l'ancien message au précédent
+=======
+			$content = $content.'<br>--------------Message Précédent------------<br>'.$this->input->post('old_content'); //Si l'utilisateur créé un message, on rajoute l'ancien message au précédent
+>>>>>>> 7e8e45a0a7721a61b1a874c743dae5aea6e08724
 		endif;
 		
 		$session=$this->session->all_userdata();
 		$pm_date = date('Y-m-d', time());
+<<<<<<< HEAD
 		$this->private_messages_model->send_message($session['user_data']['user_id'],$id_receiver,parse_smileys($content, base_url('assets/smileys/')),$pm_date); //Envoi du message
+=======
+		$this->private_messages_model->send_message($session['user_data']['user_id'],$id_receiver,parse_smileys(nl2br($content), base_url('assets/smileys/')),$pm_date); //Envoi du message
+>>>>>>> 7e8e45a0a7721a61b1a874c743dae5aea6e08724
 		
 		$data['title'] = 'MP';
 		$this->construct_page('private_messages/success', $data);
