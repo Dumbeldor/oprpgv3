@@ -38,14 +38,39 @@
 |
 */
 
+/* Tchat */
+$route['tchat/delete_message/(:num)'] = 'tchat/delete_message/$1';
 $route['tchat/get'] = 'tchat/get';
 $route['tchat/post'] = 'tchat/post';
-$route['tchat'] = 'tchat/index';
+$route['tchat/(:num)'] = 'tchat/index/$1';
+
+/* Users */
 $route['users/disconnect'] = 'users/disconnect';
 $route['users/create'] = 'users/create';
 $route['users/connect'] = 'users/connect';
 $route['users/(:any)'] = 'users/view/$1';
 $route['users'] = 'users';
+
+/* Private_messages */
+$route['private_messages'] = 'private_messages';
+$route['private_messages/new_message/(:num)'] = 'private_messages/new_message/$1';
+$route['private_messages/send_message'] = 'private_messages/send_message';
+$route['private_messages/answer_message'] = 'private_messages/answer_message';
+$route['private_messages/delete_message/(:num)'] = 'private_messages/delete_message/$1';
+
+/* Forum */
+$route['forum'] = 'forum/index';
+$route['forum/categories/(:num)'] = 'forum/categories/$1';
+$route['forum/topics/(:num)'] = 'forum/topics/$1';
+$route['forum/messages/(:num)'] = 'forum/messages/$1';
+$route['forum/answer'] = 'forum/answer';
+$route['forum/send_message'] = 'forum/send_message';
+$route['forum/delete_message/(:num)'] = 'forum/delete_message/$1';
+$route['forum/(:any)/delete_message/(:num)'] = 'forum/delete_message/$2';
+$route['forum/create_topic'] = 'forum/create_topic';
+$route['forum/send_topic'] = 'forum/send_topic';
+
+
 $route['default_controller'] = "pages/view";
 $route['(:any)'] = 'pages/view/$1';
 $route['404_override'] = '';
