@@ -6,7 +6,12 @@ class News_model extends CI_Model
 {
 	protected $table = 'news';
 
-	//Add news
+	/*
+		Ajouter des news, les paramètres requis sont :
+			- L'id de l'auteur
+			- Le titre de la news
+			- Le contenu de la news
+	*/
 	public function add_news($author, $title, $contents)
 	{
 		$this->db->set('user_id', $author);
@@ -18,6 +23,12 @@ class News_model extends CI_Model
 		return $this->db->insert($this->table);
 	}
 
+	/*
+		Modifier des news, les paramètres requis sont :
+			- L'id de la news
+			- Le titre si on veut modifier
+			- Le contenu si on veut modifier
+	*/
 	public function set_news($id, $title, $contents)
 	{
 		if($title == null AND $contents == null)
@@ -33,19 +44,27 @@ class News_model extends CI_Model
 		return $this->db->update($this->table);
 	}
 	
+	/*
+		Supprimer des news, les paramètres requis sont :
+			- L'id de la news
+	*/
 	public function delete_news($id)
 	{
 		return $this->db->where('id', (int) $id)
 			->delete($this->table);
 	}
-	
+	/*
+		Compte le nombre de news avec un parametre de recherche si besoins
+	*/
 	public function count($where = array())
 	{
 		return (int) $this->db->where($where)
 			      ->count_all_results($this->table);
 	}
-	
-	public function list_news()
+	/*
+		Reenvoie nb news commencant a l'id debut
+	*/
+	public function list_news($nb = 10, $debut = 0)
 	{
 		return $this->db->select('*')
 			->from($this->table)
