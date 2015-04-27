@@ -13,6 +13,14 @@
     public function construct_page($page, $data = array()) {
       if($this->users_model->is_connected()) {
         $data['connecte'] = TRUE;
+        if($this->users_model->is_moderator())
+          $data['moderator'] = TRUE;
+        else
+          $data['moderator'] = FALSE;
+        if($this->users_model->is_admin())
+          $data['admin'] = TRUE;
+        else
+          $data['admin'] = FALSE;
       }else {
         $data['connecte'] = FALSE;
       }

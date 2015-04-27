@@ -12,13 +12,14 @@ class News_model extends CI_Model
 			- Le titre de la news
 			- Le contenu de la news
 	*/
-	public function add_news($author, $title, $contents)
+	public function add($author, $title, $contents)
 	{
 		$this->db->set('user_id', $author);
 		$this->db->set('new_titre', $title);
 		$this->db->set('new_message', $contents);		
 
-		$this->db->set('new_date', 'NOW()', false);
+		setlocale (LC_TIME, 'fr_FR.utf8','fra'); 
+		$this->db->set('new_date', strftime("%A %d %B à %HH%M"));
 
 		return $this->db->insert($this->table);
 	}
@@ -29,7 +30,7 @@ class News_model extends CI_Model
 			- Le titre si on veut modifier
 			- Le contenu si on veut modifier
 	*/
-	public function set_news($id, $title, $contents)
+	public function set($id, $title, $contents)
 	{
 		if($title == null AND $contents == null)
 			return false;
@@ -48,7 +49,7 @@ class News_model extends CI_Model
 		Supprimer des news, les paramètres requis sont :
 			- L'id de la news
 	*/
-	public function delete_news($id)
+	public function delete($id)
 	{
 		return $this->db->where('id', (int) $id)
 			->delete($this->table);
@@ -64,12 +65,13 @@ class News_model extends CI_Model
 	/*
 		Reenvoie nb news commencant a l'id debut
 	*/
-	public function list_news($nb = 10, $debut = 0)
+	public function lists($nb = 5, $debut = 0)
 	{
-		return $this->db->select('*')
+		return $this->db->select('new_id, new_date, new_titre, new_message, new_block, user_pseudo')
 			->from($this->table)
+			->join('users', 'news.user_id = users.user_id')
 			->limit($nb, $debut)
-			->order_by('id', 'desc')
+			->order_by('new_id', 'desc')
 			->get()
 			->result();
 	}

@@ -1,9 +1,21 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
   <div class="container">
-    <h1>Hello, world!</h1>
-    <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-    <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
+
+    <h1>Les news</h1>
+    <?php if($nbnews <= 0) { ?>
+    	<p>Il y a aucune news</br>
+    	<a href="news/add/">Ajouter une news</a></p>
+    <?php } else { ?>
+    <?php foreach($news as $new): ?>
+    <h2><?php echo $new->new_titre; ?></h2>
+    <p>Ecrit par <?php echo $new->user_pseudo; ?> le <?php echo $new->new_date; ?></p>
+    </br>
+    <p><?php echo $new->new_message; ?></p>
+    <br />
+    <br />
+    <?php endforeach; ?>
+    <?php } ?>
   </div>
 </div>
 

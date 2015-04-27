@@ -53,4 +53,22 @@ class Users_model extends CI_Model {
     }
     return FALSE;
   }
+
+  public function is_moderator() {
+    $session = $this->session->all_userdata();
+    if(isset($session['user_data']) && $session['user_data']) {
+      if($session['user_data']['rang'] == 3)
+        return TRUE;
+    }
+    return FALSE;
+  }
+
+  public function is_admin() {
+    $session = $this->session->all_userdata();
+    if(isset($session['user_data']) && $session['user_data']) {
+      if($session['user_data']['rang'] == 5)
+        return TRUE;
+    }
+    return FALSE;
+  }
 }
