@@ -82,8 +82,8 @@ $route['private_messages/delete_message/(:num)'] = 'private_messages/delete_mess
 $route['forum'] = 'forum';
 
 
-$route['default_controller'] = "pages/view";
-$route['(:any)'] = 'pages/view/$1';
+$route['default_controller'] = "home/index";
+//$route['(:any)'] = 'pages/view/$1';
 $route['404_override'] = '';
 
 

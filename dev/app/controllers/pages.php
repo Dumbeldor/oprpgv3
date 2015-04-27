@@ -2,6 +2,10 @@
 
 /*
  * 
+INUTILE...
+Le 404 s'affiche quand la route est pas config :)
+
+Dumbeldor.
  */
 
 class Pages extends MY_Controller {
