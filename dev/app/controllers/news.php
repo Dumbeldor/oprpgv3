@@ -37,7 +37,6 @@ class news extends MY_Controller
 
 	public function delete($id)
 	{
-		echo $id;
 		$this->load->model('news_model');
 		$this->news_model->delete($id);
 		redirect('/index');

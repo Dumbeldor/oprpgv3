@@ -8,7 +8,7 @@
   <tbody>  
     <?php foreach ($users as $user): ?>
       <tr>  
-        <td><a href="users/<?php echo $user['user_id'] ?>"><?php echo $user['user_pseudo'] ?></a></td>
+        <td><a href="<?php echo site_url(array('users', 'view', $user['user_id'])); ?>"><?php echo $user['user_pseudo'] ?></a></td>
         <td><?php echo $user['user_id'] ?></td>
       </tr>
     <?php endforeach ?>

@@ -57,7 +57,9 @@ $route['tchat'] = 'tchat/index';
 $route['users/disconnect'] = 'users/disconnect';
 $route['users/create'] = 'users/create';
 $route['users/connect'] = 'users/connect';
-$route['users/(:any)'] = 'users/view/$1';
+$route['users/view/(:num)'] = 'users/view/$1';
+$route['users/account'] = 'users/account';
+$route['users/(:any)'] = 'users';
 $route['users'] = 'users';
 
 /* Private_messages */

@@ -9,7 +9,7 @@ class Users_model extends CI_Model {
       $query = $this->db->get('users');
       return $query->result_array();
     }
-    
+    echo $id;
     $query = $this->db->get_where('users', array('user_id' => $id));
     return $query->row_array();
   }

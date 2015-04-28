@@ -21,7 +21,7 @@ class Users extends MY_Controller {
    */
   public function view($id) {
 	$data['users'] = $this->users_model->get_users($id);
-    $data['title'] = 'Annuaire';
+    $data['title'] = "Profil de ".$data['users']['user_pseudo'];
     
     $this->construct_page('users/view', $data);
   }
@@ -82,8 +82,8 @@ class Users extends MY_Controller {
       }
     }
   }
-  
-  /*
+
+    /*
    * Quand on va sur le lien de deconnexion
    */
   public function disconnect() {
