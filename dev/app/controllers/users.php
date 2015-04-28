@@ -57,6 +57,7 @@ class Users extends MY_Controller {
   public function connect() {
     $this->load->helper('form');
     $this->load->library('form_validation');
+    $this->load->helper('url');
     
     $data['title'] = 'Connexion';
     $pseudo = $this->input->post('pseudo');
@@ -73,7 +74,7 @@ class Users extends MY_Controller {
       if($valid_connexion) {
         $data['title'] = 'Home';
         $this->users_model->setup_connexion($pseudo);
-        $this->construct_page('pages/home', $data);
+        redirect('/index');
       }
       else {
         $data['error'] = "La combinaison pseudo/mot de passe n'est pas bonne.";
