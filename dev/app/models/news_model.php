@@ -40,7 +40,7 @@ class News_model extends CI_Model
 			$this->db->set('contenu', $contenu);
 
 		//Si la news est bien trouvé ! ;)
-		$this->db->where('id', (int) $id);
+		$this->db->where('new_id', (int) $id);
 		//Alors on fait l'update
 		return $this->db->update($this->table);
 	}
@@ -51,7 +51,7 @@ class News_model extends CI_Model
 	*/
 	public function delete($id)
 	{
-		return $this->db->where('id', (int) $id)
+		return $this->db->where('new_id', (int) $id)
 			->delete($this->table);
 	}
 	/*

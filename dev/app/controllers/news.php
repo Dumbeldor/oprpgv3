@@ -3,6 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class news extends MY_Controller 
 {
+	public function __construct() {
+      	parent::__construct();
+      	//Si le membre n'est pas Admin ou Moderateur alors on le redirige vers l'index ;)
+  		if(!($this->users_model->is_admin() || $this->users_model->is_moderator()))
+  			redirect('/index');
+    }
 	public function add() 
 	{
 		$this->load->helper('form');
@@ -27,5 +33,13 @@ class news extends MY_Controller
         	$data['add'] = true;
         	$this->construct_page('news/add', $data);
       	}
+	}
+
+	public function delete($id)
+	{
+		echo $id;
+		$this->load->model('news_model');
+		$this->news_model->delete($id);
+		redirect('/index');
 	}
 }

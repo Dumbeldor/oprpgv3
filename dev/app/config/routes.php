@@ -38,6 +38,11 @@
 |
 */
 
+
+/* News */
+$route['news/add'] = 'news/add';
+$route['news/delete/(:num)'] = 'news/delete/$1';
+
 /* Tchat */
 $route['tchat/delete_message/(:num)'] = 'tchat/delete_message/$1';
 $route['tchat/get'] = 'tchat/get';

@@ -23,6 +23,7 @@ class Home extends MY_Controller {
 	public function index()
 	{
 		$this->load->model('news_model');
+		$this->load->helper('url');
 		$data = array();
 		//Récupération des dernière news
 		$data['news'] = $this->news_model->lists();

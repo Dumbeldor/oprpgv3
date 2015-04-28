@@ -5,8 +5,7 @@ Options -Indexes
 RewriteEngine on
 
 #
-#   Fixe les règles de réécriture d'URL. 
-#   Ici, nous utilisons une liste blanche.
+#   Fixe les règles de réécriture d'URL. Ici, nous utilisons une liste blanche.
 #
 
 #   Toutes les URL qui ne correspondent pas à ces masques sont réécrites.
