@@ -21,6 +21,9 @@ class Account_model extends CI_Model {
   {
     $this->db->where('user_id', $this->session->userdata('user_data')['user_id']);
     $this->db->update('users', array('user_password' => hash('sha512', SALT . $this->input->post('password'))));
+    $user = $this->session->userdata('user_data');
+    $user['user_password'] = hash('sha512', SALT . $this->input->post('password'));
+    $this->session->set_userdata('user_data', $user);
   }
   public function setEmail()
   {
