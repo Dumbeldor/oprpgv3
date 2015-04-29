@@ -58,4 +58,28 @@ class Account extends MY_Controller {
       }
     }   
   }
+
+  /*
+  * Changer Email
+  */
+  public function setEmail()
+  {
+    $this->load->helper('form');
+    $this->load->library('form_validation');
+    $this->load->helper('url');
+    $this->load->model('account_model');
+
+    $data['title'] = "Modifier email";
+
+    $this->form_validation->set_rules('email', 'email', 'trim|required|matches[email2]|is_unique[users.user_email]|valid_email');
+    $this->form_validation->set_rules('email2', 'Confirmation nouveau email', 'trim|required');
+    
+    if ($this->form_validation->run() === FALSE) {
+      $this->construct_page('account/setEmail', $data);
+    }
+    else {
+      $this->account_model->setEmail();
+      redirect('account/');
+    }
+  }
 }

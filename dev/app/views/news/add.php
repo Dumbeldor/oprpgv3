@@ -9,9 +9,9 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="contents" class="col-sm-2 control-label">Contenu</label>
+    <label for="text" class="col-sm-2 control-label">Contenu</label>
     <div class="col-sm-10">  
-      <input type="text" name="contents" value="<?php echo set_value('contents'); ?>" />
+      <textarea name="contents" value="<?php echo set_value('contents'); ?>"></textarea>
     </div>
   </div>
   <div class="form-group">
