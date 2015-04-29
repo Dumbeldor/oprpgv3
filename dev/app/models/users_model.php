@@ -45,6 +45,7 @@ class Users_model extends CI_Model {
     $user = $query->result_array();
     $this->session->set_userdata('user_data', $user[0]);
   }
+
   
   public function is_connected() {
     $session = $this->session->all_userdata();
@@ -57,7 +58,7 @@ class Users_model extends CI_Model {
   public function is_moderator() {
     $session = $this->session->all_userdata();
     if(isset($session['user_data']) && $session['user_data']) {
-      if($session['user_data']['rang'] == 3)
+      if($session['user_data']['user_rang'] == 3)
         return TRUE;
     }
     return FALSE;
@@ -66,7 +67,7 @@ class Users_model extends CI_Model {
   public function is_admin() {
     $session = $this->session->all_userdata();
     if(isset($session['user_data']) && $session['user_data']) {
-      if($session['user_data']['rang'] == 5)
+      if($session['user_data']['user_rang'] == 5)
         return TRUE;
     }
     return FALSE;

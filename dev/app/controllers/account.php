@@ -2,6 +2,8 @@
 class Account extends MY_Controller {
   public function __construct() {
     parent::__construct();
+    if(!$this->users_model->is_connected())
+      redirect('index');
   }
 
 /*
