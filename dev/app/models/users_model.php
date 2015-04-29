@@ -46,6 +46,21 @@ class Users_model extends CI_Model {
     $this->session->set_userdata('user_data', $user[0]);
   }
 
+  /*
+  * Compter le nombre de MP
+  */
+  public function amountMP($id) {
+    /*$query = $this->db->query("SELECT COUNT(pmess_id) as nb FROM privates_messages WHERE user_id = ?", array($id));
+    $amount = $query->result_array();
+    $nb_resultat = $query->num_rows();*/
+
+   // $query->free_result();
+
+
+    return (int) $this->db->where('user_id', $id)
+            ->count_all_results('privates_messages');
+    return $nb_resultat;
+  }
   
   public function is_connected() {
     $session = $this->session->all_userdata();

@@ -25,7 +25,9 @@
             <li><a href="<?php echo base_url('index.php/users/create') ?>">Inscription</a></li>
             <li><a href="<?php echo base_url('index.php/users/connect') ?>">Connexion</a></li>
           <?php else: ?>
-            <li><a href="<?php echo base_url('/account') ?>">Mon Compte</a></li>
+            <li><a href="<?php echo base_url('/account') ?>">Mon Compte
+            <?php if($amountMP > 0)
+                    echo '('.$amountMP.')'; ?></a></li>
             <li><a href="<?php echo base_url('index.php/users/disconnect') ?>">Deconnexion</a></li>
           <?php endif; ?>
         </ul>

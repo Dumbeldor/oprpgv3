@@ -14,6 +14,15 @@ class Account extends MY_Controller {
     $data['title'] = 'Mon compte';
     $this->construct_page('account/index', $data);
   }
+
+  /*
+  * Messagerie
+  */
+  public function messagerie()
+  {
+    
+  }
+
   /*
   * Information privé
   */
