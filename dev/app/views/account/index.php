@@ -1,5 +1,5 @@
-<a href="<?php echo base_url('/account/messagerie'); ?>">Messagerie (<?php if($amountMP > 0)
-                    echo $amountMP; ?>) <br />
+<a href="<?php echo base_url('/messagerie'); ?>">Messagerie (<?php if($amountMP > 0)
+                    echo $amountMP; ?>)</a> <br />
 Trophées <br />
 Sac <br />
 Favoris <br />

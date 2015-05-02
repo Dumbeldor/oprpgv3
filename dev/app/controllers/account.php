@@ -16,14 +16,6 @@ class Account extends MY_Controller {
   }
 
   /*
-  * Messagerie
-  */
-  public function messagerie()
-  {
-    
-  }
-
-  /*
   * Information privé
   */
   public function infoPrivate()
