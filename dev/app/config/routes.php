@@ -38,6 +38,11 @@
 |
 */
 
+
+/* News */
+$route['news/add'] = 'news/add';
+$route['news/delete/(:num)'] = 'news/delete/$1';
+
 /* Tchat */
 $route['tchat/delete_message/(:num)'] = 'tchat/delete_message/$1';
 $route['tchat/get'] = 'tchat/get';
@@ -52,7 +57,9 @@ $route['tchat'] = 'tchat/index';
 $route['users/disconnect'] = 'users/disconnect';
 $route['users/create'] = 'users/create';
 $route['users/connect'] = 'users/connect';
-$route['users/(:any)'] = 'users/view/$1';
+$route['users/view/(:num)'] = 'users/view/$1';
+$route['users/account'] = 'users/account';
+$route['users/(:any)'] = 'users';
 $route['users'] = 'users';
 
 /* Private_messages */

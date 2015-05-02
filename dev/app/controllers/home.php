@@ -23,9 +23,13 @@ class Home extends MY_Controller {
 	public function index()
 	{
 		$this->load->model('news_model');
+		$this->load->helper('url');
 		$data = array();
-		$data['user_info'] = $this->news_model->get_info();
+		//Récupération des dernière news
+		$data['news'] = $this->news_model->lists();
 		$data['title'] = 'Accueil';
+		$data['nbnews'] = $this->news_model->count();
+		var_dump($this->session->all_userdata());
 		 $this->construct_page('pages/home', $data);
 	}
 }

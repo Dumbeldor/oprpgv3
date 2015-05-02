@@ -11,8 +11,19 @@
     * Permet de construire une page avec header, navbar, etc...
     */
     public function construct_page($page, $data = array()) {
-      if($this->users_model->is_connected()) {
+      if($this->users_model->is_connected()) 
+      {
         $data['connecte'] = TRUE;
+        $data['amountMP'] = $this->users_model->amountMP($this->session->userdata('user_data')['user_id']);
+        
+        if($this->users_model->is_moderator())
+          $data['moderator'] = TRUE;
+        else
+          $data['moderator'] = FALSE;
+        if($this->users_model->is_admin())
+          $data['admin'] = TRUE;
+        else
+          $data['admin'] = FALSE;
       }else {
         $data['connecte'] = FALSE;
       }

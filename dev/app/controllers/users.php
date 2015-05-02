@@ -21,7 +21,7 @@ class Users extends MY_Controller {
    */
   public function view($id) {
 	$data['users'] = $this->users_model->get_users($id);
-    $data['title'] = 'Annuaire';
+    $data['title'] = "Profil de ".$data['users']['user_pseudo'];
     
     $this->construct_page('users/view', $data);
   }
@@ -57,6 +57,7 @@ class Users extends MY_Controller {
   public function connect() {
     $this->load->helper('form');
     $this->load->library('form_validation');
+    $this->load->helper('url');
     
     $data['title'] = 'Connexion';
     $pseudo = $this->input->post('pseudo');
@@ -73,7 +74,7 @@ class Users extends MY_Controller {
       if($valid_connexion) {
         $data['title'] = 'Home';
         $this->users_model->setup_connexion($pseudo);
-        $this->construct_page('pages/home', $data);
+        redirect('/index');
       }
       else {
         $data['error'] = "La combinaison pseudo/mot de passe n'est pas bonne.";
@@ -81,8 +82,8 @@ class Users extends MY_Controller {
       }
     }
   }
-  
-  /*
+
+    /*
    * Quand on va sur le lien de deconnexion
    */
   public function disconnect() {

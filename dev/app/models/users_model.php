@@ -9,7 +9,7 @@ class Users_model extends CI_Model {
       $query = $this->db->get('users');
       return $query->result_array();
     }
-    
+    echo $id;
     $query = $this->db->get_where('users', array('user_id' => $id));
     return $query->row_array();
   }
@@ -45,11 +45,45 @@ class Users_model extends CI_Model {
     $user = $query->result_array();
     $this->session->set_userdata('user_data', $user[0]);
   }
+
+  /*
+  * Compter le nombre de MP
+  */
+  public function amountMP($id) {
+    /*$query = $this->db->query("SELECT COUNT(pmess_id) as nb FROM privates_messages WHERE user_id = ?", array($id));
+    $amount = $query->result_array();
+    $nb_resultat = $query->num_rows();*/
+
+   // $query->free_result();
+
+
+    return (int) $this->db->where('user_id', $id)
+            ->count_all_results('privates_messages');
+    return $nb_resultat;
+  }
   
   public function is_connected() {
     $session = $this->session->all_userdata();
     if(isset($session['user_data']) && $session['user_data']) {
       return TRUE;
+    }
+    return FALSE;
+  }
+
+  public function is_moderator() {
+    $session = $this->session->all_userdata();
+    if(isset($session['user_data']) && $session['user_data']) {
+      if($session['user_data']['user_rang'] == 3)
+        return TRUE;
+    }
+    return FALSE;
+  }
+
+  public function is_admin() {
+    $session = $this->session->all_userdata();
+    if(isset($session['user_data']) && $session['user_data']) {
+      if($session['user_data']['user_rang'] == 5)
+        return TRUE;
     }
     return FALSE;
   }
