@@ -15,7 +15,7 @@ CREATE TABLE users(
         birthday       Date NOT NULL ,
         sexe           Bool ,
         password       Varchar (255) NOT NULL ,
-        kick           Int NOT NULL ,
+        is_kick        Bool NOT NULL ,
         id_personnages Int NOT NULL ,
         id_levels      Int NOT NULL ,
         id_objects     Int NOT NULL ,
@@ -34,7 +34,7 @@ CREATE TABLE personnages(
         name      Varchar (255) NOT NULL ,
         firstname Varchar (255) NOT NULL ,
         descr     Text ,
-        block     Bool NOT NULL ,
+        is_block  Bool NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
@@ -47,7 +47,7 @@ CREATE TABLE tech_perso(
         id             int (11) Auto_increment  NOT NULL ,
         name           Varchar (25) NOT NULL ,
         descr          Text ,
-        block          Bool NOT NULL ,
+        is_block       Bool NOT NULL ,
         id_personnages Int NOT NULL ,
         id_tech_types  Int NOT NULL ,
         PRIMARY KEY (id )
@@ -59,9 +59,9 @@ CREATE TABLE tech_perso(
 #------------------------------------------------------------
 
 CREATE TABLE tech_types(
-        id    int (11) Auto_increment  NOT NULL ,
-        name  Varchar (25) NOT NULL ,
-        block Bool NOT NULL ,
+        id       int (11) Auto_increment  NOT NULL ,
+        name     Varchar (25) NOT NULL ,
+        is_block Bool NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
@@ -74,7 +74,7 @@ CREATE TABLE perso_avatars(
         id             int (11) Auto_increment  NOT NULL ,
         name           Varchar (255) NOT NULL ,
         file           Varchar (255) NOT NULL ,
-        block          Bool NOT NULL ,
+        is_block       Bool NOT NULL ,
         id_personnages Int NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
@@ -85,9 +85,9 @@ CREATE TABLE perso_avatars(
 #------------------------------------------------------------
 
 CREATE TABLE levels(
-        id     int (11) Auto_increment  NOT NULL ,
-        number Int NOT NULL ,
-        block  Bool NOT NULL ,
+        id       int (11) Auto_increment  NOT NULL ,
+        number   Int NOT NULL ,
+        is_block Bool NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
@@ -112,9 +112,9 @@ CREATE TABLE places(
 #------------------------------------------------------------
 
 CREATE TABLE islands(
-        id    int (11) Auto_increment  NOT NULL ,
-        nom   Varchar (255) NOT NULL ,
-        block Bool NOT NULL ,
+        id       int (11) Auto_increment  NOT NULL ,
+        name     Varchar (255) NOT NULL ,
+        is_block Bool NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
@@ -124,9 +124,9 @@ CREATE TABLE islands(
 #------------------------------------------------------------
 
 CREATE TABLE places_types(
-        id    int (11) Auto_increment  NOT NULL ,
-        name  Varchar (255) NOT NULL ,
-        block Bool NOT NULL ,
+        id       int (11) Auto_increment  NOT NULL ,
+        name     Varchar (255) NOT NULL ,
+        is_block Bool NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
@@ -156,7 +156,7 @@ CREATE TABLE ennemies(
         name      Varchar (25) NOT NULL ,
         firstname Varchar (25) ,
         file      Varchar (255) NOT NULL ,
-        block     Bool NOT NULL ,
+        is_block  Bool NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
@@ -167,9 +167,9 @@ CREATE TABLE ennemies(
 
 CREATE TABLE tech_ennemies(
         id            int (11) Auto_increment  NOT NULL ,
-        nom           Varchar (255) NOT NULL ,
+        name          Varchar (255) NOT NULL ,
         descr         Text ,
-        block         Bool NOT NULL ,
+        is_block      Bool NOT NULL ,
         id_tech_types Int NOT NULL ,
         id_ennemies   Int NOT NULL ,
         PRIMARY KEY (id )
@@ -192,11 +192,11 @@ CREATE TABLE chests(
 #------------------------------------------------------------
 
 CREATE TABLE chests_types(
-        id    int (11) Auto_increment  NOT NULL ,
-        name  Varchar (25) NOT NULL ,
-        size  Int NOT NULL ,
-        file  Varchar (255) NOT NULL ,
-        block Bool NOT NULL ,
+        id       int (11) Auto_increment  NOT NULL ,
+        name     Varchar (25) NOT NULL ,
+        size     Int NOT NULL ,
+        file     Varchar (255) NOT NULL ,
+        is_block Bool NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
@@ -209,7 +209,7 @@ CREATE TABLE objects(
         id               int (11) Auto_increment  NOT NULL ,
         name             Varchar (255) NOT NULL ,
         file             Varchar (255) NOT NULL ,
-        block            Bool NOT NULL ,
+        is_block         Bool NOT NULL ,
         id_objects_types Int NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
@@ -220,9 +220,9 @@ CREATE TABLE objects(
 #------------------------------------------------------------
 
 CREATE TABLE objects_types(
-        id    int (11) Auto_increment  NOT NULL ,
-        name  Varchar (25) NOT NULL ,
-        block Bool NOT NULL ,
+        id       int (11) Auto_increment  NOT NULL ,
+        name     Varchar (25) NOT NULL ,
+        is_block Bool NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
@@ -243,11 +243,11 @@ CREATE TABLE bags(
 #------------------------------------------------------------
 
 CREATE TABLE bags_types(
-        id    int (11) Auto_increment  NOT NULL ,
-        name  Varchar (25) NOT NULL ,
-        size  Int NOT NULL ,
-        file  Varchar (255) NOT NULL ,
-        block Bool NOT NULL ,
+        id       int (11) Auto_increment  NOT NULL ,
+        name     Varchar (25) NOT NULL ,
+        size     Int NOT NULL ,
+        file     Varchar (255) NOT NULL ,
+        is_block Bool NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
@@ -268,10 +268,10 @@ CREATE TABLE cages(
 #------------------------------------------------------------
 
 CREATE TABLE cages_types(
-        id    int (11) Auto_increment  NOT NULL ,
-        nom   Varchar (25) NOT NULL ,
-        file  Varchar (255) NOT NULL ,
-        block Bool NOT NULL ,
+        id       int (11) Auto_increment  NOT NULL ,
+        name     Varchar (25) NOT NULL ,
+        file     Varchar (255) NOT NULL ,
+        is_block Bool NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
@@ -284,7 +284,7 @@ CREATE TABLE pets(
         id            int (11) Auto_increment  NOT NULL ,
         name          Varchar (25) NOT NULL ,
         file          Varchar (255) NOT NULL ,
-        block         Bool NOT NULL ,
+        is_block      Bool NOT NULL ,
         id_pets_types Int NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
@@ -295,9 +295,9 @@ CREATE TABLE pets(
 #------------------------------------------------------------
 
 CREATE TABLE pets_types(
-        id    int (11) Auto_increment  NOT NULL ,
-        name  Varchar (25) NOT NULL ,
-        block Bool NOT NULL ,
+        id       int (11) Auto_increment  NOT NULL ,
+        name     Varchar (25) NOT NULL ,
+        is_block Bool NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
@@ -312,7 +312,8 @@ CREATE TABLE crews(
         money          Int NOT NULL ,
         page           Text ,
         file           Varchar (255) NOT NULL ,
-        block          Bool NOT NULL ,
+        date_time      Datetime NOT NULL ,
+        is_block       Bool NOT NULL ,
         id_crews_types Int NOT NULL ,
         id_crews_banks Int NOT NULL ,
         PRIMARY KEY (id )
@@ -324,10 +325,10 @@ CREATE TABLE crews(
 #------------------------------------------------------------
 
 CREATE TABLE crews_grades(
-        id    int (11) Auto_increment  NOT NULL ,
-        nom   Varchar (25) NOT NULL ,
-        file  Varchar (255) NOT NULL ,
-        block Bool NOT NULL ,
+        id       int (11) Auto_increment  NOT NULL ,
+        name     Varchar (25) NOT NULL ,
+        file     Varchar (255) NOT NULL ,
+        is_block Bool NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
@@ -337,10 +338,10 @@ CREATE TABLE crews_grades(
 #------------------------------------------------------------
 
 CREATE TABLE crews_types(
-        id    int (11) Auto_increment  NOT NULL ,
-        name  Varchar (25) NOT NULL ,
-        file  Varchar (255) NOT NULL ,
-        block Bool NOT NULL ,
+        id       int (11) Auto_increment  NOT NULL ,
+        name     Varchar (25) NOT NULL ,
+        file     Varchar (255) NOT NULL ,
+        is_block Bool NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
@@ -362,7 +363,7 @@ CREATE TABLE crews_banks(
 CREATE TABLE crews_equipments(
         id                        int (11) Auto_increment  NOT NULL ,
         name                      Varchar (25) NOT NULL ,
-        block                     Bool NOT NULL ,
+        is_block                  Bool NOT NULL ,
         id_crews_equipments_types Int NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
@@ -373,9 +374,9 @@ CREATE TABLE crews_equipments(
 #------------------------------------------------------------
 
 CREATE TABLE crews_equipments_types(
-        id    int (11) Auto_increment  NOT NULL ,
-        nom   Varchar (25) NOT NULL ,
-        block Bool NOT NULL ,
+        id       int (11) Auto_increment  NOT NULL ,
+        name     Varchar (25) NOT NULL ,
+        is_block Bool NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
@@ -387,7 +388,7 @@ CREATE TABLE crews_equipments_types(
 CREATE TABLE forums_topics(
         id                     int (11) Auto_increment  NOT NULL ,
         name                   Varchar (35) NOT NULL ,
-        block                  Bool NOT NULL ,
+        is_block               Bool NOT NULL ,
         id_forums_categories   Int NOT NULL ,
         id_forums_topics_types Int NOT NULL ,
         PRIMARY KEY (id )
@@ -399,11 +400,11 @@ CREATE TABLE forums_topics(
 #------------------------------------------------------------
 
 CREATE TABLE forums_categories(
-        id    int (11) Auto_increment  NOT NULL ,
-        name  Varchar (35) NOT NULL ,
-        descr Varchar (255) NOT NULL ,
-        block Bool NOT NULL ,
-        types Varchar (25) ,
+        id       int (11) Auto_increment  NOT NULL ,
+        name     Varchar (35) NOT NULL ,
+        descr    Varchar (255) NOT NULL ,
+        types    Varchar (25) ,
+        is_block Bool NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
@@ -415,6 +416,7 @@ CREATE TABLE forums_categories(
 CREATE TABLE tchats(
         id              int (11) Auto_increment  NOT NULL ,
         name            Varchar (25) NOT NULL ,
+        is_block        Bool NOT NULL ,
         id_tchats_types Int NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
@@ -425,9 +427,10 @@ CREATE TABLE tchats(
 #------------------------------------------------------------
 
 CREATE TABLE tchats_types(
-        id    int (11) Auto_increment  NOT NULL ,
-        name  Varchar (25) NOT NULL ,
-        descr Varchar (255) NOT NULL ,
+        id       int (11) Auto_increment  NOT NULL ,
+        name     Varchar (25) NOT NULL ,
+        descr    Varchar (255) NOT NULL ,
+        is_block Bool NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
@@ -437,9 +440,9 @@ CREATE TABLE tchats_types(
 #------------------------------------------------------------
 
 CREATE TABLE users_types(
-        id    int (11) Auto_increment  NOT NULL ,
-        name  Varchar (25) NOT NULL ,
-        block Bool ,
+        id       int (11) Auto_increment  NOT NULL ,
+        name     Varchar (25) NOT NULL ,
+        is_block Bool ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
@@ -449,12 +452,12 @@ CREATE TABLE users_types(
 #------------------------------------------------------------
 
 CREATE TABLE news(
-        id       int (11) Auto_increment  NOT NULL ,
-        date     Date NOT NULL ,
-        titre    Varchar (255) NOT NULL ,
-        message  Text NOT NULL ,
-        block    Bool NOT NULL ,
-        id_users Int NOT NULL ,
+        id        int (11) Auto_increment  NOT NULL ,
+        title     Varchar (255) NOT NULL ,
+        date_time Date NOT NULL ,
+        message   Text NOT NULL ,
+        is_block  Bool NOT NULL ,
+        id_users  Int NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
@@ -464,12 +467,12 @@ CREATE TABLE news(
 #------------------------------------------------------------
 
 CREATE TABLE news_comments(
-        id       int (11) Auto_increment  NOT NULL ,
-        date     Date NOT NULL ,
-        message  Text NOT NULL ,
-        block    Bool NOT NULL ,
-        id_users Int NOT NULL ,
-        id_news  Int NOT NULL ,
+        id        int (11) Auto_increment  NOT NULL ,
+        date_time Date NOT NULL ,
+        message   Text NOT NULL ,
+        is_block  Bool NOT NULL ,
+        id_users  Int NOT NULL ,
+        id_news   Int NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
@@ -481,9 +484,9 @@ CREATE TABLE news_comments(
 CREATE TABLE privates_messages(
         id         int (11) Auto_increment  NOT NULL ,
         content    Text NOT NULL ,
-        date       Datetime NOT NULL ,
-        read       Bool NOT NULL ,
-        delete     Bool NOT NULL ,
+        date_time  Datetime NOT NULL ,
+        is_read    Bool NOT NULL ,
+        is_trash   Bool NOT NULL ,
         id_users   Int NOT NULL ,
         id_users_1 Int NOT NULL ,
         PRIMARY KEY (id )
@@ -497,8 +500,8 @@ CREATE TABLE privates_messages(
 CREATE TABLE tchats_messages(
         id        int (11) Auto_increment  NOT NULL ,
         message   Longtext NOT NULL ,
-        date      Datetime NOT NULL ,
-        block     Bool NOT NULL ,
+        date_time Datetime NOT NULL ,
+        is_block  Bool NOT NULL ,
         id_tchats Int NOT NULL ,
         id_users  Int NOT NULL ,
         PRIMARY KEY (id ,id_tchats ,id_users )
@@ -512,8 +515,8 @@ CREATE TABLE tchats_messages(
 CREATE TABLE forums_topics_messages(
         id               int (11) Auto_increment  NOT NULL ,
         message          Longtext NOT NULL ,
-        date             Datetime NOT NULL ,
-        block            Bool NOT NULL ,
+        date_time        Datetime NOT NULL ,
+        is_block         Bool NOT NULL ,
         id_forums_topics Int NOT NULL ,
         id_users         Int NOT NULL ,
         PRIMARY KEY (id ,id_forums_topics ,id_users )
@@ -536,11 +539,11 @@ CREATE TABLE forums_topics_types(
 #------------------------------------------------------------
 
 CREATE TABLE kick(
-        id       int (11) Auto_increment  NOT NULL ,
-        cause    Varchar (25) NOT NULL ,
-        time     TimeStamp NOT NULL ,
-        zone     Varchar (25) NOT NULL ,
-        id_users Int NOT NULL ,
+        id        int (11) Auto_increment  NOT NULL ,
+        cause     Varchar (25) NOT NULL ,
+        zone      Varchar (25) NOT NULL ,
+        date_time Datetime NOT NULL ,
+        id_users  Int NOT NULL ,
         PRIMARY KEY (id ,id_users )
 )ENGINE=InnoDB;
 
@@ -550,9 +553,9 @@ CREATE TABLE kick(
 #------------------------------------------------------------
 
 CREATE TABLE users_ranks(
-        id    int (11) Auto_increment  NOT NULL ,
-        name  Varchar (25) NOT NULL ,
-        block Bool NOT NULL ,
+        id       int (11) Auto_increment  NOT NULL ,
+        name     Varchar (25) NOT NULL ,
+        is_block Bool NOT NULL ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
