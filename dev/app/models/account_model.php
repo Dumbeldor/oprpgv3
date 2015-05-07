@@ -7,7 +7,7 @@ class Account_model extends CI_Model {
   public function checkPassword()
   {
     $password_hash = hash('sha512', SALT . $this->input->post('passwordConfirm'));
-    $query = $this->db->query("SELECT * FROM users WHERE user_id = ? AND user_password = ?", array($this->session->userdata('user_data')['user_id'], $password_hash));
+    $query = $this->db->query("SELECT * FROM users WHERE id = ? AND password = ?", array($this->session->userdata('user_data')['id'], $password_hash));
     
     if($query->num_rows() == 1) {
       return TRUE;
@@ -19,18 +19,18 @@ class Account_model extends CI_Model {
 
   public function setPassword()
   {
-    $this->db->where('user_id', $this->session->userdata('user_data')['user_id']);
-    $this->db->update('users', array('user_password' => hash('sha512', SALT . $this->input->post('password'))));
+    $this->db->where('id', $this->session->userdata('user_data')['id']);
+    $this->db->update('users', array('password' => hash('sha512', SALT . $this->input->post('password'))));
     $user = $this->session->userdata('user_data');
-    $user['user_password'] = hash('sha512', SALT . $this->input->post('password'));
+    $user['password'] = hash('sha512', SALT . $this->input->post('password'));
     $this->session->set_userdata('user_data', $user);
   }
   public function setEmail()
   {
-    $this->db->where('user_id', $this->session->userdata('user_data')['user_id']);
-    $this->db->update('users', array('user_email' => $this->input->post('email')));
+    $this->db->where('id', $this->session->userdata('user_data')['id']);
+    $this->db->update('users', array('email' => $this->input->post('email')));
     $user = $this->session->userdata('user_data');
-    $user['user_email'] = $this->input->post('email');
+    $user['email'] = $this->input->post('email');
     $this->session->set_userdata('user_data', $user);
   }
   

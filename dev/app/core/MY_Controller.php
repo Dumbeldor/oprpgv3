@@ -14,7 +14,7 @@
       if($this->users_model->is_connected()) 
       {
         $data['connecte'] = TRUE;
-        $data['amountMP'] = $this->users_model->amountMP($this->session->userdata('user_data')['user_id']);
+        $data['amountMP'] = $this->users_model->amountMP($this->session->userdata('user_data')['id']);
         
         if($this->users_model->is_moderator())
           $data['moderator'] = TRUE;

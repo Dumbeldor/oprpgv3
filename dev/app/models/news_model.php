@@ -14,12 +14,12 @@ class News_model extends CI_Model
 	*/
 	public function add($author, $title, $contents)
 	{
-		$this->db->set('user_id', $author);
-		$this->db->set('new_titre', $title);
-		$this->db->set('new_message', $contents);		
+		$this->db->set('id', $author);
+		$this->db->set('title', $title);
+		$this->db->set('message', $contents);		
 
 		setlocale (LC_TIME, 'fr_FR.utf8','fra'); 
-		$this->db->set('new_date', strftime("%A %d %B à %HH%M"));
+		$this->db->set('date', strftime("%A %d %B à %HH%M"));
 
 		return $this->db->insert($this->table);
 	}
@@ -35,12 +35,12 @@ class News_model extends CI_Model
 		if($title == null AND $contents == null)
 			return false;
 		if($title != null)
-			$this->db->set('title', $titre);
+			$this->db->set('title', $title);
 		if($contents != null)
-			$this->db->set('contenu', $contenu);
+			$this->db->set('message', $contents);
 
 		//Si la news est bien trouvé ! ;)
-		$this->db->where('new_id', (int) $id);
+		$this->db->where('id', (int) $id);
 		//Alors on fait l'update
 		return $this->db->update($this->table);
 	}
@@ -51,7 +51,7 @@ class News_model extends CI_Model
 	*/
 	public function delete($id)
 	{
-		return $this->db->where('new_id', (int) $id)
+		return $this->db->where('id', (int) $id)
 			->delete($this->table);
 	}
 	/*
@@ -67,11 +67,11 @@ class News_model extends CI_Model
 	*/
 	public function lists($nb = 5, $debut = 0)
 	{
-		return $this->db->select('new_id, new_date, new_titre, new_message, new_block, user_pseudo')
+		return $this->db->select('news.id, date_time, title, message, is_block, pseudo')
 			->from($this->table)
-			->join('users', 'news.user_id = users.user_id')
+			->join('users', 'news.id_users = users.id')
 			->limit($nb, $debut)
-			->order_by('new_id', 'desc')
+			->order_by('news.id', 'desc')
 			->get()
 			->result();
 	}

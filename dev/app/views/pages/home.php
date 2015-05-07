@@ -8,14 +8,14 @@
     	<a href="<?php echo site_url('news/add/'); ?>">Ajouter une news</a></p>
     <?php } else { ?>
     <?php foreach($news as $new): ?>
-    <h2><?php echo $new->new_titre; ?></h2>
-    <p>Ecrit par <?php echo $new->user_pseudo; ?> le <?php echo $new->new_date; 
+    <h2><?php echo $new->title; ?></h2>
+    <p>Ecrit par <?php echo $new->pseudo; ?> le <?php echo $new->date_date; 
     //Si administrateur
     if($connecte && $admin) { ?>
-    	<a href="<?php echo site_url(array('news', 'delete', $new->new_id)); ?>">Supprimer la news</a> 
+    	<a href="<?php echo site_url(array('news', 'delete', $new->id)); ?>">Supprimer la news</a> 
     <?php } ?></p>
     </br>
-    <p><?php echo $new->new_message; ?></p>
+    <p><?php echo $new->message; ?></p>
     <br />
     <br />
     <?php endforeach; ?>

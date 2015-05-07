@@ -17,7 +17,7 @@ class news extends MY_Controller
     
     	$data['title'] = 'Ajouter News';
     	$data['add'] = false;
-    	$author = $this->session->userdata('user_data')['user_id'];
+    	$author = $this->session->userdata('user_data')['id'];
     	$title = $this->input->post('title');
     	$contents = $this->input->post('contents');
     	if ($title == null XOR $contents == null) {

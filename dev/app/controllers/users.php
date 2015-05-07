@@ -21,7 +21,7 @@ class Users extends MY_Controller {
    */
   public function view($id) {
 	$data['users'] = $this->users_model->get_users($id);
-    $data['title'] = "Profil de ".$data['users']['user_pseudo'];
+    $data['title'] = "Profil de ".$data['users']['pseudo'];
     
     $this->construct_page('users/view', $data);
   }
@@ -35,9 +35,9 @@ class Users extends MY_Controller {
     
     $data['title'] = 'Inscription';
     
-    $this->form_validation->set_rules('pseudo', 'Pseudonyme', 'required|min_length[3]|max_length[15]|is_unique[users.user_pseudo]');
+    $this->form_validation->set_rules('pseudo', 'Pseudonyme', 'required|min_length[3]|max_length[15]|is_unique[users.pseudo]');
     $this->form_validation->set_rules('password', 'password', 'required|min_length[6]');
-    $this->form_validation->set_rules('email', 'email', 'required|valid_email|is_unique[users.user_email]');
+    $this->form_validation->set_rules('email', 'email', 'required|valid_email|is_unique[users.email]');
     $this->form_validation->set_rules('perso', 'perso', 'callback_is_perso_deblocable');
     
     if ($this->form_validation->run() === FALSE) {
