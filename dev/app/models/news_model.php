@@ -14,12 +14,13 @@ class News_model extends CI_Model
 	*/
 	public function add($author, $title, $contents)
 	{
-		$this->db->set('id', $author);
 		$this->db->set('title', $title);
 		$this->db->set('message', $contents);		
 
-		setlocale (LC_TIME, 'fr_FR.utf8','fra'); 
-		$this->db->set('date', strftime("%A %d %B à %HH%M"));
+		setlocale (LC_TIME, 'fr_FR.utf8','fra');
+		$this->db->set('date_time', strftime("%A %d %B"));
+		$this->db->set('is_block', 0);	
+		$this->db->set('id_users', $this->session->userdata('user_data')['id']);
 
 		return $this->db->insert($this->table);
 	}

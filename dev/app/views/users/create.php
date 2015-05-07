@@ -23,7 +23,7 @@
   </div>
   <select name="perso">
     <?php foreach($persos as $perso): ?>
-      <option value="<?php echo $perso['perso_id']; ?>"><?php echo $perso['perso_name']; ?></option>
+      <option value="<?php echo $perso['id']; ?>"><?php echo $perso['name']; ?></option>
     <?php endforeach; ?>
   </select>
   <div class="form-group">

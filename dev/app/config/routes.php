@@ -42,6 +42,7 @@
 /* News */
 $route['news/add'] = 'news/add';
 $route['news/delete/(:num)'] = 'news/delete/$1';
+$route['news/(:num)'] = 'home/index/$1';
 
 /* Tchat */
 $route['tchat/delete_message/(:num)'] = 'tchat/delete_message/$1';

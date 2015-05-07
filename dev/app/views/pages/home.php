@@ -7,9 +7,10 @@
     	<p>Il y a aucune news</br>
     	<a href="<?php echo site_url('news/add/'); ?>">Ajouter une news</a></p>
     <?php } else { ?>
+    <?php echo $pagination; ?>
     <?php foreach($news as $new): ?>
     <h2><?php echo $new->title; ?></h2>
-    <p>Ecrit par <?php echo $new->pseudo; ?> le <?php echo $new->date_date; 
+    <p>Ecrit par <?php echo $new->pseudo; ?> le <?php echo $new->date_time; 
     //Si administrateur
     if($connecte && $admin) { ?>
     	<a href="<?php echo site_url(array('news', 'delete', $new->id)); ?>">Supprimer la news</a> 
@@ -19,6 +20,8 @@
     <br />
     <br />
     <?php endforeach; ?>
+
+    <?php echo $pagination; ?>
     <?php } ?>
   </div>
 </div>

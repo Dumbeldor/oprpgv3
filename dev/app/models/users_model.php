@@ -42,7 +42,7 @@ class Users_model extends CI_Model {
   }
   
   public function setup_connexion($pseudo) {
-    $query = $this->db->query("SELECT * FROM users JOIN users_ranks ON id_users_ranks = users_ranks.id WHERE pseudo = ?", array($pseudo));
+    $query = $this->db->query("SELECT users.id, ban, pseudo, email, birthday, sexe, password, is_kick, id_personnages, id_levels, id_objects, id_users_types, id_users_ranks, name AS rank FROM users JOIN users_ranks ON id_users_ranks = users_ranks.id WHERE pseudo = ?", array($pseudo));
     $user = $query->result_array();
     $this->session->set_userdata('user_data', $user[0]);
   }
@@ -74,7 +74,7 @@ class Users_model extends CI_Model {
   public function is_moderator() {
     $session = $this->session->all_userdata();
     if(isset($session['user_data']) && $session['user_data']) {
-      if($session['user_data']['rang'] == 3)
+      if($session['user_data']['rank'] == "Moderateur")
         return TRUE;
     }
     return FALSE;
@@ -83,7 +83,7 @@ class Users_model extends CI_Model {
   public function is_admin() {
     $session = $this->session->all_userdata();
     if(isset($session['user_data']) && $session['user_data']) {
-      if($session['user_data']['rang'] == 5)
+      if($session['user_data']['rank'] == "Admin")
         return TRUE;
     }
     return FALSE;
