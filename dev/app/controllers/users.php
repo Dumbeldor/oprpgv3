@@ -1,4 +1,13 @@
 <?php
+/**
+ ******************************************************************************
+ * Description : 
+ * This page contains the users
+ * @todo Finish this description
+ * @author Dumbeldor & Mawloc
+ * @version 1.0.0
+ ******************************************************************************
+ */
 class Users extends MY_Controller {
   public function __construct() {
     parent::__construct();
@@ -6,9 +15,9 @@ class Users extends MY_Controller {
     $this->load->model('personnages_model');
   }
   
-  /*
-   * Voir la liste des users
-   */
+  /**
+   * See the list of users
+   * ----------------------------------------------------------------------- */
   public function index() {
 	$data['users'] = $this->users_model->get_users();
     $data['title'] = 'Annuaire';
@@ -16,9 +25,9 @@ class Users extends MY_Controller {
     $this->construct_page('users/index', $data);
   }
   
-  /*
-   * Voir le profile d'un user
-   */
+  /**
+   * View the profile of a user
+   * ----------------------------------------------------------------------- */
   public function view($id) {
 	$data['users'] = $this->users_model->get_users($id);
     $data['title'] = "Profil de ".$data['users']['pseudo'];
@@ -26,9 +35,9 @@ class Users extends MY_Controller {
     $this->construct_page('users/view', $data);
   }
   
-  /*
-   * Traite le post du formulaire d'inscription
-   */
+  /**
+   * Treaty the post of the registration form
+   * ----------------------------------------------------------------------- */
   public function create() {
     $this->load->helper('form');
     $this->load->library('form_validation');
@@ -51,9 +60,9 @@ class Users extends MY_Controller {
     }
   }
   
-  /*
-   * Traite le post du formulaire de connexion
-   */
+  /**
+   * Treaty post the login form
+   * ----------------------------------------------------------------------- */
   public function connect() {
     $this->load->helper('form');
     $this->load->library('form_validation');
@@ -84,7 +93,7 @@ class Users extends MY_Controller {
   }
 
     /*
-   * Quand on va sur le lien de deconnexion
+   * deconnection
    */
   public function disconnect() {
     $this->session->sess_destroy();

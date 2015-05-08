@@ -1,4 +1,14 @@
 <?php
+/**
+ ******************************************************************************
+ * Description : 
+ * This page contains the private messages
+ * @todo I have to redo everything because right now it is the code of Sumo
+ * @author Sumo & Dumbeldor
+ * @version 0.1.0
+ ******************************************************************************
+ */
+
 class Private_messages extends MY_Controller {
 	
 	/* Constructeur */

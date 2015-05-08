@@ -1,23 +1,41 @@
 <?php
+/**
+ ******************************************************************************
+ * Description : 
+ * This page contains the account handling
+ * @todo Finish this description
+ * @author Dumbeldor
+ * @version 1.0.0
+ ******************************************************************************
+ */
+
 class Account extends MY_Controller {
+  // ========================================================================
+  // CREATE PAGE
+  // ========================================================================
+
+  /**
+   * Default Constructor
+   * ----------------------------------------------------------------------- */
   public function __construct() {
     parent::__construct();
+    //If not connected member
     if(!$this->users_model->is_connected())
       redirect('index');
   }
 
-/*
-  * Le compte du joueur
-  */
+  /**
+   * Of the account index page
+   * ----------------------------------------------------------------------- */
   public function index()
   {
     $data['title'] = 'Mon compte';
     $this->construct_page('account/index', $data);
   }
 
-  /*
-  * Information privé
-  */
+  /**
+   * Private information page
+   * ----------------------------------------------------------------------- */
   public function infoPrivate()
   {
     $this->load->helper('form');
@@ -29,9 +47,9 @@ class Account extends MY_Controller {
     $this->construct_page('account/infoPrivate', $data);
   }
 
-  /*
-  * Changer password
-  */
+  /**
+   * Change password
+   * ----------------------------------------------------------------------- */
   public function setPassword()
   {
     $this->load->helper('form');
@@ -62,9 +80,9 @@ class Account extends MY_Controller {
     }   
   }
 
-  /*
-  * Changer Email
-  */
+  /**
+   * Change email
+   * ----------------------------------------------------------------------- */
   public function setEmail()
   {
     $this->load->helper('form');

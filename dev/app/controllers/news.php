@@ -1,14 +1,28 @@
 <?php
+/**
+ ******************************************************************************
+ * Description : 
+ * This page contains the news
+ * @todo Finish this description
+ * @author Dumbeldor
+ * @version 1.0.0
+ ******************************************************************************
+ */
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class news extends MY_Controller 
 {
 	public function __construct() {
       	parent::__construct();
-      	//Si le membre n'est pas Admin ou Moderateur alors on le redirige vers l'index ;)
+      	//If the member is not Admin or Moderator then redirected to the index.
   		if(!($this->users_model->is_admin() || $this->users_model->is_moderator()))
   			redirect('/index');
     }
+
+  /**
+   * Add a news
+   * ----------------------------------------------------------------------- */
 	public function add() 
 	{
 		$this->load->helper('form');
@@ -35,6 +49,10 @@ class news extends MY_Controller
       	}
 	}
 
+  /**
+   * Delete a news
+   * @param $id id of the news
+   * ----------------------------------------------------------------------- */
 	public function delete($id)
 	{
 		$this->load->model('news_model');
