@@ -25,8 +25,21 @@ L'équipe de développeur est constituée de :
 - Une branche par grande fonctionnalité (tchat, forum, news etc.)
 - En cas de doute sur des fonctionnalités se référer à Pev
 
+### TODO : 
+- Rappel : ratio de commentaire par page : 33% (1 ligne de commentaire pour 2 lignes de code)
+- Commentaire sur une ligne : //
+- Bloc de commentaire : /* */
+- Bloc de commentaire avec Tags : /** */
+- Utiliser des tags pour les commentaires (http://manual.phpdoc.org/HTMLSmartyConverter/PHP/phpDocumentor/tutorial_tags.pkg.html), le minimum demandé :
+ - @author [votre nom]
+ - @version [grosse maj].[ajout_fonction].[edition]
+ - Exemple disponible : controller > forum
+- controllers : forum -> send_message -> si les paramètres sont mal entrés l'enregistrement se fait quand même non ?
+- Rependre les fichiers et ajouter des commentaires :)
+
 ### Quelques astuces et liens : 
 Vous trouverez dans le dossiers docs quelques commandes utiles en système UNIX au besoin pour les débutants. 
 Il y a également une VM de dev' disponible sur notre Drive si vous n'avez pas d'environnement spécialisé.
 
 Contact Pev : pev@gmx.fr
+
