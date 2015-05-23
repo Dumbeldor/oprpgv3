@@ -1,4 +1,13 @@
 <?php
+/**
+ ******************************************************************************
+ * Description : 
+ * This page is obsolet
+ * @todo DELETE THIS PAGE ! :D
+ * @author Mawloc
+ * @version 1.0.0
+ ******************************************************************************
+ */
 class Tchat extends MY_Controller {
 
   // Default Constructor
