@@ -7,6 +7,13 @@
     <RootNamespace>oprpg</RootNamespace>
     <OutputType>Library</OutputType>
     <ProjectTypeGuids>{A0786B88-2ADB-4C21-ABE8-AA2D79766269}</ProjectTypeGuids>
+    <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+    <Server>PHPDev</Server>
+    <PublishEvent>None</PublishEvent>
+    <PHPDevAutoPort>True</PHPDevAutoPort>
+    <PHPDevPort>36698</PHPDevPort>
+    <PHPDevHostName>localhost</PHPDevHostName>
+    <IISProjectUrl>http://localhost:36698/</IISProjectUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <IncludeDebugInformation>true</IncludeDebugInformation>
@@ -78,6 +85,7 @@
     <Compile Include="dev\app\views\forum\topics.php" />
     <Compile Include="dev\app\views\messagerie\index.php" />
     <Compile Include="dev\app\views\messaging\index.php" />
+    <Compile Include="dev\app\views\messaging\read.php" />
     <Compile Include="dev\app\views\news\add.php" />
     <Compile Include="dev\app\views\pages\home.php" />
     <Compile Include="dev\app\views\private_messages\answer_message.php" />

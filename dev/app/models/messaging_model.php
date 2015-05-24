@@ -22,4 +22,22 @@ class Messaging_model extends CI_Model
         return $query->result_array();
           
     }
+    
+    /**
+     * 
+     *read private message particularly
+     * Returns the private message corresponding to the id $id
+     * ----------------------------------------------------------------------- */
+    public function read($id)
+    {
+        $query = $this->db->query("SELECT privates_messages.id AS id, date_time, is_read, is_trash, id_users, content, pseudo FROM privates_messages JOIN users ON id_users = users.id WHERE privates_messages.id_users_1 = ? AND privates_messages.id = ?", array($this->session->userdata('user_data')['id'], $id));
+        $resultat = $query->result_array();
+        //If the user can see the selected private message, then put it as "seen"
+        if(!empty($resultat))
+        {
+            $this->db->where('id', $id);
+            $this->db->update($this->table, array('is_read' => 1));
+        }
+        return $resultat;
+    }
 }
