@@ -29,7 +29,7 @@ class Users extends MY_Controller {
    * View the profile of a user
    * ----------------------------------------------------------------------- */
   public function view($id) {
-	$data['users'] = $this->users_model->get_users($id);
+	$data['users'] = $this->users_model->view_user($id);
     $data['title'] = "Profil de ".$data['users']['pseudo'];
     
     $this->construct_page('users/view', $data);

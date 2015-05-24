@@ -4,13 +4,27 @@ class Users_model extends CI_Model {
     $this->load->database();
   }
   
-  public function get_users($id = 0) {
+  /*public function get_users($id = 0) {
     if($id === 0) {
       $query = $this->db->get('users');
       return $query->result_array();
     }
-    echo $id;
     $query = $this->db->get_where('users', array('id' => $id));
+    return $query->row_array();
+  } */
+  
+  public function view_user($id = 0) {
+    if($id == 0) {
+        $query = $this->db->get('users');
+        return $query->result_array();
+    }
+    $query = $this->db->query("SELECT users.pseudo, users_types.name AS ranks, levels.number AS lvl, personnages.name AS perso_name, personnages.firstname AS perso_firstname, COUNT(news.id) AS nb_news, COUNT(forums_topics_messages.id) AS nb_mess_forum
+                                FROM users JOIN news ON news.id_users = users.id
+                                JOIN personnages ON personnages.id = users.id_personnages 
+                                JOIN levels ON levels.id = users.id_levels 
+                                JOIN users_types ON users_types.id = users.id_users_types
+                                JOIN forums_topics_messages ON forums_topics_messages.id_users = users.id
+                                WHERE users.id = ?", array($id));
     return $query->row_array();
   }
   
@@ -24,7 +38,6 @@ class Users_model extends CI_Model {
         'id_levels' => 1,
         'id_objects' => 1,
         'id_users_types' => 1,
-        'id_users_ranks' => 1,
     );
     return $this->db->insert('users', $data);
   }
@@ -42,7 +55,7 @@ class Users_model extends CI_Model {
   }
   
   public function setup_connexion($pseudo) {
-    $query = $this->db->query("SELECT users.id, ban, pseudo, email, birthday, sexe, password, is_kick, id_personnages, id_levels, id_objects, id_users_types, id_users_ranks, name AS rank FROM users JOIN users_ranks ON id_users_ranks = users_ranks.id WHERE pseudo = ?", array($pseudo));
+    $query = $this->db->query("SELECT users.id, ban, pseudo, email, birthday, sexe, password, is_kick, id_personnages, id_levels, id_objects, id_users_types, users_types.name AS rank FROM users JOIN users_types ON users_types.id = id_users_types WHERE pseudo = ?", array($pseudo));
     $user = $query->result_array();
     $this->session->set_userdata('user_data', $user[0]);
   }
@@ -74,7 +87,7 @@ class Users_model extends CI_Model {
   public function is_moderator() {
     $session = $this->session->all_userdata();
     if(isset($session['user_data']) && $session['user_data']) {
-      if($session['user_data']['rank'] == "Moderateur")
+      if($session['user_data']['rank'] == "Modérateur")
         return TRUE;
     }
     return FALSE;
@@ -83,7 +96,7 @@ class Users_model extends CI_Model {
   public function is_admin() {
     $session = $this->session->all_userdata();
     if(isset($session['user_data']) && $session['user_data']) {
-      if($session['user_data']['rank'] == "Admin")
+        if($session['user_data']['rank'] == "Administrateur")
         return TRUE;
     }
     return FALSE;

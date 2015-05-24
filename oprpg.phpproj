@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Name>oprpg</Name>
-    <ProjectGuid>{7189a6c7-8ad3-4ea8-9a9a-1d1367f54519}</ProjectGuid>
+    <ProjectGuid>{1d2fa1ff-2249-4333-a3d7-cdad6d111d59}</ProjectGuid>
     <RootNamespace>oprpg</RootNamespace>
     <OutputType>Library</OutputType>
     <ProjectTypeGuids>{A0786B88-2ADB-4C21-ABE8-AA2D79766269}</ProjectTypeGuids>
@@ -1483,6 +1483,7 @@
     <Compile Include="docs\linux-command.py" />
     <Compile Include=".gitattributes" />
     <Compile Include=".gitignore" />
+    <Compile Include="oprpg.phpproj" />
     <Compile Include="README.md" />
   </ItemGroup>
   <ItemGroup>
