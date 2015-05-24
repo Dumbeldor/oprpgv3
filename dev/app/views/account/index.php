@@ -1,4 +1,4 @@
-<a href="<?php echo base_url('/messagerie'); ?>">Messagerie (<?php if($amountMP > 0)
+<a href="<?php echo base_url('/messaging'); ?>">Messagerie (<?php if($amountMP > 0)
                     echo $amountMP; ?>)</a> <br />
 Trophées <br />
 Sac <br />

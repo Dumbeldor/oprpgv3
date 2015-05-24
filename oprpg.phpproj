@@ -1,3 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -34,7 +35,7 @@
     <Compile Include="dev\app\controllers\forum.php" />
     <Compile Include="dev\app\controllers\home.php" />
     <Compile Include="dev\app\controllers\index.html" />
-    <Compile Include="dev\app\controllers\messagerie.php" />
+    <Compile Include="dev\app\controllers\messaging.php" />
     <Compile Include="dev\app\controllers\news.php" />
     <Compile Include="dev\app\controllers\pages.php" />
     <Compile Include="dev\app\controllers\private_messages.php" />
@@ -56,6 +57,7 @@
     <Compile Include="dev\app\libraries\index.html" />
     <Compile Include="dev\app\logs\index.html" />
     <Compile Include="dev\app\models\account_model.php" />
+    <Compile Include="dev\app\models\messaging_model.php" />
     <Compile Include="dev\app\models\forum_model.php" />
     <Compile Include="dev\app\models\index.html" />
     <Compile Include="dev\app\models\news_model.php" />
@@ -75,6 +77,7 @@
     <Compile Include="dev\app\views\forum\messages.php" />
     <Compile Include="dev\app\views\forum\topics.php" />
     <Compile Include="dev\app\views\messagerie\index.php" />
+    <Compile Include="dev\app\views\messaging\index.php" />
     <Compile Include="dev\app\views\news\add.php" />
     <Compile Include="dev\app\views\pages\home.php" />
     <Compile Include="dev\app\views\private_messages\answer_message.php" />
@@ -1503,6 +1506,7 @@
     <Folder Include="dev\app\views\account" />
     <Folder Include="dev\app\views\forum" />
     <Folder Include="dev\app\views\messagerie" />
+    <Folder Include="dev\app\views\messaging\" />
     <Folder Include="dev\app\views\news" />
     <Folder Include="dev\app\views\pages" />
     <Folder Include="dev\app\views\private_messages" />

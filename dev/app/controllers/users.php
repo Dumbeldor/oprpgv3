@@ -19,7 +19,7 @@ class Users extends MY_Controller {
    * See the list of users
    * ----------------------------------------------------------------------- */
   public function index() {
-	$data['users'] = $this->users_model->get_users();
+	$data['users'] = $this->users_model->view_user();
     $data['title'] = 'Annuaire';
     
     $this->construct_page('users/index', $data);

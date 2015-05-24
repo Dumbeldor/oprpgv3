@@ -18,7 +18,7 @@ class Messaging extends MY_Controller {
      * ----------------------------------------------------------------------- */
   public function __construct() {
     parent::__construct();
-    $this->load->model('messaging');
+    $this->load->model('messaging_model');
     if(!$this->users_model->is_connected())
       redirect('index');
   }
@@ -28,8 +28,8 @@ class Messaging extends MY_Controller {
   public function index()
   {
     $data['title'] = 'Messagerie';
-    $data['private_message'] = $this->messaging->lists(5, 0);
-    $this->construct_page('messagerie/index', $data);
+    $data['private_message'] = $this->messaging_model->lists(5, 0);
+    $this->construct_page('messaging/index', $data);
   }
   /*
   * Read a private message
