@@ -40,4 +40,14 @@ class Messaging_model extends CI_Model
         }
         return $resultat;
     }
+    
+    /**
+     * 
+     * Delete private message
+     * private message deletes the $id
+     * ----------------------------------------------------------------------- */
+    public function delete($id)
+    {
+        $this->db->delete($this->table, array('id' => $id, 'privates_messages.id_users_1' => $this->session->userdata('user_data')['id']));
+    }
 }

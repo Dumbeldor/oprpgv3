@@ -42,4 +42,15 @@ class Messaging extends MY_Controller {
         redirect('messaging/index');
     $this->construct_page('messaging/read', $data);
   }
+  
+    /**
+     * 
+     * Delete private message
+     * private message deletes the $id
+     * ----------------------------------------------------------------------- */
+  public function delete($id)
+  {
+      $this->messaging_model->delete($id);
+      redirect('messaging/index');
+  }
 }
