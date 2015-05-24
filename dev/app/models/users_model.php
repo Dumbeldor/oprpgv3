@@ -45,6 +45,16 @@ class Users_model extends CI_Model {
     return $this->db->insert('users', $data);
   }
   
+    /**
+     * 
+     * Know if username is passed as a parameter
+     * Returns true if the username exists
+     * ----------------------------------------------------------------------- */
+  public function exist($pseudo) {
+      $query = $this->db->query("SELECT * FROM users WHERE pseudo = ?", array($pseudo));
+      return $query->num_rows();
+  }
+  
   public function validate_connexion($pseudo, $password) {
     $password_hash = hash('sha512', SALT . $password);
     $query = $this->db->query("SELECT * FROM users WHERE pseudo = ? AND password = ?", array($pseudo, $password_hash));
@@ -55,6 +65,17 @@ class Users_model extends CI_Model {
     else {
       return FALSE;
     }
+  }
+  
+    /**
+     * 
+     * Allows for the id of the nickname as a parameter.
+     * Returns id
+     * ----------------------------------------------------------------------- */
+  public function idPseudo($pseudo) {
+      $query = $this->db->query("SELECT id FROM users WHERE pseudo = ?", array($pseudo));
+      $id = $query->row_array();
+      return $id['id'];
   }
   
   public function setup_connexion($pseudo) {

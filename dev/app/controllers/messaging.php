@@ -53,4 +53,33 @@ class Messaging extends MY_Controller {
       $this->messaging_model->delete($id);
       redirect('messaging/index');
   }
+  
+    /**
+     * 
+     * write private message
+     * ----------------------------------------------------------------------- */
+  public function write()
+  {
+      $this->load->helper('form');
+      $this->load->library('form_validation');
+      $data['title'] = "Ecrire un message privé";
+      
+      $this->form_validation->set_rules('pseudo', 'Pseudonyme', 'required');
+      $this->form_validation->set_rules('content', 'texte', 'required');
+      if ($this->form_validation->run() === FALSE) 
+      {
+          $this->construct_page('messaging/write', $data);
+      }
+      else {
+          if($this->users_model->exist($_POST['pseudo'])) //If the username exists
+          {
+              $this->messaging_model->send($_POST['pseudo'], $_POST['content']);
+              $this->construct_page('messaging/write_success', $data);
+          }
+          else{
+              $data['error'] = "Le joueur ".$_POST['pseudo']." n'existe pas";
+              $this->construct_page('messaging/write', $data);
+          }
+      }
+  }
 }

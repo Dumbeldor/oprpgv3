@@ -84,8 +84,10 @@
     <Compile Include="dev\app\views\forum\messages.php" />
     <Compile Include="dev\app\views\forum\topics.php" />
     <Compile Include="dev\app\views\messagerie\index.php" />
+    <Compile Include="dev\app\views\messaging\Class1.php" />
     <Compile Include="dev\app\views\messaging\index.php" />
     <Compile Include="dev\app\views\messaging\read.php" />
+    <Compile Include="dev\app\views\messaging\write.php" />
     <Compile Include="dev\app\views\news\add.php" />
     <Compile Include="dev\app\views\pages\home.php" />
     <Compile Include="dev\app\views\private_messages\answer_message.php" />

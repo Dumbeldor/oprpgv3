@@ -1,3 +1,15 @@
+<?php
+/**
+ ******************************************************************************
+ * Description : 
+ * This page contains the messaging handling
+ * @todo Coding
+ * @author Dumbeldor
+ * @version 0.1.0
+ ******************************************************************************
+ */
+?>
+
 <p>
     Voici vos messages privés :</p>
 
