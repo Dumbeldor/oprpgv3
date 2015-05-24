@@ -13,18 +13,21 @@ class Users_model extends CI_Model {
     return $query->row_array();
   } */
   
+    /* Returns information on the member */
+	/* $id is the id of the selected member */
   public function view_user($id = 0) {
     if($id == 0) {
         $query = $this->db->get('users');
         return $query->result_array();
     }
-    $query = $this->db->query("SELECT users.pseudo, users_types.name AS ranks, levels.number AS lvl, personnages.name AS perso_name, personnages.firstname AS perso_firstname, COUNT(news.id) AS nb_news, COUNT(forums_topics_messages.id) AS nb_mess_forum
+        //Selection of all useful information to display on the member's profile
+    $query = $this->db->query("SELECT users.pseudo, users_types.name AS rank, levels.number AS lvl, COUNT(news.id) AS nb_news, COUNT(forums_topics_messages.id) AS nb_mess_forum
                                 FROM users JOIN news ON news.id_users = users.id
-                                JOIN personnages ON personnages.id = users.id_personnages 
                                 JOIN levels ON levels.id = users.id_levels 
                                 JOIN users_types ON users_types.id = users.id_users_types
                                 JOIN forums_topics_messages ON forums_topics_messages.id_users = users.id
                                 WHERE users.id = ?", array($id));
+    //Returns array with member information
     return $query->row_array();
   }
   
