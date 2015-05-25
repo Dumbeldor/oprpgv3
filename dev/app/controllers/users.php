@@ -83,7 +83,7 @@ class Users extends MY_Controller {
       if($valid_connexion) {
         $data['title'] = 'Home';
         $this->users_model->setup_connexion($pseudo);
-        redirect('/index');
+        redirect('index');
       }
       else {
         $data['error'] = "La combinaison pseudo/mot de passe n'est pas bonne.";
@@ -98,6 +98,6 @@ class Users extends MY_Controller {
   public function disconnect() {
     $this->session->sess_destroy();
     $data['title'] = 'Home';
-    redirect('/index');
+    redirect('index');
   }
 }
