@@ -84,7 +84,6 @@
     <Compile Include="dev\app\views\forum\messages.php" />
     <Compile Include="dev\app\views\forum\topics.php" />
     <Compile Include="dev\app\views\messagerie\index.php" />
-    <Compile Include="dev\app\views\messaging\Class1.php" />
     <Compile Include="dev\app\views\messaging\index.php" />
     <Compile Include="dev\app\views\messaging\read.php" />
     <Compile Include="dev\app\views\messaging\write.php" />

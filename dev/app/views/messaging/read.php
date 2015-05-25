@@ -22,6 +22,7 @@
           echo $message['content']; ?> 
            <br /><br />
           <a href="<?php echo base_url("/messaging/"); ?>">Retour</a>
+          <a href="<?php echo base_url("/messaging/write/".$message['pseudo']); ?>">Répondre</a>
           <a href="<?php echo base_url("/messaging/delete/".$message['id']); ?>">Supprimer message</a>
           <br /> <br />
         <?php

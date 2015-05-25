@@ -58,11 +58,12 @@ class Messaging extends MY_Controller {
      * 
      * write private message
      * ----------------------------------------------------------------------- */
-  public function write()
+  public function write($receptor = "")
   {
       $this->load->helper('form');
       $this->load->library('form_validation');
       $data['title'] = "Ecrire un message privé";
+      $data['receptor'] = $receptor;
       
       $this->form_validation->set_rules('pseudo', 'Pseudonyme', 'required');
       $this->form_validation->set_rules('content', 'texte', 'required');
@@ -74,7 +75,7 @@ class Messaging extends MY_Controller {
           if($this->users_model->exist($_POST['pseudo'])) //If the username exists
           {
               $this->messaging_model->send($_POST['pseudo'], $_POST['content']);
-              $this->construct_page('messaging/write_success', $data);
+              redirect('messaging/index');
           }
           else{
               $data['error'] = "Le joueur ".$_POST['pseudo']." n'existe pas";

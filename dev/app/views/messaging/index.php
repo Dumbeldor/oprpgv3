@@ -9,7 +9,7 @@
  ******************************************************************************
  */
 ?>
-
+<a href="<?php echo base_url("/messaging/write"); ?>">Ecrire un message</a>
 <p>
     Voici vos messages privés :</p>
 
