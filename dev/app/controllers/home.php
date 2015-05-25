@@ -34,7 +34,7 @@ class Home extends MY_Controller {
 		}
 		else
 			$news_get = 0;
-		$this->pagination->initialize(array('base_url' => base_url() . '/news/',
+		$this->pagination->initialize(array('base_url' => base_url('/news/'),
 					    'total_rows' => $data['nbnews'],
 					    'per_page' => 1)); 
 

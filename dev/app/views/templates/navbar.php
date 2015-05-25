@@ -18,17 +18,17 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li><a href="#">Forum</a></li>
-          <li><a href="<?php echo base_url('index.php/tchat') ?>">T'chat</a></li>
+          <li><a href="<?php echo base_url('/tchat') ?>">T'chat</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <?php if(!$connecte): ?>  
-            <li><a href="<?php echo base_url('index.php/users/create') ?>">Inscription</a></li>
-            <li><a href="<?php echo base_url('index.php/users/connect') ?>">Connexion</a></li>
+            <li><a href="<?php echo base_url('/users/create') ?>">Inscription</a></li>
+            <li><a href="<?php echo base_url('/users/connect') ?>">Connexion</a></li>
           <?php else: ?>
             <li><a href="<?php echo base_url('/account') ?>">Mon Compte
             <?php if($amountMP > 0)
                     echo '('.$amountMP.')'; ?></a></li>
-            <li><a href="<?php echo base_url('index.php/users/disconnect') ?>">Deconnexion</a></li>
+            <li><a href="<?php echo base_url('/users/disconnect') ?>">Deconnexion</a></li>
           <?php endif; ?>
         </ul>
       </div><!-- /.navbar-collapse -->
