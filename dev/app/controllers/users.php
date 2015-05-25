@@ -98,6 +98,6 @@ class Users extends MY_Controller {
   public function disconnect() {
     $this->session->sess_destroy();
     $data['title'] = 'Home';
-    $this->construct_page('pages/home', $data);
+    redirect('/index');
   }
 }
