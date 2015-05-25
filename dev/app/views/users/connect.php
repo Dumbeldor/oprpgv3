@@ -1,6 +1,6 @@
 <h2>Connexion</h2>
 <?php if(isset($error)) echo $error; ?>
-<?php echo form_open('users/connect'); ?> 
+<?php echo form_open(base_url('users/connect')); ?> 
   <div class="form-group">
     <label for="pseudo" class="col-sm-2 control-label">Pseudo</label>
     <div class="col-sm-10"> 

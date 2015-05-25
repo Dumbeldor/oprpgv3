@@ -1,5 +1,5 @@
 <h2>Inscription</h2>
-<?php echo form_open('users/create'); ?>
+<?php echo form_open(base_url('users/create')); ?>
   <div class="form-group">
     <label for="pseudo" class="col-sm-2 control-label">Pseudo</label>
     <?php echo form_error('pseudo'); ?>
