@@ -62,7 +62,7 @@ class Messaging extends MY_Controller {
   {
       $this->load->helper('form');
       $this->load->library('form_validation');
-      $data['title'] = "Ecrire un message privé";
+      $data['title'] = "Ecrire un message privÃ©";
       $data['receptor'] = $receptor;
       
       $this->form_validation->set_rules('pseudo', 'Pseudonyme', 'required');

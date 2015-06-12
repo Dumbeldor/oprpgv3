@@ -63,13 +63,14 @@ $route['users/account'] = 'users/account';
 $route['users/(:any)'] = 'users';
 $route['users'] = 'users';
 
-/* Private_messages */
+/* Private_messages 
 $route['private_messages'] = 'private_messages';
 $route['private_messages/new_message/(:num)'] = 'private_messages/new_message/$1';
 $route['private_messages/send_message'] = 'private_messages/send_message';
 
 $route['private_messages/answer_message'] = 'private_messages/answer_message';
 $route['private_messages/delete_message/(:num)'] = 'private_messages/delete_message/$1';
+*/
 
 /* Forum */
 $route['forum'] = 'forum/index';

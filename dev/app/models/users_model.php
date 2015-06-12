@@ -85,17 +85,11 @@ class Users_model extends CI_Model {
   }
 
   /*
-  * Compter le nombre de MP
+  * Count The number of private messages
   */
   public function amountMP($id) {
-    /*$query = $this->db->query("SELECT COUNT(pmess_id) as nb FROM privates_messages WHERE id = ?", array($id));
-    $amount = $query->result_array();
-    $nb_resultat = $query->num_rows();*/
-
-   // $query->free_result();
-
-
-    return (int) $this->db->where('id', $id)
+    return (int) $this->db->where('id_users_1', $id)
+    					  ->where('is_read', 0)
             ->count_all_results('privates_messages');
     return $nb_resultat;
   }
@@ -111,7 +105,7 @@ class Users_model extends CI_Model {
   public function is_moderator() {
     $session = $this->session->all_userdata();
     if(isset($session['user_data']) && $session['user_data']) {
-      if($session['user_data']['rank'] == "Modérateur")
+      if($session['user_data']['rank'] == "Modï¿½rateur")
         return TRUE;
     }
     return FALSE;
