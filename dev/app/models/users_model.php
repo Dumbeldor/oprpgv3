@@ -90,6 +90,7 @@ class Users_model extends CI_Model {
   public function amountMP($id) {
     return (int) $this->db->where('id_users_1', $id)
     					  ->where('is_read', 0)
+    					  ->where('is_trash', 0)
             ->count_all_results('privates_messages');
     return $nb_resultat;
   }

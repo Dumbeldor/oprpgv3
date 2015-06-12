@@ -18,7 +18,7 @@ class Messaging_model extends CI_Model
    * ----------------------------------------------------------------------- */
     public function lists($nb = 5, $begin = 0)
     {
-        $query = $this->db->query("SELECT privates_messages.id AS id, date_time, is_read, is_trash, id_users, SUBSTRING(content, 1, 50) AS content, pseudo FROM privates_messages JOIN users ON id_users = users.id WHERE privates_messages.id_users_1 = ? ORDER BY privates_messages.id DESC", array($this->session->userdata('user_data')['id']));
+        $query = $this->db->query("SELECT privates_messages.id AS id, date_time, is_read, is_trash, id_users, SUBSTRING(content, 1, 50) AS content, pseudo FROM privates_messages JOIN users ON id_users = users.id WHERE privates_messages.id_users_1 = ? AND privates_messages.is_trash = ? ORDER BY privates_messages.id DESC", array($this->session->userdata('user_data')['id'], 0));
         return $query->result_array();
           
     }
@@ -48,7 +48,9 @@ class Messaging_model extends CI_Model
      * ----------------------------------------------------------------------- */
     public function delete($id)
     {
-        $this->db->delete($this->table, array('id' => $id, 'privates_messages.id_users_1' => $this->session->userdata('user_data')['id']));
+    	$this->db->where('id', $id)
+    			 ->where('id_users_1', $this->session->userdata('user_data')['id'])
+    			 ->update($this->table, array('is_trash' => 1));
     }
     
     /**
