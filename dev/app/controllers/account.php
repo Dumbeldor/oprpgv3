@@ -89,6 +89,8 @@ class Account extends MY_Controller {
     $this->load->library('form_validation');
     $this->load->helper('url');
     $this->load->model('account_model');
+    
+    $session = $this->session->all_userdata();
 
     $data['title'] = "Modifier email";
 
@@ -100,6 +102,7 @@ class Account extends MY_Controller {
     }
     else {
       $this->account_model->setEmail();
+      $session['user_data']['email'] = $this->input->post('email');
       redirect('account/');
     }
   }

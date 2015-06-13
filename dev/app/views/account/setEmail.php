@@ -1,4 +1,4 @@
-<h2>Connexion</h2>
+<h2>Modifier Email</h2>
 <?php if(isset($error)) echo $error; ?>
 <?php echo form_open('account/setEmail'); ?> 
   <div class="form-group">

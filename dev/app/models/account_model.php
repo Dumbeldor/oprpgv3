@@ -29,9 +29,9 @@ class Account_model extends CI_Model {
   {
     $this->db->where('id', $this->session->userdata('user_data')['id']);
     $this->db->update('users', array('email' => $this->input->post('email')));
-    $user = $this->session->userdata('user_data');
-    $user['email'] = $this->input->post('email');
-    $this->session->set_userdata('user_data', $user);
+    //$user = $this->session->userdata('user_data');
+    //$user['email'] = $this->input->post('email');
+    //$this->session->set_userdata('user_data', $user);
   }
   
 }
