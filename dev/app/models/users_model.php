@@ -42,7 +42,7 @@ class Users_model extends CI_Model {
         'id_objects' => 1,
         'id_users_types' => 1,
     );
-    return $this->db->insert('users', $data);
+     $this->db->insert('users', $data);
   }
   
     /**

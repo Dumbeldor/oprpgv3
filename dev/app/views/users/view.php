@@ -2,6 +2,8 @@
 </br>
 Avatar :  <br /> <br />
 Pseudo : <?php echo $users['pseudo']; ?> <br />
+Lvl : <?php echo $users['lvl'];?> <br />
+<a href=<?php echo base_url("messaging/write/".$users['pseudo']."");?>>Envoyer un message</a><br />
 Rang : <?php echo $users['rank']; ?> <br />
-Nombre de news écrites : <?php echo $users['nb_news']; ?> <br />
-Nombre de message postés : <?php echo $users['nb_mess_forum']; ?> <br />
+Nombre de news ï¿½crites : <?php echo $users['nb_news']; ?> <br />
+Nombre de message postï¿½s : <?php echo $users['nb_mess_forum']; ?> <br />

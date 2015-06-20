@@ -21,6 +21,7 @@ class Home extends MY_Controller {
 		$this->load->library('pagination');
 		$this->load->model('news_model');
 		$this->load->helper('url');
+
 		$data = array();
 		$data['title'] = 'Accueil';
 		$data['nbnews'] = $this->news_model->count();

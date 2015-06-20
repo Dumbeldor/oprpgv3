@@ -4,7 +4,7 @@
   <div class="form-group">
     <label for="pseudo" class="col-sm-2 control-label">Pseudo</label>
     <div class="col-sm-10"> 
-      <input type="input" name="pseudo" value="<?php echo set_value('pseudo'); ?>"/>
+      <input type="input" name="pseudo" value="<?php echo $receptor ?>"/>
     </div>
   </div>
   <div class="form-group">
