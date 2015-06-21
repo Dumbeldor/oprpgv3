@@ -96,9 +96,7 @@ class Users extends MY_Controller {
    * deconnection
    */
   public function disconnect() {
-  	$this->load->library('user');
   	$this->user->logout();
-    //$this->session->sess_destroy();
     $data['title'] = 'Home';
     redirect('');
   }

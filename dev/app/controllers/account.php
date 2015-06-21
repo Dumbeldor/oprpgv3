@@ -20,7 +20,7 @@ class Account extends MY_Controller {
   public function __construct() {
     parent::__construct();
     //If not connected member
-    if(!$this->users_model->is_connected())
+    if(!$this->user->isAuthenticated())
       redirect('index');
   }
 
@@ -43,7 +43,7 @@ class Account extends MY_Controller {
     $this->load->helper('url');
 
     $data['title'] = "Mon compte"; 
-    $data['user'] = $this->session->userdata('user_data');
+    $data['user'] = $this->user->getArray();
     $this->construct_page('account/infoPrivate', $data);
   }
 
@@ -89,8 +89,6 @@ class Account extends MY_Controller {
     $this->load->library('form_validation');
     $this->load->helper('url');
     $this->load->model('account_model');
-    
-    $session = $this->session->all_userdata();
 
     $data['title'] = "Modifier email";
 
@@ -102,7 +100,7 @@ class Account extends MY_Controller {
     }
     else {
       $this->account_model->setEmail();
-      $session['user_data']['email'] = $this->input->post('email');
+      $this->user->setAttribute('email', $this->input->post('email'));
       redirect('account/');
     }
   }

@@ -23,6 +23,12 @@ class User
 	{
 		$this->CI->session->sess_destroy();
 	}
+	
+	public function hydrate(array $donnees)
+	{
+		$this->CI->session->set_userdata($donnees);
+	}
+	
 
 	/*
 	 * Setter
@@ -30,12 +36,12 @@ class User
 
 	public function getAttribute($attr)
 	{
-		return isset($this->CI->session->userdata('user_data')[$attr]) ? $this->CI->session->userdata('user_data')[$attr] : null;
+		return $this->CI->session->userdata($attr) ? $this->CI->session->userdata($attr) : null;
 	}
 	
 	public function getArray()
 	{
-		return $this->CI->session->userdata('user_data');
+		return $this->CI->session->all_userdata();
 	}
 	
 	public function getFlash()
@@ -48,33 +54,37 @@ class User
 		return ($this->CI->session->flashdata('flash') == '' ? false : true) ;
 	}
 	
+	public function isBan()
+	{
+		return $this->CI->session->userdata('ban') ? true : false;
+	}
 
 	public function isAuthenticated()
 	{
-		return isset($_SESSION['auth']) && $_SESSION['auth'] === true;
+		return $this->CI->session->userdata('auth') ? true : false;
 	}
 	 
 	public function isAdmin()
 	{
-		return $this->CI->session->userdata('user_data')['rank'] == "Administrateur" ? true : false;
+		return $this->CI->session->userdata('admin') ? true : false;
 	}
 	
 	public function getPseudo()
 	{
-		return $this->CI->session->userdata('user_data')['pseudo'];
+		return $this->CI->session->userdata('pseudo');
 	}
 
 	 
 	public function getId()
 	{
-		return $this->CI->session->userdata('user_data')['id'];
+		return $this->CI->session->userdata('id');
 	}
 	
 	
 	// Setters
 	public function setAttribute($attr, $value)
 	{
-		$this->CI->session->userdata('user_data')[$attr] = $value;
+		$this->CI->session->set_userdata($attr, $value);
 	}
 	 
 	public function setAuthenticated($authenticated = true)
@@ -82,9 +92,8 @@ class User
 		if(!is_bool($authenticated))
 		{
 			throw new \InvalidArgumentException('La valeur spécifiée à la mathode User::setAuthenticated() doit être un boolean');
-		}
-		 
-		$_SESSION['auth'] = $authenticated;
+		} 
+		$this->CI->session->set_userdata('auth', $authenticated);
 	}
 	 
 	public function setAdmin($admin = true)
@@ -93,18 +102,17 @@ class User
 		{
 			throw new \InvalidArgumentException('La valeur spécifiée à la mathode User::setAdmin() doit être un boolean');
 		}
-		 
-		$_SESSION['admin'] = $admin;
+		$this->CI->session->set_userdata('admin', $admin);
 	}
 	 
 	public function setFlash($value)
 	{
-		$_SESSION['flash'] = $value;
+		$this->CI->session->set_flashdata('flash', $flash);
 	}
 	 
 	public function setPseudo($pseudo)
 	{
-		$_SESSION['pseudo'] = $pseudo;
+		$this->CI->session->set_userdata('pseudo', $pseudo);
 	}
 	 
 	public function setPrivs($privs)
@@ -114,7 +122,7 @@ class User
 	 
 	public function setUserId($userId)
 	{
-		$_SESSION['userId'] = (int)$userId;
+		$this->CI->session->set_userdata('userId', $userId);
 	}
 
 	 

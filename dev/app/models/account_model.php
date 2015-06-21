@@ -21,18 +21,11 @@ class Account_model extends CI_Model {
   {
     $this->db->where('id', $this->session->userdata('user_data')['id']);
     $this->db->update('users', array('password' => hash('sha512', SALT . $this->input->post('password'))));
-    $user = $this->session->userdata('user_data');
-    $user['password'] = hash('sha512', SALT . $this->input->post('password'));
-    $this->session->set_userdata('user_data', $user);
   }
   public function setEmail()
   {
     $this->db->where('id', $this->session->userdata('user_data')['id']);
     $this->db->update('users', array('email' => $this->input->post('email')));
-    $this->session->set_user_data('email', $this->session->userdata('user_data'));
-    //$user = $this->session->userdata('user_data');
-    //$user['email'] = $this->input->post('email');
-    //$this->session->set_userdata('user_data', $user);
   }
   
 }
