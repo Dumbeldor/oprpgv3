@@ -16,7 +16,7 @@ class news extends MY_Controller
 	public function __construct() {
       	parent::__construct();
       	//If the member is not Admin or Moderator then redirected to the index.
-  		if(!($this->users_model->is_admin() || $this->users_model->is_moderator()))
+  		if(!($this->user->isAdmin() || $this->users_model->is_moderator()))
   			redirect('/index');
     }
 
@@ -31,7 +31,7 @@ class news extends MY_Controller
     
     	$data['title'] = 'Ajouter News';
     	$data['add'] = false;
-    	$author = $this->session->userdata('user_data')['id'];
+    	$author = $this->user->getId();
     	$title = $this->input->post('title');
     	$contents = $this->input->post('contents');
     	if ($title == null XOR $contents == null) {

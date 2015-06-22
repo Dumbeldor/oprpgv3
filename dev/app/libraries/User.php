@@ -61,12 +61,17 @@ class User
 
 	public function isAuthenticated()
 	{
-		return $this->CI->session->userdata('auth') ? true : false;
+		return $this->CI->session->userdata('auth');
 	}
 	 
 	public function isAdmin()
 	{
-		return $this->CI->session->userdata('admin') ? true : false;
+		return $this->CI->session->userdata('rank') == "Administrateur" ? true : false;
+	}
+	
+	public function isModo()
+	{
+		return $this->CI->session->userdata('rank') == "Modérateur" ? true : false;
 	}
 	
 	public function getPseudo()

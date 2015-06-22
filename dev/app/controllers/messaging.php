@@ -19,7 +19,7 @@ class Messaging extends MY_Controller {
   public function __construct() {
     parent::__construct();
     $this->load->model('messaging_model');
-    if(!$this->users_model->is_connected())
+    if(!$this->user->isAuthenticated())
       redirect('index');
   }
     /**

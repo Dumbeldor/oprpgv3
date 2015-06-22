@@ -5,6 +5,10 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class News_model extends CI_Model
 {
 	protected $table = 'news';
+	
+	public function __construct() {
+		$this->load->library('user');
+	}
 
 	/*
 		Ajouter des news, les paramètres requis sont :
@@ -20,7 +24,7 @@ class News_model extends CI_Model
 		setlocale (LC_TIME, 'fr_FR.utf8','fra');
 		$this->db->set('date_time', strftime("%A %d %B"));
 		$this->db->set('is_block', 0);	
-		$this->db->set('id_users', $this->session->userdata('user_data')['id']);
+		$this->db->set('id_users', $this->user->getId());
 
 		return $this->db->insert($this->table);
 	}

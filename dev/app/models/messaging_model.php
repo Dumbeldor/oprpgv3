@@ -12,13 +12,16 @@ class Messaging_model extends CI_Model
 {
     protected $table = 'privates_messages';
     
+    public function __construct() {
+    	$this->load->library('user');
+    }
     /**
    * List of private message for user
      * returns $nb number of private message starting with the $begin
    * ----------------------------------------------------------------------- */
     public function lists($nb = 5, $begin = 0)
     {
-        $query = $this->db->query("SELECT privates_messages.id AS id, date_time, is_read, is_trash, id_users, SUBSTRING(content, 1, 50) AS content, pseudo FROM privates_messages JOIN users ON id_users = users.id WHERE privates_messages.id_users_1 = ? AND privates_messages.is_trash = ? ORDER BY privates_messages.id DESC", array($this->session->userdata('user_data')['id'], 0));
+        $query = $this->db->query("SELECT privates_messages.id AS id, date_time, is_read, is_trash, id_users, SUBSTRING(content, 1, 50) AS content, pseudo FROM privates_messages JOIN users ON id_users = users.id WHERE privates_messages.id_users_1 = ? AND privates_messages.is_trash = ? ORDER BY privates_messages.id DESC", array($this->user->getId(), 0));
         return $query->result_array();
           
     }
@@ -30,7 +33,7 @@ class Messaging_model extends CI_Model
      * ----------------------------------------------------------------------- */
     public function read($id)
     {
-        $query = $this->db->query("SELECT privates_messages.id AS id, date_time, is_read, is_trash, id_users, content, pseudo FROM privates_messages JOIN users ON id_users = users.id WHERE privates_messages.id_users_1 = ? AND privates_messages.id = ? OR privates_messages.id_users = ? AND privates_messages.id = ?", array($this->session->userdata('user_data')['id'], $id, $this->session->userdata('user_data')['id'], $id));
+        $query = $this->db->query("SELECT privates_messages.id AS id, date_time, is_read, is_trash, id_users, content, pseudo FROM privates_messages JOIN users ON id_users = users.id WHERE privates_messages.id_users_1 = ? AND privates_messages.id = ? OR privates_messages.id_users = ? AND privates_messages.id = ?", array($this->user->getId(), $id, $this->user->getId(), $id));
         $resultat = $query->result_array();
         //If the user can see the selected private message, then put it as "seen"
         if(!empty($resultat))
@@ -49,7 +52,7 @@ class Messaging_model extends CI_Model
     public function delete($id)
     {
     	$this->db->where('id', $id)
-    			 ->where('id_users_1', $this->session->userdata('user_data')['id'])
+    			 ->where('id_users_1', $this->user->getId())
     			 ->update($this->table, array('is_trash' => 1));
     }
     
@@ -68,7 +71,7 @@ class Messaging_model extends CI_Model
             'date_time' => strftime("%A %d %B"),
             'is_read' => 0,
             'is_trash' => 0,
-            'id_users' => $this->session->userdata('user_data')['id'],
+            'id_users' => $this->user->getId(),
             'id_users_1' => $this->users_model->idPseudo($pseudo),        
         );
         $this->db->insert('privates_messages', $data);

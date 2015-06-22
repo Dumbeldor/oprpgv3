@@ -23,7 +23,7 @@ class Private_messages extends MY_Controller {
 	public function index() {
 		$this->load->helper('form');
 		
-		$session = $this->session->all_userdata();
+		$session = $this->user->getArray();
 		$data['title'] = 'MP';
 	    $data['messages'] = $this->private_messages_model->get_messages($session['user_data']['user_id']); //Chargement des messages et des infos sur l'envoyeur
 		$data['messages_sent'] = $this->private_messages_model->get_messages_sent($session['user_data']['user_id']); // Chargement des messages envoyés

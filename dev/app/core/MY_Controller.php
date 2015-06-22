@@ -12,16 +12,16 @@
     * Permet de construire une page avec header, navbar, etc...
     */
     public function construct_page($page, $data = array()) {
-      if($this->users_model->is_connected()) 
+      if($this->user->isAuthenticated()) 
       {
         $data['connecte'] = TRUE;
-        $data['amountMP'] = $this->users_model->amountMP($this->session->userdata('user_data')['id']);
+        $data['amountMP'] = $this->users_model->amountMP($this->user->getId());
         
-        if($this->users_model->is_moderator())
+        if($this->user->isModo())
           $data['moderator'] = TRUE;
         else
           $data['moderator'] = FALSE;
-        if($this->users_model->is_admin())
+        if($this->user->isAdmin())
           $data['admin'] = TRUE;
         else
           $data['admin'] = FALSE;

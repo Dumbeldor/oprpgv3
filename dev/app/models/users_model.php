@@ -96,30 +96,5 @@ class Users_model extends CI_Model {
             ->count_all_results('privates_messages');
     return $nb_resultat;
   }
-  //INUTILE A SUPPRIMER QUAND LA TRANSITION SERA FINI
-  public function is_connected() {
-    $session = $this->session->all_userdata();
-    if(isset($session['user_data']) && $session['user_data']) {
-      return TRUE;
-    }
-    return FALSE;
-  }
-  //INUTILE A SUPPRIMER QUAND LA TRANSITION SERA FINI
-  public function is_moderator() {
-    $session = $this->session->all_userdata();
-    if(isset($session['user_data']) && $session['user_data']) {
-      if($session['user_data']['rank'] == "Mod�rateur")
-        return TRUE;
-    }
-    return FALSE;
-  }
-  //INUTILE A SUPPRIMER QUAND LA TRANSITION SERA FINI
-  public function is_admin() {
-    $session = $this->session->all_userdata();
-    if(isset($session['user_data']) && $session['user_data']) {
-        if($session['user_data']['rank'] == "Administrateur")
-        return TRUE;
-    }
-    return FALSE;
-  }
+
 }
