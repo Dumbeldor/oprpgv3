@@ -1,0 +1,12 @@
+Salut les amis.
+
+Donc quand vous voulez mettre le code disponible sur le git en ligne je vous conseil quelques petites choses.
+
+Déjà faite un clone du projet sur la machine (Sera plus simple pour la maintenance, un simple git pull et hop.)
+
+Ensuite, vous devez modifier les id de la base de donnée, les informations se trouve dans le dossier config/database.php
+
+Puis, vous devez modifier le fichier config/config.php
+$config['base_url'] = l'ip du serveur (Le nom onepiece-rpg.fr)
+
+Normalement c'est la seul chose à faire... je compléterais ce fichier si je m'apercois qu'il y a des choses à rajouter.

@@ -18,7 +18,7 @@ class Home extends MY_Controller {
 	 * ----------------------------------------------------------------------- */
 	public function index($news_get = 0)
 	{
-		echo $this->user->getAttribute("fd");
+		echo $this->user->isAuthenticated();
 		$this->load->library('pagination');
 		$this->load->model('news_model');
 		$this->load->helper('url');

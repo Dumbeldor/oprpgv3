@@ -61,12 +61,12 @@ class User
 
 	public function isAuthenticated()
 	{
-		return $this->CI->session->userdata('auth');
+		return ($this->CI->session->userdata('auth')) ? true : false;
 	}
 	 
 	public function isAdmin()
 	{
-		return $this->CI->session->userdata('rank') == "Administrateur" ? true : false;
+		return ($this->CI->session->userdata('rank') == "Administrateur") ? true : false;
 	}
 	
 	public function isModo()

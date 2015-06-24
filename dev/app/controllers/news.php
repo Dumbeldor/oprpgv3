@@ -16,7 +16,7 @@ class news extends MY_Controller
 	public function __construct() {
       	parent::__construct();
       	//If the member is not Admin or Moderator then redirected to the index.
-  		if(!($this->user->isAdmin() || $this->users_model->is_moderator()))
+  		if(!($this->user->isAdmin() || $this->user->isModo()))
   			redirect('/index');
     }
 
