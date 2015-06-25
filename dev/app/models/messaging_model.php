@@ -21,9 +21,29 @@ class Messaging_model extends CI_Model
    * ----------------------------------------------------------------------- */
     public function lists($nb = 5, $begin = 0)
     {
-        $query = $this->db->query("SELECT privates_messages.id AS id, date_time, is_read, is_trash, id_users, SUBSTRING(content, 1, 50) AS content, pseudo FROM privates_messages JOIN users ON id_users = users.id WHERE privates_messages.id_users_1 = ? AND privates_messages.is_trash = ? ORDER BY privates_messages.id DESC", array($this->user->getId(), 0));
+        $query = $this->db->query("SELECT privates_messages.id AS id, 
+        		date_time, is_read, is_trash, id_users, 
+        		SUBSTRING(content, 1, 50) AS content, pseudo 
+        		FROM privates_messages JOIN users ON id_users = users.id 
+        		WHERE privates_messages.id_users_1 = ? AND privates_messages.is_trash = ? 
+        		ORDER BY privates_messages.id DESC", array($this->user->getId(), 0));
         return $query->result_array();
           
+    }
+    
+    /**
+     * List of message sent by the user
+     * returns $nb number of private message starting with the $begin
+     * ----------------------------------------------------------------------- */
+    public function listsSending($nb = 5, $begin = 0)
+    {
+    	$query = $this->db->query("SELECT privates_messages.id AS id, 
+    			date_time, is_read, is_trash, id_users, SUBSTRING(content, 1, 50) AS content, pseudo 
+    			FROM privates_messages JOIN users ON id_users = users.id 
+    			WHERE privates_messages.id_users = ? AND privates_messages.is_trash = ? 
+    			ORDER BY privates_messages.id DESC", array($this->user->getId(), 0));
+    	return $query->result_array();
+    
     }
     
     /**

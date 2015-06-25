@@ -2,7 +2,7 @@
 /**
  ******************************************************************************
  * Description : 
- * This page contains the messaging handling
+ * This page Displays the message sent by the user
  * @todo Coding
  * @author Dumbeldor
  * @version 0.1.0
@@ -16,7 +16,7 @@
 <br />
 <a href="<?php echo base_url("/messaging/write"); ?>">Ecrire un message</a>
 <p>
-    Voici vos messages privés :</p>
+    Voici les messages que vous avez envoyé :</p>
 
 <?php foreach ($private_message as $message) {
           if($message['is_read'] == 0) {//If private message not read

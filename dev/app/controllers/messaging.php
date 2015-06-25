@@ -83,4 +83,14 @@ class Messaging extends MY_Controller {
           }
       }
   }
+
+  /**
+   * Displays the message sent by the user
+   * ----------------------------------------------------------------------- */
+  public function sending()
+  {
+  	$data['title'] = 'Messagerie Boite d\'envois';
+  	$data['private_message'] = $this->messaging_model->listsSending(5, 0);
+  	$this->construct_page('messaging/sending', $data);
+  }
 }
