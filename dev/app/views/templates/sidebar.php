@@ -12,7 +12,7 @@
       <a href="#" class="list-group-item">Fanfics</a>
       
       <span href="#" class="list-group-item group-item-oprpg">Le site</span>
-      <a href="<?php echo base_url('index.php/users') ?>" class="list-group-item">Annuaire</a>
+      <a href="<?php echo base_url('/users') ?>" class="list-group-item">Annuaire</a>
       <a href="#" class="list-group-item">Connectes</a>
       <a href="#" class="list-group-item">F.A.Q.</a>
       
