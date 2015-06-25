@@ -82,7 +82,7 @@ class Users_model extends CI_Model {
     $query = $this->db->query("SELECT users.id, ban, pseudo, email, birthday, sexe, is_kick, id_personnages, id_levels, id_objects, id_users_types, users_types.name AS rank FROM users JOIN users_types ON users_types.id = id_users_types WHERE pseudo = ?", array($pseudo));
     $user = $query->result_array();
     $this->user->hydrate($user[0]);
-    $this->user->hydrate($user[1]);
+    //$this->user->hydrate($user[1]);
     $this->user->setAuthenticated(true);
   }
 

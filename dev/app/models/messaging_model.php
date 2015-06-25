@@ -63,9 +63,7 @@ class Messaging_model extends CI_Model
      * ----------------------------------------------------------------------- */
     public function send($pseudo, $content)
     {
-        var_dump($this->users_model->idPseudo($pseudo));
         setlocale (LC_TIME, 'fr_FR.utf8','fra'); 
-        echo (strftime("%A %d %B")); 
         $data = array(
             'content' => $content,
             'date_time' => strftime("%A %d %B"),
@@ -75,6 +73,5 @@ class Messaging_model extends CI_Model
             'id_users_1' => $this->users_model->idPseudo($pseudo),        
         );
         $this->db->insert('privates_messages', $data);
-        return true;
     }
 }
