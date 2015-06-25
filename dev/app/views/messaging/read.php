@@ -13,8 +13,8 @@
 <p>
     Lecture du message privé :</p>
 
-<?php foreach ($private_message as $message) {
-          ?>De : <?php echo $message['pseudo']; ?>
+<?php foreach ($private_message as $message) {?>
+          De : <?php echo $message['pseudo'];?>
          <br />
 
           <?php 
@@ -22,8 +22,10 @@
           echo $message['content']; ?> 
            <br /><br />
           <a href="<?php echo base_url("/messaging/"); ?>">Retour</a>
+          <?php if($message['catcher'] == $this->user->getId()) {?>
           <a href="<?php echo base_url("/messaging/write/".$message['pseudo']); ?>">Répondre</a>
           <a href="<?php echo base_url("/messaging/delete/".$message['id']); ?>">Supprimer message</a>
+          <?php }?>
           <br /> <br />
         <?php
       }

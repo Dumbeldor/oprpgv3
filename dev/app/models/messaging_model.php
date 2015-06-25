@@ -39,7 +39,7 @@ class Messaging_model extends CI_Model
     {
     	$query = $this->db->query("SELECT privates_messages.id AS id, 
     			date_time, is_read, is_trash, id_users, SUBSTRING(content, 1, 50) AS content, pseudo 
-    			FROM privates_messages JOIN users ON id_users = users.id 
+    			FROM privates_messages JOIN users ON id_users_1 = users.id 
     			WHERE privates_messages.id_users = ? AND privates_messages.is_trash = ? 
     			ORDER BY privates_messages.id DESC", array($this->user->getId(), 0));
     	return $query->result_array();
@@ -49,17 +49,32 @@ class Messaging_model extends CI_Model
     /**
      * 
      *read private message particularly
-     * Returns the private message corresponding to the id $id
+     * Returns the private message corresponding to the id $id and if the message is hers
      * ----------------------------------------------------------------------- */
     public function read($id)
     {
-        $query = $this->db->query("SELECT privates_messages.id AS id, date_time, is_read, is_trash, id_users, content, pseudo FROM privates_messages JOIN users ON id_users = users.id WHERE privates_messages.id_users_1 = ? AND privates_messages.id = ? OR privates_messages.id_users = ? AND privates_messages.id = ?", array($this->user->getId(), $id, $this->user->getId(), $id));
+    	//initialize private message as not belonging to the man who read it right now
+    	$catcher = false;
+         $query = $this->db->query("SELECT privates_messages.id AS id,
+         		 date_time, is_read, is_trash,
+         		 id_users, content, pseudo,
+         		 privates_messages.id_users_1 AS catcher 
+         		 FROM privates_messages 
+         		JOIN users ON id_users = users.id 
+         		WHERE privates_messages.id_users_1 = ? 
+         		AND privates_messages.id = ? 
+         		OR privates_messages.id_users = ? 
+         		AND privates_messages.id = ?", array($this->user->getId(), $id, $this->user->getId(), $id));
         $resultat = $query->result_array();
         //If the user can see the selected private message, then put it as "seen"
         if(!empty($resultat))
         {
-            $this->db->where('id', $id);
-            $this->db->update($this->table, array('is_read' => 1));
+        	if($resultat[0]['catcher'] == $this->user->getId())
+        	{
+            	$this->db->where('id', $id);
+            	$this->db->update($this->table, array('is_read' => 1));
+            	$catcher = true;
+        	}
         }
         return $resultat;
     }
