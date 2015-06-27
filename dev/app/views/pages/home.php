@@ -19,7 +19,7 @@
     	<?php } ?></p>
     	<a href="<?php echo base_url('/news/comment/'.$new->id);?>">Commentaire(<?php echo $nbComments;?>)</a>
     	</br>
-    	<p><?php echo $new->message; ?></p>
+    	<p><?php echo nl2br(htmlspecialchars($new->message)); ?></p>
     	<br />
     	<br />
     	<?php endforeach; ?>

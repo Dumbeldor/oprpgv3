@@ -19,11 +19,11 @@
 
           <?php 
     //Displays the beginning of the message and displays a link if the member wants to read the entire message
-          echo $message['content']; ?> 
+          echo nl2br(htmlspecialchars($message['content'])); ?> 
            <br /><br />
           <a href="<?php echo base_url("/messaging/"); ?>">Retour</a>
           <?php if($message['catcher'] == $this->user->getId()) {?>
-          <a href="<?php echo base_url("/messaging/write/".$message['pseudo']); ?>">Répondre</a>
+          <a href="<?php echo base_url("/messaging/write/".$message['id']); ?>">Répondre</a>
           <a href="<?php echo base_url("/messaging/delete/".$message['id']); ?>">Supprimer message</a>
           <?php }?>
           <br /> <br />

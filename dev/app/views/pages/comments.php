@@ -12,7 +12,7 @@
     	foreach($comments as $comment): ?>
     	<strong>Ecrit par <?php echo $comment->pseudo; ?></strong>
     	<p>Le : <?php echo date('d/m/Y à H\hi', $comment->date_time);?></p>
-    	<p><?php echo $comment->message;?></p>
+    	<p><?php echo nl2br(htmlspecialchars($comment->message));?></p>
     	---------------------------------------------------------------------
     	<br />
     	<br />

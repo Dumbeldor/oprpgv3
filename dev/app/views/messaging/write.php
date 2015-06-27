@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="form-group">
-    <textarea rows="20" name="content" cols="30"><?php echo set_value('content'); ?></textarea>
+  <textarea rows="20" name="content" cols="30"><?php echo set_value('content'); if(!empty($contents)){echo $contents;} ?></textarea>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">

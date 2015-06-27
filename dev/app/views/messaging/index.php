@@ -20,8 +20,9 @@
 <?php } else {?>
 <p>
     Voici vos messages privés :</p>
- <?php echo form_open(base_url('messaging/delete')); ?>
-<input type="submit" name="submit" class="btn btn-default" value="Supprimer" />
+ <?php echo form_open(base_url('messaging/form'));?>
+<input type="submit" name="delete" class="btn btn-default" value="Supprimer" />
+<input type="submit" name="markRead" class="btn btn-default" value="Marquer comme lu" />
 <br />
 <br />
 

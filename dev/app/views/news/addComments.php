@@ -10,7 +10,7 @@
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <input type="submit" name="submit" class="btn btn-default" value="Poster la news !" />
+      <input type="submit" name="submit" class="btn btn-default" value="Poster le commentaire !" />
     </div>
   </div>
 <?php echo form_close(); ?>
