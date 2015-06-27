@@ -15,9 +15,6 @@ class news extends MY_Controller
 {
 	public function __construct() {
       	parent::__construct();
-      	//If the member is not Admin or Moderator then redirected to the index.
-  		if(!($this->user->isAdmin() || $this->user->isModo()))
-  			redirect('/index');
     }
 
   /**
@@ -25,6 +22,9 @@ class news extends MY_Controller
    * ----------------------------------------------------------------------- */
 	public function add() 
 	{
+		//If the member is not Admin or Moderator then redirected to the index.
+		if(!($this->user->isAdmin() || $this->user->isModo()))
+			redirect('index');
 		$this->load->helper('form');
     	$this->load->library('form_validation');
     	$this->load->model('news_model');
@@ -55,6 +55,9 @@ class news extends MY_Controller
    * ----------------------------------------------------------------------- */
 	public function delete($id)
 	{
+		//If the member is not Admin or Moderator then redirected to the index.
+		if(!($this->user->isAdmin() || $this->user->isModo()))
+			redirect('index');
 		$this->load->model('news_model');
 		$this->news_model->delete($id);
 		redirect('/index');
