@@ -17,7 +17,7 @@
     	if($connecte && $admin) { ?>
     			<a href="<?php echo base_url(array('news', 'delete', $new->id)); ?>">Supprimer la news</a> 
     	<?php } ?></p>
-    	<a href="<?php echo base_url('/news/comment/'.$new->id);?>">Commentaire</a>
+    	<a href="<?php echo base_url('/news/comment/'.$new->id);?>">Commentaire(<?php echo $nbComments;?>)</a>
     	</br>
     	<p><?php echo $new->message; ?></p>
     	<br />

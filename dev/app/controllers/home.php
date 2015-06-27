@@ -42,6 +42,7 @@ class Home extends MY_Controller {
 
 		$data['pagination'] = $this->pagination->create_links();
 		$data['news'] = $this->news_model->lists(1, $news_get);
+		$data['nbComments'] = $this->news_model->countComments($data['news'][0]->id);
 
 		var_dump($this->session->all_userdata());
 		 $this->construct_page('pages/home', $data);
