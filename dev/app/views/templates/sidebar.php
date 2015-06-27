@@ -1,27 +1,31 @@
-<div class="row-fluid sidebar-oprpg">
-  <div class="col-sm-3 col-md-2 sidebar">
-    <div class="mini-submenu">
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </div>
-    <div class="list-group">
-      <span href="#" class="list-group-item group-item-oprpg">Fans</span>
-      <a href="#" class="list-group-item">Fanarts</a>
-      <a href="#" class="list-group-item">Fanmovs</a>
-      <a href="#" class="list-group-item">Fanfics</a>
-      
-      <span href="#" class="list-group-item group-item-oprpg">Le site</span>
-      <a href="<?php echo base_url('/users') ?>" class="list-group-item">Annuaire</a>
-      <a href="#" class="list-group-item">Connectes</a>
-      <a href="#" class="list-group-item">F.A.Q.</a>
-      
-      <span href="#" class="list-group-item group-item-oprpg">Communaute</span>
-      <a href="#" class="list-group-item">Hall of Fame</a>
-      <a href="#" class="list-group-item">Livre d'Or</a>
-      <a href="#" class="list-group-item">Le Staff</a>
-    </div>        
-  </div>
-</div>
-<!-- On prepare le contenu -->
-<div class="container-oprpg col-lg-6 col-md-6 col-md-offset-1 col-lg-offset-1">
+<div class="row">
+  <nav class="large-3 medium-3 small-pull-12 columns left">
+    <h3 class="text-center">Fans</h3>
+    <ul class="side-nav">
+      <li><a href="#">Fanarts</a></li>
+      <li class="divider"></li>
+      <li><a href="#">Fanmovs</a></li>
+      <li class="divider"></li>
+      <li><a href="#">Fanfics</a></li>
+      <li class="divider"></li>
+    </ul>  
+    <h3 class="text-center">Le site</h3>
+    <ul class="side-nav">
+      <li><a href="<?php echo base_url('index.php/users') ?>">Annuaire</a></li>
+      <li class="divider"></li>
+      <li><a href="#">Connectés</a></li>
+      <li class="divider"></li>
+      <li><a href="#">F.A.Q.</a></li>
+      <li class="divider"></li>
+    </ul>
+      <h3 class="text-center">Communaute</h3>
+    <ul class="side-nav">
+      <li><a href="#">Hall of Fame</a></li>
+      <li class="divider"></li>
+      <li><a href="#">Livre d'Or</a></li>
+      <li class="divider"></li>
+      <li><a href="#">Le Staff</a></li>
+      <li class="divider"></li>
+    </ul>
+  </nav>
+  <div class="large-9 medium-9 small-push-12 columns">
