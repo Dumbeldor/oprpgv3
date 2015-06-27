@@ -15,11 +15,21 @@
 <br />
 <br />
 <a href="<?php echo base_url("/messaging/write"); ?>">Ecrire un message</a>
+<?php if($private_message == NULL){ ?>
+	<h3>Vous n'avez encore envoyé aucun message...</h3>
+<?php } else {?>
 <p>
     Voici les messages que vous avez envoyé :</p>
+     <?php echo form_open(base_url('messaging/delete')); ?>
+<input type="submit" name="submit" class="btn btn-default" value="Supprimer" />
+<br />
+<br />
+    
 
 <?php foreach ($private_message as $message) {
-          if($message['is_read'] == 0) {//If private message not read
+	
+	?><input type="checkbox" name="mess[]" value="<?php echo $message['id']; ?>">
+          <?php if($message['is_read'] == 0) {//If private message not read
             ?><strong>Message non lu</strong> <?php
           }
           ?>A : <?php echo $message['pseudo']; ?>
@@ -33,3 +43,5 @@
           <br /> <br />
         <?php
       }
+      echo form_close();
+}

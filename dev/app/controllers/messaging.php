@@ -103,6 +103,7 @@ class Messaging extends MY_Controller {
    * ----------------------------------------------------------------------- */
   public function sending()
   {
+  	$this->load->helper('form');
   	$data['title'] = 'Messagerie Boite d\'envois';
   	$data['private_message'] = $this->messaging_model->listsSending(5, 0);
   	$this->construct_page('messaging/sending', $data);
