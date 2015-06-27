@@ -3,25 +3,29 @@
   <div class="container">
 
     <h1>Les news</h1>
+     <?php echo $news[0]->title;?>
     <?php if($nbnews <= 0) { ?>
-    	<p>Il y a aucune news</br>
-    	<a href="<?php echo site_url('news/add/'); ?>">Ajouter une news</a></p>
-    <?php } else { ?>
-    <?php echo $pagination; ?>
-    <?php foreach($news as $new): ?>
-    <h2><?php echo $new->title; ?></h2>
-    <p>Ecrit par <?php echo $new->pseudo; ?> le <?php echo $new->date_time; 
-    //Si administrateur
-    if($connecte && $admin) { ?>
-    	<a href="<?php echo site_url(array('news', 'delete', $new->id)); ?>">Supprimer la news</a> 
-    <?php } ?></p>
-    </br>
-    <p><?php echo $new->message; ?></p>
-    <br />
-    <br />
-    <?php endforeach; ?>
+    	<p>Il y a aucune news<br />
+    	<a href="<?php echo base_url('news/add/'); ?>">Ajouter une news</a></p>
+    <?php } else { 
+    	if ($admin) { ?>
+    		<a href="<?php echo base_url('news/add/'); ?>">Ajouter une news</a> <br /><?php } ?>
+    	<?php echo $pagination; ?>
+    	<?php foreach($news as $new): ?>
+    	<h2><?php echo $new->title; ?></h2>
+    	<p>Ecrit par <?php echo $new->pseudo; ?> le <?php echo strftime('%d/%m/%Y', $new->date_time); 
+    	//Si administrateur
+    	if($connecte && $admin) { ?>
+    			<a href="<?php echo base_url(array('news', 'delete', $new->id)); ?>">Supprimer la news</a> 
+    	<?php } ?></p>
+    	<a href="<?php echo base_url('news/comment/'.$new->id);?>">Commentaire</a>
+    	</br>
+    	<p><?php echo $new->message; ?></p>
+    	<br />
+    	<br />
+    	<?php endforeach; ?>
 
-    <?php echo $pagination; ?>
+    	<?php echo $pagination; ?>
     <?php } ?>
   </div>
 </div>

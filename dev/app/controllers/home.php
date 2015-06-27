@@ -18,7 +18,7 @@ class Home extends MY_Controller {
 	 * ----------------------------------------------------------------------- */
 	public function index($news_get = 0)
 	{
-		echo $this->user->isAuthenticated();
+		echo strftime('%d/%m/%Y', time());
 		$this->load->library('pagination');
 		$this->load->model('news_model');
 		$this->load->helper('url');

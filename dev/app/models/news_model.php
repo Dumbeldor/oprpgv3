@@ -21,8 +21,7 @@ class News_model extends CI_Model
 		$this->db->set('title', $title);
 		$this->db->set('message', $contents);		
 
-		setlocale (LC_TIME, 'fr_FR.utf8','fra');
-		$this->db->set('date_time', strftime("%A %d %B"));
+		$this->db->set('date_time', time());
 		$this->db->set('is_block', 0);	
 		$this->db->set('id_users', $this->user->getId());
 
@@ -79,5 +78,49 @@ class News_model extends CI_Model
 			->order_by('news.id', 'desc')
 			->get()
 			->result();
+	}
+	
+	/**
+	 * Returns list comments for the news
+	 * @param $id of the news
+	 */
+	public function listComments($id)
+	{
+		return $this->db->select('news_comments.id, news_comments.date_time, news_comments.message, news_comments.is_block, users.pseudo')
+		->from('news_comments')
+		->join('users', 'news_comments.id_users = users.id')
+		->join('news', 'news_comments.id_news = news.id')
+		->order_by('news_comments.id', 'desc')
+		->where('id_news', $id)
+		->get()
+		->result();
+	}
+	
+	/**
+	 * return number comments for the news
+	 * @param $id of the news
+	 * @return number comments for the news
+	 */
+	public function countComments($id)
+	{
+		return (int) $this->db->where('id_news', $id)
+		->count_all_results('news_comments');
+	}
+	
+	/**
+	 * Add comments of the news
+	 * @param contents of the comments $contents
+	 * @param id of the newss to comments $id
+	 */
+	public function addComments($contents, $id)
+	{
+		$this->db->set('message', $contents);		
+
+		$this->db->set('date_time', time());
+		$this->db->set('is_block', 0);	
+		$this->db->set('id_users', $this->user->getId());
+		$this->db->set('id_news', $id);
+
+		return $this->db->insert('news_comments');
 	}
 }

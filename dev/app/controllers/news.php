@@ -59,4 +59,45 @@ class news extends MY_Controller
 		$this->news_model->delete($id);
 		redirect('/index');
 	}
+	
+	/**
+	 * List comments to news
+	 * @param $id id of the news
+	 * -------------------------------------------------------------------- */
+	public function comment($id)
+	{
+		$this->load->model('news_model');
+		$data['title'] = "Les commentaires";
+		$data['nbComments'] = $this->news_model->countComments($id);
+		$data['comments'] = $this->news_model->listComments($id);
+		$data['id'] = $id;
+		$this->construct_page('pages/comments', $data);		
+	}
+	
+	/**
+	 * Add comments to news
+	 * @param $id id of the news
+	 * -------------------------------------------------------------------- */
+	public function addComments($id)
+	{
+		$this->load->helper('form');
+    	$this->load->library('form_validation');
+    	$this->load->model('news_model');
+    
+    	$data['title'] = 'Ajouter commentaire';
+    	$data['add'] = false;
+    	$data['id'] = $id;
+    	$author = $this->user->getId();
+    	$contents = $this->input->post('contents');
+    	if ($contents == null) {
+      	$data['error'] = 'Veuillez fournir toutes les informations requises.';
+      	$this->construct_page('news/addComments', $data);
+    	}
+    	else {
+    		$this->news_model->addComments($contents, $id);
+        	redirect('/news/comment/'.$id);
+      	}
+		
+		
+	}
 }
