@@ -34,7 +34,7 @@
           <?php if($message['is_read'] == 0) {//If private message not read
             ?><strong>Message non lu</strong> <?php
           }
-          ?>A : <?php echo $message['pseudo']; ?>
+          ?>A : <?php echo $message['pseudo'].' le '. date('d/m/Y à H\hi',$message['date_time']); ?>
          <br />
 
           <?php 

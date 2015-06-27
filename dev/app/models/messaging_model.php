@@ -101,7 +101,7 @@ class Messaging_model extends CI_Model
 		setlocale (LC_TIME, 'fr_FR.utf8','fra'); 
 		$data = array(
 			'content' => $content,
-			'date_time' => strftime("%A %d %B"),
+			'date_time' => time(),
 			'is_read' => 0,
 			'is_trash' => 0,
 			'id_users' => $this->user->getId(),
