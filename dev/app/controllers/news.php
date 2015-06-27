@@ -67,8 +67,10 @@ class news extends MY_Controller
 	 * List comments to news
 	 * @param $id id of the news
 	 * -------------------------------------------------------------------- */
-	public function comment($id)
+	public function comment($id=0)
 	{
+		if($id < 0)
+			redirect('index');
 		$this->load->model('news_model');
 		$data['title'] = "Les commentaires";
 		$data['nbComments'] = $this->news_model->countComments($id);
@@ -81,8 +83,10 @@ class news extends MY_Controller
 	 * Add comments to news
 	 * @param $id id of the news
 	 * -------------------------------------------------------------------- */
-	public function addComments($id)
+	public function addComments($id=0)
 	{
+		if(!$this->user->isAuthenticated())
+			redirect('news/comment/'.$id);
 		$this->load->helper('form');
     	$this->load->library('form_validation');
     	$this->load->model('news_model');

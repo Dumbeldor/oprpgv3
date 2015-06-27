@@ -11,7 +11,7 @@
     <?php }    
     	foreach($comments as $comment): ?>
     	<strong>Ecrit par <?php echo $comment->pseudo; ?></strong>
-    	<p>Le : <?php echo strftime('%d/%m/%Y', $comment->date_time);?></p>
+    	<p>Le : <?php echo date('d/m/Y à H\hi', $comment->date_time);?></p>
     	<p><?php echo $comment->message;?></p>
     	---------------------------------------------------------------------
     	<br />

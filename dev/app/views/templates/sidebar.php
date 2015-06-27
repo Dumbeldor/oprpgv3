@@ -11,7 +11,7 @@
     </ul>  
     <h3 class="text-center">Le site</h3>
     <ul class="side-nav">
-      <li><a href="<?php echo base_url('index.php/users') ?>">Annuaire</a></li>
+      <li><a href="<?php echo base_url('/users') ?>">Annuaire</a></li>
       <li class="divider"></li>
       <li><a href="#">Connectés</a></li>
       <li class="divider"></li>

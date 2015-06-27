@@ -12,7 +12,7 @@
     	<?php echo $pagination; ?>
     	<?php foreach($news as $new): ?>
     	<h2><?php echo $new->title; ?></h2>
-    	<p>Ecrit par <?php echo $new->pseudo; ?> le <?php echo strftime('%d/%m/%Y', $new->date_time); 
+    	<p>Ecrit par <?php echo $new->pseudo; ?> le <?php echo date('d/m/Y à H\hi', $new->date_time); 
     	//Si administrateur
     	if($connecte && $admin) { ?>
     			<a href="<?php echo base_url(array('news', 'delete', $new->id)); ?>">Supprimer la news</a> 
