@@ -27,6 +27,7 @@ class Messaging extends MY_Controller {
      * ----------------------------------------------------------------------- */
   public function index()
   {
+  	$this->load->helper('form');
     $data['title'] = 'Messagerie';
     $data['private_message'] = $this->messaging_model->lists(5, 0);
     $this->construct_page('messaging/index', $data);
@@ -48,10 +49,23 @@ class Messaging extends MY_Controller {
      * Delete private message
      * private message deletes the $id
      * ----------------------------------------------------------------------- */
-  public function delete($id)
+  public function delete($id=0)
   {
+  	  if($id == 0)
+  	  {
+  	  	if(!empty($_POST['mess']))
+  	  	{
+  	  		foreach($_POST['mess'] as $valeur)
+  	  		{
+  	  			$this->messaging_model->delete($valeur);
+  	  		}
+  	  		redirect('messaging/index');
+  	  	}
+  	  }
+  	  else{
       $this->messaging_model->delete($id);
-      redirect('messaging/index');
+      redirect('messaging/index'); 
+  	  }
   }
   
     /**
