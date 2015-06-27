@@ -3,7 +3,6 @@
   <div class="container">
 
     <h1>Les news</h1>
-     <?php echo $news[0]->title;?>
     <?php if($nbnews <= 0) { ?>
     	<p>Il y a aucune news<br />
     	<a href="<?php echo base_url('news/add/'); ?>">Ajouter une news</a></p>
