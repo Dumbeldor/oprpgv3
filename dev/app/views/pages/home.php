@@ -5,10 +5,10 @@
     <h1>Les news</h1>
     <?php if($nbnews <= 0) { ?>
     	<p>Il y a aucune news<br />
-    	<a href="<?php echo base_url('news/add/'); ?>">Ajouter une news</a></p>
+    	<a href="<?php echo base_url('/news/add/'); ?>">Ajouter une news</a></p>
     <?php } else { 
-    	if ($admin) { ?>
-    		<a href="<?php echo base_url('news/add/'); ?>">Ajouter une news</a> <br /><?php } ?>
+    	if ($connecte &&$admin) { ?>
+    		<a href="<?php echo base_url('/news/add/'); ?>">Ajouter une news</a> <br /><?php } ?>
     	<?php echo $pagination; ?>
     	<?php foreach($news as $new): ?>
     	<h2><?php echo $new->title; ?></h2>
@@ -17,7 +17,7 @@
     	if($connecte && $admin) { ?>
     			<a href="<?php echo base_url(array('news', 'delete', $new->id)); ?>">Supprimer la news</a> 
     	<?php } ?></p>
-    	<a href="<?php echo base_url('news/comment/'.$new->id);?>">Commentaire</a>
+    	<a href="<?php echo base_url('/news/comment/'.$new->id);?>">Commentaire</a>
     	</br>
     	<p><?php echo $new->message; ?></p>
     	<br />
