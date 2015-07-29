@@ -20,7 +20,7 @@ class Messaging extends MY_Controller {
 		parent::__construct();
 		$this->load->model('messaging_model');
 		if(!$this->user->isAuthenticated())
-			redirect('home/accueil');
+			redirect(base_url('/home/accueil'));
 	}
 	/**
 	 * Of the messaging index page, list private message

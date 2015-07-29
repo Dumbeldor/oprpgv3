@@ -20,7 +20,7 @@ class Home extends MY_Controller {
 	{
 		if(!$this->user->isAuthenticated())
 		{
-			redirect(base_url('home/accueil'));
+			redirect(base_url('/home/accueil'));
 		}
 		$this->load->library('pagination');
 		$this->load->model('news_model');

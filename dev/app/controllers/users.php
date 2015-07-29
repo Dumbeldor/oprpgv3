@@ -20,7 +20,7 @@ class Users extends MY_Controller {
    * ----------------------------------------------------------------------- */
   public function index() {
   	if(!$this->user->isAuthenticated())
-  		redirect(base_url('home/accueil'));
+  		redirect(base_url('/home/accueil'));
 	$data['users'] = $this->users_model->view_user();
     $data['title'] = 'Annuaire';
     
@@ -32,7 +32,7 @@ class Users extends MY_Controller {
    * ----------------------------------------------------------------------- */
   public function view($id) {
   	if(!$this->user->isAuthenticated())
-  		redirect(base_url('home/accueil'));
+  		redirect(base_url('/home/accueil'));
 	$data['users'] = $this->users_model->view_user($id);
     $data['title'] = "Profil de ".$data['users']['pseudo'];
     
@@ -101,7 +101,7 @@ class Users extends MY_Controller {
    */
   public function disconnect() {
   	if(!$this->user->isAuthenticated())
-  		redirect(base_url('home/accueil'));
+  		redirect(base_url('/home/accueil'));
   	$this->user->logout();
     $data['title'] = 'Home';
     redirect('');
