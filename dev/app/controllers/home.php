@@ -18,9 +18,9 @@ class Home extends MY_Controller {
 	 * ----------------------------------------------------------------------- */
 	public function index($news_get = 0)
 	{
-		if(!$data['connecte'])
+		if(!$this->user->isAuthenticated())
 		{
-			redirect('home/accueil');
+			redirect(base_url('home/accueil'));
 		}
 		$this->load->library('pagination');
 		$this->load->model('news_model');
