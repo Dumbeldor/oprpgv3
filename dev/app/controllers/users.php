@@ -13,6 +13,8 @@ class Users extends MY_Controller {
     parent::__construct();
     $this->load->model('users_model');
     $this->load->model('personnages_model');
+    if(!$this->user->isAuthenticated())
+    	redirect('home/accueil');
   }
   
   /**

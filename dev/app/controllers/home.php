@@ -18,6 +18,10 @@ class Home extends MY_Controller {
 	 * ----------------------------------------------------------------------- */
 	public function index($news_get = 0)
 	{
+		if(!$data['connecte'])
+		{
+			redirect('home/accueil');
+		}
 		$this->load->library('pagination');
 		$this->load->model('news_model');
 		$this->load->helper('url');
@@ -51,5 +55,14 @@ class Home extends MY_Controller {
 
 		$data['$audata'] = $this->session->all_userdata();
 		 $this->construct_page('pages/home', $data);
+	}
+	
+	/**
+	 * Site index for user not connect
+	 */
+	public function accueil()
+	{
+		$data['title'] = 'Bienvenue sur Onepiece-rpg !';
+		$this->construct_page('pages/accueil', $data);
 	}
 }

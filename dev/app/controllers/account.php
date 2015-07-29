@@ -21,7 +21,7 @@ class Account extends MY_Controller {
     parent::__construct();
     //If not connected member
     if(!$this->user->isAuthenticated())
-      redirect('index');
+      redirect('home/accueil');
   }
 
   /**

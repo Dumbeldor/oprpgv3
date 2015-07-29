@@ -15,6 +15,8 @@ class news extends MY_Controller
 {
 	public function __construct() {
       	parent::__construct();
+      	if(!$this->user->isAuthenticated())
+      		redirect('home/accueil');
     }
     
     /**

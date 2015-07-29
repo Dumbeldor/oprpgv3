@@ -1,4 +1,5 @@
 <header>
+<?php if ($connecte) {?>
   <div id="topbar">
     <nav class="top-bar" data-topbar >
       <ul class="title-area">
@@ -34,4 +35,24 @@
       </section>
     </nav>
   </div>
+  <?php } else {?>
+   <div id="topbar">
+    <nav class="top-bar" data-topbar >
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="<?php echo base_url('/users/create') ?>">Inscription</a></h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+      </ul>
+      <section class="top-bar-section">
+        <!-- Right Nav Section -->
+        <ul class="right">
+           <li class="divider"></li>
+          <li><a href="<?php echo base_url('/users/connect') ?>">Connection</a></li>
+          <
+        </ul>
+      </section>
+    </nav>
+  </div>
+  <?php }?>
 </header>

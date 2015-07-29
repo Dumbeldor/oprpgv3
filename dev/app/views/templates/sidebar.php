@@ -1,3 +1,4 @@
+<?php if($connecte){ ?>
 <div class="row">
   <nav class="large-3 medium-3 small-pull-12 columns left">
     <h3 class="text-center">Fans</h3>
@@ -29,3 +30,4 @@
     </ul>
   </nav>
   <div class="large-9 medium-9 small-push-12 columns">
+  <?php }?>
