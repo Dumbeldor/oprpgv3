@@ -3,6 +3,8 @@
   <div class="container">
 
     <h1>Les commentaires</h1>
+    <br />
+    <a href="<?php echo base_url('/home');?>">Retour</a>
     <?php if($nbComments <= 0) { ?>
     	<p>Il y a aucun commentaire sur cette news<br />
     <?php } 
