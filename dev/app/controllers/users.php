@@ -13,14 +13,14 @@ class Users extends MY_Controller {
     parent::__construct();
     $this->load->model('users_model');
     $this->load->model('personnages_model');
-    if(!$this->user->isAuthenticated())
-    	redirect('home/accueil');
   }
   
   /**
    * See the list of users
    * ----------------------------------------------------------------------- */
   public function index() {
+  	if(!$this->user->isAuthenticated())
+  		redirect('home/accueil');
 	$data['users'] = $this->users_model->view_user();
     $data['title'] = 'Annuaire';
     
@@ -31,6 +31,8 @@ class Users extends MY_Controller {
    * View the profile of a user
    * ----------------------------------------------------------------------- */
   public function view($id) {
+  	if(!$this->user->isAuthenticated())
+  		redirect('home/accueil');
 	$data['users'] = $this->users_model->view_user($id);
     $data['title'] = "Profil de ".$data['users']['pseudo'];
     
@@ -98,6 +100,8 @@ class Users extends MY_Controller {
    * deconnection
    */
   public function disconnect() {
+  	if(!$this->user->isAuthenticated())
+  		redirect('home/accueil');
   	$this->user->logout();
     $data['title'] = 'Home';
     redirect('');
