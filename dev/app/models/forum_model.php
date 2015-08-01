@@ -14,22 +14,31 @@ class Forum_model extends CI_Model {
 	
 	/* Return each categories from a specific forum */
 	/* $id_type is the chosen forum's id */
-	public function get_categories($id_type) {
-		$query = $this->db->query('SELECT * FROM forums_categories WHERE forum_id = ?', array($id_type));
+	public function get_categories() {
+		$query = $this->db->query('SELECT * FROM forums_categories');
 		return $query->result_array();
 	}
 	
 	/* Return each topics from a specific categories */
 	/* $id_cate is the chosen cate's id */
 	public function get_topics($id_cate) {
-		$query = $this->db->query('SELECT * FROM forums_topics WHERE cate_id = ?', array($id_cate));
+		$query = $this->db->query('SELECT u.pseudo AS pseudo, ftm.date_time AS date, ft.name AS name,
+				ft.id AS id FROM forums_topics_messages ftm
+				JOIN users u ON u.id = ftm.id_users
+				JOIN forums_topics ft ON ft.id = ftm.id_forums_topics
+				WHERE id_forums_categories = ? ORDER BY ftm.date_time DESC
+  				LIMIT 2', array($id_cate));
 		return $query->result_array();
 	}
 	
 	/* Return each messages from a specific topic */
 	/* $id_topic is the chosen topic's id */
 	public function get_messages($id_topic) {
-		$query = $this->db->query('SELECT u.user_pseudo, f.message, f.topic_id, f.message_date, f.message_id FROM forums_topics_messages f, users u WHERE f.topic_id = ? AND f.user_id = u.user_id ORDER BY message_id LIMIT 25', array($id_topic));
+		$query = $this->db->query('SELECT u.pseudo AS pseudo, f.message AS message, f.id_forums_topics AS idTopics, f.date_time AS date,
+				 f.id AS id FROM forums_topics_messages f 
+				JOIN users u ON f.id_users = u.id
+				WHERE f.id_forums_topics = ? 
+				ORDER BY f.id LIMIT 25', array($id_topic));
 		return $query->result_array();
 	}
 	
@@ -41,7 +50,7 @@ class Forum_model extends CI_Model {
 		$user_id is the user's id who send the message
 	*/
 	public function send_message($id_topic,$message,$date_message,$user_id) {
-		$this->db->insert('forums_topics_messages', array('message'=>$message,'message_date'=>$date_message,'topic_id'=>$id_topic,'user_id'=>$user_id));
+		$this->db->insert('forums_topics_messages', array('message'=>$message,'date_time'=>$date_message,'id_forums_topics'=>$id_topic,'id_users'=>$user_id));
 	}
 	
 	/* Return the id of a topic, in a way to load this topic when the user send a message */
@@ -54,7 +63,7 @@ class Forum_model extends CI_Model {
 	/* Return the id of a categorie to load the categorie if the user just created a topic in the message's page */
 	/* $id_topic is the topic's id which will be used in a way to return categorie's id */
 	public function get_id_categorie($id_topic) {
-		$query = $this->db->query("SELECT cate_id FROM forums_topics WHERE topic_id = ?", array($id_topic));
+		$query = $this->db->query("SELECT id_forums_categories FROM forums_topics WHERE id = ?", array($id_topic));
 		return $query->result_array();
 	}
 	
@@ -70,13 +79,13 @@ class Forum_model extends CI_Model {
 		$topic_name is the name of the topic
 	*/
 	public function send_topic($id_categorie,$topic_name) {
-		$this->db->insert('forums_topics', array('topic_name'=>$topic_name,'cate_id'=>$id_categorie));
-		$query = $this->db->query(
+		$this->db->insert('forums_topics', array('name'=>$topic_name,'id_forums_categories'=>$id_categorie, 'id_forums_topics_types' => 1));
+		/*$query = $this->db->query(
 			"SELECT topic_id 
 			FROM forums_topics 
 			WHERE topic_name = ? AND cate_id = ? 
 			ORDER BY topic_id DESC LIMIT 1", 
-			array($topic_name,$id_categorie));
-		return $query->result_array();
+			array($topic_name,$id_categorie));*/
+		return $this->db->insert_id(); 
 	}
 }

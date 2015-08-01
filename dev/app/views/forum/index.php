@@ -1,5 +1,10 @@
 <?php 
-foreach($types as $type):
+foreach($categorie as $categories):
+if($categories['id'] != 1 || ($moderator || $admin)):
 ?>
-	<a href="categories/<?php echo $type['forum_id']; ?>"> <?php echo $type['forum_name'];?></a><br>
-<?php endforeach; ?>
+	<a href="<?php echo base_url('forum/c/'.$categories['id']); ?>"> <?php echo $categories['name'];?></a><br>
+	<i><?php echo $categories['descr'];?></i><br/>
+	----------------------------------------------------------------------------------------------------<br />
+<?php
+endif; 
+endforeach; ?>

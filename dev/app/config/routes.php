@@ -39,36 +39,14 @@
 */
 
 /* News */
-$route['news/add'] = 'news/add';
-$route['news/delete/(:num)'] = 'news/delete/$1';
 $route['news/(:num)'] = 'home/index/$1';
 
-/* Tchat */
-$route['tchat/delete_message/(:num)'] = 'tchat/delete_message/$1';
-$route['tchat/get'] = 'tchat/get';
-$route['tchat/post'] = 'tchat/post';
 
-//$route['tchat/(:num)'] = 'tchat/index/$1';
-
-$route['tchat'] = 'tchat/index';
-// 7e8e45a0a7721a61b1a874c743dae5aea6e08724
-
-/* Users */
-
-
-/* Private_messages 
-$route['private_messages'] = 'private_messages';
-$route['private_messages/new_message/(:num)'] = 'private_messages/new_message/$1';
-$route['private_messages/send_message'] = 'private_messages/send_message';
-
-$route['private_messages/answer_message'] = 'private_messages/answer_message';
-$route['private_messages/delete_message/(:num)'] = 'private_messages/delete_message/$1';
-*/
 
 /* Forum */
-$route['forum'] = 'forum/index';
-$route['forum/categories/(:num)'] = 'forum/categories/$1';
-$route['forum/topics/(:num)'] = 'forum/topics/$1';
+
+$route['forum/c/(:num)'] = 'forum/categories/$1';
+$route['forum/t/(:num)'] = 'forum/topics/$1';
 $route['forum/messages/(:num)'] = 'forum/messages/$1';
 $route['forum/answer'] = 'forum/answer';
 $route['forum/send_message'] = 'forum/send_message';
