@@ -1,4 +1,4 @@
-<meta charset="utf-8" /><?php
+<?php
 
   class MY_Controller extends CI_Controller{
     // Default Constructor
