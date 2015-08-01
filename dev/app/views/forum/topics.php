@@ -1,3 +1,4 @@
+<a href="<?php echo base_url('forum/c/'.$id_categorie);?>">Retour</a><br /> <br />
 <?php 
 foreach($messages as $message):
 ?>

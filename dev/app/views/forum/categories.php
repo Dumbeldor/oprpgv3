@@ -1,3 +1,4 @@
+<a href="<?php echo base_url('forum/');?>">Retour</a><br /> <br />
 <?php 
 if(!empty($topic)):
 foreach($topic as $topics):
@@ -9,7 +10,6 @@ foreach($topic as $topics):
 <?php endforeach;
 else: ?>
 Il n'y a pas encore de topic dans cette catégorie !<br />
-<a href="">Créer un nouveau topic</a>
 
 <?php endif;?>
 <?php if($connecte):

@@ -152,7 +152,6 @@ class Forum extends MY_Controller {
 		
 		// Topic's id is get in a way to redirect the user to this topic
 		$id_topic = $this->forum_model->send_topic($id_categorie,$topic_name);
-		echo $id_topic;
 		
 		// Call send_message function to complete the process
 		$this->send_message($message,$date_message,$id_topic,$id_user);
@@ -168,7 +167,6 @@ class Forum extends MY_Controller {
 	public function send_message($message='', $date_message='', $id_topic, $id_user='') {
 		// Verifying params
 		if(empty($message) && empty($date_message) && empty($id_topic) && empty($id_user)){
-			echo "test";
 			// Set information into varibles - Format them
 			$id_topic = $this->input->post('id_topic');
 			$message = $this->input->post('message');
@@ -176,7 +174,6 @@ class Forum extends MY_Controller {
 			$id_user = $this->user->getId();
 		}
 		
-		echo $id_topic;
 		// Redirect to forum's model for action function
 		$this->forum_model->send_message($id_topic,$message,$date_message,$id_user);
 		
