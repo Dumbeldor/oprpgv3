@@ -12,7 +12,7 @@
     <?php foreach ($list as $user): ?>
       <tr>  
         <td><a href="<?php echo base_url('/users/view/'.$user->id); ?>"><?php echo $user->pseudo; ?></a></td>
-        <td><?php echo date('H\hi : s',$user->last_activity);?></td>
+        <td><?php echo date('H\hi',$user->last_activity);?></td>
       </tr>
     <?php endforeach ?>
   </body> 
