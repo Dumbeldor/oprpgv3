@@ -53,7 +53,7 @@ class Home extends MY_Controller {
 		$data['news'] = $this->news_model->lists(1, $news_get);
 		$data['nbComments'] = $this->news_model->countComments($data['news'][0]->id);
 
-		$data['$audata'] = $this->session->all_userdata();
+		$data['audata'] = $this->session->all_userdata();
 		 $this->construct_page('pages/home', $data);
 	}
 	

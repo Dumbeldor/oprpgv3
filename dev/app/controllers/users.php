@@ -14,7 +14,7 @@ class Users extends MY_Controller {
     $this->load->model('users_model');
     $this->load->model('personnages_model');
   }
-  
+    
   /**
    * See the list of users
    * ----------------------------------------------------------------------- */
@@ -37,6 +37,17 @@ class Users extends MY_Controller {
     $data['title'] = "Profil de ".$data['users']['pseudo'];
     
     $this->construct_page('users/view', $data);
+  }
+  
+  /*
+   * Returns a list of connected players
+   * -------------------------------------------------------------------- */
+  public function liste() {
+  	if(!$this->user->isAuthenticated())
+  		redirect(base_url('/home/accueil'));
+  	$data['title'] = 'Liste des connectés';
+  	$data['list'] = $this->users_model->listCo();
+  	$this->construct_page('users/list', $data);
   }
   
   /**
@@ -95,13 +106,14 @@ class Users extends MY_Controller {
       }
     }
   }
-
+  
     /*
    * deconnection
    */
   public function disconnect() {
   	if(!$this->user->isAuthenticated())
   		redirect(base_url('/home/accueil'));
+  	$this->session->sess_destroy();
   	$this->user->logout();
     $data['title'] = 'Home';
     redirect('');

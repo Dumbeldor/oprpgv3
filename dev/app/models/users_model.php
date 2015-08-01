@@ -21,11 +21,14 @@ class Users_model extends CI_Model {
         return $query->result_array();
     }
         //Selection of all useful information to display on the member's profile
-    $query = $this->db->query("SELECT users.pseudo, users_types.name AS rank, levels.number AS lvl, COUNT(news.id) AS nb_news, COUNT(forums_topics_messages.id) AS nb_mess_forum
-                                FROM users JOIN news ON news.id_users = users.id
+    $query = $this->db->query("SELECT users.pseudo, users_types.name AS rank, levels.number AS lvl,
+    							crews.name AS crewName, crews_grades.name AS crewGrade
+                                FROM users
                                 JOIN levels ON levels.id = users.id_levels 
                                 JOIN users_types ON users_types.id = users.id_users_types
-                                JOIN forums_topics_messages ON forums_topics_messages.id_users = users.id
+    							LEFT JOIN crews_users ON crews_users.id_users = users.id
+    							LEFT JOIN crews ON crews.id = crews_users.id
+    							LEFT JOIN crews_grades ON crews_grades.id = crews_users.id_crews_grades
                                 WHERE users.id = ?", array($id));
     //Returns array with member information
     return $query->row_array();
@@ -95,6 +98,22 @@ class Users_model extends CI_Model {
     					  ->where('is_trash', 0)
             ->count_all_results('privates_messages');
     return $nb_resultat;
+  }
+  
+  /*
+   * Returns a list of connected players
+   */
+  public function listCo() {
+  	//If the player is inactive for one hour
+  	$this->db->delete('sessions', array('last_activity <' => time() - 7200));  	
+  	
+  	return $this->db->select('sessions.id_user, users.id, users.pseudo, levels.number AS lvl, last_activity')
+  	->from('sessions')
+  	->join('users', 'sessions.id_user = users.id')
+  	->join('levels', 'levels.id = users.id_levels')
+  	->order_by('last_activity', 'desc')
+  	->get()
+  	->result();
   }
 
 }

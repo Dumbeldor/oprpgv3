@@ -302,7 +302,7 @@ class CI_Session {
 
 		// Run the update query
 		$this->CI->db->where('session_id', $this->userdata['session_id']);
-		$this->CI->db->update($this->sess_table_name, array('last_activity' => $this->userdata['last_activity'], 'user_data' => $custom_userdata));
+		$this->CI->db->update($this->sess_table_name, array('id_user' => $this->userdata['id'], 'last_activity' => $this->userdata['last_activity'], 'user_data' => $custom_userdata));
 
 		// Write the cookie.  Notice that we manually pass the cookie data array to the
 		// _set_cookie() function. Normally that function will store $this->userdata, but
@@ -331,6 +331,7 @@ class CI_Session {
 
 		$this->userdata = array(
 							'session_id'	=> md5(uniqid($sessid, TRUE)),
+							'id_user'		=> 0,
 							'ip_address'	=> $this->CI->input->ip_address(),
 							'user_agent'	=> substr($this->CI->input->user_agent(), 0, 120),
 							'last_activity'	=> $this->now,
