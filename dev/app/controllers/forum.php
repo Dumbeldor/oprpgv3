@@ -80,30 +80,6 @@ class Forum extends MY_Controller {
 		// Construct this page
 		$this->construct_page('forum/topics', $data);
 	}
-	
-	/**
-	 * Display every message in a chosen topic
-	 * @param $id_cate topic's id
-	 * ----------------------------------------------------------------------- */
-	public function messages($id_topic) {
-
-		// Loading helper form and set title
-		$this->load->helper('form');
-		$data['title'] = 'Forum';
-
-		// Get all topic's messages
-		$data['messages'] = $this->forum_model->get_messages($id_topic);
-
-		// Add topic id
-		$data['id_topic'] = $id_topic;
-
-		// Categorie's id is get in a way to enable the user to create a topic 
-		// in the message's page
-		$data['id_categorie'] = $this->forum_model->get_id_categorie($id_topic);
-		
-		// Construct this page
-		$this->construct_page('forum/messages', $data);
-	}
 
 	/**
 	 * Display the form to write an answer for a topic

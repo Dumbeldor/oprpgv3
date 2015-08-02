@@ -17,7 +17,7 @@ class Forum_model extends CI_Model {
 	public function get_categories() {
 		$query = $this->db->query('SELECT fc.id AS id, fc.name AS name,
 				fc.descr AS descr, fc.types, ft.name AS topicName,
-				ft.id AS topicId, ftm.id AS messId, ftm.date_time AS date,
+				ft.id AS topicId, ftm.id AS messId, MAX(ftm.date_time) AS date,
 				users.pseudo AS pseudo FROM forums_categories fc
 				JOIN forums_topics ft ON ft.id_forums_categories = fc.id
 				JOIN forums_topics_messages ftm ON ftm.id_forums_topics = ft.id
@@ -27,14 +27,21 @@ class Forum_model extends CI_Model {
 		return $query->result_array();
 	}
 	
+/*	public function get_lastMess() {
+		$query = $this->db->query('SELECT ft.name AS topicName,
+				ft.id AS topicId, ftm.id AS messId, MAX(ftm.date_time) AS date,
+				users.pseudo AS pseudo
+				FROM  ')
+	}
+	*/
 	/* Return each topics from a specific categories */
 	/* $id_cate is the chosen cate's id */
 	public function get_topics($id_cate) {
-		$query = $this->db->query('SELECT u.pseudo AS pseudo, ftm.date_time AS date, ft.name AS name,
+		$query = $this->db->query('SELECT u.pseudo AS pseudo, MAX(ftm.date_time) AS date, ft.name AS name,
 				ft.id AS id FROM forums_topics_messages ftm
 				JOIN users u ON u.id = ftm.id_users
 				JOIN forums_topics ft ON ft.id = ftm.id_forums_topics
-				WHERE id_forums_categories = ? GROUP BY ft.id ORDER BY ftm.date_time DESC
+				WHERE id_forums_categories = ? GROUP BY ft.id ORDER BY MAX(ftm.date_time) DESC
   				', array($id_cate));
 		return $query->result_array();
 	}
