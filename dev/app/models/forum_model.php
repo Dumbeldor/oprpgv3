@@ -34,7 +34,7 @@ class Forum_model extends CI_Model {
 				ft.id AS id FROM forums_topics_messages ftm
 				JOIN users u ON u.id = ftm.id_users
 				JOIN forums_topics ft ON ft.id = ftm.id_forums_topics
-				WHERE id_forums_categories = ? ORDER BY ftm.date_time DESC, ft.id
+				WHERE id_forums_categories = ? GROUP BY ft.id ORDER BY ftm.date_time DESC
   				', array($id_cate));
 		return $query->result_array();
 	}
