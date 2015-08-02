@@ -3,7 +3,8 @@
 foreach($messages as $message):
 ?>
 	<p>
-		<b><?php echo $message['pseudo']; ?></b> le <?php echo date('d/m/Y à H\hi',$message['date']); ?> | <a href="delete_message/<?php echo $message['id']; ?>">Supprimer</a><br>
+		<b><?php echo $message['pseudo']; ?></b> le <?php echo date('d/m/Y à H\hi',$message['date']); ?> | <a href="delete_message/<?php echo $message['id']; ?>"></a><br>
+		<strong><i><?php echo $message['ranks'];?></i></strong><br />
 		<?php echo nl2br(htmlspecialchars($message['message'])); ?>
 		<br />-----------------------------------------------------------------------------------------<br />
 	</p>

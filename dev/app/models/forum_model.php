@@ -42,9 +42,10 @@ class Forum_model extends CI_Model {
 	/* Return each messages from a specific topic */
 	/* $id_topic is the chosen topic's id */
 	public function get_messages($id_topic) {
-		$query = $this->db->query('SELECT u.pseudo AS pseudo, f.message AS message, f.id_forums_topics AS idTopics, f.date_time AS date,
+		$query = $this->db->query('SELECT u.pseudo AS pseudo, users_types.name AS ranks, f.message AS message, f.id_forums_topics AS idTopics, f.date_time AS date,
 				 f.id AS id FROM forums_topics_messages f 
 				JOIN users u ON f.id_users = u.id
+				JOIN users_types ON u.id_users_types = users_types.id
 				WHERE f.id_forums_topics = ? 
 				ORDER BY f.id', array($id_topic));
 		return $query->result_array();
@@ -88,12 +89,6 @@ class Forum_model extends CI_Model {
 	*/
 	public function send_topic($id_categorie,$topic_name) {
 		$this->db->insert('forums_topics', array('name'=>$topic_name,'id_forums_categories'=>$id_categorie, 'id_forums_topics_types' => 1));
-		/*$query = $this->db->query(
-			"SELECT topic_id 
-			FROM forums_topics 
-			WHERE topic_name = ? AND cate_id = ? 
-			ORDER BY topic_id DESC LIMIT 1", 
-			array($topic_name,$id_categorie));*/
 		return $this->db->insert_id(); 
 	}
 }
