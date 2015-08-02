@@ -15,7 +15,15 @@ class Forum_model extends CI_Model {
 	/* Return each categories from a specific forum */
 	/* $id_type is the chosen forum's id */
 	public function get_categories() {
-		$query = $this->db->query('SELECT * FROM forums_categories');
+		$query = $this->db->query('SELECT fc.id AS id, fc.name AS name,
+				fc.descr AS descr, fc.types, ft.name AS topicName,
+				ft.id AS topicId, ftm.id AS messId, ftm.date_time AS date,
+				users.pseudo AS pseudo FROM forums_categories fc
+				JOIN forums_topics ft ON ft.id_forums_categories = fc.id
+				JOIN forums_topics_messages ftm ON ftm.id_forums_topics = ft.id
+				JOIN users ON ftm.id_users = users.id
+				GROUP BY fc.id
+				');
 		return $query->result_array();
 	}
 	
@@ -26,8 +34,8 @@ class Forum_model extends CI_Model {
 				ft.id AS id FROM forums_topics_messages ftm
 				JOIN users u ON u.id = ftm.id_users
 				JOIN forums_topics ft ON ft.id = ftm.id_forums_topics
-				WHERE id_forums_categories = ? ORDER BY ftm.date_time DESC
-  				LIMIT 2', array($id_cate));
+				WHERE id_forums_categories = ? ORDER BY ftm.date_time DESC, ft.id
+  				', array($id_cate));
 		return $query->result_array();
 	}
 	
@@ -38,7 +46,7 @@ class Forum_model extends CI_Model {
 				 f.id AS id FROM forums_topics_messages f 
 				JOIN users u ON f.id_users = u.id
 				WHERE f.id_forums_topics = ? 
-				ORDER BY f.id LIMIT 25', array($id_topic));
+				ORDER BY f.id', array($id_topic));
 		return $query->result_array();
 	}
 	

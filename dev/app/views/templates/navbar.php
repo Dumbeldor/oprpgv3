@@ -14,7 +14,7 @@
           <li class="divider"></li>
           <li class="active "><a href="/">Accueil</a></li>
           <li class="divider"></li>
-          <li><a href="#">Forum</a></li>
+          <li><a href="<?php echo base_url('/forum') ?>">Forum</a></li>
           <li class="divider"></li>
           <li><a href="<?php echo base_url('/tchat') ?>">T'chat</a></li>
           <li class="divider"></li>
