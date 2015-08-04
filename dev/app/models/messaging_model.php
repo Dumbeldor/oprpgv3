@@ -117,7 +117,7 @@ class Messaging_model extends CI_Model
 	public function getFollow($id)
 	{
 		$query = $this->db->query("SELECT privates_messages.content, users.pseudo 
-			FROM privates_messages JOIN users ON id_users_1 = users.id 
+			FROM privates_messages JOIN users ON id_users = users.id 
 			WHERE privates_messages.id = ? ", array($id));
 		return $query->result_array();
 	}

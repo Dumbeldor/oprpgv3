@@ -66,7 +66,7 @@ class Messaging extends MY_Controller {
 		$this->load->library('form_validation');
 		$data['title'] = "Ecrire un message privé";
 		$data['receptor'] = $receptor;
-		if($receptor > 0)
+		if(!empty($receptor) && $receptor > 0)
 		{
 			$follow = $this->messaging_model->getFollow($receptor);
 			$data['receptor'] = $follow[0]['pseudo'];
