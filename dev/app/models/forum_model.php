@@ -30,8 +30,7 @@ class Forum_model extends CI_Model {
 				) 				
 				');
 
-		$query->result_array();
-		return $test;
+		return $query->result_array();
 	}
 	
 	/* Return each topics from a specific categories */
