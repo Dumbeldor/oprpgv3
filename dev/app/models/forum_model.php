@@ -30,21 +30,8 @@ class Forum_model extends CI_Model {
 				) 				
 				');
 
-		$test = $query->result_array();
-		var_dump($test);
+		$query->result_array();
 		return $test;
-	}
-	
-	public function get_lastMess($id_cate) {
-		/*$query = $this->db->query('SELECT ftm.date_time AS date FROM forums_topics_messages ftm
-				JOIN forums_topics ft ON ftm.id_forums_topics = ft.id
-				JOIN forums_categories fc ON ft.id_forums_categories = fc.id
-				JOIN users ON ftm.id_users = users.id
-				', array($id_cate));
-		
-		$t = $query->result_array();
-		//var_dump($t);
-		return $t;*/
 	}
 	
 	/* Return each topics from a specific categories */

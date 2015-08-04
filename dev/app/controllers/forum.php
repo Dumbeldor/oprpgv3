@@ -39,7 +39,6 @@ class Forum extends MY_Controller {
 		// Set title and loading forum's type
 		$data['title'] = 'Forum';
 	    $data['categorie'] = $this->forum_model->get_categories();
-		$data['test'] = $this->forum_model->get_lastMess(2);
 	    // Construct this page
 	    $this->construct_page('forum/index', $data);
 	}
