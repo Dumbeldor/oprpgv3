@@ -44,8 +44,8 @@ class Forum extends MY_Controller {
 	}
 	
 	/**
-	 * Display each categorie of a chosen forum 
-	 * @param $id_type forum's type id
+	 * Display each topic of a chosen categorie 
+	 * @param $id_cate categorie's id
 	 * ----------------------------------------------------------------------- */
 	public function categories($id_categorie) {
 
@@ -59,8 +59,8 @@ class Forum extends MY_Controller {
 	}
 	
 	/**
-	 * Display each topic of a chosen categorie 
-	 * @param $id_cate categorie's id
+	 * Displays the topic posts
+	 * @param $id_topic topic's id
 	 * ----------------------------------------------------------------------- */
 	public function topics($id_topic) {
 
