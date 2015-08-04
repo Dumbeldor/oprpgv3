@@ -49,7 +49,9 @@ class Forum extends MY_Controller {
 	 * @param $id_cate categorie's id
 	 * ----------------------------------------------------------------------- */
 	public function categories($id_categorie) {
-
+		
+		if($id_categorie == 1 && !($this->user->isModo() || $this->user->isAdmin()))
+			redirect('forum/');
 		// Set title and loading categories
 		$this->load->helper('form');
 		$data['title'] = 'Forum';
@@ -74,6 +76,8 @@ class Forum extends MY_Controller {
 		$data['topics'] = $this->forum_model->get_topics($id_topic);
 		$data['id_topic'] = $id_topic;
 		$data['id_categorie'] = $this->forum_model->get_id_categorie($id_topic)[0]['id_forums_categories'];
+		if($data['id_categorie'] == 1 && !($this->user->isModo() || $this->user->isAdmin()))
+			redirect('forum/');
 		// Get all topic's messages
 		$data['messages'] = $this->forum_model->get_messages($id_topic);
 
@@ -105,6 +109,8 @@ class Forum extends MY_Controller {
 		$this->load->helper('form');
 		$data['title'] = 'Forum';
 		$data['id_categorie'] = $this->input->post('id_categorie');
+		if($data['id_categorie'] == 1 && !($this->user->isModo() || $this->user->isAdmin()))
+			redirect('forum/');
 		
 		// Construct this page
 		$this->construct_page('forum/create_topic', $data);
@@ -121,6 +127,8 @@ class Forum extends MY_Controller {
 		
 		// Set informations into variables - Format them
 		$id_categorie = $this->input->post('id_categorie');
+		if($id_categorie== 1 && !($this->user->isModo() || $this->user->isAdmin()))
+			redirect('forum/');
 		$topic_name = $this->input->post('topic_name');
 		$message = $this->input->post('message');
 		$id_user = $this->user->getId();

@@ -1,4 +1,4 @@
-<?php if($connecte): 
+<br /> <br /><?php if($connecte): 
 	echo form_open('forum/send_message');
 ?>
 		<textarea id="forum_message" name="message"></textarea>

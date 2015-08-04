@@ -5,7 +5,7 @@ foreach($topic as $topics):
 
 ?>
 	<a href="<?php echo base_url('forum/t/'.$topics['id']); ?>"> <?php echo $topics['name'];?></a><br>
-	<i>Dernier message de <?php echo $topics['pseudo'];?> le <?php echo date('d/m/Y à H\hi', $topics['date']);?></i><br />
+	<i>Dernier message de <a href="<?php echo base_url('users/view/'.$topics['userId']);?>"><?php echo $topics['pseudo'];?></a> le <?php echo date('d/m/Y à H\hi', $topics['date']);?></i><br />
 	-----------------------------------------------------------------------------------------------------<br />
 <?php endforeach;
 else: ?>

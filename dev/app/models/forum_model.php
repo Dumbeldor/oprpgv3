@@ -19,7 +19,7 @@ class Forum_model extends CI_Model {
 				fc.id AS id, fc.name AS name,
 				fc.descr AS descr, fc.types, ft.name AS topicName,
 				ft.id AS topicId,
-				users.pseudo AS pseudo FROM forums_categories fc
+				users.pseudo AS pseudo, users.id AS userId FROM forums_categories fc
 				LEFT JOIN forums_topics ft ON ft.id_forums_categories = fc.id
 				LEFT JOIN forums_topics_messages ftm ON ftm.id_forums_topics = ft.id
 				LEFT JOIN users ON ftm.id_users = users.id
@@ -39,7 +39,8 @@ class Forum_model extends CI_Model {
 	/* $id_cate is the chosen cate's id */
 	public function get_topics($id_cate) {
 		$query = $this->db->query('SELECT ftm.date_time AS date, u.pseudo AS pseudo, ft.name AS name,
-				ft.id AS id FROM forums_topics_messages ftm
+				u.id AS userId,	ft.id AS id 
+				FROM forums_topics_messages ftm
 				JOIN users u ON u.id = ftm.id_users
 				JOIN forums_topics ft ON ft.id = ftm.id_forums_topics
 				WHERE id_forums_categories = ? AND
@@ -57,8 +58,10 @@ class Forum_model extends CI_Model {
 	/* Return each messages from a specific topic */
 	/* $id_topic is the chosen topic's id */
 	public function get_messages($id_topic) {
-		$query = $this->db->query('SELECT u.pseudo AS pseudo, users_types.name AS ranks, f.message AS message, f.id_forums_topics AS idTopics, f.date_time AS date,
-				 f.id AS id FROM forums_topics_messages f 
+		$query = $this->db->query('SELECT u.pseudo AS pseudo, u.id AS userId,
+				users_types.name AS ranks, f.message AS message, 
+				f.id_forums_topics AS idTopics, f.date_time AS date,
+				f.id AS id FROM forums_topics_messages f 
 				JOIN users u ON f.id_users = u.id
 				JOIN users_types ON u.id_users_types = users_types.id
 				WHERE f.id_forums_topics = ? 
