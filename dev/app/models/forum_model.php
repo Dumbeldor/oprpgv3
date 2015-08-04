@@ -19,16 +19,17 @@ class Forum_model extends CI_Model {
 				fc.id AS id, fc.name AS name,
 				fc.descr AS descr, fc.types, ft.name AS topicName,
 				ft.id AS topicId,
-				users.pseudo AS pseudo FROM forums_topics_messages ftm
-				JOIN forums_topics ft ON ftm.id_forums_topics = ft.id
-				JOIN forums_categories fc ON ft.id_forums_categories = fc.id
-				JOIN users ON ftm.id_users = users.id
+				users.pseudo AS pseudo FROM forums_categories fc
+				LEFT JOIN forums_topics ft ON ft.id_forums_categories = fc.id
+				LEFT JOIN forums_topics_messages ftm ON ftm.id_forums_topics = ft.id
+				LEFT JOIN users ON ftm.id_users = users.id
 				WHERE ftm.date_time = 
 				(
 					SELECT MAX(ftm2.date_time) FROM forums_topics_messages ftm2
 					JOIN forums_topics ft2 ON ftm2.id_forums_topics = ft2.id
 					WHERE ft2.id_forums_categories = fc.id GROUP BY fc.id
-				) 				
+				) 
+				OR ftm.date_time is NULL				
 				ORDER BY fc.id');
 
 		return $query->result_array();
