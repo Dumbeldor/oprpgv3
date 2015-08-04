@@ -1,6 +1,16 @@
 <a href="<?php echo base_url('forum/');?>">Retour</a><br /> <br />
 <?php 
-if(!empty($topic)):
+echo $pagination;?>
+<br /> <br />
+<a href="<?php echo base_url('forum');?>"><i>Les forums</i></a>-><a href="<?php echo base_url('forum/c/'.$aria['id']); ?>"><i><strong><?php echo $aria['name'];?></strong></i></a>
+<br /><br />
+<?php echo form_open('forum/create_topic'); ?>
+		<input type="hidden" name="id_categorie" value="<?php echo $id_categorie; ?>">
+		<input type="submit" value="Nouveau Topic">
+	</form>
+	<br />
+<br />
+<?php if(!empty($topic)):
 foreach($topic as $topics):
 
 ?>

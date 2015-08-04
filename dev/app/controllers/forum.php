@@ -48,14 +48,44 @@ class Forum extends MY_Controller {
 	 * Display each topic of a chosen categorie 
 	 * @param $id_cate categorie's id
 	 * ----------------------------------------------------------------------- */
-	public function categories($id_categorie) {
+	public function categories($id_categorie, $page = 0) {
 		
 		if($id_categorie == 1 && !($this->user->isModo() || $this->user->isAdmin()))
 			redirect('forum/');
-		// Set title and loading categories
+		
 		$this->load->helper('form');
+		$this->load->library('pagination');
+		
+		//pagination
+		$nbMess = $this->forum_model->countCategories($id_categorie);
+		$config['base_url'] = base_url('/forum/c/'.$id_categorie.'/');
+		$config['total_rows'] = $nbMess;
+		$config['uri_segment'] = 4;
+		$config['per_page'] = 15;
+		$config['last_link'] = 'Dernière';
+		$config['first_link'] = 'Première';
+		
+		$this->pagination->initialize($config);
+		
+		if($page > 0)
+		{
+			if($page <= $nbMess)
+				$page = intval($page);
+			else
+				$page = 0;
+		}
+		else
+			$page = 0;
+		
+		
+		$data['pagination'] = $this->pagination->create_links();
+		
+		
+		
+		// Set title and loading categories
 		$data['title'] = 'Forum';
-	    $data['topic'] = $this->forum_model->get_topics($id_categorie);
+	    $data['topic'] = $this->forum_model->get_topics($id_categorie, 15, $page);
+	    $data['aria'] = $this->forum_model->get_aria_categorie($id_categorie)[0];
 	    $data['id_categorie'] = $id_categorie;
 	    // Construct this page
 	    $this->construct_page('forum/categories', $data);
@@ -65,21 +95,48 @@ class Forum extends MY_Controller {
 	 * Displays the topic posts
 	 * @param $id_topic topic's id
 	 * ----------------------------------------------------------------------- */
-	public function topics($id_topic) {
-
+	public function topics($id_topic, $page=0) {
+		
 		// Loading helper form and set title
 		$this->load->helper('form');
-		$data['title'] = 'Forum';
+		$this->load->helper('url');
+		$this->load->library('pagination');
+		$data['title'] = 'Forum';		
+		
+		//pagination
+		$nbMess = $this->forum_model->countMess($id_topic);
+		$config['base_url'] = base_url('/forum/t/'.$id_topic.'/');
+		$config['total_rows'] = $nbMess;
+		$config['uri_segment'] = 4;
+		$config['per_page'] = 30;
+		$config['last_link'] = 'Dernière';
+		$config['first_link'] = 'Première';
+		
+		$this->pagination->initialize($config);
+		
+		if($page > 0)
+		{
+			if($page <= $nbMess)
+				$page = intval($page);
+			else
+				$page = 0;
+		}
+		else
+			$page = 0;
+		
+		
+		$data['pagination'] = $this->pagination->create_links();
+		
 
 		// Loading of each topic (and all the information about the topic, 
 		// these information will be stored in this array)
-		$data['topics'] = $this->forum_model->get_topics($id_topic);
+		$data['aria'] = $this->forum_model->get_aria_topic($id_topic)[0];
 		$data['id_topic'] = $id_topic;
 		$data['id_categorie'] = $this->forum_model->get_id_categorie($id_topic)[0]['id_forums_categories'];
 		if($data['id_categorie'] == 1 && !($this->user->isModo() || $this->user->isAdmin()))
 			redirect('forum/');
 		// Get all topic's messages
-		$data['messages'] = $this->forum_model->get_messages($id_topic);
+		$data['messages'] = $this->forum_model->get_messages($id_topic, 30, $page);
 
 		// Construct this page
 		$this->construct_page('forum/topics', $data);

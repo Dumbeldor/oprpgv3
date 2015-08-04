@@ -37,7 +37,7 @@ class Forum_model extends CI_Model {
 	
 	/* Return each topics from a specific categories */
 	/* $id_cate is the chosen cate's id */
-	public function get_topics($id_cate) {
+	public function get_topics($id_cate, $nb=15, $begin=0) {
 		$query = $this->db->query('SELECT ftm.date_time AS date, u.pseudo AS pseudo, ft.name AS name,
 				u.id AS userId,	ft.id AS id 
 				FROM forums_topics_messages ftm
@@ -51,22 +51,58 @@ class Forum_model extends CI_Model {
 					WHERE ft2.id = ft.id
 				)
 				ORDER BY ftm.date_time DESC
+				LIMIT '.$begin.', '.$nb.'
   				', array($id_cate));
 		return $query->result_array();
 	}
 	
 	/* Return each messages from a specific topic */
 	/* $id_topic is the chosen topic's id */
-	public function get_messages($id_topic) {
+	public function get_messages($id_topic, $nb=15, $begin=0) {		
 		$query = $this->db->query('SELECT u.pseudo AS pseudo, u.id AS userId,
 				users_types.name AS ranks, f.message AS message, 
-				f.id_forums_topics AS idTopics, f.date_time AS date,
-				f.id AS id FROM forums_topics_messages f 
+				f.date_time AS date,
+				f.id AS id
+				FROM forums_topics_messages f 
 				JOIN users u ON f.id_users = u.id
 				JOIN users_types ON u.id_users_types = users_types.id
 				WHERE f.id_forums_topics = ? 
-				ORDER BY f.id', array($id_topic));
+				ORDER BY f.id
+				LIMIT '.$begin.', '.$nb.'', array($id_topic));
 		return $query->result_array();
+	}
+	
+	
+	/* Return fil aria */
+	/* $id_topic is the chosen topic's id */
+	public function get_aria_categorie($id_categories) {
+		$query = $this->db->query('SELECT id, name
+				FROM forums_categories
+				WHERE id= ?',
+				array($id_categories));
+		return $query->result_array();
+	}
+	
+	
+	/* Return fil aria */
+	/* $id_topic is the chosen topic's id */
+	public function get_aria_topic($id_topic) {
+		$query = $this->db->query('SELECT ft.id AS topicId, ft.name AS topicName, fc.id AS categorieId, fc.name AS categorieName
+				FROM forums_topics ft 
+				JOIN forums_categories fc ON ft.id_forums_categories = fc.id
+				WHERE ft.id= ?',
+				array($id_topic));
+		return $query->result_array();
+	}
+	
+	public function countMess($id_topic) {
+		return (int) $this->db->where('id_forums_topics', $id_topic)
+		->count_all_results('forums_topics_messages');
+	}
+	
+	public function countCategories($id_categorie) {
+		return (int) $this->db->where('id_forums_categories', $id_categorie)
+		->count_all_results('forums_topics');
 	}
 	
 	/* Send a message */

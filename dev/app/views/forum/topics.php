@@ -1,5 +1,20 @@
 <a href="<?php echo base_url('forum/c/'.$id_categorie);?>">Retour</a><br /> <br />
-<?php 
+<?php echo $pagination; ?>
+<br /> <br />
+	<a href="<?php echo base_url('forum');?>"><i>Les forums</i></a>-><a href="<?php echo base_url('forum/c/'.$aria['categorieId']); ?>"><i><?php echo $aria['categorieName'];?></i></a>-><a href="<?php echo base_url('forum/t/'.$aria['topicId']); ?>"><strong><?php echo $aria['topicName'];?></strong></a><br /><br />
+<?php echo form_open('forum/answer');
+?>
+		<input type="hidden" name="id_topic" value="<?php echo $id_topic; ?>">
+		<input type="submit" value="Répondre">
+	</form><br />
+<?php echo form_open('forum/create_topic'); ?>
+		<input type="hidden" name="id_categorie" value="<?php echo $id_categorie; ?>">
+		<input type="submit" value="Nouveau Topic dans cette catégorie">
+	</form>
+	<br />
+	<br />
+	
+	<?php 
 foreach($messages as $message):
 ?>
 	<p>
@@ -14,9 +29,11 @@ foreach($messages as $message):
 ?>
 		<input type="hidden" name="id_topic" value="<?php echo $id_topic; ?>">
 		<input type="submit" value="Répondre">
-	</form>
+	</form><br />
 <?php echo form_open('forum/create_topic'); ?>
 		<input type="hidden" name="id_categorie" value="<?php echo $id_categorie; ?>">
-		<input type="submit" value="Nouveau Topic">
+		<input type="submit" value="Nouveau Topic dans cette catégorie">
 	</form>
 <?php endif; ?>
+<br /><br />
+<?php echo $pagination; ?>

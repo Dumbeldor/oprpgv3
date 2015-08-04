@@ -35,7 +35,7 @@ class news extends MY_Controller
     
     	$config['base_url'] = base_url('/news/page/');
     	$config['total_rows'] = $data['nbnews'];
-    	$config['per_page'] = 1;
+    	$config['per_page'] = 2;
     	$config['last_link'] = 'Dernière';
     	$config['first_link'] = 'Première';
     
@@ -53,10 +53,10 @@ class news extends MY_Controller
     
     
     	$data['pagination'] = $this->pagination->create_links();
-    	$data['news'] = $this->news_model->lists(1, $news_get);
+    	$data['news'] = $this->news_model->lists(2, $news_get);
     	$data['nbComments'] = $this->news_model->countComments($data['news'][0]->id);
     
-    	$data['$audata'] = $this->session->all_userdata();
+    	$data['audata'] = $this->session->all_userdata();
     	$this->construct_page('pages/home', $data);
     }
 
