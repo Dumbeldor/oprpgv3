@@ -15,25 +15,38 @@ class Forum_model extends CI_Model {
 	/* Return each categories from a specific forum */
 	/* $id_type is the chosen forum's id */
 	public function get_categories() {
-		$query = $this->db->query('SELECT fc.id AS id, fc.name AS name,
+		$query = $this->db->query('SELECT ftm.date_time AS date, ftm.id AS messId,
+				fc.id AS id, fc.name AS name,
 				fc.descr AS descr, fc.types, ft.name AS topicName,
-				ft.id AS topicId, ftm.id AS messId, MAX(ftm.date_time) AS date,
-				users.pseudo AS pseudo FROM forums_categories fc
-				JOIN forums_topics ft ON ft.id_forums_categories = fc.id
-				JOIN forums_topics_messages ftm ON ftm.id_forums_topics = ft.id
+				ft.id AS topicId,
+				users.pseudo AS pseudo FROM forums_topics_messages ftm
+				JOIN forums_topics ft ON ftm.id_forums_topics = ft.id
+				JOIN forums_categories fc ON ft.id_forums_categories = fc.id
 				JOIN users ON ftm.id_users = users.id
-				GROUP BY fc.id
+				WHERE ftm.date_time = (
+				SELECT MAX(ftm2.date_time) FROM forums_topics_messages ftm2
+				JOIN forums_topics ft2 ON ftm2.id_forums_topics = ft2.id
+				WHERE ft2.id_forums_categories = fc.id GROUP BY fc.id
+				) 				
 				');
-		return $query->result_array();
+
+		$test = $query->result_array();
+		var_dump($test);
+		return $test;
 	}
 	
-/*	public function get_lastMess() {
-		$query = $this->db->query('SELECT ft.name AS topicName,
-				ft.id AS topicId, ftm.id AS messId, MAX(ftm.date_time) AS date,
-				users.pseudo AS pseudo
-				FROM  ')
+	public function get_lastMess($id_cate) {
+		/*$query = $this->db->query('SELECT ftm.date_time AS date FROM forums_topics_messages ftm
+				JOIN forums_topics ft ON ftm.id_forums_topics = ft.id
+				JOIN forums_categories fc ON ft.id_forums_categories = fc.id
+				JOIN users ON ftm.id_users = users.id
+				', array($id_cate));
+		
+		$t = $query->result_array();
+		//var_dump($t);
+		return $t;*/
 	}
-	*/
+	
 	/* Return each topics from a specific categories */
 	/* $id_cate is the chosen cate's id */
 	public function get_topics($id_cate) {
