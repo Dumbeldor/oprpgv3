@@ -12,7 +12,8 @@ echo $pagination;?>
 <br />
 <?php if(!empty($topic)):
 foreach($topic as $topics):
-
+	if($topics['type'] == 'post-it')
+		echo "<strong>POST-IT</strong>";
 ?>
 	<a href="<?php echo base_url('forum/t/'.$topics['id']); ?>"> <?php echo $topics['name'];?></a><br>
 	<i>Dernier message de <a href="<?php echo base_url('users/view/'.$topics['userId']);?>"><?php echo $topics['pseudo'];?></a> le <?php echo date('d/m/Y à H\hi', $topics['date']);?></i><br />

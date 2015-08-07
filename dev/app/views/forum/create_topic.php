@@ -7,6 +7,11 @@
 		<textarea id="forum_message" name="message" ></textarea><br>
 		<input type="hidden" name="id_categorie" value="<?php echo $id_categorie; ?>">
 		<input type="submit" value="Envoyer">
+	   <?php if($admin || $modo) { ?>
+		<label for="topic_type" class="col-sm-2 control-label">Post-it</label>
+       			<input type="checkbox" name="post-it" id="post-it" /> <label for="post-it">post-it</label><br />
+	<?php } ?>
+   
 	</form>
 <?php
 endif;

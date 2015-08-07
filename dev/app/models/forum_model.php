@@ -39,10 +39,11 @@ class Forum_model extends CI_Model {
 	/* $id_cate is the chosen cate's id */
 	public function get_topics($id_cate, $nb=15, $begin=0) {
 		$query = $this->db->query('SELECT ftm.date_time AS date, u.pseudo AS pseudo, ft.name AS name,
-				u.id AS userId,	ft.id AS id 
+				u.id AS userId,	ft.id AS id, ftt.name AS type 
 				FROM forums_topics_messages ftm
 				JOIN users u ON u.id = ftm.id_users
 				JOIN forums_topics ft ON ft.id = ftm.id_forums_topics
+				JOIN forums_topics_types ftt ON ft.id_forums_topics_types = ftt.id
 				WHERE id_forums_categories = ? AND
 				ftm.date_time = 
 				(
@@ -50,7 +51,7 @@ class Forum_model extends CI_Model {
 					JOIN forums_topics ft2 ON ftm2.id_forums_topics = ft2.id
 					WHERE ft2.id = ft.id
 				)
-				ORDER BY ftm.date_time DESC
+				ORDER BY ftt.id DESC, ftm.date_time DESC
 				LIMIT '.$begin.', '.$nb.'
   				', array($id_cate));
 		return $query->result_array();
@@ -141,8 +142,8 @@ class Forum_model extends CI_Model {
 		$id_categorie is the categorie's id of the categorie where the topic will be send
 		$topic_name is the name of the topic
 	*/
-	public function send_topic($id_categorie,$topic_name) {
-		$this->db->insert('forums_topics', array('name'=>$topic_name,'id_forums_categories'=>$id_categorie, 'id_forums_topics_types' => 1));
+	public function send_topic($id_categorie,$topic_name, $type=1) {
+		$this->db->insert('forums_topics', array('name'=>$topic_name,'id_forums_categories'=>$id_categorie, 'id_forums_topics_types' => $type));
 		return $this->db->insert_id(); 
 	}
 }

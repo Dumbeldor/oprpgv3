@@ -184,6 +184,12 @@ class Forum extends MY_Controller {
 		
 		// Set informations into variables - Format them
 		$id_categorie = $this->input->post('id_categorie');
+		$postit = $this->input->post('post-it');
+		//If postit is true
+		if($postit == true)
+			$etat = 4;
+		else
+			$etat = 1;
 		if($id_categorie== 1 && !($this->user->isModo() || $this->user->isAdmin()))
 			redirect('forum/');
 		$topic_name = $this->input->post('topic_name');
@@ -192,7 +198,7 @@ class Forum extends MY_Controller {
 		$date_message = time();
 		
 		// Topic's id is get in a way to redirect the user to this topic
-		$id_topic = $this->forum_model->send_topic($id_categorie,$topic_name);
+		$id_topic = $this->forum_model->send_topic($id_categorie,$topic_name, $etat);
 		
 		// Call send_message function to complete the process
 		$this->send_message($message,$date_message,$id_topic,$id_user);
