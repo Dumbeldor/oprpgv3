@@ -27,8 +27,10 @@ class Forum_model extends CI_Model {
 				(
 					SELECT MAX(ftm2.date_time) FROM forums_topics_messages ftm2
 					JOIN forums_topics ft2 ON ftm2.id_forums_topics = ft2.id
-					WHERE ft2.id_forums_categories = fc.id GROUP BY fc.id
-				) 
+					WHERE ft2.id_forums_categories = fc.id AND ftm2.is_block = 0 AND ft2.is_block = 0
+					GROUP BY fc.id
+				)
+				AND ftm.is_block = 0 AND ft.is_block = 0
 				OR ftm.date_time is NULL				
 				ORDER BY fc.id');
 
@@ -49,8 +51,9 @@ class Forum_model extends CI_Model {
 				(
 					SELECT MAX(ftm2.date_time) FROM forums_topics_messages ftm2
 					JOIN forums_topics ft2 ON ftm2.id_forums_topics = ft2.id
-					WHERE ft2.id = ft.id
+					WHERE ft2.id = ft.id AND ftm2.is_block = 0 AND ft2.is_block = 0
 				)
+				AND ftm.is_block = 0 AND ft.is_block = 0
 				ORDER BY ftt.id DESC, ftm.date_time DESC
 				LIMIT '.$begin.', '.$nb.'
   				', array($id_cate));
@@ -68,7 +71,7 @@ class Forum_model extends CI_Model {
 				FROM forums_topics_messages f 
 				JOIN users u ON f.id_users = u.id
 				JOIN users_types ON u.id_users_types = users_types.id
-				WHERE f.id_forums_topics = ? 
+				WHERE f.id_forums_topics = ? AND f.is_block = 0
 				ORDER BY f.id
 				LIMIT '.$begin.', '.$nb.'', array($id_topic));
 		return $query->result_array();
@@ -124,7 +127,7 @@ class Forum_model extends CI_Model {
 	/* Return the id of a topic, in a way to load this topic when the user send a message */
 	/* $id_message is the message's id wich will be used in order to return topic's id */
 	public function get_id_topic($id_message) {
-		$query = $this->db->query("SELECT topic_id FROM forums_topics_messages WHERE message_id = ?", array($id_message));
+		$query = $this->db->query("SELECT id_forums_topics FROM forums_topics_messages WHERE id = ?", array($id_message));
 		return $query->result_array();
 	}
 	
@@ -138,7 +141,14 @@ class Forum_model extends CI_Model {
 	/* Delete a message (does'nt really delete it, just stops displaying it, in order to keep it in the database) */
 	/* $id_message is the message's id of the message that will be deleted */
 	public function delete_message($id_message) {
-		$this->db->query('UPDATE forums_topics_messages SET message_block=true WHERE message_id=?', array($id_message));
+		if($this->user->isAdmin() || $this->user->isModo()){
+			$this->db->query('UPDATE forums_topics_messages ftm
+							JOIN users u ON ftm.id_users = u.id SET ftm.is_block=1, u.messNumber=messNumber-1 WHERE ftm.id=?', array($id_message));
+		}
+		else{
+			$this->db->query('UPDATE forums_topics_messages ftm
+							 JOIN users u ON ftm.id_users = u.id SET ftm.is_block=1, u.messNumber=messNumber-1 WHERE ftm.id=? AND ftm.id_users=?', array($id_message, $this->user->getId()));
+		}
 	}
 	
 	/* Creation of a new topic */
@@ -150,4 +160,17 @@ class Forum_model extends CI_Model {
 		$this->db->insert('forums_topics', array('name'=>$topic_name,'id_forums_categories'=>$id_categorie, 'id_forums_topics_types' => $type));
 		return $this->db->insert_id(); 
 	}
+	
+	/*
+	 *Return true or false for topic open or close
+	 */
+	public function is_close($id) {
+		$query = $this->db->query('SELECT is_block
+				FROM forums_topics
+				WHERE id= ?',
+				array($id));
+		return $query->result_array();
+	}
+	
+	
 }

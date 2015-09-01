@@ -101,7 +101,11 @@ class Forum extends MY_Controller {
 		$this->load->helper('form');
 		$this->load->helper('url');
 		$this->load->library('pagination');
-		$data['title'] = 'Forum';		
+		$data['title'] = 'Forum';
+		
+		//If topic close
+		if($this->forum_model->is_close($id_topic)[0]['is_block'])
+			redirect('/forum/');
 		
 		//pagination
 		$nbMess = $this->forum_model->countMess($id_topic);
@@ -220,7 +224,10 @@ class Forum extends MY_Controller {
 			$date_message = time();
 			$id_user = $this->user->getId();
 		}
-		
+		//If topic close
+		if($this->forum_model->is_close($id_topic)[0]['is_block'])
+			redirect('/forum/');
+			
 		// Redirect to forum's model for action function
 		$this->forum_model->send_message($id_topic,$message,$date_message,$id_user);
 		
@@ -240,8 +247,8 @@ class Forum extends MY_Controller {
 		// Redirect to forum's model for action function
 		$this->forum_model->delete_message($id_message);
 		
-		// Loading messages' page
-		$this->messages($id_topic[0]['topic_id']);
+		// redirect
+		redirect('/forum/t/'.$id_topic[0]['id_forums_topics']);
 	}
 	
 }

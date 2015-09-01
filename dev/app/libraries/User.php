@@ -56,7 +56,11 @@ class User
 	
 	public function isBan()
 	{
-		return $this->CI->session->userdata('ban') ? true : false;
+		return $this->CI->session->userdata('ban');
+	}
+	public function isKick()
+	{
+		return $this->CI->session->userdata('is_kick');
 	}
 
 	public function isAuthenticated()

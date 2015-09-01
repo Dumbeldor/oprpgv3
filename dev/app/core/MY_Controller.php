@@ -19,14 +19,18 @@
         $data['connecte'] = TRUE;
         $data['amountMP'] = $this->users_model->amountMP($this->user->getId());
         
-        if($this->user->isModo())
-          $data['moderator'] = TRUE;
-        else
-          $data['moderator'] = FALSE;
-        if($this->user->isAdmin())
+		if($this->user->isBan() || $this->user->isKick())
+		  $this->user->logout();
+		else if($this->user->isAdmin()) {
           $data['admin'] = TRUE;
-        else
+		  $data['moderator'] = TRUE;
+		}
+        else if($this->user->isModo())
+          $data['moderator'] = TRUE;
+		else {
+          $data['moderator'] = FALSE;
           $data['admin'] = FALSE;
+		}
       }else{
       	$data['connecte'] = FALSE;
       }
