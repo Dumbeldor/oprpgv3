@@ -61,6 +61,7 @@ class Forum_model extends CI_Model {
 	/* $id_topic is the chosen topic's id */
 	public function get_messages($id_topic, $nb=15, $begin=0) {		
 		$query = $this->db->query('SELECT u.pseudo AS pseudo, u.id AS userId,
+				u.messNumber AS messNumber,
 				users_types.name AS ranks, f.message AS message, 
 				f.date_time AS date,
 				f.id AS id
@@ -115,6 +116,9 @@ class Forum_model extends CI_Model {
 	*/
 	public function send_message($id_topic,$message,$date_message,$user_id) {
 		$this->db->insert('forums_topics_messages', array('message'=>$message,'date_time'=>$date_message,'id_forums_topics'=>$id_topic,'id_users'=>$user_id));
+		$this->db->where('id', $user_id);
+		$this->db->set('messNumber', 'messNumber+1', FALSE);
+		$this->db->update('users');
 	}
 	
 	/* Return the id of a topic, in a way to load this topic when the user send a message */

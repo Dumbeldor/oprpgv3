@@ -21,7 +21,7 @@ class Users_model extends CI_Model {
         return $query->result_array();
     }
         //Selection of all useful information to display on the member's profile
-    $query = $this->db->query("SELECT users.pseudo, users_types.name AS rank, levels.number AS lvl,
+    $query = $this->db->query("SELECT users.pseudo, users.messNumber, users_types.name AS rank, levels.number AS lvl,
     							crews.name AS crewName, crews_grades.name AS crewGrade
                                 FROM users
                                 JOIN levels ON levels.id = users.id_levels 

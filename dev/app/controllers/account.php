@@ -62,6 +62,7 @@ class Account extends MY_Controller {
     $this->form_validation->set_rules('password', 'Nouveau mot de passe', 'trim|required|matches[password2]');
     $this->form_validation->set_rules('password2', 'Confirmer nouveau mot de passe', 'trim|required');
     $this->form_validation->set_rules('passwordConfirm', 'password', 'required|min_length[6]');
+    $this->
     
     if ($this->form_validation->run() === FALSE) {
       $this->construct_page('account/setPassword', $data);

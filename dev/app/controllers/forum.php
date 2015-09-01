@@ -186,7 +186,7 @@ class Forum extends MY_Controller {
 		$id_categorie = $this->input->post('id_categorie');
 		$postit = $this->input->post('post-it');
 		//If postit is true
-		if($postit == true)
+		if($postit)
 			$etat = 4;
 		else
 			$etat = 1;
