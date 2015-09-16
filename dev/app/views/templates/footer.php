@@ -1,45 +1,45 @@
 				</div>
 			</div>
 		<!-- Fin du contenu -->
-        <footer class="row">
-            <div class="large-12 columns">
-                <h3 class="text-center">Footer</h3>
-                <p>
-                    <?php
-                    if(isset($audata))
-                    { ?>
-                        Debug:<br/>
-                        <?php
-                        foreach($audata as $key => $value)
-                        { 
-                            if(!is_array($value))
-							{
-								echo '['.$key.'] :: ['.$value.']</br>';
-							}else{
-								echo 'Array('.$key.')</br>{</br>';
-								foreach($value as $key2 => $value2)
-								{
-									echo '-- ['.$key2.'] :: ['.$value2.']<br/>';
-								}
-								echo '}</br>';
-							}
-                        }
-                        
-                    }else{ ?>
-                        aucun debug configuré dans le controller.
-                    <?php } ?>
-                    
-                </p>
-                
-            </div>
-        </footer>
+	<footer class="row">
+	    <div class="large-12 columns">
+		<h3 class="text-center">Footer</h3>
+		<p>
+<?php
+if(isset($audata))
+{ ?>
+			Debug:<br/>
+<?php
+foreach($audata as $key => $value)
+{ 
+	if(!is_array($value))
+	{
+		echo '['.$key.'] :: ['.$value.']</br>';
+	}else{
+		echo 'Array('.$key.')</br>{</br>';
+		foreach($value as $key2 => $value2)
+		{
+			echo '-- ['.$key2.'] :: ['.$value2.']<br/>';
+		}
+		echo '}</br>';
+	}
+}
+
+}else{ ?>
+			aucun debug configuré dans le controller.
+		    <?php } ?>
+
+		</p>
+
+	    </div>
+	</footer>
 
 		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="<?php echo base_url('assets/js/foundation/vendor/jquery.js'); ?>"></script>
-        <script src="<?php echo base_url('assets/js/foundation/foundation.min.js'); ?>"></script>
-        <script src="<?php echo base_url('assets/js/foundation/vendor/fastclick.js'); ?>"></script>
-        <script>$(document).foundation();</script>
-        
+		<script src="http://onepiece-rpg.fr/dumbeldor/dev/assets/js/foundation/vendor/jquery.js"></script>
+	<script src="http://onepiece-rpg.fr/dumbeldor/dev/assets/js/foundation/foundation.min.js"></script>
+	<script src="http://onepiece-rpg.fr/dumbeldor/dev/assets/js/foundation/vendor/fastclick.js"></script>
+	<script>$(document).foundation();</script>
+
 
 
 		<?php if(isset($scripts)): ?>  
@@ -47,7 +47,7 @@
 			<script type="text/javascript" src="<?php echo $script; ?>"></script>
 			<?php endforeach; ?>
 		<?php endif; ?>
-	
+
 	</body>
 
 </html>

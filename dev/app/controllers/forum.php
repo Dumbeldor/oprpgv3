@@ -35,7 +35,6 @@ class Forum extends MY_Controller {
 	 * Default Page or Display each type of forum
 	 * ----------------------------------------------------------------------- */
 	public function index() {
-
 		// Set title and loading forum's type
 		$data['title'] = 'Forum';
 	    $data['categorie'] = $this->forum_model->get_categories();

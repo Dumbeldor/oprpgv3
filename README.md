@@ -3,10 +3,7 @@
 ### Description
 Ce dossier contient toutes les sources de la troisième version du site www.onepiece-rpg.fr
 L'équipe de développeur est constituée de : 
-- Omar : Designer
-- Mawloc : Développeur PHP
-- Vince : Développeur PHP, JS
-- Pev : Superviseur, PHP, JS
+- Dumbeldor développeur général
 
 ### Configuration du dossier
 
@@ -42,4 +39,3 @@ Vous trouverez dans le dossiers docs quelques commandes utiles en système UNIX 
 Il y a également une VM de dev' disponible sur notre Drive si vous n'avez pas d'environnement spécialisé.
 
 Contact Pev : pev@gmx.fr
-
