@@ -41,7 +41,10 @@
 /* News */
 $route['news/(:num)'] = 'home/index/$1';
 
-
+/* Crew */
+$route['crews/liste/(:num)'] = 'crews/liste/$1';
+$route['crews/view/(:num)'] = 'crews/view/$1';
+$route['crews/c/(:num)'] = 'crews/candidacy/$1';
 
 /* Forum */
 

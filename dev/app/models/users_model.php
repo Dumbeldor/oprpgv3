@@ -54,7 +54,7 @@ class Users_model extends CI_Model {
      * Returns true if the username exists
      * ----------------------------------------------------------------------- */
   public function exist($pseudo) {
-      $query = $this->db->query("SELECT * FROM users WHERE pseudo = ?", array($pseudo));
+      $query = $this->db->query("SELECT id FROM users WHERE pseudo = ?", array($pseudo));
       return $query->num_rows();
   }
   
@@ -82,10 +82,21 @@ class Users_model extends CI_Model {
   }
   
   public function setup_connexion($pseudo) {
-    $query = $this->db->query("SELECT users.id, ban, pseudo, email, birthday, sexe, is_kick, id_personnages, id_levels, id_objects, id_users_types, users_types.name AS rank FROM users JOIN users_types ON users_types.id = id_users_types WHERE pseudo = ?", array($pseudo));
+    $query = $this->db->query("SELECT users.id, ban, pseudo, email, birthday, sexe, is_kick, id_personnages,
+							  id_levels, id_objects, id_users_types, users_types.name AS rank
+							  FROM users
+							  JOIN users_types ON users_types.id = id_users_types
+							  WHERE pseudo = ?", array($pseudo));
     $user = $query->result_array();
+	$query = $this->db->query("SELECT crews.name AS crewName
+							  FROM crews_users
+							  JOIN users ON crews_users.id_users = users.id
+							  JOIN crews ON crews_users.id = crews.id
+							  WHERE users.id = ?", array($user[0]['id']));
+	$crew = $query->result_array();
 	if(!$user[0]['ban'] && !$user[0]['is_kick']){
 	  $this->user->hydrate($user[0]);
+	  $this->user->hydrate($crew[0]);
 	  //$this->user->hydrate($user[1]);
 	  $this->user->setAuthenticated(true);
 	}

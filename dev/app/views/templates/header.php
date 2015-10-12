@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<?php $url_css = "http://onepiece-rpg.fr/dum/dev/assets/css/";
-$url_js = "http://onepiece-rpg.fr/dum/dev/assets/js/"; ?>
+<?php $url_css = "http://localhost/oprpg/dev/assets/css/";
+$url_js = "http://localhost/oprpg/dev/assets/js/"; ?>
 <html lang="fr">
   <head>
     

@@ -78,6 +78,11 @@ class User
 		return $this->CI->session->userdata('rank') == "Modérateur" ? true : false;
 	}
 	
+	public function inCrew()
+	{
+		return ($this->CI->session->userdata('crew')) ? true : false;
+	}
+	
 	public function getPseudo()
 	{
 		return $this->CI->session->userdata('pseudo');

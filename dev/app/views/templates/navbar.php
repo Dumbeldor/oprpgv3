@@ -24,6 +24,7 @@
             <li><a href="<?php echo base_url('/users/connect') ?>">Connexion</a></li>
             <li class="divider"></li>
           <?php else: ?>
+		  <li><a href="<?php echo base_url('/crews/index') ?>">Équipage</a></li>
             <li><a href="<?php echo base_url('/account') ?>">Mon Compte
             <?php if($amountMP > 0)
             echo '('.$amountMP.')'; ?></a></li>
