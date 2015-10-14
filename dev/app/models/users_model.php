@@ -4,6 +4,27 @@ class Users_model extends CI_Model {
     $this->load->database();
   }
   
+  public function updateSession() {	
+	$query = $this->db->query("SELECT ban, is_kick, id_levels, id_objects, id_users_types, users_types.name AS rank,
+							  crews.name AS crewName, crews.id AS crewId, crews_grades.name as crewRank
+							  FROM users
+							  JOIN users_types ON users_types.id = id_users_types
+							  LEFT JOIN crews_users ON users.id = crews_users.id_users
+							  LEFT JOIN crews ON crews_users.id = crews.id
+							  LEFT JOIN crews_grades ON crews_users.id_crews_grades = crews_grades.id
+							  WHERE users.id = ?", array($this->user->getId()));
+    $user = $query->result_array();
+	
+	if(!$user[0]['ban'] && !$user[0]['is_kick']){
+	  $this->user->hydrate($user[0]);
+	  $this->user->setAuthenticated(true);
+	}
+	else{ //If player is ban or kick
+	  $this->user->logout();
+	}
+  }
+  
+  
   /*public function get_users($id = 0) {
     if($id === 0) {
       $query = $this->db->get('users');
@@ -88,10 +109,11 @@ class Users_model extends CI_Model {
 							  JOIN users_types ON users_types.id = id_users_types
 							  WHERE pseudo = ?", array($pseudo));
     $user = $query->result_array();
-	$query = $this->db->query("SELECT crews.name AS crewName
+	$query = $this->db->query("SELECT crews.name AS crewName, crews.id AS crewId, crews_grades.name as crewRank
 							  FROM crews_users
 							  JOIN users ON crews_users.id_users = users.id
 							  JOIN crews ON crews_users.id = crews.id
+							  JOIN crews_grades ON crews_users.id_crews_grades = crews_grades.id
 							  WHERE users.id = ?", array($user[0]['id']));
 	$crew = $query->result_array();
 	if(!$user[0]['ban'] && !$user[0]['is_kick']){

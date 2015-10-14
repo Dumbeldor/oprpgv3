@@ -93,4 +93,14 @@ class Crews_model extends CI_Model {
 		$this->db->insert('crews_candidacy', $data);
 	}
 	
+	public function listCandidates(){
+		$query = $this->db->query('SELECT cc.id, title, texte,
+								  cc.date_time dateCandi, u.id AS idUser,
+								  u.pseudo
+								  FROM crews_candidacy cc
+								  JOIN users u ON cc.id_users = u.id
+								  WHERE cc.id_crews = ?', array($this->user->getAttribute('crewId')));
+		return $query->result_array();
+	}
+	
 }

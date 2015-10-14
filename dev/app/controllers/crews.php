@@ -22,13 +22,14 @@ class Crews extends MY_Controller {
 			redirect(base_url('/home/accueil'));
 		// Loading models
 		$this->load->model('crews_model');
+		$this->load->library('crew');
 		$this->load->model('users_model');
 	}
     
     public function index() {
 		// Set title and loading forum's type
 		$data['title'] = 'Équipage';
-		if($this->crews_model->inCrew()) {
+		if($this->crew->inCrew()) {
 			$this->construct_page('crews/index', $data);
 		}
 		else {
@@ -39,7 +40,7 @@ class Crews extends MY_Controller {
     }
 	
 	public function create() {
-		if($this->crews_model->inCrew()) {
+		if($this->crew->inCrew()) {
 			redirect(base_url('/crews/index'));
 		}
 		$data['title'] = 'Création de votre équipage';
@@ -103,7 +104,7 @@ class Crews extends MY_Controller {
 	}
 	
 	public function candidacy($id=0) {
-		if($id == 0 || $this->crews_model->inCrew())
+		if($id == 0 || $this->crew->inCrew())
 			redirect(base_url('/crews/index'));
 		
 		$data['title'] = 'Candidature équipage';
@@ -124,11 +125,14 @@ class Crews extends MY_Controller {
     
     //the list of candidates to enter the crew
     public function candidates() {
+		if(!$this->crew->inCrew() || !($this->crew->isAdmin() || $this->crew->isModo())) {
+			redirect(base_url('/crews/index'));
+		}
         // Set title
         $data['title'] = 'Équipe: Liste des candidatures';
-		$data['candidates'] = $this->crews_model->listCandidates();   
+		$data['candidates'] = $this->crews_model->listCandidates();
         
         // Construct this page
-        $this->construct_page('crews/liste', $data);
+        $this->construct_page('crews/listeCandidate', $data);
     }
 }

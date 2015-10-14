@@ -17,6 +17,7 @@
       if($this->user->isAuthenticated()) 
       {
         $data['connecte'] = TRUE;
+		$this->users_model->updateSession();
         $data['amountMP'] = $this->users_model->amountMP($this->user->getId());
         
 		if($this->user->isBan() || $this->user->isKick())
