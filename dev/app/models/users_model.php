@@ -21,6 +21,7 @@ class Users_model extends CI_Model {
 	}
 	else{ //If player is ban or kick
 	  $this->user->logout();
+	  redirect('home/accueil');
 	}
   }
   

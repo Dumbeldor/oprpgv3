@@ -45,6 +45,10 @@ $route['news/(:num)'] = 'home/index/$1';
 $route['crews/liste/(:num)'] = 'crews/liste/$1';
 $route['crews/view/(:num)'] = 'crews/view/$1';
 $route['crews/c/(:num)'] = 'crews/candidacy/$1';
+$route['crews/a/(:num)'] = 'crews/accept/$1';
+$route['crews/r/(:num)'] = 'crews/refuse/$1';
+$route['crews/ll/(:num)'] = 'crews/letlead/$1';
+$route['crews/ll'] = 'crews/letlead';
 
 /* Forum */
 

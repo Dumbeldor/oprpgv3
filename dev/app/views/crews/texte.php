@@ -1,0 +1,10 @@
+<?php
+	if(isset($error)) echo $error;
+	echo form_open('crews/texte');
+?>
+	    <label for="content" class="col-sm-2 control-label">Message :</label>
+		<textarea id="content" name="content" ></textarea><br>
+		<input type="submit" value="Envoyer">
+
+   
+	</form>

@@ -3,6 +3,8 @@
 Bienvenue jeune noob, ici tu peux créer ton équipage ! C'est facile !
 
 <?php
+	if(isset($error))
+		echo $error;
 	echo form_open('crews/create');
 ?>
         <br>

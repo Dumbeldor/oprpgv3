@@ -30,6 +30,11 @@ class Crews extends MY_Controller {
 		// Set title and loading forum's type
 		$data['title'] = 'Équipage';
 		if($this->crew->inCrew()) {
+			$data['crew'] = $this->crews_model->viewMyCrew()[0];
+			$data['users'] = $this->crews_model->listUsers($this->user->getAttribute('crewId'));
+			$data['capitaine'] = $this->crew->isCapitaine();
+			$data['adminCrew'] = $this->crew->isAdmin();
+			$data['modoCrew'] = $this->crew->isModo();
 			$this->construct_page('crews/index', $data);
 		}
 		else {
@@ -99,14 +104,15 @@ class Crews extends MY_Controller {
 		if(!isset($data['crew'])){
 			redirect(base_url('/crews/index'));
 		}
+		if(!$this->crew->inCrew())
+			$data['request'] = $this->crews_model->pendingRequest($id);
 		$data['title'] = "Équipage ".$data['crew']['name'];
 		$this->construct_page('crews/viewCrew', $data);
 	}
 	
 	public function candidacy($id=0) {
-		if($id == 0 || $this->crew->inCrew())
+		if($id == 0 || $this->crew->inCrew() || $this->crews_model->pendingRequest($id))
 			redirect(base_url('/crews/index'));
-		
 		$data['title'] = 'Candidature équipage';
 		$data['id'] = $id;
 		$this->load->library('form_validation');
@@ -125,7 +131,7 @@ class Crews extends MY_Controller {
     
     //the list of candidates to enter the crew
     public function candidates() {
-		if(!$this->crew->inCrew() || !($this->crew->isAdmin() || $this->crew->isModo())) {
+		if(!$this->crew->inCrew() || !($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo())) {
 			redirect(base_url('/crews/index'));
 		}
         // Set title
@@ -135,4 +141,100 @@ class Crews extends MY_Controller {
         // Construct this page
         $this->construct_page('crews/listeCandidate', $data);
     }
+	
+	public function accept($idUser=0) {
+		if(!$this->crew->inCrew() || !($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) || $idUser==0) {
+			redirect(base_url('/crews/index'));
+		}
+		//set title
+		$data['title'] = 'Équipe: ajout membre';
+		$data['success'] = $this->crews_model->accept($idUser);
+		
+		$this->construct_page('crews/candiAccept', $data);
+	}
+	
+	public function refuse($idUser=0) {
+		if(!$this->crew->inCrew() || !($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) || $idUser==0) {
+			redirect(base_url('/crews/index'));
+		}
+		//set title
+		$data['title'] = 'Équipe: refuser membre';
+		$this->crews_model->refuse($idUser);
+		redirect(base_url('/crews/candidates'));
+	}
+	
+	//change text crew
+	public function texte() {
+		if(!$this->crew->inCrew() || !($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo())) {
+			redirect(base_url('/crews/index'));
+		}
+		$data['title'] = 'Équipe: Modifier texte';
+		$this->load->library('form_validation');
+		$this->load->helper('form');
+		$this->form_validation->set_rules('content', 'Contenu du texte de l\'équipage', 'required|min_length[10]');
+		  if ($this->form_validation->run() === FALSE) {
+			$data['error'] = 'Veuillez saisir au moins un texte de 10 caractères';
+			$this->construct_page('crews/texte', $data);
+		}
+		else {
+			$this->crews_model->changeTexte();
+			redirect('crews/index');
+		}	
+	}
+	
+	public function recherche() {
+		$data['title'] = 'Recherche d\'équipage !';
+		$this->load->library('form_validation');
+		$this->load->helper('form');
+		$this->form_validation->set_rules('crewName', 'Recherche équipage', 'required|min_length[3]');
+		  if ($this->form_validation->run() === FALSE) {
+			$data['toSmall'] = true;
+			$this->construct_page('crews/recherche', $data);
+		}
+		else {
+			$data['toSmall'] = false;
+			$data['listes'] = $this->crews_model->recherche();
+			$this->construct_page('crews/recherche', $data);
+		}	
+	}
+	
+	public function letlead($id=0) {
+		if(!$this->crew->inCrew() || !$this->crew->isCapitaine()) {
+			redirect(base_url('/crews/index'));
+		}
+		$data['title'] = 'Donner le lead';
+		if($id==0) {
+			$data['users'] = $this->crews_model->listUsers($this->user->getAttribute('crewId'));
+			$this->construct_page('crews/letlead', $data);
+		} else {
+			$data['success'] = $this->crews_model->letLead($id);
+			$this->construct_page('crews/letLeadSuccess', $data);
+		}
+		
+	}
+	public function changeRanks($idU, $idR) {
+		
+	}
+	
+	public function manageUser() {
+		
+	}
+	
+	public function kick($id) {
+		
+	}
+	
+	public function leave() {
+		if(!$this->crew->inCrew()){
+			redirect(base_url('/crews/index'));
+		}
+		if($this->crew->isCapitaine())
+			$data['leave'] = false;
+		else{
+			$this->crews_model->leave();
+			$data['leave'] = true;
+		}
+		$data['title'] = "Quitter équipage";
+		$this->construct_page('crews/leave', $data);
+	}
 }

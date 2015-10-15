@@ -8,8 +8,8 @@
     <br>
     <h3>Titre : <?php echo $candidate['title'];?></h3><br>
     <i>Lettre de motivation :</i> <?php echo $candidate['texte'];?> <br><br>
-    <strong><a href="<?php echo base_url('crews/accept/'.$candidate['idUser']);?>">Accepter candidature</a> </strong> <br>
-    <a href="<?php echo base_url('crews/refuse/'.$candidate['idUser']);?>">Refuser candidature</a>
+    <strong><a href="<?php echo base_url('crews/a/'.$candidate['idUser']);?>">Accepter candidature</a> </strong> <br>
+    <a href="<?php echo base_url('crews/r/'.$candidate['idUser']);?>">Refuser candidature</a>
     <br> <br><?php
 }
 }

@@ -20,6 +20,10 @@ class Crew
 	}
 	 
 
+	public function isCapitaine()
+	{
+		return ($this->CI->session->userdata('crewRank') == "Capitaine") ? true : false;
+	}
     public function isAdmin()
 	{
 		return ($this->CI->session->userdata('crewRank') == "Capitaine") ? true : false;

@@ -8,6 +8,8 @@
       $this->load->model('users_model');
       $this->load->library('user');
       $this->load->helper('url');
+	  if($this->user->isAuthenticated())
+		$this->users_model->updateSession();
     }
     
     /*
@@ -17,7 +19,6 @@
       if($this->user->isAuthenticated()) 
       {
         $data['connecte'] = TRUE;
-		$this->users_model->updateSession();
         $data['amountMP'] = $this->users_model->amountMP($this->user->getId());
         
 		if($this->user->isBan() || $this->user->isKick())
