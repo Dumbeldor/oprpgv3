@@ -20,7 +20,7 @@ if($capitaine || $adminCrew || $modoCrew){
     <a href="<?php echo base_url('crews/texte');?>">Modifier texte</a><br>
     <br>
     <?php
-} if($capitaine || $admin) {
+} if($capitaine || $adminCrew) {
     ?>Administration équipage : <br><a href="<?php echo base_url('crews/manageUser');?>">Gérer rang membres</a><br><br>
     <?php
 } if($capitaine){

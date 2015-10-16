@@ -212,12 +212,24 @@ class Crews extends MY_Controller {
 		}
 		
 	}
-	public function changeRanks($idU, $idR) {
+	public function changeRanks($id) {
 		
 	}
 	
 	public function manageUser() {
-		
+		$this->load->library('form_validation');
+		$this->load->helper('form');
+		$this->form_validation->set_rules('title', 'Titre candidature', 'required|min_length[3]|max_length[254]');
+		$this->form_validation->set_rules('content', 'Contenu candidature', 'required|min_length[10]');
+		  if ($this->form_validation->run() === FALSE) {
+			$data['users'] = $this->crews_model->listUsers($this->user->getAttribute('crewId'));
+			$data['error'] = 'Erreur lors de la gestion du joueur';
+			$this->construct_page('crews/manageUser', $data);
+		}
+		else {
+			$this->crews_model->createCandidacy($id);
+			$this->construct_page('crews/candidacySuccess', $data);
+		}	
 	}
 	
 	public function kick($id) {

@@ -70,12 +70,12 @@ class User
 	 
 	public function isAdmin()
 	{
-		return ($this->CI->session->userdata('rank') == "Administrateur") ? true : false;
+		return ($this->CI->session->userdata('rank') == "Administrateur" OR $this->CI->session->userdata('rank') == "Administratrice") ? true : false;
 	}
 	
 	public function isModo()
 	{
-		return $this->CI->session->userdata('rank') == "Modérateur" ? true : false;
+		return ($this->CI->session->userdata('rank') == "Modérateur" OR $this->CI->session->userdata('rank') == "Modératrice") ? true : false;
 	}
 	
 	public function inCrew()
