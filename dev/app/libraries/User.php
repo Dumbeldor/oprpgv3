@@ -70,7 +70,10 @@ class User
 	 
 	public function isAdmin()
 	{
-		return ($this->CI->session->userdata('rank') == "Administrateur" OR $this->CI->session->userdata('rank') == "Administratrice") ? true : false;
+		return ($this->CI->session->userdata('rank') == "Administrateur" OR
+				$this->CI->session->userdata('rank') == "Administratrice" OR
+				$this->CI->session->userdata('rank') == "Co-Administrateur" OR
+				$this->CI->session->userdata('rank') == "Co-Administratrice")  ? true : false;
 	}
 	
 	public function isModo()
