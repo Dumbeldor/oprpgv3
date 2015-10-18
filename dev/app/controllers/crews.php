@@ -56,7 +56,7 @@ class Crews extends MY_Controller {
 		}
 		else {
 			$this->crews_model->createCrew();
-			$this->construct_page('crews/success', $data);
+			redirect(base_url('/crews/index'));
 		}	
 	}
 	
@@ -213,7 +213,7 @@ class Crews extends MY_Controller {
 		
 	}
 	public function changeRanks($id=0) {
-		if(!$this->crew->inCrew() || $id == 0 || $this->input->post('userGrade') == 5 || !$this->crew->isCapitaine())
+		if(!$this->crew->inCrew() || $id == 0 || $id == $this->user->getId()|| $this->input->post('userGrade') == 5 || !$this->crew->isCapitaine())
 			redirect(base_url('/crews/index'));
 
 		$this->load->library('form_validation');
@@ -265,6 +265,6 @@ class Crews extends MY_Controller {
 			redirect(base_url('/crews/index'));
 		$data['title'] = "Équipage dissou";
 		$this->crews_model->dissolve($this->user->getAttribute('crewId'));
-		$this->construct_page('crews/dissolve', $data);
+		redirect(base_url('/crews/index'));
 	}
 }
