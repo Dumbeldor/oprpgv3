@@ -7,6 +7,7 @@
       setlocale (LC_TIME, 'fr_FR.utf8','fra');
       $this->load->model('users_model');
       $this->load->library('user');
+	  $this->load->library('crew');
       $this->load->helper('url');
 	  if($this->user->isAuthenticated())
 		$this->users_model->updateSession();
@@ -20,6 +21,26 @@
       {
         $data['connecte'] = TRUE;
         $data['amountMP'] = $this->users_model->amountMP($this->user->getId());
+		
+  
+		if($this->crew->isCapitaine()) {
+			$data['capitaineCrew'] = true;
+			$data['adminCrew'] = true;
+			$data['modoCrew'] = true;
+		}
+		else if($this->crew->isAdmin()){
+			$data['adminCrew'] = true;
+			$data['modoCrew'] = true;
+		}
+		else if($this->crew->isModo()){
+			$data['modoCrew'] = true;
+		}
+		else {
+			$data['capitaineCrew'] = false;
+			$data['adminCrew'] = false;
+			$data['modoCrew'] = false;
+		}		
+		
         
 		if($this->user->isBan() || $this->user->isKick())
 		  $this->user->logout();

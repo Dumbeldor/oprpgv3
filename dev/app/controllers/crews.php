@@ -22,7 +22,6 @@ class Crews extends MY_Controller {
 			redirect(base_url('/home/accueil'));
 		// Loading models
 		$this->load->model('crews_model');
-		$this->load->library('crew');
 		$this->load->model('users_model');
 	}
     
@@ -240,7 +239,7 @@ class Crews extends MY_Controller {
 	}
 	
 	public function kick($id = 0) {
-		if(!$this->crew->inCrew() || $id == 0 || !$this->crew->isCapitaine())
+		if(!$this->crew->inCrew() || $id == 0 || !$this->crew->isCapitaine() || $id == $this->user->getId())
 			redirect(base_url('/crews/index'));
 		$data['title'] = 'Virer joueur d\'équipage';
 		$data['success'] = $this->crews_model->kick($id);
@@ -259,5 +258,13 @@ class Crews extends MY_Controller {
 		}
 		$data['title'] = "Quitter équipage";
 		$this->construct_page('crews/leave', $data);
+	}
+	
+	public function dissolve() {
+		if(!$this->crew->inCrew() || !$this->crew->isCapitaine())
+			redirect(base_url('/crews/index'));
+		$data['title'] = "Équipage dissou";
+		$this->crews_model->dissolve($this->user->getAttribute('crewId'));
+		$this->construct_page('crews/dissolve', $data);
 	}
 }

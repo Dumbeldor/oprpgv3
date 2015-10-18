@@ -22,6 +22,28 @@ class Crews_model extends CI_Model {
     
 	public function createCrew() {
 		$data = array(
+			'name' => $this->input->post('crewName'),
+			'descr' => 'Forum privé de l\'équipage '.$this->input->post('crewName'),
+			'sequence' => 10,
+			'is_crew' => 1
+		);
+		$this->db->insert('forums_categories', $data);
+		$data = array(
+			'name' => 'Bienvenue sur votre forum',
+			'id_forums_categories' => $this->db->insert_id(),
+			'id_forums_topics_types' => 1
+		);
+		$this->db->insert('forums_topics', $data);
+		$data = array(
+			'message' => 'Votre forum privé vien d\'être mis en ligne.
+					      Gardez un topic minimum ouvert pour que vos membres puissent le voir directement dans la partie "forum", dans le cas contraire ils pourront le consulter uniquement via au lien dans l\'index de l\'équipage !
+						  Bon jeu.',
+			'date_time' => time(),
+			'id_forums_topics' => $this->db->insert_id(),
+			'id_users' => 13
+		);
+		$this->db->insert('forums_topics_messages', $data);
+		$data = array(
 		    'id' => ''
 		);
 		$this->db->insert('crews_banks', $data);
@@ -50,6 +72,7 @@ class Crews_model extends CI_Model {
 
 	public function countCrews(){
 		return (int) $this->db
+			->where('is_block', 0)
 			->count_all_results('crews');
 	}
 
@@ -57,6 +80,7 @@ class Crews_model extends CI_Model {
 		$query = $this->db->query('SELECT id, name, money,
 					page, date_time AS dateCrew
 					FROM crews
+					WHERE is_block = 0
 					ORDER BY id
 					LIMIT '.$begin.', '.$nb.'
 					');
@@ -67,7 +91,7 @@ class Crews_model extends CI_Model {
 		$query = $this->db->query('SELECT id, name,
 					money, file, date_time as dateCrew
 					FROM crews
-					WHERE id = ?
+					WHERE is_block = 0 AND id = ?
 					', array($id));
 		return $query->result_array();
 	}
@@ -75,7 +99,7 @@ class Crews_model extends CI_Model {
 		$query = $this->db->query('SELECT id, name,
 					money, page, file, date_time as dateCrew
 					FROM crews
-					WHERE id = ?
+					WHERE is_block = 0 AND id = ?
 					', array($this->user->getAttribute('crewId')));
 		return $query->result_array();
 	}
@@ -161,6 +185,7 @@ class Crews_model extends CI_Model {
 		$this->db->select('id, name, date_time AS date');
 		$this->db->from('crews');
 		$this->db->like('name', $this->input->post('crewName'));
+		$this->db->where('is_block', 0);
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -222,6 +247,14 @@ class Crews_model extends CI_Model {
 	
 	public function leave() {
 		$this->db->delete('crews_users', array('id_users' => $this->user->getId(), 'id' => $this->user->getAttribute('crewId')));
+	}
+	
+	public function dissolve($idCrew) {
+		$this->db->delete('crews_users', array('id' => $idCrew));	
+			
+		$this->db->where('id', $idCrew);
+		$this->db->set('is_block', 1);
+		$this->db->update('crews');	
 	}
 	
 }

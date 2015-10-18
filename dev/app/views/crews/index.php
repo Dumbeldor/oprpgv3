@@ -24,9 +24,13 @@ if($capitaine || $adminCrew || $modoCrew){
     ?>Administration équipage : <br><a href="<?php echo base_url('crews/manageUser');?>">Gérer rang membres</a><br><br>
     <?php
 } if($capitaine){
-    ?>Capitaine équipage : <br><a href="<?php echo base_url('crews/ll');?>">Donner le lead</a><br><br>
+    ?>Capitaine équipage : <br>
+    <a href="<?php echo base_url('crews/ll');?>">Donner le lead</a><br><br>
+    <a href="<?php echo base_url('crews/dissolve');?>">Dissoudre l'équipage</a><br>  
+    <br>
     <?php
 }
 ?>
 <br>
+<a href="<?php echo base_url('forum/c/'.$this->user->getAttribute('crewId'));?>">Forum</a><br><br>
 <a href="<?php echo base_url('crews/leave');?>">Quitter équipage</a>

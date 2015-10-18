@@ -26,6 +26,7 @@ class Forum extends MY_Controller {
 		// Loading models
 		$this->load->model('forum_model');
 		$this->load->model('users_model');
+		$this->load->library('crew');
 
 		// Loading helper for smiley
 		$this->load->helper('smiley');
@@ -50,6 +51,9 @@ class Forum extends MY_Controller {
 	public function categories($id_categorie, $page = 0) {
 		
 		if($id_categorie == 1 && !($this->user->isModo() || $this->user->isAdmin()))
+			redirect('forum/');
+			
+		if(!$this->forum_model->iscrew_forum_categorie($id_categorie))
 			redirect('forum/');
 		
 		$this->load->helper('form');
@@ -84,8 +88,12 @@ class Forum extends MY_Controller {
 		// Set title and loading categories
 		$data['title'] = 'Forum';
 	    $data['topic'] = $this->forum_model->get_topics($id_categorie, 15, $page);
+		
+	
+		
 	    $data['aria'] = $this->forum_model->get_aria_categorie($id_categorie)[0];
 	    $data['id_categorie'] = $id_categorie;
+		
 	    // Construct this page
 	    $this->construct_page('forum/categories', $data);
 	}
@@ -96,10 +104,14 @@ class Forum extends MY_Controller {
 	 * ----------------------------------------------------------------------- */
 	public function topics($id_topic, $page=0) {
 		
+		if(!$this->forum_model->iscrew_forum_topic($id_topic))
+			redirect('forum/');
+		
 		// Loading helper form and set title
 		$this->load->helper('form');
 		$this->load->helper('url');
 		$this->load->library('pagination');
+		$this->load->library('crew');
 		$data['title'] = 'Forum';
 		
 		//If topic close
@@ -140,6 +152,13 @@ class Forum extends MY_Controller {
 			redirect('forum/');
 		// Get all topic's messages
 		$data['messages'] = $this->forum_model->get_messages($id_topic, 30, $page);
+		
+		if($data['id_categorie'] == $this->user->getAttribute('crewId') AND $this->crew->isCapitaine())
+			$data['capitaineCrew'] = true;
+		else if ($data['id_categorie'] == $this->user->getAttribute('crewId') AND $this->crew->isAdmin())
+			$data['adminCrew'] = true;
+		else if ($data['id_categorie'] == $this->user->getAttribute('crewId') AND $this->crew->isModo())
+			$data['modoCrew'] = true;
 
 		// Construct this page
 		$this->construct_page('forum/topics', $data);
@@ -164,7 +183,6 @@ class Forum extends MY_Controller {
 	 * Create new topic
 	 * ----------------------------------------------------------------------- */
 	public function create_topic() {
-
 		// Loading helper form, set title and category id
 		$this->load->helper('form');
 		$data['title'] = 'Forum';

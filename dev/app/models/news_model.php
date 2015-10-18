@@ -55,7 +55,9 @@ class News_model extends CI_Model
 	*/
 	public function delete($id)
 	{
-		return $this->db->where('id', (int) $id)
+		$this->db->where('id_news', (int) $id)
+				->delete('news_comments');
+		$this->db->where('id', (int) $id)
 			->delete($this->table);
 	}
 	/*

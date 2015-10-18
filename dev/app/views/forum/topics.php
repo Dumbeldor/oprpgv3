@@ -19,7 +19,7 @@ foreach($messages as $message):
 ?>
 	<p>
 		<b><a href="<?php echo base_url('users/view/'.$message['userId']);?>"><?php echo $message['pseudo']; ?></a></b> le <?php echo date('d/m/Y à H\hi',$message['date']); ?> | <?php
-		if($moderator || $message['userId'] == $this->user->getId()) {
+		if($moderator || $message['userId'] == $this->user->getId() || ($id_categorie == $this->user->getAttribute('crewId') && ($modoCrew || $adminCrew || $capitaineCrew))) {
 			?><a href="delete_message/<?php echo $message['id']; ?>">Supprimer</a>
 		<?php } ?> <br>
 		<strong><i><?php echo $message['ranks'];?></i></strong><br />

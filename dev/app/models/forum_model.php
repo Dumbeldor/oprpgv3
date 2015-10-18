@@ -30,9 +30,10 @@ class Forum_model extends CI_Model {
 					WHERE ft2.id_forums_categories = fc.id AND ftm2.is_block = 0 AND ft2.is_block = 0
 					GROUP BY fc.id
 				)
-				AND ftm.is_block = 0 AND ft.is_block = 0
-				OR ftm.date_time is NULL				
-				ORDER BY fc.id');
+				AND (ftm.is_block = 0 AND ft.is_block = 0 AND fc.is_block = 0 AND (fc.is_crew = 0 OR (fc.is_crew = 1 AND fc.id = ?)))				
+
+				GROUP BY fc.id
+				ORDER BY fc.sequence', array($this->user->getAttribute('crewId')));
 
 		return $query->result_array();
 	}
@@ -46,6 +47,7 @@ class Forum_model extends CI_Model {
 				JOIN users u ON u.id = ftm.id_users
 				JOIN forums_topics ft ON ft.id = ftm.id_forums_topics
 				JOIN forums_topics_types ftt ON ft.id_forums_topics_types = ftt.id
+				JOIN forums_categories fc ON ft.id_forums_categories = fc.id
 				WHERE id_forums_categories = ? AND
 				ftm.date_time = 
 				(
@@ -53,10 +55,11 @@ class Forum_model extends CI_Model {
 					JOIN forums_topics ft2 ON ftm2.id_forums_topics = ft2.id
 					WHERE ft2.id = ft.id AND ftm2.is_block = 0 AND ft2.is_block = 0
 				)
-				AND ftm.is_block = 0 AND ft.is_block = 0
+				AND ftm.is_block = 0 AND ft.is_block = 0 AND fc.is_block = 0 AND (fc.is_crew = 0
+				OR (fc.is_crew = 1 AND fc.id = ?))
 				ORDER BY ftt.id DESC, ftm.date_time DESC
 				LIMIT '.$begin.', '.$nb.'
-  				', array($id_cate));
+  				', array($id_cate, $this->user->getAttribute('crewId')));
 		return $query->result_array();
 	}
 	
@@ -86,6 +89,36 @@ class Forum_model extends CI_Model {
 				WHERE id= ?',
 				array($id_categories));
 		return $query->result_array();
+	}
+	
+	/* Return boolean */
+	/* if user in crew or not */
+	public function iscrew_forum_categorie($id_categories) {
+		$query = $this->db->query("SELECT id
+								  FROM forums_categories
+								  WHERE id = ? AND (is_crew = 0 OR
+								  (is_crew = 1 AND id = ?))								  
+								  ", array($id_categories, $this->user->getAttribute('crewId')));    
+        if($query->num_rows() == 1) {
+            return TRUE;
+        }
+        else {
+            return FALSE;
+        }
+	}
+	
+	public function iscrew_forum_topic($id_topic) {
+		$query = $this->db->query("SELECT ft.id
+								  FROM forums_topics ft
+								  JOIN forums_categories fc ON ft.id_forums_categories = fc.id
+								  WHERE ft.id = ? AND (fc.is_crew = 0 OR (fc.is_crew = 1 AND fc.id = ?))
+								  ", array($id_topic, $this->user->getAttribute('crewId')));    
+        if($query->num_rows() == 1) {
+            return TRUE;
+        }
+        else {
+            return FALSE;
+        }
 	}
 	
 	
@@ -141,14 +174,30 @@ class Forum_model extends CI_Model {
 	/* Delete a message (does'nt really delete it, just stops displaying it, in order to keep it in the database) */
 	/* $id_message is the message's id of the message that will be deleted */
 	public function delete_message($id_message) {
-		if($this->user->isAdmin() || $this->user->isModo()){
+		$query = $this->db->query("SELECT ftm.id_forums_topics FROM forums_topics_messages ftm
+									WHERE ftm.id_forums_topics = (SELECT ftm2.id_forums_topics FROM forums_topics_messages ftm2
+									WHERE ftm2.id = ?) AND ftm.is_block = 0", array($id_message));
+		$resultat = $query->result_array();
+		if($this->user->isAdmin() || $this->user->isModo() || ($resultat[0]['id_forums_topics'] == $this->user->getAttribute('crewId') && ($this->crew->isModo() || $this->crew->isAdmin() || $this->crew->isCapitaine()))){
+			$this->db->where('id', 'SELECT id_users FROM forums_topics_messages WHERE id = ?', array($id_message));
+			$this->db->set('messNumber', 'messNumber-1', FALSE);
+			$this->db->update('users');		
 			$this->db->query('UPDATE forums_topics_messages ftm
 							JOIN users u ON ftm.id_users = u.id SET ftm.is_block=1, u.messNumber=messNumber-1 WHERE ftm.id=?', array($id_message));
 		}
 		else{
 			$this->db->query('UPDATE forums_topics_messages ftm
 							 JOIN users u ON ftm.id_users = u.id SET ftm.is_block=1, u.messNumber=messNumber-1 WHERE ftm.id=? AND ftm.id_users=?', array($id_message, $this->user->getId()));
+			$this->db->where('id', $this->user->getId());
+			$this->db->set('messNumber', 'messNumber-1', FALSE);
+			$this->db->update('users');		
 		}
+		
+        if(count($resultat) == 1) {
+            $this->db->where('id', $resultat[0]['id_forums_topics']);
+			$this->db->set('is_block', 1);
+			$this->db->update('forums_topics');	
+        }
 	}
 	
 	/* Creation of a new topic */
@@ -170,6 +219,15 @@ class Forum_model extends CI_Model {
 				WHERE id= ?',
 				array($id));
 		return $query->result_array();
+	}
+	
+	/*
+	 * Close topic
+	 */
+	public function close_topic($id_topic) {
+		$this->db->where('id', $resultat[0]['id_forums_topics']);
+		$this->db->set('is_block', 1);
+		$this->db->update('forums_topics');	
 	}
 	
 	
