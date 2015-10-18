@@ -3,7 +3,7 @@
 	echo form_open('crews/texte');
 ?>
 	    <label for="content" class="col-sm-2 control-label">Message :</label>
-		<textarea id="content" name="content" ></textarea><br>
+		<textarea id="content" name="content" ><?php echo $contents; ?></textarea><br>
 		<input type="submit" value="Envoyer">
 
    

@@ -81,7 +81,7 @@ class Crews_model extends CI_Model {
 	}
 	
 	public function listUsers($id) {
-		$query = $this->db->query('SELECT users.id, users.pseudo, crews_grades.name AS grade
+		$query = $this->db->query('SELECT users.id, users.pseudo, crews_grades.name AS grade, crews_grades.id AS gradeId
 					FROM crews_users
 					JOIN users ON id_users = users.id
 					JOIN crews_grades ON id_crews_grades = crews_grades.id
@@ -187,6 +187,37 @@ class Crews_model extends CI_Model {
 		$this->db->update('crews_users', array('id_crews_grades' => 4));
 		
 		return true;
+	}
+	
+	public function kick($id) {
+		$this->db->delete('crews_users', array('id_users' => $id, 'id' => $this->user->getAttribute('crewId')));
+		if($this->db->affected_rows() == 0)
+			return false;
+		return true;
+	}
+	
+	public function listGrade() {
+		$query = $this->db->query('SELECT id, name
+					FROM crews_grades');
+		return $query->result_array();
+	}
+	
+	public function changeRanks($id) {
+		$data = array(
+			'id_crews_grades' => $this->input->post('userGrade')
+		);
+		$this->db->where(array('id_users' => $id, 'id' => $this->user->getAttribute('crewId')));
+		$this->db->update('crews_users', $data);
+		if($this->db->affected_rows() == 0)
+			return false;
+		return true;
+	}
+	
+	public function getText() {
+		$query = $this->db->query('SELECT page
+					FROM crews
+					WHERE id = ?', array($this->user->getAttribute('crewId')));
+		return $query->result_array();
 	}
 	
 	public function leave() {

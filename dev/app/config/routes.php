@@ -49,6 +49,8 @@ $route['crews/a/(:num)'] = 'crews/accept/$1';
 $route['crews/r/(:num)'] = 'crews/refuse/$1';
 $route['crews/ll/(:num)'] = 'crews/letlead/$1';
 $route['crews/ll'] = 'crews/letlead';
+$route['crews/kick/(:num)'] = 'crews/kick/$1';
+$route['crews/changeRanks/(:num)'] = 'crews/changeRanks/$1';
 
 /* Forum */
 

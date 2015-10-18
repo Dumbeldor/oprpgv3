@@ -191,3 +191,5 @@ ModelManifest.xml
 
 dev/app/config/
 dev/app/config/*
+dev/app/config/config.php
+dev/app/config/database.php
