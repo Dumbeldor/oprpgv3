@@ -5,6 +5,7 @@
     public function __construct() {
       parent::__construct();
       setlocale (LC_TIME, 'fr_FR.utf8','fra');
+	  date_default_timezone_set('Europe/Paris');
       $this->load->model('users_model');
       $this->load->library('user');
 	  $this->load->library('crew');

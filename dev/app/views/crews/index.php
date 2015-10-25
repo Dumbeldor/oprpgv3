@@ -3,7 +3,7 @@
 Berry : <?php echo $crew['money'];?> <br>
 Équipage créé le :  <?php echo date('d/m/Y à H\hi',$crew['dateCrew']);?><br>
 <br>
-Texte de l'équipage :<br> <?php echo nl2br(htmlspecialchars($crew['page']));?> <br>
+Texte de l'équipage :<br> <?php echo $crew['page'];?> <br>
 -------------------------------------------------------------- <br>
 Membres : <br>
 
