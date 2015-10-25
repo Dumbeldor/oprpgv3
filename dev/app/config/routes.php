@@ -63,6 +63,7 @@ $route['forum/delete_message/(:num)'] = 'forum/delete_message/$1';
 $route['forum/(:any)/delete_message/(:num)'] = 'forum/delete_message/$2';
 $route['forum/create_topic'] = 'forum/create_topic';
 $route['forum/send_topic'] = 'forum/send_topic';
+$route['forum/delete_topic/(:num)'] = 'forum/delete_topic/$1';
 
 
 $route['private_messages/answer_message'] = '$1/$2';

@@ -257,15 +257,30 @@ class Forum extends MY_Controller {
 	 * @param $id_essage message's id
 	 * ----------------------------------------------------------------------- */
 	public function delete_message($id_message) {
-
 		// Topic's id is get in order to redirect the user to this topic 
-		$id_topic = $this->forum_model->get_id_topic($id_message);
+		$id_topic = $this->forum_model->get_id_topic($id_message)[0]['id_forums_topics'];
 
 		// Redirect to forum's model for action function
-		$this->forum_model->delete_message($id_message);
+		$success = $this->forum_model->delete_message($id_message, $id_topic);
 		
 		// redirect
-		redirect('/forum/t/'.$id_topic[0]['id_forums_topics']);
+		if($success)
+			redirect('/forum/t/'.$id_topic);
+		else
+			redirect('/forum');
+	}
+	
+	public function delete_topic($id_topic) {
+		$success = false;
+		$categorie = $this->forum_model->get_id_categorie($id_topic)[0]['id_forums_categories'];
+		if($this->user->isAdmin() || $this->user->isModo() ||
+			($this->user->getAttribute('crewId') == $categorie && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
+			$success = $this->forum_model->delete_topic($id_topic);
+		}
+		if($success)
+			redirect('/forum/c/'.$categorie);
+		else
+			redirect('/forum');
 	}
 	
 }
