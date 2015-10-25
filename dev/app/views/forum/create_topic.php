@@ -11,6 +11,10 @@
 		<label for="topic_type" class="col-sm-2 control-label">Post-it</label>
        			<input type="checkbox" name="post-it" id="post-it" /> <label for="post-it">post-it</label><br />
 	<?php } ?>
+	
+	<script>
+            CKEDITOR.replace( 'forum_message' );
+        </script>
    
 	</form>
 <?php

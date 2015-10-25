@@ -13,4 +13,7 @@
       <input type="submit" name="submit" class="btn btn-default" value="Poster le commentaire !" />
     </div>
   </div>
+  <script>
+            CKEDITOR.replace( 'contents' );
+        </script>
 <?php echo form_close(); ?>

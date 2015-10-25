@@ -19,4 +19,7 @@
       <input type="submit" name="submit" class="btn btn-default" value="Poster la news !" />
     </div>
   </div>
+  <script>
+            CKEDITOR.replace( 'contents' );
+        </script>
 <?php echo form_close(); ?>

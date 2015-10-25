@@ -270,6 +270,10 @@ class Forum extends MY_Controller {
 			redirect('/forum');
 	}
 	
+	/**
+	 *	Delete a topic
+	 *	@param $id_topic id topic
+	 * ----------------------------------------------------------------- */
 	public function delete_topic($id_topic) {
 		$success = false;
 		$categorie = $this->forum_model->get_id_categorie($id_topic)[0]['id_forums_categories'];

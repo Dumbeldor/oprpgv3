@@ -24,7 +24,7 @@ foreach($messages as $message):
 		<?php } ?> <br>
 		<strong><i><?php echo $message['ranks'];?></i></strong><br />
 		<i><?php echo $message['messNumber']; ?> messages</i><br /> <br />
-		<?php echo nl2br(htmlspecialchars($message['message'])); ?>
+		<?php echo $message['message']; ?>
 		<br />-----------------------------------------------------------------------------------------<br />
 	</p>
 <?php endforeach; ?>

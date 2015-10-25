@@ -4,5 +4,8 @@
 		<textarea id="forum_message" name="message"></textarea>
 		<input type="hidden" name="id_topic" value="<?php echo $id_topic; ?>">
 		<input type="submit" value="Envoyer">
+		<script>
+            CKEDITOR.replace( 'forum_message' );
+        </script>
 	</form>
 <?php endif; ?>
