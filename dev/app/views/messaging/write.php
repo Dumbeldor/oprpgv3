@@ -15,4 +15,7 @@
       <input type="submit" name="submit" class="btn btn-default" value="Let's Go !" />
     </div>
   </div>
+  <script>
+            CKEDITOR.replace( 'content' );
+        </script>
 <?php echo form_close(); ?>
