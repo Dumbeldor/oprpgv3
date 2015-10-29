@@ -10,11 +10,13 @@ table
 td, th
 {
     border: 1px solid black;
-    vertical-align:middle;
 
 }
 #forumMessage{
     vertical-align:middle;
     text-align : left;
     width: 80%;
+}
+#forumProfil{
+    vertical-align: top; 
 }

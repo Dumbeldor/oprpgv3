@@ -34,7 +34,7 @@ foreach($messages as $message):
 		</th>
 		</tr>
 		<tr>
-			<th>
+			<th id="forumProfil">
 		<img src="<?php echo base_url('assets/img/avatarDefault.png');?>"></img><br>
 		<strong><i><?php echo $message->ranks;?></i></strong><br />
 		<i><?php echo $message->messNumber; ?> messages</i>
