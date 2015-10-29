@@ -5,10 +5,7 @@ table
     border-collapse: collapse;
     margin-top : 10px;
     margin-bottom:  10px;
-    width : 100%;
-
- 
-    
+    width : 100%;    
 }
 td, th
 {
@@ -19,4 +16,5 @@ td, th
 #forumMessage{
     vertical-align:middle;
     text-align : left;
+    width: 80%;
 }
