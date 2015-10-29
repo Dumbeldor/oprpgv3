@@ -276,5 +276,37 @@ class Forum_model extends CI_Model {
 		return true;
 	}
 	
+	public function getMess($id, $categorieId) {
+		if($this->user->isAdmin() || $this->user->isModo() ||
+			($this->user->getAttribute('crewId') == $categorieId && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
+			$query = $this->db->query('SELECT message
+								  FROM forums_topics_messages
+								  WHERE id = ?',
+					array($id));
+		}
+		else {
+			$query = $this->db->query('SELECT message
+								  FROM forums_topics_messages
+								  WHERE id_users = ? AND id = ?',
+					array($this->user->getId(), $id));
+		}
+		return $query->result_array();
+	}
+	
+	public function edit($id, $message, $categorieId) {
+		if($this->user->isAdmin() || $this->user->isModo() ||
+			($this->user->getAttribute('crewId') == $categorieId && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
+			$this->db->query('UPDATE forums_topics_messages
+						SET message = ? WHERE id = ?', array($message, $id));
+		}
+		else {
+			$this->db->query('UPDATE forums_topics_messages
+						SET message = ? WHERE id = ? AND id_users = ?', array($message, $id, $this->user->getId()));
+		}
+		if($this->db->affected_rows() == 0)
+			return false;
+		return true;
+	}
+	
 	
 }

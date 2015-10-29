@@ -155,7 +155,6 @@ class Forum extends MY_Controller {
 		if($data['id_categorie'] == 1 && !($this->user->isModo() || $this->user->isAdmin()))
 			redirect('forum/');
 		// Get all topic's messages
-		echo $page;
 		$data['messages'] = $this->forum_model->get_messages($id_topic, 30, $page);
 		
 		if($data['id_categorie'] == $this->user->getAttribute('crewId') AND $this->crew->isCapitaine())
@@ -297,7 +296,33 @@ class Forum extends MY_Controller {
 	public function edit($id = 0) {
 		if($id == 0)
 			redirect('/forum');
-		$success = $this->forum_model->edit;
+			// Loading helper form, set title and id
+		$this->load->helper('form');
+		$data['title'] = 'Forum : Edit message';
+		$topicId = $this->forum_model->get_id_topic($id)[0]['id_forums_topics'];
+		$categorieId = $this->forum_model->get_id_categorie($topicId)[0]['id_forums_categories'];
+		$data['message'] = $this->forum_model->getMess($id, $categorieId)[0]['message'];
+		$data['id_message'] = $id;
+		
+		// Construct this page
+		if(!empty($data['message']))
+			$this->construct_page('forum/edit', $data);
+		else
+			redirect('/forum');
+	}
+	
+	public function send_edit() {
+		if($this->input->post('id_message') == 0)
+			redirect('/forum');
+		$message = $this->input->post('message').'<p></p><em><span style="font-size:8px">Édité par '.$this->user->getPseudo().' le '.date('d/m/Y à H\hi'). '</span></em></p>';
+		$topicId = $this->forum_model->get_id_topic($this->input->post('id_message'))[0]['id_forums_topics'];
+		$categorieId = $this->forum_model->get_id_categorie($topicId)[0]['id_forums_categories'];
+		$success = $this->forum_model->edit($this->input->post('id_message'), $message, $categorieId);
+		if($success) {
+			redirect('/forum/t/'.$topicId);
+		} else {
+			redirect('/forum');
+		}
 	}
 	
 }
