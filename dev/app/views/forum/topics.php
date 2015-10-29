@@ -24,7 +24,10 @@ foreach($messages as $message):
 			?><a href="<?php echo base_url('forum/delete_message/'.$message->id); ?>">Supprimer</a>
 			|
 			<a href="<?php echo base_url('forum/edit/'.$message->id); ?>">Éditer</a>
-		<?php } ?> <br>
+		<?php } ?>
+			|
+		<a href="<?php echo base_url('forum/quote/'.$id_topic.'/'.$message->id);?>">Citer</a>
+		<br>
 		<strong><i><?php echo $message->ranks;?></i></strong><br />
 		<i><?php echo $message->messNumber; ?> messages</i><br /> <br />
 		<?php echo $message->message; ?>

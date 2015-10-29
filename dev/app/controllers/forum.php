@@ -182,6 +182,22 @@ class Forum extends MY_Controller {
 		$this->construct_page('forum/answer', $data);
 		
 	}
+	
+	public function quote($idTopic = 0, $idCitation = 0) {
+		if($idTopic == 0 || $idCitation == 0)
+			redirect('forum/');
+		$this->load->helper('form');
+		$citation = $this->forum_model->getQuote($idTopic, $idCitation);
+		if(empty($citation))
+			redirect('forum/t/'.$idTopic);
+		$citation = $citation[0];
+		if(!empty($citation)) {
+			$data['message_citation'] = '<blockquote><p><u><strong><em>Citation de '.$citation['pseudo'].'</em></strong></u></p><p>'.$citation['message'].'</blockquote></p>';
+		}
+		$data['idTopic'] = $idTopic;
+		// Construct this page
+		$this->construct_page('forum/answer', $data);
+	}
 
 	/**
 	 * Create new topic

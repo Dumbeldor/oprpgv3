@@ -276,6 +276,15 @@ class Forum_model extends CI_Model {
 		return true;
 	}
 	
+	public function getQuote($idTopic, $idCitation) {
+		$query = $this->db->query('SELECT message, pseudo
+								  FROM forums_topics_messages
+								  JOIN users ON forums_topics_messages.id_users = users.id
+								  WHERE forums_topics_messages.id_forums_topics = ? AND forums_topics_messages.id = ? AND is_block = 0',
+					array($idTopic, $idCitation));
+		return $query->result_array();
+	}
+	
 	public function getMess($id, $categorieId) {
 		if($this->user->isAdmin() || $this->user->isModo() ||
 			($this->user->getAttribute('crewId') == $categorieId && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){

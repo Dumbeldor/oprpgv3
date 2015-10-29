@@ -66,6 +66,7 @@ $route['forum/create_topic'] = 'forum/create_topic';
 $route['forum/send_topic'] = 'forum/send_topic';
 $route['forum/delete_topic/(:num)'] = 'forum/delete_topic/$1';
 $route['forum/edit/(:num)'] = 'forum/edit/$1';
+$route['forum/quote/(:num)/(:num)'] = 'forum/quote/$1/$2';
 
 
 $route['private_messages/answer_message'] = '$1/$2';
