@@ -77,7 +77,7 @@ $route['forum'] = 'forum';
 
 $route['default_controller'] = "home/index";
 //$route['(:any)'] = 'pages/view/$1';
-//$route['404_override'] = '';
+$route['404_override'] = 'home';
 //
 //
 ///* End of file routes.php */

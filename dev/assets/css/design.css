@@ -1,0 +1,41 @@
+#forumMessage{
+    border-radius: 10px;
+    border: 1px solid black;
+    margin-top : 10px;
+    margin-bottom:  10px;
+}
+#forumProfil1{
+    border-bottom: 1px solid black;
+
+}
+#forumProfil2{
+    position: relative;
+    display:table;
+    margin: 0 auto;
+    float:left;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    height: 100%;
+}
+#forumMess{
+    
+}
+
+table
+{
+    border-collapse: collapse;
+    margin-top : 10px;
+    margin-bottom:  10px;
+    width : 100%;
+
+ 
+    
+}
+td, th
+{
+    border: 1px solid black;
+    vertical-align:middle;
+}
+td{
+    vertical-align:middle;
+}

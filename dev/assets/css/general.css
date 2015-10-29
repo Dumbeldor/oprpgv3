@@ -1,3 +1,10 @@
+#messageForum{
+  width: 80%;
+  padding: 20px;
+  border: 1px solid #666;
+  background: #ffffff;
+}
+
 .mini-submenu{
   display:none;  
   background-color: rgba(0, 0, 0, 0);  

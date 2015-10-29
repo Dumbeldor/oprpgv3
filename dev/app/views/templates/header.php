@@ -9,6 +9,7 @@ $url = "http://localhost/oprpg/dev/assets/";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?php echo $title; ?></title>    
     <link rel="stylesheet" href="<?php echo $url;?>css/foundation/foundation.css" />
+    <link rel="stylesheet" href="<?php echo $url;?>css/design.css"/>
     <script src="<?php echo $url;?>css/foundation/vendor/modernizr.js"></script>
     <script src="<?php echo $url;?>ckeditor/ckeditor.js"></script>
     
