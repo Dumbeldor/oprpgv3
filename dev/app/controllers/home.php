@@ -31,6 +31,7 @@ class Home extends MY_Controller {
 		$data['nbnews'] = $this->news_model->count();
 		
 		$config['base_url'] = base_url('/news/page/');
+		$config['use_page_numbers'] = TRUE;
 		$config['total_rows'] = $data['nbnews'];
 		$config['per_page'] = 1;
 		$config['last_link'] = 'Dernière';

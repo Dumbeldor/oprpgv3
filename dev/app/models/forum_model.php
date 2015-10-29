@@ -18,7 +18,7 @@ class Forum_model extends CI_Model {
 		$query = $this->db->query('SELECT ftm.date_time AS date, ftm.id AS messId,
 				fc.id AS id, fc.name AS name,
 				fc.descr AS descr, fc.types, ft.name AS topicName,
-				ft.id AS topicId,
+				ft.id AS topicId, (SELECT COUNT(*) FROM forums_topics_messages WHERE is_block = 0 AND id_forums_topics = ft.id) AS countMsg,
 				users.pseudo AS pseudo, users.id AS userId FROM forums_categories fc
 				LEFT JOIN forums_topics ft ON ft.id_forums_categories = fc.id
 				LEFT JOIN forums_topics_messages ftm ON ftm.id_forums_topics = ft.id
@@ -42,7 +42,8 @@ class Forum_model extends CI_Model {
 	/* $id_cate is the chosen cate's id */
 	public function get_topics($id_cate, $nb=15, $begin=0) {
 		$query = $this->db->query('SELECT ftm.date_time AS date, u.pseudo AS pseudo, ft.name AS name,
-				u.id AS userId,	ft.id AS id, ftt.name AS type 
+				u.id AS userId,	ft.id AS id, ftt.name AS type, ftm.id AS msgId,
+				(SELECT COUNT(*) FROM forums_topics_messages WHERE is_block = 0 AND id_forums_topics = ft.id) AS countMsg
 				FROM forums_topics_messages ftm
 				JOIN users u ON u.id = ftm.id_users
 				JOIN forums_topics ft ON ft.id = ftm.id_forums_topics
@@ -65,7 +66,24 @@ class Forum_model extends CI_Model {
 	
 	/* Return each messages from a specific topic */
 	/* $id_topic is the chosen topic's id */
-	public function get_messages($id_topic, $nb=15, $begin=0) {		
+	public function get_messages($id_topic, $nb=15, $begin=0) {
+		
+		return $this->db->select('u.pseudo AS pseudo, u.id AS userId,
+				u.messNumber AS messNumber,
+				users_types.name AS ranks, f.message AS message, 
+				f.date_time AS date,
+				f.id AS id')
+			->from('forums_topics_messages f')
+			->join('users u', 'f.id_users = u.id')
+			->join('users_types', 'u.id_users_types = users_types.id')
+			->where('f.id_forums_topics', $id_topic)
+			->where('f.is_block', 0)
+			->limit($nb, $begin)
+			->order_by('f.id')
+			->get()
+			->result();
+		
+		
 		$query = $this->db->query('SELECT u.pseudo AS pseudo, u.id AS userId,
 				u.messNumber AS messNumber,
 				users_types.name AS ranks, f.message AS message, 
@@ -135,6 +153,7 @@ class Forum_model extends CI_Model {
 	
 	public function countMess($id_topic) {
 		return (int) $this->db->where('id_forums_topics', $id_topic)
+		->where('is_block', 0)
 		->count_all_results('forums_topics_messages');
 	}
 	

@@ -56,6 +56,7 @@ $route['crews/changeRanks/(:num)'] = 'crews/changeRanks/$1';
 
 $route['forum/c/(:num)'] = 'forum/categories/$1';
 $route['forum/t/(:num)'] = 'forum/topics/$1';
+$route['forum/t/(:num)/(:num)'] = 'forum/topics/$1/$2';
 $route['forum/messages/(:num)'] = 'forum/messages/$1';
 $route['forum/answer'] = 'forum/answer';
 $route['forum/send_message'] = 'forum/send_message';
@@ -64,6 +65,7 @@ $route['forum/(:any)/delete_message/(:num)'] = 'forum/delete_message/$2';
 $route['forum/create_topic'] = 'forum/create_topic';
 $route['forum/send_topic'] = 'forum/send_topic';
 $route['forum/delete_topic/(:num)'] = 'forum/delete_topic/$1';
+$route['forum/edit/(:num)'] = 'forum/edit/$1';
 
 
 $route['private_messages/answer_message'] = '$1/$2';

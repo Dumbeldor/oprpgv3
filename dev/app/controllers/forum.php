@@ -63,12 +63,14 @@ class Forum extends MY_Controller {
 		$nbMess = $this->forum_model->countCategories($id_categorie);
 		$config['base_url'] = base_url('/forum/c/'.$id_categorie.'/');
 		$config['total_rows'] = $nbMess;
+		$config['use_page_numbers'] = TRUE;
 		$config['uri_segment'] = 4;
-		$config['per_page'] = 15;
+		$config['per_page'] = 20;
 		$config['last_link'] = 'Dernière';
 		$config['first_link'] = 'Première';
 		
 		$this->pagination->initialize($config);
+		$page = $page * 10;
 		
 		if($page > 0)
 		{
@@ -87,7 +89,7 @@ class Forum extends MY_Controller {
 		
 		// Set title and loading categories
 		$data['title'] = 'Forum';
-	    $data['topic'] = $this->forum_model->get_topics($id_categorie, 15, $page);
+	    $data['topic'] = $this->forum_model->get_topics($id_categorie, 10, $page);
 		
 	
 		
@@ -123,11 +125,13 @@ class Forum extends MY_Controller {
 		$config['base_url'] = base_url('/forum/t/'.$id_topic.'/');
 		$config['total_rows'] = $nbMess;
 		$config['uri_segment'] = 4;
+		$config['use_page_numbers'] = TRUE;
 		$config['per_page'] = 30;
 		$config['last_link'] = 'Dernière';
 		$config['first_link'] = 'Première';
 		
 		$this->pagination->initialize($config);
+		$page = $page*15;
 		
 		if($page > 0)
 		{
@@ -151,6 +155,7 @@ class Forum extends MY_Controller {
 		if($data['id_categorie'] == 1 && !($this->user->isModo() || $this->user->isAdmin()))
 			redirect('forum/');
 		// Get all topic's messages
+		echo $page;
 		$data['messages'] = $this->forum_model->get_messages($id_topic, 30, $page);
 		
 		if($data['id_categorie'] == $this->user->getAttribute('crewId') AND $this->crew->isCapitaine())
@@ -274,7 +279,9 @@ class Forum extends MY_Controller {
 	 *	Delete a topic
 	 *	@param $id_topic id topic
 	 * ----------------------------------------------------------------- */
-	public function delete_topic($id_topic) {
+	public function delete_topic($id_topic = 0) {
+		if($id_topic == 0)
+			redirect('/forum');
 		$success = false;
 		$categorie = $this->forum_model->get_id_categorie($id_topic)[0]['id_forums_categories'];
 		if($this->user->isAdmin() || $this->user->isModo() ||
@@ -285,6 +292,12 @@ class Forum extends MY_Controller {
 			redirect('/forum/c/'.$categorie);
 		else
 			redirect('/forum');
+	}
+	
+	public function edit($id = 0) {
+		if($id == 0)
+			redirect('/forum');
+		$success = $this->forum_model->edit;
 	}
 	
 }

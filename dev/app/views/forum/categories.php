@@ -19,11 +19,20 @@ foreach($topic as $topics):
       <?php
         if($this->user->isAdmin() || $this->user->isModo() ||
 			($this->user->getAttribute('crewId') == $id_categorie && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
-			?><a href="<?php echo base_url('/forum/delete_topic/'.$topics['id']);?>">Supprimer topic</a><?php
+			?></br><a href="<?php echo base_url('/forum/delete_topic/'.$topics['id']);?>">Supprimer topic</a><?php
 		}
         ?>
       <br>
-	<i>Dernier message de <a href="<?php echo base_url('users/view/'.$topics['userId']);?>"><?php echo $topics['pseudo'];?></a> le <?php echo date('d/m/Y à H\hi', $topics['date']);?></i><br />
+	  <?php
+	  $page = floor($topics['countMsg'] / 15);
+        if($page == 1 OR $page == 0) { ?>
+            <a href="<?php echo base_url('forum/t/'. $topics['id'].'#'.$topics['msgId']);?>">Dernier message</a></i>
+        <?php } else { ?>
+            <a href="<?php echo base_url('forum/t/'. $topics['id'].'/'.$page.'#'.$topics['msgId']);?>">Dernier message</a></i>
+        <?php } ?>
+	
+	de
+	<a href="<?php echo base_url('users/view/'.$topics['userId']);?>"><?php echo $topics['pseudo'];?></a> le <?php echo date('d/m/Y à H\hi', $topics['date']);?></i><br />
 	-----------------------------------------------------------------------------------------------------<br />
 <?php endforeach;
 else: ?>
