@@ -4,7 +4,7 @@
     <nav class="top-bar" data-topbar >
       <ul class="title-area">
         <li class="name">
-          <h1><a href="/">OnePiece-RPG</a></h1>
+          <h1><a href="/">MineGame</a></h1>
         </li>
         <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
       </ul>
@@ -13,6 +13,39 @@
         <ul class="right">
           <li class="divider"></li>
           <li class="active "><a href="/">Accueil</a></li>
+		  <li class="divider"></li>
+		  <li class="has-dropdown">
+			<a href="#">Autre</a>
+			<ul class="dropdown">
+			  <li class="has-dropdown">
+				<a href="#">Fans</a>
+				<ul class="dropdown">
+				  <li><a href="#">Fanarts</a></li>
+				  <li><a href="#">Fanmovs</a></li>
+				  <li><a href="#">Fanfics</a></li>
+				</ul>
+			  </li>
+			  
+			  <li class="has-dropdown">
+				<a href="#">Le site</a>
+				<ul class="dropdown">
+				  <li><a href="<?php echo base_url('/users') ?>">Annuaire</a></li>
+				  <li><a href="<?php echo base_url('/users/liste'); ?>">Connectés</a></li>
+				  <li><a href="#">F.A.Q</a></li>
+				</ul>
+			  </li>
+			  
+			  <li class="has-dropdown">
+				<a href="#">Communauté</a>
+				<ul class="dropdown">
+				  <li><a href="#">Hall of fame</a></li>
+				  <li><a href="#">Livre d'or</a></li>
+				  <li><a href="#">Le Staff</a></li>
+				</ul>
+			  </li>
+			  
+			</ul>
+		  </li>
           <li class="divider"></li>
 	  <li><a href="<?php echo base_url('/forum') ?>">Forum</a></li>
           <li class="divider"></li>
@@ -25,6 +58,7 @@
             <li class="divider"></li>
           <?php else: ?>
 		  <li><a href="<?php echo base_url('/crews/index') ?>">Équipage</a></li>
+		  <li class="divider"></li>
             <li><a href="<?php echo base_url('/account') ?>">Mon Compte
             <?php if($amountMP > 0)
             echo '('.$amountMP.')'; ?></a></li>

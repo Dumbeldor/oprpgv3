@@ -1,10 +1,15 @@
+<br>
+<div class="row">
+    <ul class="large-block-grid-2 medium-block-grid-2 small-block-grid-1">
+
 <?php 
 foreach($categorie as $categories):
 //print_r($categorie);
 
-
 if($categories['id'] != 1 || ($moderator || $admin)):
 ?>
+        <li>
+            <div class="panel">
 	<a href="<?php echo base_url('forum/c/'.$categories['id']); ?>"> <?php echo $categories['name'];?></a><br>
 	<i><?php echo $categories['descr'];?></i><br/>
 	<?php if (!empty($categories['topicId'])):?>
@@ -19,8 +24,12 @@ if($categories['id'] != 1 || ($moderator || $admin)):
 		le  <?php echo date('d/m/Y à H\hi', $categories['date']);?><br />
 	<?php else:?>
 		<i>Aucun topic d'écrit pour le moment !</i><br />
-		<?php endif;?>
-	----------------------------------------------------------------------------------------------------<br />
+		<?php endif;
+endif; ?>
+            </div>
+        </li>
+        
 <?php
-endif; 
 endforeach; ?>
+    </ul>
+</div>

@@ -35,10 +35,12 @@ foreach($audata as $key => $value)
 	</footer>
 
 		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="http://onepiece-rpg.fr/dumbeldor/dev/assets/js/foundation/vendor/jquery.js"></script>
-	<script src="http://onepiece-rpg.fr/dumbeldor/dev/assets/js/foundation/foundation.min.js"></script>
-	<script src="http://onepiece-rpg.fr/dumbeldor/dev/assets/js/foundation/vendor/fastclick.js"></script>
-	<script>$(document).foundation();</script>
+		<script src="<?php echo $url;?>js/vendor/jquery.js"></script>
+  <script src="<?php echo $url;?>js/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+
 
 
 
