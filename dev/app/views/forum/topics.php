@@ -39,7 +39,7 @@ foreach($messages as $message):
 		<strong><i><?php echo $message->ranks;?></i></strong><br />
 		<i><?php echo $message->messNumber; ?> messages</i>
 			</th>
-			<th>		
+			<th id="forumMessage">		
 		<?php echo $message->message; ?>
 			</th>
 		</tr>
