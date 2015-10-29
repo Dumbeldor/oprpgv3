@@ -176,7 +176,7 @@ class Forum extends MY_Controller {
 		// Loading helper form, set title and id
 		$this->load->helper('form');
 		$data['title'] = 'Forum';
-		$data['id_topic'] = $this->input->post('id_topic');
+		$data['idTopic'] = $this->input->post('id_topic');
 		
 		// Construct this page
 		$this->construct_page('forum/answer', $data);
