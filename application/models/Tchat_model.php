@@ -3,6 +3,11 @@ class Tchat_model extends CI_Model {
 	public function __construct() {
 		$this->load->database();
 	}
+	
+	public function listTchat() {
+		$query = $this->db->query("SELECT id, name, descr FROM tchats WHERE is_block = 0");
+		return $query->result_array();
+	}
   
 	public function get_messages($id_tchat) {
 		$query = $this->db->query("SELECT t.message, t.id, t.date_time, u.pseudo FROM tchats_messages t, users u WHERE t.id_tchats = ? AND t.id_users = u.id ORDER BY id DESC LIMIT 40", array($id_tchat));
@@ -10,13 +15,20 @@ class Tchat_model extends CI_Model {
 	}
   
 	public function save_msg($user_id, $msg, $id_tchat) {
+		$query = $this->db->query("SELECT COUNT(*) AS nbMess FROM tchats_messages WHERE id_tchats = ?", array($id_tchat));
+		$nbMess = $query->result_array()[0]['nbMess'];
+		if($nbMess > 30){				
+			$this->db->order_by('id');
+			$this->db->limit(1);
+			$this->db->delete('tchats_messages', array('id_tchats' => $id_tchat));
+		}
 		$data = array(
 			'id_users' => $user_id,
 			'message' => $msg,
 			'id_tchats' => $id_tchat,
 			'date_time' => date('Y-m-d H:i:s', time()),
 		);
-		return $this->db->insert('tchats_messages', $data);
+		$this->db->insert('tchats_messages', $data);
 	}
 	
 	public function get_id_tchat($id_message) {
@@ -25,6 +37,7 @@ class Tchat_model extends CI_Model {
 	}
 	
 	public function delete_message($id_message) {
+		echo "test";
 		$this->db->delete('tchats_messages', array('id'=>$id_message));
 	}
   

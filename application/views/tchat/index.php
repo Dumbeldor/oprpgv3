@@ -1,9 +1,14 @@
-<div class="type_tchat" id="tchat1">
-	<a href="<?php echo base_url('tchat/salle/1') ?>">Tchat 1<a/>
-</div>
-<div class="type_tchat" id="tchat2">
-	<a href="<?php echo base_url('tchat/salle/2') ?>">Tchat 2<a/>
-</div>
-<div class="type_tchat" id="tchat3">
-	<a href="<?php echo base_url('tchat/salle/3') ?>">Tchat 3<a/>
+<br>
+<div class="row">
+	<ul class="small-block-grid-1">
+	<?php foreach($tchats as $tchat) { ?>
+		<li>
+			<div class="panel">
+				<a href="<?php echo base_url('tchat/salle/'.$tchat['id']) ?>"><?= $tchat['name']?></a>
+				<br>
+				<?= $tchat['descr']; ?>
+			</div>
+		</li>
+	<?php } ?>
+	</ul>
 </div>

@@ -11,6 +11,7 @@ class Tchat extends MY_Controller {
   
   public function index() {
 	$data['title'] = 'T\'chat';
+	$data['tchats'] = $this->tchat_model->listTchat();
 	$this->construct_page('tchat/index', $data);
   }
   
@@ -25,8 +26,7 @@ class Tchat extends MY_Controller {
   }
 
   public function post() {
-    $session = $this->session->all_userdata();
-    $user_id = $session['id'];
+    $user_id = $this->user->getId();
 	if(isset($user_id) && $user_id > 0) {
 		$message = $this->input->post('message');
 		$id_tchat = $this->input->post('id_tchat');
@@ -40,10 +40,12 @@ class Tchat extends MY_Controller {
     echo json_encode($messages);
   }
   
-  public function delete_message($id_message) {
+  public function delete_message($id_message = 0) {
+	if($id_message == 0)
+	  redirect('/tchat/');
 	$id_tchat = $this->tchat_model->get_id_tchat($id_message);
 	$this->tchat_model->delete_message($id_message);
-	$this->index($id_tchat[0]['tchat_id']);
+	redirect('tchat/salle/'.$id_tchat[0]['id_tchats']);
   }
 
 }
