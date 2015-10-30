@@ -51,7 +51,7 @@ class Messaging_model extends CI_Model
 			id_users, content, pseudo,
 			privates_messages.id_users_1 AS catcher 
 			FROM privates_messages 
-			JOIN users ON id_users = users.id 
+			JOIN users ON id_users_1 = users.id 
 			WHERE privates_messages.id_users = ? AND privates_messages.is_trash = 0
 			ORDER BY privates_messages.id DESC", array($this->user->getId()));
 		return $resultat = $query->result_array();
