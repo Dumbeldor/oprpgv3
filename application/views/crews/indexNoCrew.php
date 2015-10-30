@@ -1,6 +1,6 @@
 <h1>Vous êtes encore dans aucun équipage !</h1>
 <br>
-2 choix s'offre à vous, soit rejoindre un équipage : <br>
+2 choix s'offrent à vous, soit rejoindre un équipage : <br>
     <a href="<?php echo base_url('crews/liste') ?>">Liste des équipages pouvant vous prendre</a> <br>
     <?php
 	echo form_open('crews/recherche');

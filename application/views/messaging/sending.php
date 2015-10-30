@@ -9,6 +9,7 @@
  ******************************************************************************
  */
 ?>
+<div class="row">
 <br />
 <a href="<?php echo base_url("/messaging/"); ?>">Reçus</a> / 
 <a href="<?php echo base_url("/messaging/sending"); ?>">Envois</a>
@@ -27,10 +28,12 @@
 <br />
 
    
-
+<ul class="large-block-grid-2 small-block-grid-1">
 <?php foreach ($private_message as $message) {
-	
-	?><input type="checkbox" name="mess[]" value="<?php echo $message['id']; ?>">
+	?>
+	<li>
+				<div class="panel">
+	<input type="checkbox" name="mess[]" value="<?php echo $message['id']; ?>">
           <?php if($message['is_read'] == 0) {//If private message not read
             ?><strong>Message non lu</strong> <?php
           }
@@ -39,11 +42,13 @@
 
           <?php 
     //Displays the beginning of the message and displays a link if the member wants to read the entire message
-          echo $message['content']; ?> </em></strong></blockquote></u> 
+          echo htmlentities($message['content']); ?> </em></strong></blockquote></u> 
            <br />
           <a href="<?php echo base_url("/messaging/read/".$message['id']); ?>">Lire la suite</a>
-          <br /> <br />
+				</div>
+	</li>
         <?php
       }
       echo form_close();
-}
+} ?>
+</div>
