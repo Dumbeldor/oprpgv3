@@ -1,13 +1,4 @@
 <?php
-/**
- ******************************************************************************
- * Description : 
- * This page is obsolet
- * @todo DELETE THIS PAGE ! :D
- * @author Mawloc
- * @version 1.0.0
- ******************************************************************************
- */
 class Tchat extends MY_Controller {
 
   // Default Constructor
@@ -36,10 +27,11 @@ class Tchat extends MY_Controller {
   public function post() {
     $session = $this->session->all_userdata();
     $user_id = $session['id'];
-    $message = $this->input->post('message');
-	$id_tchat = $this->input->post('id_tchat');
-    $this->tchat_model->save_msg($user_id, parse_smileys($message, base_url('assets/smileys/')), $id_tchat);
-	
+	if(isset($user_id) && $user_id > 0) {
+		$message = $this->input->post('message');
+		$id_tchat = $this->input->post('id_tchat');
+		$this->tchat_model->save_msg($user_id, parse_smileys($message, base_url('assets/smileys/')), $id_tchat);
+	}
 	$this->salle($id_tchat);
   }
 
