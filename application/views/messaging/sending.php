@@ -39,7 +39,7 @@
 
           <?php 
     //Displays the beginning of the message and displays a link if the member wants to read the entire message
-          echo $message['content']; ?> 
+          echo $message['content']; ?> </em></strong></blockquote></u> 
            <br />
           <a href="<?php echo base_url("/messaging/read/".$message['id']); ?>">Lire la suite</a>
           <br /> <br />
