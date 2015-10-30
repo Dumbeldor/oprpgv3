@@ -73,7 +73,7 @@ class News_model extends CI_Model
 	*/
 	public function lists($nb = 5, $debut = 0)
 	{
-		return $this->db->select('news.id, date_time, title, message, is_block, pseudo')
+		return $this->db->select('news.id, date_time, title, message, is_block, pseudo, (SELECT COUNT(*) FROM news_comments WHERE id_news = news.id LIMIT '.$debut.', '.$nb.') as nbComments')
 			->from($this->table)
 			->join('users', 'news.id_users = users.id')
 			->limit($nb, $debut)
