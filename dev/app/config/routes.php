@@ -61,13 +61,19 @@ $route['forum/delete_message/(:num)'] = 'forum/delete_message/$1';
 $route['forum/(:any)/delete_message/(:num)'] = 'forum/delete_message/$2';
 $route['forum/create_topic'] = 'forum/create_topic';
 $route['forum/send_topic'] = 'forum/send_topic';
+$route['forum'] = 'forum';
 
+/* MP */
 
 $route['private_messages/answer_message'] = '$1/$2';
 $route['private_messages/delete_message/(:num)'] = 'private_messages/delete_message/$1';
 
-$route['forum'] = 'forum';
+/* Support */
 
+$route['support'] = 'support/index';
+$route['support/(:num)'] = 'support/read/$1';
+$route['support/create'] = 'support/create'; 
+$route['support/addMessage/(:num)'] = 'support/addMessage/$1'; 
 
 $route['default_controller'] = "home/index";
 //$route['(:any)'] = 'pages/view/$1';
