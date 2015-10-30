@@ -33,13 +33,10 @@ foreach($audata as $key => $value)
 
 	    </div>
 	</footer>
-	<?php
-$url = "http://localhost/oprpg/dev/assets/";
-?>
-	<script src="<?php echo $url;?>ckeditor/ckeditor.js"></script>
-	 <script src="<?php echo $url;?>js/vendor/jquery.js"></script>
-	<script src="<?php echo $url;?>js/foundation/foundation.js"></script>
-	<script src="<?php echo $url;?>js/foundation/foundation.topbar.js"></script>
+
+	 <script src="<?php echo base_url('assets/js/vendor/jquery.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/foundation/foundation.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/foundation/foundation.topbar.js');?>"></script>
 	<!-- Other JS plugins can be included here -->
 
   <script>
