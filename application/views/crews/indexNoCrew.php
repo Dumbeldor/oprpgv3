@@ -1,3 +1,4 @@
+<div class="row">
 <h1>Vous êtes encore dans aucun équipage !</h1>
 <br>
 2 choix s'offrent à vous, soit rejoindre un équipage : <br>
@@ -18,3 +19,4 @@ Ou alors en créant votre propre équipage ! <br> <br>
 		Nom de votre Équipage : <input type="input" id="crewName" name="crewName" value="<?php echo set_value('crewName'); ?>"></input> <br>
 		<input type="submit" value="Envoyer">
 	</form>
+</div>
