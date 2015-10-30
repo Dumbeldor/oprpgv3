@@ -37,11 +37,8 @@
  * | in the URL cannot be matched to a valid route.
  * |
  * */
-$route['default_controller'] = 'welcome';
 
-
-
-/* News */
+ /* News */
 $route['news/(:num)'] = 'home/index/$1';
 
 /* Crew */
