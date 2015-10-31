@@ -70,7 +70,7 @@ class Forum_model extends CI_Model {
 		
 		return $this->db->select('u.pseudo AS pseudo, u.id AS userId,
 				u.messNumber AS messNumber,
-				users_types.name AS ranks, f.message AS message, 
+				users_types.name AS ranks, u.id_users_types AS ranksId, f.message AS message, 
 				f.date_time AS date,
 				f.id AS id')
 			->from('forums_topics_messages f')

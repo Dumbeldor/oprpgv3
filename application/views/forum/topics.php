@@ -25,7 +25,11 @@
 								
 								</div>
 								<div class="columns small-9">
-										<div class="panel">
+										<?php if($message->ranksId > 1) { ?>
+												<div class="panel" style="border-color:#FF7373;  border-radius: 20px">
+										<?php } else { ?>
+												<div class="panel" style=" border-radius: 10px;">
+										<?php } ?>
 										
 												<i></b> le <?php echo date('d/m/Y à H\hi',$message->date); ?> | <?php
 												if($message->userId == $this->user->getId() || $moderator || ($id_categorie == $this->user->getAttribute('crewId') && ($modoCrew || $adminCrew || $capitaineCrew))) {
