@@ -12,7 +12,7 @@
         <!-- Right Nav Section -->
         <ul class="right">
           <li class="divider"></li>
-          <li class="active "><a href="/">Accueil</a></li>
+          <li><a href="/">Accueil</a></li>
 		  <li class="divider"></li>
 		  <li class="has-dropdown">
 			<a href="#">Autre</a>
@@ -31,16 +31,16 @@
 				<ul class="dropdown">
 				  <li><a href="<?php echo base_url('/users') ?>">Annuaire</a></li>
 				  <li><a href="<?php echo base_url('/users/liste'); ?>">Connectés</a></li>
-				  <li><a href="#">F.A.Q</a></li>
+				  <li><a href="<?= base_url('forum/t/21');?>">F.A.Q</a></li>
 				</ul>
 			  </li>
 			  
 			  <li class="has-dropdown">
 				<a href="#">Communauté</a>
 				<ul class="dropdown">
-				  <li><a href="#">Hall of fame</a></li>
+				  <li><a href="#">Classement</a></li>
 				  <li><a href="#">Livre d'or</a></li>
-				  <li><a href="#">Le Staff</a></li>
+				  <li><a href="<?= base_url('users/staff/')?>">Le Staff</a></li>
 				</ul>
 			  </li>
 			  

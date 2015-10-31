@@ -60,6 +60,13 @@ class Users extends MY_Controller {
 	$this->index($page);
   }
   
+  public function staff() {
+	if(!$this->user->isAuthenticated())
+  		redirect(base_url('/home/accueil'));
+	  $data['users'] = $this->users_model->staff();
+	  $this->construct_page('users/staff', $data);
+  }
+  
   /**
    * View the profile of a user
    * ----------------------------------------------------------------------- */

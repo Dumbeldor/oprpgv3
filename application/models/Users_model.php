@@ -54,8 +54,19 @@ class Users_model extends CI_Model {
   
   public function annuaire($nb = 5, $debut = 0) {
 	$query = $this->db->limit($nb, $debut)
+			->select('users.id, pseudo, is_kick, id_levels')
 			->get('users');
         return $query->result_array();
+  }
+  
+  public function staff() {
+	$query = $this->db->select('users.id, pseudo, users_types.name, users_types.id AS idRanks')
+			  ->from('users')
+			  ->join('users_types', 'users.id_users_types = users_types.id')
+			  ->where('users.id_users_types >', 1)
+			  ->order_by('users.id_users_types DESC')
+			  ->get();
+	return $query->result_array();
   }
   
   public function set_user() {
