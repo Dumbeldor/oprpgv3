@@ -64,6 +64,7 @@ class Users extends MY_Controller {
 	if(!$this->user->isAuthenticated())
   		redirect(base_url('/home/accueil'));
 	  $data['users'] = $this->users_model->staff();
+	  $data['title'] = 'Liste Staff';
 	  $this->construct_page('users/staff', $data);
   }
   
