@@ -29,7 +29,7 @@ function update_tchat() {
 	  + message.date_time
 	  + supp
 	  + '</br>'
-	  + message.message + message.base_url
+	  + message.message
 	  + '</br></div></div></div></div></div>';
     });
     $('#tchat_container').html(html);
