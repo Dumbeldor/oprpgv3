@@ -65,3 +65,9 @@
     background-color: white;
     height: 100%;
 }
+
+.nav {
+	background: rgba(0, 0, 0, 0) url("../img/navBgCenter.png") repeat-x scroll 0 0;
+    height: 116px;
+    width: 980px;
+}

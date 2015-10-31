@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row pageNormale">
 <h1>Vous êtes encore dans aucun équipage !</h1>
 <br>
 2 choix s'offrent à vous, soit rejoindre un équipage : <br>
