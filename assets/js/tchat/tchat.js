@@ -21,7 +21,16 @@ function update_tchat() {
 	  } else {
 	    supp = '';
 	  }
-      html += '<div class="tchat_message"><strong>' + message.pseudo + '</strong> le ' + message.date_time + supp + '</br>' + message.message + '</br></div>';
+      html += '<div class="tchat_message"><div class="columns small-12"><div class="row"><div class="columns small-3">'
+	  + '<font color="<?= $this->user->getColor('+message.idRanks+') ?>"><strong>' +message.pseudo
+	  + '</strong></font> <br> <img src=".../img/avatarDefault.png"></img><br>'
+	  + '</div><div class="columns small-9"><div class="panel" style="border-color: <?= $this->user->getColor($message->idRanks) ?>;  border-radius: 10px">'
+	  +'le '
+	  + message.date_time
+	  + supp
+	  + '</br>'
+	  + message.message + message.base_url
+	  + '</br></div></div></div></div></div>';
     });
     $('#tchat_container').html(html);
   });
