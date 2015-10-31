@@ -13,9 +13,15 @@ setInterval(function(){update_tchat();}, 10000);
 function update_tchat() {
   $.get("getMessages/" + current_salle, function(data) {
 	var html = '';
+	var supp = '';
 	data = $.parseJSON(data);
 	$.each(data, function(ind, message) {
-      html += '<div class="tchat_message"><strong>' + message.pseudo + '</strong> le ' + message.date_time + '</br>' + message.message + '</br></div>';
+	  if(modo) {
+		supp = ' |<a href="' + base_url + '/' + message.id +'">Supprimer</a>';
+	  } else {
+	    supp = '';
+	  }
+      html += '<div class="tchat_message"><strong>' + message.pseudo + '</strong> le ' + message.date_time + supp + '</br>' + message.message + '</br></div>';
     });
     $('#tchat_container').html(html);
   });
