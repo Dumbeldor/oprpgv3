@@ -26,7 +26,7 @@
 								</div>
 								<div class="columns small-9">
 										<?php if($message->ranksId > 1) { ?>
-												<div class="panel" style="border-color:#FF7373;  border-radius: 20px">
+												<div class="panel" style="border-color:#FF7373;  border-radius: 10px">
 										<?php } else { ?>
 												<div class="panel" style=" border-radius: 10px;">
 										<?php } ?>
