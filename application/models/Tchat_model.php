@@ -37,7 +37,6 @@ class Tchat_model extends CI_Model {
 	}
 	
 	public function delete_message($id_message) {
-		echo "test";
 		$this->db->delete('tchats_messages', array('id'=>$id_message));
 	}
   

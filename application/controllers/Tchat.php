@@ -41,7 +41,7 @@ class Tchat extends MY_Controller {
   }
   
   public function delete_message($id_message = 0) {
-	if($id_message == 0)
+	if($id_message == 0 || !($this->user->isModo() || $this->user->isAdmin()))
 	  redirect('/tchat/');
 	$id_tchat = $this->tchat_model->get_id_tchat($id_message);
 	$this->tchat_model->delete_message($id_message);
