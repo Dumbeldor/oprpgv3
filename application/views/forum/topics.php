@@ -25,19 +25,21 @@
 								
 								</div>
 								<div class="columns small-9">
+										<div class="panel">
 										
-										<i></b> le <?php echo date('d/m/Y à H\hi',$message->date); ?> | <?php
-										if($message->userId == $this->user->getId() || $moderator || ($id_categorie == $this->user->getAttribute('crewId') && ($modoCrew || $adminCrew || $capitaineCrew))) {
-											?><a href="<?php echo base_url('forum/delete_message/'.$message->id); ?>">Supprimer</a>
-											|
-											<a href="<?php echo base_url('forum/edit/'.$message->id); ?>">Éditer</a>
-										<?php } ?>
-											|
-										<a href="<?php echo base_url('forum/quote/'.$id_topic.'/'.$message->id);?>">Citer</a>
-										<br><br></i>
-													
-														
-										<?php echo $message->message; ?>
+												<i></b> le <?php echo date('d/m/Y à H\hi',$message->date); ?> | <?php
+												if($message->userId == $this->user->getId() || $moderator || ($id_categorie == $this->user->getAttribute('crewId') && ($modoCrew || $adminCrew || $capitaineCrew))) {
+													?><a href="<?php echo base_url('forum/delete_message/'.$message->id); ?>">Supprimer</a>
+													|
+													<a href="<?php echo base_url('forum/edit/'.$message->id); ?>">Éditer</a>
+												<?php } ?>
+													|
+												<a href="<?php echo base_url('forum/quote/'.$id_topic.'/'.$message->id);?>">Citer</a>
+												<br><br></i>
+															
+																
+												<?php echo $message->message; ?>
+										</div>
 								</div>
 						</div>
 				</div>							
