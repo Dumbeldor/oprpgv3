@@ -50,8 +50,10 @@
           $data['admin'] = TRUE;
 		  $data['moderator'] = TRUE;
 		}
-        else if($this->user->isModo())
+        else if($this->user->isModo()) {
+		  $data['admin'] = FALSE;
           $data['moderator'] = TRUE;
+		}
 		else {
           $data['moderator'] = FALSE;
           $data['admin'] = FALSE;

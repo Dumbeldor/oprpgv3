@@ -6,7 +6,7 @@
     <?php } else {
 	  ?>
 		<?php
-		if ($connecte &&$admin) { ?>
+		if ($connecte && $admin) { ?>
 		  <a href="<?php echo base_url('/news/add/'); ?>">Ajouter une news</a> <br /><?php } ?>
 		<?php echo $pagination; ?>
 		<ul class="large-block-grid-2 small-block-grid-1">
