@@ -1,5 +1,6 @@
 				</div>
 			</div>
+			</div>
 		<!-- Fin du contenu -->
 	<footer class="row">
 	    <div class="large-12 columns">

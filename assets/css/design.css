@@ -26,3 +26,49 @@ td, th
 #forumProfil{
     vertical-align: top; 
 }
+
+.bois {
+	background-image:url('../img/nav-rep.png');
+}
+
+.top-bar-section li:not(.has-form) a:not(.button) {
+	background-image:url('../img/nav-rep.png');
+}
+
+.top-bar-section li:not(.has-form) a:hover:not(.button) {
+	background-color: #985D23;
+}
+
+.top-bar-section > ul > .divider, .top-bar-section > ul > [role="separator"] {
+	border-right: 1px solid #985D23;
+}
+
+.top-bar-section ul li:hover:not(.has-form) > a {
+	background-color: #985D23;
+} 
+
+body {
+	background-image: url('../img/background2.png');
+	background-color: #FCFEFD;
+	background-repeat: repeat-x;
+}
+
+.panel {
+	background: #f5f5f5 none repeat scroll 0 0;
+    border-color: #9b642e;
+    border-style: solid;
+    border-width: 3px;
+	border-radius: 7px;
+}
+
+.pageNormale {
+	background: #f5f5f5 none repeat scroll 0 0;
+    border-color: #9b642e;
+    border-style: solid;
+    border-width: 3px;
+    color: #333333;
+    margin-bottom: 1.25rem;
+	margin-top: 3rem;
+    padding: 1.25rem;
+	border-radius: 7px;
+}
