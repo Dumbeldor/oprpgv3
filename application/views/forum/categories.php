@@ -38,7 +38,7 @@
   				<?php } ?>
   
   				de
-					<a href="<?php echo base_url('users/view/'.$topics['userId']);?>"><?php echo $topics['pseudo'];?></a> le <?php echo date('d/m/Y à H\hi', $topics['date']);?></i>
+					<a href="<?php echo base_url('users/view/'.$topics['userId']);?>" class="<?= $topics['rank'] ?>"><?php echo $topics['pseudo'];?></a> le <?php echo date('d/m/Y à H\hi', $topics['date']);?></i>
 			</div>
 	  </li>
 				<?php endforeach;

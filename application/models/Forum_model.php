@@ -16,13 +16,14 @@ class Forum_model extends CI_Model {
 	/* $id_type is the chosen forum's id */
 	public function get_categories() {
 		$query = $this->db->query('SELECT ftm.date_time AS date, ftm.id AS messId,
-				fc.id AS id, fc.name AS name,
+				fc.id AS id, fc.name AS name, ut.name AS rank,
 				fc.descr AS descr, fc.types, ft.name AS topicName,
 				ft.id AS topicId, (SELECT COUNT(*) FROM forums_topics_messages WHERE is_block = 0 AND id_forums_topics = ft.id) AS countMsg,
 				users.pseudo AS pseudo, users.id AS userId FROM forums_categories fc
 				LEFT JOIN forums_topics ft ON ft.id_forums_categories = fc.id
 				LEFT JOIN forums_topics_messages ftm ON ftm.id_forums_topics = ft.id
 				LEFT JOIN users ON ftm.id_users = users.id
+				LEFT JOIN users_types ut ON users.id_users_types = ut.id
 				WHERE ftm.date_time = 
 				(
 					SELECT MAX(ftm2.date_time) FROM forums_topics_messages ftm2
@@ -42,10 +43,11 @@ class Forum_model extends CI_Model {
 	/* $id_cate is the chosen cate's id */
 	public function get_topics($id_cate, $nb=15, $begin=0) {
 		$query = $this->db->query('SELECT ftm.date_time AS date, u.pseudo AS pseudo, ft.name AS name,
-				u.id AS userId,	ft.id AS id, ftt.name AS type, ftm.id AS msgId,
+				u.id AS userId,	ft.id AS id, ftt.name AS type, ftm.id AS msgId, ut.name AS rank,
 				(SELECT COUNT(*) FROM forums_topics_messages WHERE is_block = 0 AND id_forums_topics = ft.id) AS countMsg
 				FROM forums_topics_messages ftm
 				JOIN users u ON u.id = ftm.id_users
+				JOIN users_types ut ON u.id_users_types = ut.id
 				JOIN forums_topics ft ON ft.id = ftm.id_forums_topics
 				JOIN forums_topics_types ftt ON ft.id_forums_topics_types = ftt.id
 				JOIN forums_categories fc ON ft.id_forums_categories = fc.id
