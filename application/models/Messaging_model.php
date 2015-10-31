@@ -20,15 +20,24 @@ class Messaging_model extends CI_Model
 	 * returns $nb number of private message starting with the $begin
 	 * ----------------------------------------------------------------------- */
 	public function lists($nb = 5, $begin = 0)
-	{
-		$query = $this->db->query("SELECT privates_messages.id AS id, 
-			date_time, is_read, is_trash, id_users, 
-			SUBSTRING(content, 1, 50) AS content, pseudo 
-			FROM privates_messages JOIN users ON id_users = users.id 
-			WHERE privates_messages.id_users_1 = ? AND privates_messages.is_trash = ? 
-			ORDER BY privates_messages.id DESC", array($this->user->getId(), 0));
-		return $query->result_array();
-
+	{		
+		//initialize private message as not belonging to the man who read it right now
+		$catcher = false;
+		$query = $this->db->query("SELECT privates_messages.id AS id,
+			date_time, is_read, is_trash,
+			id_users, content, pseudo,
+			privates_messages.id_users_1 AS catcher 
+			FROM privates_messages 
+			JOIN users ON id_users = users.id 
+			WHERE privates_messages.id_users_1 = ? AND privates_messages.is_trash = 0
+			ORDER BY privates_messages.id DESC", array($this->user->getId()));
+		$resultat = $query->result_array();
+		//If the user can see the selected private message, then put it as "seen"
+		
+		$this->db->where('id_users_1', $this->user->getId());
+		$this->db->update($this->table, array('is_read' => 1));
+		
+		return $resultat;
 	}
 
 	/**
@@ -37,12 +46,16 @@ class Messaging_model extends CI_Model
 	 * ----------------------------------------------------------------------- */
 	public function listsSending($nb = 5, $begin = 0)
 	{
-		$query = $this->db->query("SELECT privates_messages.id AS id, 
-			date_time, is_read, is_trash, id_users, SUBSTRING(content, 1, 50) AS content, pseudo 
-			FROM privates_messages JOIN users ON id_users_1 = users.id 
-			WHERE privates_messages.id_users = ? AND privates_messages.is_trash = ? 
-			ORDER BY privates_messages.id DESC", array($this->user->getId(), 0));
-		return $query->result_array();
+		$query = $this->db->query("SELECT privates_messages.id AS id,
+			date_time, is_read, is_trash,
+			id_users, content, pseudo,
+			privates_messages.id_users_1 AS catcher 
+			FROM privates_messages 
+			JOIN users ON id_users_1 = users.id 
+			WHERE privates_messages.id_users = ? AND privates_messages.is_trash = 0
+			ORDER BY privates_messages.id DESC", array($this->user->getId()));
+		return $resultat = $query->result_array();
+
 
 	}
 
