@@ -38,10 +38,6 @@ class Users_model extends CI_Model {
     /* Returns information on the member */
 	/* $id is the id of the selected member */
   public function view_user($id = 0) {
-    if($id == 0) {
-        $query = $this->db->get('users');
-        return $query->result_array();
-    }
         //Selection of all useful information to display on the member's profile
     $query = $this->db->query("SELECT users.pseudo, users.messNumber, users_types.name AS rank, levels.number AS lvl,
     							crews.name AS crewName, crews_grades.name AS crewGrade, crews.id AS crewId
@@ -56,8 +52,13 @@ class Users_model extends CI_Model {
     return $query->row_array();
   }
   
+  public function annuaire($nb = 5, $debut = 0) {
+	$query = $this->db->limit($nb, $debut)
+			->get('users');
+        return $query->result_array();
+  }
+  
   public function set_user() {
-	echo "test";
     $password_hash = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
     $data = array(
         'pseudo' => $this->input->post('pseudo'),
@@ -153,6 +154,12 @@ class Users_model extends CI_Model {
   	->order_by('last_activity', 'desc')
   	->get()
   	->result();
+  }
+  
+  public function countUsers() {
+	$query = $this->db->query('SELECT COUNT(*) AS nb
+				FROM users');
+		return $query->result_array()[0]['nb'];
   }
 
 }

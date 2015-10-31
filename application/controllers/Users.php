@@ -18,13 +18,46 @@ class Users extends MY_Controller {
   /**
    * See the list of users
    * ----------------------------------------------------------------------- */
-  public function index() {
+  public function index($page=0) {
   	if(!$this->user->isAuthenticated())
   		redirect(base_url('/home/accueil'));
-	$data['users'] = $this->users_model->view_user();
+	$data['users'] = $this->users_model->annuaire(20, 10);
     $data['title'] = 'Annuaire';
     
-    $this->construct_page('users/index', $data);
+    $this->load->library('pagination');
+	
+	//pagination
+		$nbUsers = $this->users_model->countUsers();
+		$config['base_url'] = base_url('/users/annuaire/');
+		$config['total_rows'] = $nbUsers;
+		
+		$config['use_page_numbers'] = TRUE;
+		$config['per_page'] = 2;
+		$config['last_link'] = 'Dernière';
+		$config['first_link'] = 'Première';
+		
+		$this->pagination->initialize($config);
+		$page = $page*1;
+		
+		if($page > 0)
+		{
+			if($page <= $nbUsers)
+				$page = intval($page);
+			else
+				$page = 0;
+		}
+		else
+			$page = 0;		
+		$data['pagination'] = $this->pagination->create_links();
+		$data['nbUsers'] = $nbUsers;
+		$data['users'] = $this->users_model->annuaire(2, $page);
+		$this->construct_page('users/index', $data);	
+  }
+  
+  public function annuaire($page=0){
+	if(!$this->user->isAuthenticated())
+  		redirect(base_url('/home/accueil'));
+	$this->index($page);
   }
   
   /**

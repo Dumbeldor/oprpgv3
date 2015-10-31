@@ -72,7 +72,7 @@ $route['forum/quote/(:num)/(:num)'] = 'forum/quote/$1/$2';
 $route['private_messages/answer_message'] = '$1/$2';
 $route['private_messages/delete_message/(:num)'] = 'private_messages/delete_message/$1';
 
-$route['forum'] = 'forum';
+$route['users/annuaire/(:num)'] = 'users/annuaire/$1';
 
 
 $route['default_controller'] = "home/index";
