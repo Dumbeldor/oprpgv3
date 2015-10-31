@@ -35,7 +35,9 @@
 	<?php endif; ?>
   </div>
 </div>
+
 <script>
 var modo = <?php echo $moderator; ?>;
 var base_url = '<?php echo base_url('tchat/delete_message'); ?>'
+var img_url = '<?= base_url('assets/img/'); ?>'
 </script>

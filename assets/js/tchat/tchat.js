@@ -16,14 +16,14 @@ function update_tchat() {
 	var supp = '';
 	data = $.parseJSON(data);
 	$.each(data, function(ind, message) {
-	  if(modo) {
+	  if(modo == true) {
 		supp = ' |<a href="' + base_url + '/' + message.id +'">Supprimer</a>';
 	  } else {
 	    supp = '';
 	  }
-      html += '<div class="tchat_message"><div class="columns small-12"><div class="row"><div class="columns small-3">'
+       html += '<div class="tchat_message"><div class="columns small-12"><div class="row"><div class="columns small-3">'
 	  + '<font color="<?= $this->user->getColor('+message.idRanks+') ?>"><strong>' +message.pseudo
-	  + '</strong></font> <br> <img src=".../img/avatarDefault.png"></img><br>'
+	  + '</strong></font> <br> <img src="'+img_url+'/avatarDefault.png"></img><br>'
 	  + '</div><div class="columns small-9"><div class="panel" style="border-color: <?= $this->user->getColor($message->idRanks) ?>;  border-radius: 10px">'
 	  +'le '
 	  + message.date_time

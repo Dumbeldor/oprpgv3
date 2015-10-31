@@ -38,9 +38,9 @@
 			$data['modoCrew'] = true;
 		}
 		else {
-			$data['capitaineCrew'] = false;
-			$data['adminCrew'] = false;
-			$data['modoCrew'] = false;
+			$data['capitaineCrew'] = 0;
+			$data['adminCrew'] = 0;
+			$data['modoCrew'] = 0;
 		}		
 		
         
@@ -51,15 +51,15 @@
 		  $data['moderator'] = TRUE;
 		}
         else if($this->user->isModo()) {
-		  $data['admin'] = FALSE;
+		  $data['admin'] = 0;
           $data['moderator'] = TRUE;
 		}
 		else {
-          $data['moderator'] = FALSE;
-          $data['admin'] = FALSE;
+          $data['moderator'] = 0;
+          $data['admin'] = 0;
 		}
       }else{
-      	$data['connecte'] = FALSE;
+      	$data['connecte'] = 0;
       }
       $this->load->view('templates/header', $data);
       $this->load->view('templates/navbar', $data);
