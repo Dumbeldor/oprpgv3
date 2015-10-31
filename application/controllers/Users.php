@@ -32,12 +32,12 @@ class Users extends MY_Controller {
 		$config['total_rows'] = $nbUsers;
 		
 		$config['use_page_numbers'] = TRUE;
-		$config['per_page'] = 2;
+		$config['per_page'] = 20;
 		$config['last_link'] = 'Dernière';
 		$config['first_link'] = 'Première';
 		
 		$this->pagination->initialize($config);
-		$page = $page*1;
+		$page = $page*10;
 		
 		if($page > 0)
 		{
@@ -50,7 +50,7 @@ class Users extends MY_Controller {
 			$page = 0;		
 		$data['pagination'] = $this->pagination->create_links();
 		$data['nbUsers'] = $nbUsers;
-		$data['users'] = $this->users_model->annuaire(2, $page);
+		$data['users'] = $this->users_model->annuaire(20, $page);
 		$this->construct_page('users/index', $data);	
   }
   
