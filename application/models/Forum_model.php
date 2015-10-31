@@ -82,20 +82,6 @@ class Forum_model extends CI_Model {
 			->order_by('f.id')
 			->get()
 			->result();
-		
-		
-		$query = $this->db->query('SELECT u.pseudo AS pseudo, u.id AS userId,
-				u.messNumber AS messNumber,
-				users_types.name AS ranks, f.message AS message, 
-				f.date_time AS date,
-				f.id AS id
-				FROM forums_topics_messages f 
-				JOIN users u ON f.id_users = u.id
-				JOIN users_types ON u.id_users_types = users_types.id
-				WHERE f.id_forums_topics = ? AND f.is_block = 0
-				ORDER BY f.id
-				LIMIT '.$begin.', '.$nb.'', array($id_topic));
-		return $query->result_array();
 	}
 	
 	

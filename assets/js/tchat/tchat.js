@@ -22,9 +22,9 @@ function update_tchat() {
 	    supp = '';
 	  }
        html += '<div class="tchat_message"><div class="columns small-12"><div class="row"><div class="columns small-3">'
-	  + '<font color="<?= $this->user->getColor('+message.idRanks+') ?>"><strong>' +message.pseudo
-	  + '</strong></font> <br> <img src="'+img_url+'/avatarDefault.png"></img><br>'
-	  + '</div><div class="columns small-9"><div class="panel" style="border-color: <?= $this->user->getColor($message->idRanks) ?>;  border-radius: 10px">'
+	  + '<strong><a href="'+url_user+'/'+message.userId+'" class="'+message.ranks+'">' +message.pseudo
+	  + '</a></strong></font> <br> <img src="'+img_url+'/avatarDefault.png"></img><br>'
+	  + '</div><div class="columns small-9"><div class="panel" id="'+message.ranks+'"">'
 	  +'le '
 	  + message.date_time
 	  + supp

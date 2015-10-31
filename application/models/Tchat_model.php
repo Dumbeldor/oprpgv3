@@ -10,7 +10,7 @@ class Tchat_model extends CI_Model {
 	}
   
 	public function get_messages($id_tchat) {
-		$query = $this->db->query("SELECT t.message, t.id, t.date_time, u.pseudo, ut.id as idRanks FROM tchats_messages t
+		$query = $this->db->query("SELECT t.message, t.id, t.date_time, u.pseudo, ut.name AS ranks, u.id AS userId FROM tchats_messages t
 								  JOIN users u ON t.id_users = u.id
 								  JOIN users_types ut ON u.id_users_types = ut.id
 								  WHERE t.id_tchats = ? ORDER BY id DESC LIMIT 40

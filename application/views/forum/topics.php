@@ -19,19 +19,14 @@
 								<div class="columns small-3">
 										
 										<img src="<?php echo base_url('assets/img/avatarDefault.png');?>"></img><br>										
-										<b><a href="<?php echo base_url('users/view/'.$message->userId);?>"><?php echo $message->pseudo; ?></a><br>
+										<a href="<?php echo base_url('users/view/'.$message->userId);?>" class="<?= $message->ranks; ?>"><?php echo $message->pseudo; ?></a><br>
 										<strong><i><?php echo $message->ranks;?></i></strong><br />
 										<i><?php echo $message->messNumber; ?> messages</i>
 								
 								</div>
 								<div class="columns small-9">
-										<?php if($message->ranksId > 1) { ?>
-												<div class="panel" style="border-color:#FF7373;  border-radius: 10px">
-										<?php } else { ?>
-												<div class="panel" style=" border-radius: 10px;">
-										<?php } ?>
-										
-												<i></b> le <?php echo date('d/m/Y à H\hi',$message->date); ?> | <?php
+										<div class="panel" id="<?= $message->ranks;?>">												
+												<i> le <?php echo date('d/m/Y à H\hi',$message->date); ?> | <?php
 												if($message->userId == $this->user->getId() || $moderator || ($id_categorie == $this->user->getAttribute('crewId') && ($modoCrew || $adminCrew || $capitaineCrew))) {
 													?><a href="<?php echo base_url('forum/delete_message/'.$message->id); ?>">Supprimer</a>
 													|
@@ -40,8 +35,8 @@
 													|
 												<a href="<?php echo base_url('forum/quote/'.$id_topic.'/'.$message->id);?>">Citer</a>
 												<br><br></i>
-															
 																
+																	
 												<?php echo $message->message; ?>
 										</div>
 								</div>

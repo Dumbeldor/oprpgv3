@@ -1,6 +1,46 @@
-#corps{
-    width:90%;
-    margin:auto;
+a.Membre{
+    color:#9B9B9B;
+}
+a.Rédacteur, a.Rédactrice{
+    color:#1BFFC7;
+}
+a.Designer, a.Designeuse{
+    color:#1B2AFF;
+}
+a.Modérateur, a.Modératrice{
+    color:#1BFF1F;
+}
+a.Co-Administrateur, a.Co-Administratrice{
+    color:#FF911B;
+    font-weight: bold;
+}
+a.Administrateur, a.Administratrice{
+    color:red;
+    font-weight: bold;
+}
+div#Membre{
+    border-color:#9B9B9B;
+    border-radius: 10px
+}
+div#Rédacteur, div#Rédactrice{
+    border-color:#1BFFC7;
+    border-radius: 10px
+}
+div#Designer, div#Designeuse{
+    border-color:#1B2AFF;
+    border-radius: 10px
+}
+div#Modérateur, div#Modératrice{
+    border-color:#1BFF1F;
+    border-radius: 10px
+}
+div#Co-Administrateur, div#Co-Administratrice{
+    border-color:#FF911B;
+    border-radius: 10px
+}
+div#Administrateur, div#Administratrice{
+    border-color:#FF7373;
+    border-radius: 10px
 }
 
 table
