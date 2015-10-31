@@ -17,7 +17,7 @@
 		  |<a href="<?= base_url('tchat/delete_message/'.$message->id); ?>">Supprimer</a>
 		<?php } ?>
 		</br>
-        <?php echo nl2br(htmlspecialchars($message->message)); ?></br>
+        <?php echo $message->message; ?></br>
       </div>
     <?php endforeach; ?>
   <?php endif; ?>

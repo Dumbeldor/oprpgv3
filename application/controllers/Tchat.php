@@ -30,7 +30,7 @@ class Tchat extends MY_Controller {
 	if(isset($user_id) && $user_id > 0) {
 		$message = $this->input->post('message');
 		$id_tchat = $this->input->post('id_tchat');
-		$this->tchat_model->save_msg($user_id, parse_smileys($message, base_url('assets/smileys/')), $id_tchat);
+		$this->tchat_model->save_msg($user_id, parse_smileys(nl2br(htmlspecialchars($message)), base_url('assets/smileys/')), $id_tchat);
 	}
 	$this->salle($id_tchat);
   }
