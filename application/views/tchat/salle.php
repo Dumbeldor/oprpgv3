@@ -1,4 +1,5 @@
 <div class="row">
+  </br>
   <?php if($connecte): ?>
 	<form id="form_tchat" method="POST">
 	  <textarea id="msg" name="message"></textarea>
