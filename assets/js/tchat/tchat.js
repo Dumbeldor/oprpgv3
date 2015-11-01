@@ -23,7 +23,7 @@ function update_tchat() {
 	  }
        html += '<div class="tchat_message"><div class="columns small-11"><div class="row"><div class="columns small-2 small-offset-2">'
 	  + '<div><strong><a href="'+url_user+'/'+message.userId+'" class="'+message.ranks+'">' +message.pseudo
-	  + '</a></strong></div><div class="message_tchat_milieu"><img height="74px" width="74px" src="'+img_url+'/avatarDefault.png"></img></div>'
+	  + '</a></strong></div><div class="message_tchat_milieu"><img class="avatarTchat avatarTchat'+message.ranks+'" src="'+img_url+'/avatarDefault.png"></img></div>'
 	  + '</div><div class="columns small-8 messageTchat panel" id="'+message.ranks+'"><div class="message_tchat_haut" id="'+message.ranks+'"">'
 	  +'Posté le '
 	  + message.date_time
