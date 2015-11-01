@@ -173,5 +173,19 @@ class Users_model extends CI_Model {
 				FROM users');
 		return $query->result_array()[0]['nb'];
   }
+  
+  public function avatarRegistration($sex) {
+	if($sex == "men") {
+	  return $this->db->select('eyes.id AS eyes, nose.id AS nose, body.id AS body, hair.id AS hair, mouths.id AS mouth')
+				  ->from('eyes, nose, body, hair, mouths')
+				  ->get()
+				  ->result();
+	} else {
+	  return $this->db->select('eyes.id AS eyes, nose.id AS nose, body.id AS body, hair.id AS hair, mouths.id AS mouth')
+				  ->from('eyes, nose, body, hair, mouths')
+				  ->get()
+				  ->result();
+	}
+  }
 
 }

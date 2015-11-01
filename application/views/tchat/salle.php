@@ -1,5 +1,4 @@
-<div id="tchat_body" class="row columns large-offset-2 medium-offset-0">
-  </br>
+<div id="tchat_body" class="row">
   <?php if($connecte): ?>
 	<form id="form_tchat" method="POST">
 	  <textarea id="msg" name="message"></textarea>
@@ -13,6 +12,7 @@
 	<?php else: ?>
 	  <?php foreach($messages as $message): ?>
 		<div class="tchat_message">
+		  <div class="columns small-12">
 		  <div class="row">
 			<div class="columns small-3">
 				<div>
