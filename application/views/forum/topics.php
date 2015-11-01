@@ -18,7 +18,7 @@
 						<div id="<?php echo $message->id;?>">
 								<div class="columns small-3">
 										
-										<img src="<?php echo base_url('assets/img/avatarDefault.png');?>"></img><br>										
+										<img src="<?php echo base_url('assets/img/avatarsJoueurs/'.$message->userId.'.png');?>"></img><br>										
 										<a href="<?php echo base_url('users/view/'.$message->userId);?>" class="<?= $message->ranks; ?>"><?php echo $message->pseudo; ?></a><br>
 										<strong><i><?php echo $message->ranks;?></i></strong><br />
 										<i><?php echo $message->messNumber; ?> messages</i>

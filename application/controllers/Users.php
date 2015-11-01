@@ -76,6 +76,7 @@ class Users extends MY_Controller {
   		redirect(base_url('/home/accueil'));
 	$data['users'] = $this->users_model->view_user($id);
     $data['title'] = "Profil de ".$data['users']['pseudo'];
+	$data['id'] = $id;
     
     $this->construct_page('users/view', $data);
   }
