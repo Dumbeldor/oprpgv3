@@ -99,6 +99,11 @@ body {
 	background-image: url('../img/background2.png');
 	background-color: #FCFEFD;
 	background-repeat: repeat-x;
+    background-size: 100%;
+	
+  /* Preserve aspet ratio */
+  min-width: 100%;
+  min-height: 100%;
 }
 
 .panel {
