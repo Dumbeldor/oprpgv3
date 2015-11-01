@@ -19,7 +19,7 @@
 					<strong><a href="<?php echo base_url('users/view/'.$message->userId);?>" class="<?= $message->ranks; ?>"><?php echo $message->pseudo; ?></a></strong>
 				</div>
 				<div class="message_tchat_milieu">
-					<img height="74px" width="74px" src="<?php echo base_url('assets/img/avatarDefault.png');?>"></img>
+					<img class="avatarTchat avatarTchat<?= $message->ranks;?>" src="<?php echo base_url('assets/img/avatarDefault.png');?>"></img>
 				</div>
 			</div>
 		    <div class="panel columns small-8 messageTchat" id="<?= $message->ranks;?>">
