@@ -12,10 +12,10 @@
 		
 			<?php 
 		foreach($messages as $message):
-		?>		
-		<div id="<?php echo $message->id;?>">
+		?>
 				<div class="columns small-12">
 						<div class="row">
+						<div id="<?php echo $message->id;?>">
 								<div class="columns small-3">
 										
 										<img src="<?php echo base_url('assets/img/avatarDefault.png');?>"></img><br>										

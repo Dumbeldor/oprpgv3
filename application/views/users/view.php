@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row pageNormale">
     <br />
     <img src="<?php echo base_url('assets/img/avatarDefault.png');?>"></img><br>	<br />
     Pseudo : <?php echo $users['pseudo']; ?> <br />

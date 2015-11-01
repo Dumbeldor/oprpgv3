@@ -1,3 +1,4 @@
+<div class="row pageNormale">
 <h2><?php echo $title; ?></h2>
 <?php if($add)
         echo "News posté !"; ?>
@@ -23,3 +24,4 @@
             CKEDITOR.replace( 'contents' );
         </script>
 <?php echo form_close(); ?>
+</div>

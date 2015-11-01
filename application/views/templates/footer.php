@@ -1,4 +1,6 @@
+				
 				</div>
+			</div>
 			</div>
 		<!-- Fin du contenu -->
 	<footer class="row">

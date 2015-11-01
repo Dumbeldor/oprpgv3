@@ -1,3 +1,4 @@
+<div class="row pageNormale">
 <h1>Équipage disponible</h1>
 
 <?php if(!empty($listes)):
@@ -10,3 +11,4 @@ foreach($listes as $liste){
 echo $pagination;
 endif;
 ?>
+</div>
