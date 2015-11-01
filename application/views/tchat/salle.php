@@ -12,9 +12,9 @@
 	<?php else: ?>
 	  <?php foreach($messages as $message): ?>
 		<div class="tchat_message">
-		  <div class="columns small-12">
+		  <div class="columns small-11">
 		  <div class="row">
-			<div class="columns small-3">
+			<div class="columns small-2 small-offset-2">
 				<div>
 					<strong><a href="<?php echo base_url('users/view/'.$message->userId);?>" class="<?= $message->ranks; ?>"><?php echo $message->pseudo; ?></a></strong>
 				</div>
@@ -22,7 +22,7 @@
 					<img height="74px" width="74px" src="<?php echo base_url('assets/img/avatarDefault.png');?>"></img>
 				</div>
 			</div>
-		    <div class="panel columns small-9 messageTchat" id="<?= $message->ranks;?>">
+		    <div class="panel columns small-8 messageTchat" id="<?= $message->ranks;?>">
 		        <div class="message_tchat_haut" id="<?= $message->ranks;?>">
 					Posté le <?php echo $message->date_time; ?>
 					<?php if($moderator) { ?>
