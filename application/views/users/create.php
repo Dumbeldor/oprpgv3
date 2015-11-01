@@ -28,14 +28,37 @@
       <input type="input" name="email" value="<?php echo set_value('email'); ?>" />
     </div>
   </div>
-  <select name="perso">
-    <?php foreach($persos as $perso): ?>
-      <option value="<?php echo $perso['id']; ?>"><?php echo $perso['name']; ?></option>
-    <?php endforeach; ?>
-  </select>
+  
+  <br>
+       <label for="sexe">Sexe</label>
+       <select name="sexe" id="sexe" onChange="changementType()">
+           <option value="man" onclick="changementType()" >Homme</option>
+           <option value="woman">Femme</option>
+       </select>
+   
+  <div id="man" style="display:block">
+    test man
+  </div>
+  <div id="woman" style="display:none">
+    test woman
+  </div>
+
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <input type="submit" name="submit" class="btn btn-default" value="S'inscire !" />
     </div>
   </div>
 <?php echo form_close(); ?>
+
+<script type="text/javascript">
+function changementType() { 
+  var type = document.getElementById('sexe').value;
+  document.getElementById(type).style.display = "block";
+  if (type == "man") {
+    document.getElementById("woman").style.display = "none";
+  } else {
+    document.getElementById("man").style.display = "none";
+  }
+  
+}
+</script>
