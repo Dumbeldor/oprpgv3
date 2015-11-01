@@ -1,7 +1,7 @@
 <header>
 <?php if ($connecte) {?>
   <div id="topbar">
-    <nav class="top-bar bois">
+    <nav class="top-bar bois" data-topbar>
       <ul class="title-area">
         <li class="name">
           <h1><a href="/">MineGame</a></h1>
