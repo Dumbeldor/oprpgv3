@@ -1,3 +1,4 @@
+<div class="row pageNormale">
 Liste de vos tickets :
 <?php if(empty($ticket)):?>
 Vous n'avez pas encore posté de ticket !
@@ -9,3 +10,4 @@ dernière réponse de : <?php echo $tickets['pseudo']; ?> le <?php echo date('d/
 
 <?php endforeach;
 endif; ?>
+</div>

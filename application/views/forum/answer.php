@@ -1,3 +1,4 @@
+<div class="row pageNormale">
 <br /> <br /><?php if($connecte): 
 	echo form_open('forum/send_message');
 ?>
@@ -13,3 +14,4 @@
         </script>
 	</form>
 <?php endif; ?>
+</div>

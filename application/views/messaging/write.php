@@ -1,3 +1,4 @@
+<div class="row pageNormale">
 <h2>Écrire message privé</h2>
 <?php if(isset($error)) echo $error; ?>
 <?php echo form_open(base_url('messaging/write')); ?> 
@@ -19,3 +20,4 @@
             CKEDITOR.replace( 'content' );
         </script>
 <?php echo form_close(); ?>
+</div>

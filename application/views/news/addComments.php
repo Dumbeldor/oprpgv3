@@ -1,3 +1,4 @@
+<div class="row pageNormale">
 <h2><?php echo $title; ?></h2>
 
 <?php echo form_open('news/addComments/'.$id); ?>
@@ -17,3 +18,4 @@
             CKEDITOR.replace( 'contents' );
         </script>
 <?php echo form_close(); ?>
+</div>

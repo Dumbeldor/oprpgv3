@@ -1,3 +1,4 @@
+<div class="row pageNormale">
 <table class="table">
 <thead>
 <tr>
@@ -17,3 +18,4 @@
     <?php endforeach ?>
   </body> 
 </table>
+</div>

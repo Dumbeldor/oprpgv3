@@ -1,3 +1,4 @@
+<div class="row pageNormale">
 <h2>Connexion</h2>
 <?php if(isset($error)) echo $error; ?>
 <?php echo form_open(base_url('users/connect')); ?> 
@@ -19,3 +20,4 @@
     </div>
   </div>
 <?php echo form_close(); ?>
+</div>

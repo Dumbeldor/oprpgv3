@@ -1,3 +1,4 @@
+<div class="row pageNormale">
 <?php if(!empty($listes))
 {
     foreach($listes as $liste){
@@ -21,3 +22,4 @@ else {
 		Nom de l'équipage rechercher : <input type="input" id="crewName" name="crewName" value="<?php echo set_value('crewName'); ?>"></input> <br>
 		<input type="submit" value="Rechercher">
 	</form>
+</div>
