@@ -1,3 +1,4 @@
+<div class="row pageNormale">
 <h1>Équipage <?php echo $crew['name'];?></h1>
 <br>
 Berry : <?php echo $crew['money'];?> <br>
@@ -19,3 +20,5 @@ if($this->user->isAuthenticated() AND !$this->crew->inCrew() AND !$request){
 else if(!empty($request) && $request) {
     ?>Votre demande est en attente de réponse... <?php
 }
+?>
+</div>

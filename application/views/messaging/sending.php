@@ -9,7 +9,7 @@
  ******************************************************************************
  */
 ?>
-<div class="row">
+<div class="row pageNormale">
 <br />
 <a href="<?php echo base_url("/messaging/"); ?>">Reçus</a> / 
 <a href="<?php echo base_url("/messaging/sending"); ?>">Envois</a>
@@ -26,14 +26,16 @@
 <input type="submit" name="markRead" class="btn btn-default" value="Marquer comme lu" />
 <br />
 <br />
+<input onclick="CocheTout(this, 'mess[]');" type="checkbox"> Tout cocher<br/>
+		<br />
 
    
 <ul class="accordion" data-accordion>
 		<?php foreach ($private_message as $message) {
 			?>
 			<li class="accordion-navigation">
-				<a href="#panel<?= $message['id']?>">
 				<input type="checkbox" name="mess[]" value="<?php echo $message['id']; ?>">
+				<a href="#panel<?= $message['id']?>" class="<?= $message['rank']?>">
 					<?php  if($message['is_read'] == 0) {//If private message not read
 						?><strong>Message non lu</strong> <?php
 					}
@@ -60,3 +62,20 @@
       echo form_close();
 ?>
 </div>
+<script>
+	function CocheTout(ref, name) {
+	var form = ref;
+ 
+	while (form.parentNode && form.nodeName.toLowerCase() != 'form'){ 
+		form = form.parentNode; 
+	}
+ 
+	var elements = form.getElementsByTagName('input');
+ 
+	for (var i = 0; i < elements.length; i++) {
+		if (elements[i].type == 'checkbox' && elements[i].name == name) {
+			elements[i].checked = ref.checked;
+		}
+	}
+}
+</script>

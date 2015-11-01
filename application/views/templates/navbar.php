@@ -1,7 +1,7 @@
 <header>
 <?php if ($connecte) {?>
   <div id="topbar">
-    <nav class="top-bar" data-topbar >
+    <nav class="top-bar bois" data-topbar>
       <ul class="title-area">
         <li class="name">
           <h1><a href="/">MineGame</a></h1>
@@ -12,7 +12,7 @@
         <!-- Right Nav Section -->
         <ul class="right">
           <li class="divider"></li>
-          <li><a href="/">Accueil</a></li>
+          <li><a href="<?php echo base_url('/home/index'); ?>">Accueil</a></li>
 		  <li class="divider"></li>
 		  <li class="has-dropdown">
 			<a href="#">Autre</a>
@@ -29,7 +29,7 @@
 			  <li class="has-dropdown">
 				<a href="#">Le site</a>
 				<ul class="dropdown">
-				  <li><a href="<?php echo base_url('/users') ?>">Annuaire</a></li>
+				  <li><a href="<?php echo base_url('/users'); ?>">Annuaire</a></li>
 				  <li><a href="<?php echo base_url('/users/liste'); ?>">Connectés</a></li>
 				  <li><a href="<?= base_url('forum/t/21');?>">F.A.Q</a></li>
 				</ul>

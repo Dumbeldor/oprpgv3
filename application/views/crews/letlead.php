@@ -1,3 +1,4 @@
+<div class="row pageNormale">
 <h1>Donner le lead</h1>
 <br>
 <strong>Attention ! Vous êtes sur le point de donner le lead de votre équipage à une personne !</strong><br><br>
@@ -8,4 +9,5 @@ foreach($users as $user){
     <a href="<?php echo base_url('crews/ll/'.$user['id']);?>">Donner lead</a>
     <br> <br><?php
 }
-endif;
+endif; ?>
+</div>
