@@ -25,10 +25,11 @@ class Messaging_model extends CI_Model
 		$catcher = false;
 		$query = $this->db->query("SELECT privates_messages.id AS id,
 			date_time, is_read, is_trash,
-			id_users, content, pseudo,
+			id_users, content, pseudo, users_types.name as rank,
 			privates_messages.id_users_1 AS catcher 
 			FROM privates_messages 
-			JOIN users ON id_users = users.id 
+			JOIN users ON id_users = users.id
+			JOIN users_types ON users_types.id = users.id_users_types
 			WHERE privates_messages.id_users_1 = ? AND privates_messages.is_trash = 0
 			ORDER BY privates_messages.id DESC", array($this->user->getId()));
 		$resultat = $query->result_array();
@@ -48,10 +49,11 @@ class Messaging_model extends CI_Model
 	{
 		$query = $this->db->query("SELECT privates_messages.id AS id,
 			date_time, is_read, is_trash,
-			id_users, content, pseudo,
+			id_users, content, pseudo, users_types.name as rank,
 			privates_messages.id_users_1 AS catcher 
 			FROM privates_messages 
-			JOIN users ON id_users_1 = users.id 
+			JOIN users ON id_users_1 = users.id
+			JOIN users_types ON users_types.id = users.id_users_types
 			WHERE privates_messages.id_users = ? AND privates_messages.is_trash = 0
 			ORDER BY privates_messages.id DESC", array($this->user->getId()));
 		return $resultat = $query->result_array();
