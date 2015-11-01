@@ -75,12 +75,13 @@ class Users_model extends CI_Model {
         'pseudo' => $this->input->post('pseudo'),
         'password' => $password_hash,
         'email' => $this->input->post('email'),
-        'id_personnages' => $this->input->post('perso'),
+        'id_personnages' => 1,
         'id_levels' => 1,
         'id_objects' => 1,
         'id_users_types' => 1,
     );
      $this->db->insert('users', $data);
+	 return $this->db->insert_id();
   }
   
     /**
@@ -187,5 +188,57 @@ class Users_model extends CI_Model {
 				  ->result();
 	}
   }
+  
+  public function create_avatar($id) {
+	$sexe = $this->input->post('sexe');
+	$body = $this->input->post('body');
+	$hair = $this->input->post('hair');
+	$eyes = $this->input->post('eyes');
+	$mouth = $this->input->post('mouth');
+	
+	if($sexe=='Homme') {
+		$this->merge_images('assets/img/avatars/man/body/' . $body . '.png', 'assets/img/avatars/man/hair/' . $hair . '.png',
+		'assets/img/avatars/eyes/' . $eyes . '.png', 'assets/img/avatars/mouths/' . $mouth . '.png', 
+		'assets/img/avatarsJoueurs/' . $id . '.png');
+	} else {
+		$this->merge_images('assets/img/avatars/woman/body/' . $body . '.png', 'assets/img/avatars/woman/hair/' . $hair . '.png',
+		'assets/img/avatars/eyes/' . $eyes . '.png', 'assets/img/avatars/mouths/' . $mouth . '.png', 
+		'assets/img/avatarsJoueurs/' . $id . '.png');
+	}
+  }
+  
+  function merge_images($filename_a, $filename_b, $filename_c, $filename_d, $filename_result) {
+	// Get dimensions for specified images
 
+	 list($width, $height) = getimagesize($filename_a);
+
+	 // Create new image with desired dimensions
+
+	 $image = imagecreatetruecolor($width, $height);
+	 $white = imagecolorallocate($image, 255, 255, 255);
+	 imagefill($image, 0, 0, $white);
+	 
+	 // Load images and then copy to destination image
+	 $image_a = imagecreatefrompng($filename_a);
+	 $image_b = imagecreatefrompng($filename_b);
+	 $image_c = imagecreatefrompng($filename_c);
+	 $image_d = imagecreatefrompng($filename_d);
+
+	 imagecopy($image, $image_a, 0, 0, 0, 0, $width, $height);
+	 imagecopy($image, $image_b, 0, 0, 0, 0, $width, $height);
+	 imagecopy($image, $image_c, 0, 0, 0, 0, $width, $height);
+	 imagecopy($image, $image_d, 0, 0, 0, 0, $width, $height);
+
+	 // Save the resulting image to disk (as PNG)
+
+	 imagepng($image, $filename_result);
+
+	 // Clean up
+
+	 imagedestroy($image);
+	 imagedestroy($image_a);
+	 imagedestroy($image_b);
+	 imagedestroy($image_c);
+	 imagedestroy($image_d);
+  }
 }

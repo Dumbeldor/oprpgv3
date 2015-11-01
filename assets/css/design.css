@@ -251,3 +251,19 @@ textarea {
 	border-style: solid;
     border-width: 3px;
 }
+
+.currentAvatar {
+	position: absolute;
+}
+
+div#currentAvatarPanel {
+	min-height: 12.2rem;
+}
+
+div#etapesPanel {
+	min-height: 12.2rem;
+}
+
+div#optionsPanel {
+	min-height: 12.2rem;
+}
