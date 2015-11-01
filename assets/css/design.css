@@ -85,7 +85,15 @@ td, th
 
 .top-bar-section ul li:hover:not(.has-form) > a {
 	background-color: #985D23;
-} 
+}
+
+.top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button) {
+    background-image: url('../img/nav-rep.png');
+}
+
+.top-bar-section .dropdown li:hover:not(.has-form):not(.active) > a:not(.button) {
+    background-color: #985D23;
+}
 
 body {
 	background-image: url('../img/background2.png');
