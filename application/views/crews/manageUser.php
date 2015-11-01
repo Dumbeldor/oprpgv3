@@ -1,3 +1,4 @@
+<div class="row pageNormale">
 <h1>Page pour gérer vos joueurs</h1><br>
 <?php foreach($users as $user) {
     echo $user['pseudo']; ?>
@@ -15,4 +16,5 @@
     ----------------------------
     <br>
     <?php
-}
+} ?>
+</div>

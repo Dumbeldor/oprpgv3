@@ -1,3 +1,4 @@
+<div class="row pageNormale">
 <h1>Les candidatures pour rentrer dans votre équipage</h1><br>
 <?php if(!isset($candidates)) {
     echo "Pas de candidature";
@@ -12,4 +13,5 @@
     <a href="<?php echo base_url('crews/r/'.$candidate['idUser']);?>">Refuser candidature</a>
     <br> <br><?php
 }
-}
+} ?>
+</div>

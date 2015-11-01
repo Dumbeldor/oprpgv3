@@ -1,3 +1,4 @@
+<div class="row pageNormale">
 <?php
 	echo form_open('crews/candidacy/'.$id);
 ?>
@@ -9,3 +10,4 @@
 
    
 	</form>
+</div>

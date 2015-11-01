@@ -1,3 +1,4 @@
+<div class="row pageNormale">
 <h2>Inscription</h2>
 <?php echo form_open(base_url('users/create')); ?>
   <div class="form-group">
@@ -62,3 +63,4 @@ function changementType() {
   
 }
 </script>
+</div>

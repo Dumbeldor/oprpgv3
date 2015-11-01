@@ -1,4 +1,5 @@
-<br /> <br /><?php if($connecte): 
+<div class="row pageNormale">
+<?php if($connecte): 
 	echo form_open('forum/send_edit');
 ?>
 		<textarea id="forum_message" name="message"><?php echo $message; ?></textarea>
@@ -9,3 +10,4 @@
         </script>
 	</form>
 <?php endif; ?>
+</div>

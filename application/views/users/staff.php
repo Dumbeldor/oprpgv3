@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row pageNormale">
   <h1>Staff</h1>
   <br>  
   <table class="table">  
