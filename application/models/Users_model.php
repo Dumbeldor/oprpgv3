@@ -97,7 +97,8 @@ class Users_model extends CI_Model {
     $query = $this->db->query("SELECT * FROM users WHERE pseudo = ?", array($pseudo));
     
     if($query->num_rows() == 1) {
-	  if(password_verify($password, $query->result_array()[0]['password']))
+	  $res = $query->result_array();
+	  if(password_verify($password, $res[0]['password']))
 		return TRUE;
 	  else
 		return FALSE;

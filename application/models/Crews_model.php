@@ -112,10 +112,12 @@ class Crews_model extends CI_Model {
 	}
 	
 	public function listUsers($id) {
-		$query = $this->db->query('SELECT users.id, users.pseudo, crews_grades.name AS grade, crews_grades.id AS gradeId
+		$query = $this->db->query('SELECT users.id, users.pseudo, crews_grades.name AS grade, crews_grades.id AS gradeId,
+								  users_types.name AS rank
 					FROM crews_users
 					JOIN users ON id_users = users.id
 					JOIN crews_grades ON id_crews_grades = crews_grades.id
+					JOIN users_types ON users.id_users_types = users_types.id
 					WHERE crews_users.id = ?', array($id));
 		return $query->result_array();
 	}
@@ -135,9 +137,10 @@ class Crews_model extends CI_Model {
 	public function listCandidates(){
 		$query = $this->db->query('SELECT cc.id, title, texte,
 								  cc.date_time dateCandi, u.id AS idUser,
-								  u.pseudo
+								  u.pseudo, users_types.name AS rank
 								  FROM crews_candidacy cc
 								  JOIN users u ON cc.id_users = u.id
+								  JOIN users_types ON u.id_users_types = users_types.id
 								  WHERE cc.id_crews = ?', array($this->user->getAttribute('crewId')));
 		return $query->result_array();
 	}

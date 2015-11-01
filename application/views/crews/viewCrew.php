@@ -8,7 +8,7 @@ Membres : <br>
 <?php
 if(!empty($users)):
 foreach($users as $user){
-    ?><a href="<?php echo base_url('users/view/'.$user['id']);?>"><?php echo $user['pseudo']; ?></a> <?php echo $user['grade'];?>
+    ?><a href="<?php echo base_url('users/view/'.$user['id']);?>" class="<?= $user['rank']?>"><?php echo $user['pseudo']; ?></a> <?php echo $user['grade'];?>
     <br> <br><?php
 }
 endif;

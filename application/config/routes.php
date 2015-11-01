@@ -37,7 +37,12 @@
  * | in the URL cannot be matched to a valid route.
  * |
  * */
-
+ 
+/* Tchat */
+ $route['tchat/salle/getMessages/(:num)'] = 'tchat/getMessages/$1';
+ $route['tchat/salle/postMessage'] = 'tchat/post';
+ $route['tchat/delete_message/(:num)'] = 'tchat/delete_message/$1';
+ 
  /* News */
 $route['news/(:num)'] = 'home/index/$1';
 
