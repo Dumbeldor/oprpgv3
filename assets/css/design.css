@@ -165,6 +165,18 @@ textarea {
 }
 
 #form_tchat #send_button {
+	margin-left: 59%;
+}
+
+#messaging_send_button #send_button {
+	margin-top: 1rem;
+}
+
+#messaging_send_button {
+	text-align: center;
+}
+
+#send_button {
 	background-image: url('../img/nav-rep.png');
 	color: #ffffff;
 	border-color: #9b642e;
@@ -173,10 +185,9 @@ textarea {
 	border-radius: 7px;
 	height: 2.5rem;
 	width: 5rem;
-	margin-left: 59%;
 }
 
-#form_tchat #send_button:hover {
+#send_button:hover {
 	background-image:;
 	background-color: #985D23;
 	color: #ffffff;
