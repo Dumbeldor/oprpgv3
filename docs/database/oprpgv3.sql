@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mar 13 Octobre 2015 à 22:26
+-- Généré le :  Lun 02 Novembre 2015 à 21:14
 -- Version du serveur :  5.6.26
 -- Version de PHP :  5.6.12
 
@@ -141,6 +141,28 @@ CREATE TABLE IF NOT EXISTS `chests_types` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `ci_sessions`
+--
+
+CREATE TABLE IF NOT EXISTS `ci_sessions` (
+  `id` varchar(40) NOT NULL,
+  `idUser` int(11) NOT NULL,
+  `ip_address` varchar(45) NOT NULL,
+  `timestamp` int(10) unsigned NOT NULL DEFAULT '0',
+  `data` blob NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `ci_sessions`
+--
+
+INSERT INTO `ci_sessions` (`id`, `idUser`, `ip_address`, `timestamp`, `data`) VALUES
+('ab89518ec7c855c7c5ca3bf564218959bd7ad059', 0, '::1', 1446218813, 0x5f5f63695f6c6173745f726567656e65726174657c693a313434363231383735303b69647c733a323a223130223b62616e7c733a313a2230223b70736575646f7c733a393a2244756d62656c646f72223b656d61696c7c733a32333a2276696e63656e74676c697a6540686f746d61696c2e6672223b62697274686461797c733a31303a22303030302d30302d3030223b736578657c4e3b69735f6b69636b7c733a313a2230223b69645f706572736f6e6e616765737c733a313a2231223b69645f6c6576656c737c733a313a2231223b69645f6f626a656374737c733a313a2231223b69645f75736572735f74797065737c733a313a2236223b72616e6b7c733a31343a2241646d696e697374726174657572223b7c4e3b617574687c623a313b637265774e616d657c4e3b6372657749647c4e3b6372657752616e6b7c4e3b),
+('ec522208eea629c40be42f06bcd6679a8255a0c1', 0, '::1', 1446223021, 0x5f5f63695f6c6173745f726567656e65726174657c693a313434363232323933383b);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `coffres_comptes`
 --
 
@@ -165,20 +187,17 @@ CREATE TABLE IF NOT EXISTS `crews` (
   `is_block` tinyint(1) NOT NULL,
   `id_crews_types` int(11) NOT NULL,
   `id_crews_banks` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `crews`
 --
 
 INSERT INTO `crews` (`id`, `name`, `money`, `page`, `file`, `date_time`, `is_block`, `id_crews_types`, `id_crews_banks`) VALUES
-(2, 'test', 0, NULL, '', 0, 0, 1, 1),
-(3, 'retest', 0, NULL, '', 0, 0, 1, 2),
-(4, 'retestdfd', 0, NULL, '', 0, 0, 1, 3),
-(5, 'fdfdfd', 0, NULL, '', 0, 0, 1, 4),
-(6, 'Stafffdfdgf', 0, NULL, '', 1444681998, 0, 1, 5),
-(7, 'Staff', 0, NULL, '', 1444683884, 0, 1, 6),
-(8, 'testatest', 0, NULL, '', 1444686133, 0, 1, 7);
+(52, 'test', 0, NULL, '', 1446207986, 0, 1, 27),
+(53, 'aaaaa', 0, NULL, '', 1446331061, 1, 1, 28),
+(54, 'Starfoula', 0, NULL, '', 1446337576, 1, 1, 29),
+(55, 'aezrfd', 0, NULL, '', 1446390991, 0, 1, 30);
 
 -- --------------------------------------------------------
 
@@ -188,20 +207,17 @@ INSERT INTO `crews` (`id`, `name`, `money`, `page`, `file`, `date_time`, `is_blo
 
 CREATE TABLE IF NOT EXISTS `crews_banks` (
   `id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `crews_banks`
 --
 
 INSERT INTO `crews_banks` (`id`) VALUES
-(1),
-(2),
-(3),
-(4),
-(5),
-(6),
-(7);
+(27),
+(28),
+(29),
+(30);
 
 -- --------------------------------------------------------
 
@@ -235,6 +251,7 @@ CREATE TABLE IF NOT EXISTS `crews_candidacy` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `texte` text NOT NULL,
+  `date_time` int(12) NOT NULL,
   `candidacy` tinyint(1) NOT NULL DEFAULT '0',
   `id_users` int(11) NOT NULL,
   `id_crews` int(11) NOT NULL
@@ -276,7 +293,7 @@ CREATE TABLE IF NOT EXISTS `crews_grades` (
   `name` varchar(25) NOT NULL,
   `file` varchar(255) NOT NULL,
   `is_block` tinyint(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `crews_grades`
@@ -286,7 +303,8 @@ INSERT INTO `crews_grades` (`id`, `name`, `file`, `is_block`) VALUES
 (1, 'En attente', '', 0),
 (2, 'Matelot', '', 0),
 (3, 'Cuisinier', '', 0),
-(4, 'Capitaine', '', 0);
+(4, 'Bras droit', '', 0),
+(5, 'Capitaine', '', 0);
 
 -- --------------------------------------------------------
 
@@ -326,7 +344,8 @@ CREATE TABLE IF NOT EXISTS `crews_users` (
 --
 
 INSERT INTO `crews_users` (`id`, `id_users`, `id_crews_grades`) VALUES
-(8, 10, 4);
+(55, 10, 5),
+(52, 33, 5);
 
 -- --------------------------------------------------------
 
@@ -354,19 +373,33 @@ CREATE TABLE IF NOT EXISTS `forums_categories` (
   `descr` varchar(255) NOT NULL,
   `types` varchar(25) DEFAULT NULL,
   `is_block` tinyint(1) NOT NULL,
-  `sequence` int(4) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  `sequence` int(4) NOT NULL,
+  `is_crew` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `forums_categories`
 --
 
-INSERT INTO `forums_categories` (`id`, `name`, `descr`, `types`, `is_block`, `sequence`) VALUES
-(1, 'Salle secrète', 'Salle secrète réservé au staff !', '', 0, 1),
-(2, 'Messages officiels', 'Tous les messages officiels sont postés ici !', '', 0, 2),
-(3, 'Présentation des membres', 'C''est dans cette section que chaque membre du site pourra faire une petite présentation de lui-même.', '', 0, 4),
-(4, 'Aide', 'Si vous avez besoin d''aide et que personne ne vous répond sur le t''chat, cette section vous correspond!', '', 0, 5),
-(5, 'Général', 'Parlez de tout et de rien', NULL, 0, 6);
+INSERT INTO `forums_categories` (`id`, `name`, `descr`, `types`, `is_block`, `sequence`, `is_crew`) VALUES
+(1, 'Salle secrète', 'Salle secrète réservé au staff !', '', 0, 1, 0),
+(2, 'Messages officiels', 'Tous les messages officiels sont postés ici !', '', 0, 2, 0),
+(3, 'Présentation des membres', 'C''est dans cette section que chaque membre du site pourra faire une petite présentation de lui-même.', '', 0, 4, 0),
+(4, 'Aide', 'Si vous avez besoin d''aide et que personne ne vous répond sur le t''chat, cette section vous correspond!', '', 0, 5, 0),
+(5, 'Général', 'Parlez de tout et de rien', NULL, 0, 3, 0),
+(6, 'Rumeurs', 'Toutes les rumeurs sur le site', NULL, 0, 6, 0),
+(7, 'Diplomatie inter-équipages', 'Recrutez des membres et proposez des alliances entre équipages... ou même la guerre!', NULL, 0, 7, 0),
+(8, 'Animations', 'Participez ou organisez des concours afin d''animer la communauté!', NULL, 0, 8, 0),
+(9, 'Commerce', 'Vendez à d''autres joueurs tous les objets que vous avez en trop !', NULL, 0, 9, 0),
+(10, 'Discussions scans', 'Exprimez-vous sur les scans', NULL, 0, 10, 0),
+(11, 'Tomes français', 'Exprimez-vous sur les épisodes sortis en France', NULL, 0, 11, 0),
+(12, 'Vos idées', 'Proposez vos idées, elles seront peut-être réalisées', NULL, 0, 12, 0),
+(13, 'Astuces & tactiques', 'Partagez vos astuces entre membres', NULL, 0, 13, 0),
+(14, 'Bugs', 'Vous avez rencontré un bug ou une faille? Signalez-le ici!', NULL, 0, 14, 0),
+(52, 'test', 'Forum privé de l''équipage test', NULL, 0, 50, 1),
+(53, 'aaaaa', 'Forum privé de l''équipage aaaaa', NULL, 0, 50, 1),
+(54, 'Starfoula', 'Forum privé de l''équipage Starfoula', NULL, 0, 50, 1),
+(55, 'aezrfd', 'Forum privé de l''équipage aezrfd', NULL, 0, 50, 1);
 
 -- --------------------------------------------------------
 
@@ -380,36 +413,33 @@ CREATE TABLE IF NOT EXISTS `forums_topics` (
   `is_block` tinyint(1) NOT NULL,
   `id_forums_categories` int(11) NOT NULL,
   `id_forums_topics_types` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `forums_topics`
 --
 
 INSERT INTO `forums_topics` (`id`, `name`, `is_block`, `id_forums_categories`, `id_forums_topics_types`) VALUES
-(5, 'Bienvenue sur le forum', 0, 2, 1),
-(6, 'Je t''emmerdes, Vince.', 0, 2, 1),
-(7, 'Méchant', 0, 3, 1),
-(8, 'Test', 0, 3, 1),
-(9, '''1=1 Hello world', 0, 3, 1),
-(10, 'Méchant', 0, 3, 1),
-(11, 'test 3', 0, 3, 1),
-(12, '1er topic', 0, 3, 1),
-(13, '2ème topic', 0, 3, 1),
-(14, '1er topic', 0, 3, 1),
-(15, '2ème topic', 0, 3, 1),
-(16, '1er topic', 0, 3, 1),
-(17, '2ème topic', 0, 3, 1),
-(18, 'test', 0, 3, 1),
-(19, '#~~éç"''(éç"(à_)12341fdsfsd', 0, 2, 1),
-(20, 'test', 0, 3, 1),
-(21, 'test', 0, 1, 1),
-(22, '#jefaislesac!', 0, 3, 1),
-(23, 'La faute', 0, 4, 1),
-(24, 'Forum fini', 0, 2, 1),
-(25, 'Maniak teste.', 0, 2, 1),
-(26, 'Bienvenue Maniak', 0, 1, 1),
-(28, 'Test', 0, 2, 4);
+(2, 'Bienvenue sur votre forum', 0, 52, 1),
+(3, 'Salle secrète', 0, 1, 1),
+(4, 'Premier Topic', 0, 3, 1),
+(5, 'Premier Topic', 0, 4, 1),
+(6, 'Premier Topic', 0, 5, 1),
+(7, 'Premier Topic', 0, 6, 1),
+(8, 'Premier Topic', 0, 7, 1),
+(9, 'Premier Topic', 0, 8, 1),
+(10, 'Premier Topic', 0, 9, 1),
+(11, 'Premier Topic', 0, 10, 1),
+(12, 'Premier Topic', 0, 11, 1),
+(13, 'Premier Topic', 0, 12, 1),
+(14, 'Premier Topic', 0, 13, 1),
+(15, 'Premier Topic', 0, 14, 1),
+(16, 'Test nouveau topic', 0, 8, 1),
+(17, 'test', 0, 4, 1),
+(18, 'F.A.Q', 0, 2, 1),
+(19, 'Bienvenue sur votre forum', 0, 53, 1),
+(20, 'Bienvenue sur votre forum', 0, 54, 1),
+(21, 'Bienvenue sur votre forum', 0, 55, 1);
 
 -- --------------------------------------------------------
 
@@ -424,79 +454,49 @@ CREATE TABLE IF NOT EXISTS `forums_topics_messages` (
   `is_block` tinyint(1) NOT NULL,
   `id_forums_topics` int(11) NOT NULL,
   `id_users` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `forums_topics_messages`
 --
 
 INSERT INTO `forums_topics_messages` (`id`, `message`, `date_time`, `is_block`, `id_forums_topics`, `id_users`) VALUES
-(3, 'Salut le staff,\n\nBienvenue sur le forum de la V3 !\nJ''espère que de votre côté vous avancez :s\n\nA bientôt', 1438470455, 0, 5, 10),
-(4, 'Et je t''aime fort', 1438495624, 0, 6, 19),
-(5, 'Je vais pas te donner l''accès au forum privé toi :o', 1438498789, 0, 6, 10),
-(6, 'Je suis le méchant', 1438500924, 0, 7, 18),
-(7, 'La violence c''est mal m''voyer !', 1438501275, 0, 6, 18),
-(8, 'Je test', 1438501404, 0, 8, 18),
-(10, 'Toto', 1438502387, 0, 6, 20),
-(11, 'TEST', 1438502407, 0, 6, 20),
-(12, '''1=1', 1438502435, 0, 6, 20),
-(13, 'Test', 1438502485, 0, 9, 20),
-(14, 'Reponse', 1438502493, 0, 9, 20),
-(15, 'C''est toi qui a supprimé mon topic\n\nC''est moi le méchant ici !', 1438504018, 0, 9, 18),
-(16, 'Je suis de retour !', 1438504101, 0, 10, 18),
-(17, 'haaaaaaaaaa', 1438504183, 0, 10, 18),
-(18, 'rerre', 1438504278, 0, 11, 18),
-(19, 'nooo', 1438504292, 0, 11, 18),
-(20, '1er message du 1er topic', 1438504357, 0, 12, 18),
-(21, '2ème message du 1er topic', 1438504373, 0, 12, 18),
-(22, '1er message du 1er topic', 1438504394, 0, 13, 18),
-(23, '2ème message du 2ème topic', 1438504409, 0, 13, 18),
-(24, '1er message du 1er topic', 1438504474, 0, 14, 18),
-(25, '2ème message du 1er topic', 1438504484, 0, 14, 18),
-(26, '1er message du 1er topic', 1438504500, 0, 15, 18),
-(27, '1er message du 1er topic', 1438504534, 0, 16, 18),
-(28, '2ème message du 1er topic', 1438504540, 0, 16, 18),
-(29, '1er message du 2ème topic', 1438504566, 0, 17, 18),
-(30, '2ème message du 2ème topic', 1438504578, 0, 17, 18),
-(31, 'Ok', 1438504834, 0, 6, 18),
-(32, '3ème message', 1438504880, 0, 17, 18),
-(33, 'Pevounet qui essaye de hack mon forum, c''est MEUGNON TOUT PLEIN <3', 1438545691, 0, 6, 10),
-(34, 'Tu es trop méchant toi pfff', 1438552165, 0, 7, 10),
-(35, 'test', 1438556129, 0, 18, 10),
-(36, 'retest', 1438556133, 0, 18, 10),
-(37, 'Ceci est un test', 1438583187, 0, 19, 18),
-(38, 'Clairegoutte est une commune française située dans le département de la Haute-Saône en région Franche-Comté.\n\nLe village prend place dans un espace rustique, dominé par la forêt du Chérimont qui couvre plus de la moitié de son territoire. La ruralité de cet espace est contrebalancée par un réseau routier dense facilitant les déplacements vers les villes voisines, permettant à plus de 85 % des Clairegouttois de travailler hors de la commune. La commune est au carrefour des trois départements de la Haute-Saône, du Doubs et du Territoire de Belfort.\n\nFondée durant le Moyen Âge, Clairegoutte a été marquée par le protestantisme, courant fortement présent dans le pays de Montbéliard. Un bénéfique XVIIIe siècle et l''influence de l''exploitation des houillères proches pendant les deux siècles suivants firent de Clairegoutte un centre artisanal prospère dont plusieurs demeures témoignent encore. Le village possède un cœur historique à l''architecture originale et préservée, dont deux ensembles inscrits au patrimoine historique ; un lotissement a été construit en périphérie.\nClairegoutte est une commune française située dans le département de la Haute-Saône en région Franche-Comté.\n\nLe village prend place dans un espace rustique, dominé par la forêt du Chérimont qui couvre plus de la moitié de son territoire. La ruralité de cet espace est contrebalancée par un réseau routier dense facilitant les déplacements vers les villes voisines, permettant à plus de 85 % des Clairegouttois de travailler hors de la commune. La commune est au carrefour des trois départements de la Haute-Saône, du Doubs et du Territoire de Belfort.\n\nFondée durant le Moyen Âge, Clairegoutte a été marquée par le protestantisme, courant fortement présent dans le pays de Montbéliard. Un bénéfique XVIIIe siècle et l''influence de l''exploitation des houillères proches pendant les deux siècles suivants firent de Clairegoutte un centre artisanal prospère dont plusieurs demeures témoignent encore. Le village possède un cœur historique à l''architecture originale et préservée, dont deux ensembles inscrits au patrimoine historique ; un lotissement a été construit en périphérie.\nClairegoutte est une commune française située dans le département de la Haute-Saône en région Franche-Comté.\n\nLe village prend place dans un espace rustique, dominé par la forêt du Chérimont qui couvre plus de la moitié de son territoire. La ruralité de cet espace est contrebalancée par un réseau routier dense facilitant les déplacements vers les villes voisines, permettant à plus de 85 % des Clairegouttois de travailler hors de la commune. La commune est au carrefour des trois départements de la Haute-Saône, du Doubs et du Territoire de Belfort.\n\nFondée durant le Moyen Âge, Clairegoutte a été marquée par le protestantisme, courant fortement présent dans le pays de Montbéliard. Un bénéfique XVIIIe siècle et l''influence de l''exploitation des houillères proches pendant les deux siècles suivants firent de Clairegoutte un centre artisanal prospère dont plusieurs demeures témoignent encore. Le village possède un cœur historique à l''architecture originale et préservée, dont deux ensembles inscrits au patrimoine historique ; un lotissement a été construit en périphérie.\nClairegoutte est une commune française située dans le département de la Haute-Saône en région Franche-Comté.\n\nLe village prend place dans un espace rustique, dominé par la forêt du Chérimont qui couvre plus de la moitié de son territoire. La ruralité de cet espace est contrebalancée par un réseau routier dense facilitant les déplacements vers les villes voisines, permettant à plus de 85 % des Clairegouttois de travailler hors de la commune. La commune est au carrefour des trois départements de la Haute-Saône, du Doubs et du Territoire de Belfort.\n\nFondée durant le Moyen Âge, Clairegoutte a été marquée par le protestantisme, courant fortement présent dans le pays de Montbéliard. Un bénéfique XVIIIe siècle et l''influence de l''exploitation des houillères proches pendant les deux siècles suivants firent de Clairegoutte un centre artisanal prospère dont plusieurs demeures témoignent encore. Le village possède un cœur historique à l''architecture originale et préservée, dont deux ensembles inscrits au patrimoine historique ; un lotissement a été construit en périphérie.\nClairegoutte est une commune française située dans le département de la Haute-Saône en région Franche-Comté.\n\nLe village prend place dans un espace rustique, dominé par la forêt du Chérimont qui couvre plus de la moitié de son territoire. La ruralité de cet espace est contrebalancée par un réseau routier dense facilitant les déplacements vers les villes voisines, permettant à plus de 85 % des Clairegouttois de travailler hors de la commune. La commune est au carrefour des trois départements de la Haute-Saône, du Doubs et du Territoire de Belfort.\n\nFondée durant le Moyen Âge, Clairegoutte a été marquée par le protestantisme, courant fortement présent dans le pays de Montbéliard. Un bénéfique XVIIIe siècle et l''influence de l''exploitation des houillères proches pendant les deux siècles suivants firent de Clairegoutte un centre artisanal prospère dont plusieurs demeures témoignent encore. Le village possède un cœur historique à l''architecture originale et préservée, dont deux ensembles inscrits au patrimoine historique ; un lotissement a été construit en périphérie.\nClairegoutte est une commune française située dans le département de la Haute-Saône en région Franche-Comté.\n\nLe village prend place dans un espace rustique, dominé par la forêt du Chérimont qui couvre plus de la moitié de son territoire. La ruralité de cet espace est contrebalancée par un réseau routier dense facilitant les déplacements vers les villes voisines, permettant à plus de 85 % des Clairegouttois de travailler hors de la commune. La commune est au carrefour des trois départements de la Haute-Saône, du Doubs et du Territoire de Belfort.\n\nFondée durant le Moyen Âge, Clairegoutte a été marquée par le protestantisme, courant fortement présent dans le pays de Montbéliard. Un bénéfique XVIIIe siècle et l''influence de l''exploitation des houillères proches pendant les deux siècles suivants firent de Clairegoutte un centre artisanal prospère dont plusieurs demeures témoignent encore. Le village possède un cœur historique à l''architecture originale et préservée, dont deux ensembles inscrits au patrimoine historique ; un lotissement a été construit en périphérie.\nClairegoutte est une commune française située dans le département de la Haute-Saône en région Franche-Comté.\n\nLe village prend place dans un espace rustique, dominé par la forêt du Chérimont qui couvre plus de la moitié de son territoire. La ruralité de cet espace est contrebalancée par un réseau routier dense facilitant les déplacements vers les villes voisines, permettant à plus de 85 % des Clairegouttois de travailler hors de la commune. La commune est au carrefour des trois départements de la Haute-Saône, du Doubs et du Territoire de Belfort.\n\nFondée durant le Moyen Âge, Clairegoutte a été marquée par le protestantisme, courant fortement présent dans le pays de Montbéliard. Un bénéfique XVIIIe siècle et l''influence de l''exploitation des houillères proches pendant les deux siècles suivants firent de Clairegoutte un centre artisanal prospère dont plusieurs demeures témoignent encore. Le village possède un cœur historique à l''architecture originale et préservée, dont deux ensembles inscrits au patrimoine historique ; un lotissement a été construit en périphérie.\nClairegoutte est une commune française située dans le département de la Haute-Saône en région Franche-Comté.\n\nLe village prend place dans un espace rustique, dominé par la forêt du Chérimont qui couvre plus de la moitié de son territoire. La ruralité de cet espace est contrebalancée par un réseau routier dense facilitant les déplacements vers les villes voisines, permettant à plus de 85 % des Clairegouttois de travailler hors de la commune. La commune est au carrefour des trois départements de la Haute-Saône, du Doubs et du Territoire de Belfort.\n\nFondée durant le Moyen Âge, Clairegoutte a été marquée par le protestantisme, courant fortement présent dans le pays de Montbéliard. Un bénéfique XVIIIe siècle et l''influence de l''exploitation des houillères proches pendant les deux siècles suivants firent de Clairegoutte un centre artisanal prospère dont plusieurs demeures témoignent encore. Le village possède un cœur historique à l''architecture originale et préservée, dont deux ensembles inscrits au patrimoine historique ; un lotissement a été construit en périphérie.\nClairegoutte est une commune française située dans le département de la Haute-Saône en région Franche-Comté.\n\nLe village prend place dans un espace rustique, dominé par la forêt du Chérimont qui couvre plus de la moitié de son territoire. La ruralité de cet espace est contrebalancée par un réseau routier dense facilitant les déplacements vers les villes voisines, permettant à plus de 85 % des Clairegouttois de travailler hors de la commune. La commune est au carrefour des trois départements de la Haute-Saône, du Doubs et du Territoire de Belfort.\n\nFondée durant le Moyen Âge, Clairegoutte a été marquée par le protestantisme, courant fortement présent dans le pays de Montbéliard. Un bénéfique XVIIIe siècle et l''influence de l''exploitation des houillères proches pendant les deux siècles suivants firent de Clairegoutte un centre artisanal prospère dont plusieurs demeures témoignent encore. Le village possède un cœur historique à l''architecture originale et préservée, dont deux ensembles inscrits au patrimoine historique ; un lotissement a été construit en périphérie.\nClairegoutte est une commune française située dans le département de la Haute-Saône en région Franche-Comté.\n\nLe village prend place dans un espace rustique, dominé par la forêt du Chérimont qui couvre plus de la moitié de son territoire. La ruralité de cet espace est contrebalancée par un réseau routier dense facilitant les déplacements vers les villes voisines, permettant à plus de 85 % des Clairegouttois de travailler hors de la commune. La commune est au carrefour des trois départements de la Haute-Saône, du Doubs et du Territoire de Belfort.\n\nFondée durant le Moyen Âge, Clairegoutte a été marquée par le protestantisme, courant fortement présent dans le pays de Montbéliard. Un bénéfique XVIIIe siècle et l''influence de l''exploitation des houillères proches pendant les deux siècles suivants firent de Clairegoutte un centre artisanal prospère dont plusieurs demeures témoignent encore. Le village possède un cœur historique à l''architecture originale et préservée, dont deux ensembles inscrits au patrimoine historique ; un lotissement a été construit en périphérie.', 1438583228, 0, 19, 18),
-(39, 'Ho, je n''avais pas vu les rangs', 1438583263, 0, 6, 18),
-(40, 'test', 1438583570, 0, 20, 18),
-(41, 'C''est bizarre l''affichage de la réponse le cadre de réponse colle le header ', 1438624524, 0, 5, 25),
-(42, 'C''est pas gentil ça. Je veux participer un peu :(', 1438663018, 0, 6, 19),
-(43, 'Bah participe mon con :P', 1438697268, 0, 6, 10),
-(44, 'Tu baises les ménagères, bien, tu dois avoir le cul qui brille.', 1438697536, 0, 10, 22),
-(45, 'test88888', 1438697670, 0, 5, 18),
-(46, 'Clash ici :s', 1438710117, 0, 10, 10),
-(47, 'test', 1438710205, 0, 21, 10),
-(48, 'Maintenant si le topic fait plus de 30 messages alors sa découpe en plusieurs page ;) ', 1438720444, 0, 5, 10),
-(49, 'Test avec des caractères spéciaux', 1438720848, 0, 22, 25),
-(50, '#zboob', 1438720870, 0, 22, 10),
-(51, 'C''est "aucun topic écrit" pas "écris" sac :p', 1438721204, 0, 23, 25),
-(52, 'Ouais ouais ouais ouais ouais ouais ouais faut que je test le ban sur toi du coup ;)', 1438721282, 0, 23, 10),
-(53, 'Salut,\n\nJuste pour dire que le gros du forum est fini...\nVoilà voilà.', 1438733148, 0, 24, 10),
-(54, 'ça marche !', 1438904150, 0, 23, 25),
-(55, 'Voilà, vous avez maintenant le nombre de vos messages.', 1441112821, 0, 24, 10),
-(56, 'coucou', 1441115779, 0, 25, 28),
-(57, 'Ake koukou toi', 1441116008, 0, 25, 10),
-(58, 'Je souhaite la bienvenue dans le staff v3 à Maniak ! ', 1441117500, 0, 26, 10),
-(59, 'test', 1441144808, 1, 25, 10),
-(60, 'Merci ;)', 1441144814, 0, 26, 28),
-(61, 'retest', 1441144822, 1, 25, 10),
-(62, 'Merci ;)', 1441144838, 1, 26, 28),
-(63, 'Merci ;)', 1441144838, 1, 26, 28),
-(64, 'Tu es le premier membre du staff v3 sur le site xD', 1441225461, 0, 26, 10),
-(65, 'Salut ceci est un test !', 1444666614, 0, 28, 10),
-(66, 'test', 1444666623, 0, 28, 10),
-(67, 'fd', 1444757501, 0, 25, 11),
-(68, 'sfd', 1444757503, 0, 25, 11),
-(69, 'hg', 1444757505, 0, 25, 11);
+(2, 'Votre forum privé vien d''être mis en ligne.\n					      Gardez un topic minimum ouvert pour que vos membres puissent le voir directement dans la partie "forum", dans le cas contraire ils pourront le consulter uniquement via au lien dans l''index de l''équipage !\n						  Bon jeu.', 1446207986, 0, 2, 13),
+(3, 'Premier message', 1446207986, 0, 3, 10),
+(4, 'Premier message', 1446207986, 0, 4, 10),
+(5, 'Premier message', 1446207986, 0, 5, 10),
+(6, 'Premier message', 1446207986, 0, 6, 10),
+(7, 'Premier message', 1446207986, 0, 7, 10),
+(8, 'Premier message', 1446207986, 0, 8, 10),
+(9, 'Premier message', 1446207986, 0, 9, 10),
+(10, 'Premier message', 1446207986, 0, 10, 10),
+(11, 'Premier message', 1446207986, 0, 11, 10),
+(12, 'Premier message', 1446207986, 0, 12, 10),
+(13, 'Premier message', 1446207986, 0, 13, 10),
+(14, 'Premier message', 1446207986, 0, 14, 10),
+(15, 'Premier message', 1446207986, 0, 15, 10),
+(16, '<p>Petit test pour voir&nbsp;</p>\r\n', 1446209666, 0, 16, 33),
+(17, '<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut volutpat dui. Aenean fringilla ante vitae tincidunt lacinia. Sed porttitor, ante id mattis hendrerit, arcu sem imperdiet arcu, sed tempor nisi metus nec erat. Phasellus placerat magna sodales nisl lacinia accumsan. Quisque tristique arcu ut iaculis facilisis. Aenean vehicula tempor massa fermentum hendrerit. Quisque eu lobortis velit. Aliquam congue sapien eget tempus varius. Suspendisse id ligula diam. Ut in dui augue.</p>\r\n\r\n<p style="text-align: justify;">Vestibulum pulvinar pretium diam. Curabitur porttitor orci sed nunc aliquam, ac condimentum nunc condimentum. In vitae blandit metus. Suspendisse potenti. Praesent tempor faucibus ornare. Praesent a tellus ut mi luctus tincidunt. Nullam nec erat finibus, posuere justo non, tincidunt ex. Mauris vestibulum tortor at placerat malesuada. Pellentesque vitae cursus urna. Vivamus rutrum ex a mauris molestie, in maximus nisl molestie. Curabitur venenatis metus nec sagittis auctor. Nunc in lorem accumsan, semper dui et, tincidunt risus. Phasellus pharetra magna neque, eu facilisis diam sollicitudin sed. Praesent congue vestibulum leo malesuada consectetur. Mauris in diam ut dolor scelerisque laoreet. Nam bibendum, nisi sit amet mollis ultricies, quam tellus cursus augue, eu hendrerit erat orci at risus.</p>\r\n', 1446213346, 0, 3, 10),
+(18, '<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget justo velit. Aliquam rhoncus consequat purus, sed mollis metus accumsan at. Vivamus condimentum vitae nibh nec dapibus. Etiam dolor nibh, venenatis id mauris porta, faucibus vehicula ipsum. Cras in nisi vitae sem viverra varius eget sit amet enim. Pellentesque in sapien eget purus blandit ornare sit amet nec orci. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam ut nulla mauris. Sed ac dui eget lorem fringilla euismod. Aliquam ac commodo nulla. Sed sed vulputate lectus, id tempor tortor. Sed consequat ipsum sit amet lectus bibendum porta. Aenean sagittis sapien nec ex feugiat gravida. Phasellus ornare elit at ligula lacinia volutpat. Nam eget tincidunt erat, quis venenatis dolor. Vestibulum tortor nibh, laoreet et ex eu, tempor interdum risus.</p>\r\n\r\n<p style="text-align: justify;">Aliquam posuere massa quis dui bibendum, sed vehicula nisl eleifend. Sed quis bibendum velit. Vestibulum rhoncus, nulla ut pulvinar porta, risus turpis congue ex, nec rutrum mi sem sed urna. Pellentesque vel lectus ut orci gravida ultrices eget eget dui. In luctus tortor sagittis molestie iaculis. Praesent sit amet dignissim sapien, vitae sodales tellus. Maecenas posuere a eros ornare ullamcorper. Etiam eget quam imperdiet, malesuada ex sed, placerat mi. Sed libero purus, interdum at pharetra at, faucibus et ante. Sed vitae vulputate urna, ut aliquet metus. Donec ipsum nisl, gravida et neque sed, mollis ullamcorper odio. Quisque vulputate tristique euismod. Suspendisse sit amet quam aliquam, tempor sapien eu, laoreet ante. Vestibulum lectus nisi, iaculis eu porta vitae, eleifend quis lorem.</p>\r\n', 1446213360, 0, 3, 10),
+(19, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget justo velit. Aliquam rhoncus consequat purus, sed mollis metus accumsan at. Vivamus condimentum vitae nibh nec dapibus. Etiam dolor nibh, venenatis id mauris porta, faucibus vehicula ipsum. Cras in nisi vitae sem viverra varius eget sit amet enim. Pellentesque in sapien eget purus blandit ornare sit amet nec orci. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam ut nulla mauris. Sed ac dui eget lorem fringilla euismod. Aliquam ac commodo nulla. Sed sed vulputate lectus, id tempor tortor. Sed consequat ipsum sit amet lectus bibendum porta. Aenean sagittis sapien nec ex feugiat gravida. Phasellus ornare elit at ligula lacinia volutpat. Nam eget tincidunt erat, quis venenatis dolor. Vestibulum tortor nibh, laoreet et ex eu, tempor interdum risus.</p>\r\n', 1446213370, 0, 3, 10),
+(20, '<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel elit et massa laoreet tincidunt sit amet eget massa. Duis vitae hendrerit velit. Suspendisse quis volutpat neque. Fusce fermentum sed tortor eget feugiat. Nullam metus libero, maximus vel sollicitudin quis, euismod at ligula. Etiam ullamcorper nisi in ante suscipit bibendum eget id metus. Fusce ut orci pulvinar, facilisis libero in, tempus massa. Quisque malesuada pellentesque vehicula. Cras cursus purus ut tincidunt sollicitudin. Sed convallis, eros ac mattis commodo, sapien quam pretium neque, sit amet aliquet ipsum nisl in elit. Quisque interdum non nulla ut venenatis. Praesent nulla risus, gravida vitae lacus vel, porttitor vulputate augue.</p>\r\n\r\n<p style="text-align: justify;">Nam auctor, risus et accumsan imperdiet, felis mi commodo erat, non fringilla ligula dolor eget metus. Ut ut dapibus turpis. Ut dui nisl, viverra vitae nibh quis, rhoncus fermentum lectus. Maecenas feugiat tempus mi quis elementum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc interdum mauris eu urna vestibulum, nec consequat orci tempus. Nulla semper dictum mauris id feugiat. Nam quis imperdiet quam, sed eleifend justo. Donec vitae risus sem. Donec iaculis lectus eu quam malesuada, sed rhoncus purus dignissim. Phasellus laoreet est vitae velit gravida, at commodo enim rhoncus.</p>\r\n', 1446213409, 0, 3, 10),
+(21, '<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tellus diam, varius vel condimentum at, dictum eu massa. Integer eget libero eu magna ornare malesuada eu vitae magna. Mauris eget laoreet ante. Nulla vel tortor in erat feugiat aliquet at quis tellus. Cras ipsum neque, pretium in ullamcorper vel, egestas quis neque. Maecenas in lobortis mi. Donec laoreet mauris et nisl ullamcorper facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia purus purus, vel scelerisque leo aliquet sed. Aliquam egestas lacus urna, varius suscipit nulla faucibus quis. Donec magna enim, ullamcorper eu turpis quis, auctor blandit purus.</p>\r\n', 1446213422, 0, 3, 10),
+(22, '<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tellus diam, varius vel condimentum at, dictum eu massa. Integer eget libero eu magna ornare malesuada eu vitae magna. Mauris eget laoreet ante. Nulla vel tortor in erat feugiat aliquet at quis tellus. Cras ipsum neque, pretium in ullamcorper vel, egestas quis neque. Maecenas in lobortis mi. Donec laoreet mauris et nisl ullamcorper facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia purus purus, vel scelerisque leo aliquet sed. Aliquam egestas lacus urna, varius suscipit nulla faucibus quis. Donec magna enim, ullamcorper eu turpis quis, auctor blandit purus.</p>\r\n\r\n<p style="text-align: justify;">Phasellus tristique, elit quis tincidunt ultricies, dolor leo luctus tortor, id pellentesque ligula magna nec ipsum. Fusce porta enim a porttitor feugiat. Praesent tempor in metus quis elementum. Vivamus in interdum nibh. Cras luctus euismod sapien vel iaculis. Duis fringilla, turpis vitae egestas fermentum, felis turpis aliquam ipsum, nec finibus urna nulla sed velit. Curabitur rutrum mi vitae viverra finibus. Nam hendrerit odio vitae diam accumsan, in ultricies enim sagittis.</p>\r\n', 1446213436, 0, 3, 10),
+(23, '<p>dfgdgfdgfdgdf</p>\r\n', 1446223047, 0, 17, 10),
+(24, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam venenatis maximus lectus ut aliquet. Cras bibendum at leo a accumsan. Sed sed mi imperdiet, ultricies neque et, rutrum erat. Nam interdum, libero nec vestibulum pellentesque, nunc erat tempus est, vel sagittis ante ex non enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean congue mattis nisl, quis fermentum metus volutpat ut. Aliquam laoreet vulputate ligula vel rhoncus. Etiam lobortis quis ante quis vestibulum. Fusce et nunc nisi. Aenean vitae volutpat purus, quis elementum arcu.</p>\r\n\r\n<p>Fusce volutpat mauris enim. Nulla vel feugiat erat. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam nec mauris felis. Mauris varius efficitur fermentum. Cras risus erat, tincidunt sit amet fermentum nec, consectetur nec urna. Integer eget leo consequat, laoreet sem sed, euismod ligula. Nunc at egestas dui. Aliquam sit amet congue metus, eu efficitur nunc. Donec facilisis risus nec iaculis suscipit. In interdum lorem eget nulla porttitor, non pretium quam convallis. Nullam laoreet nisi nunc, eu condimentum massa dictum ac. Pellentesque elit ligula, rutrum a pulvinar vitae, pellentesque eu ante. In varius, elit nec congue sodales, augue urna varius nisi, ut tincidunt lorem purus id sem. Nulla id tellus blandit leo volutpat venenatis non ut tellus. Integer at massa est.</p>\r\n\r\n<p>Nunc lobortis ante mi, ac ultricies turpis gravida eu. Ut efficitur iaculis tortor in eleifend. Sed non nisl purus. Maecenas eget ullamcorper turpis. Morbi interdum justo porttitor libero sagittis, et tempus erat semper. Suspendisse vestibulum arcu non sapien malesuada placerat. Proin non massa enim.</p>\r\n\r\n<p>Nunc porttitor quam urna, ac sollicitudin nulla iaculis in. Praesent sed leo neque. Phasellus dui dolor, mattis nec mollis id, maximus in lectus. Sed ut dolor aliquam, accumsan tortor in, mollis sapien. In hac habitasse platea dictumst. Curabitur quis ipsum vitae urna iaculis dictum ac eu nibh. Aliquam at velit eget nunc maximus volutpat. Cras viverra velit in pretium aliquet. Etiam nulla dolor, viverra ut sodales nec, auctor at nisl. Vivamus sit amet pulvinar turpis, pretium sodales libero. Praesent quis fermentum elit, id fringilla risus. Maecenas quis est lacus. Nam posuere eros sed nunc faucibus, sit amet finibus purus vestibulum.</p>\r\n\r\n<p>Nullam sapien odio, gravida quis elit nec, gravida egestas lectus. Donec elementum interdum orci, eu aliquam diam posuere eget. Cras malesuada sem eget aliquet ornare. Sed consectetur lacinia efficitur. Aenean scelerisque, lorem ut facilisis tempor, sapien nibh scelerisque mi, sed malesuada dolor justo eu risus. Integer a tortor quis orci sodales tincidunt. Etiam finibus dapibus ante, vitae efficitur odio aliquam et. Duis quis lectus malesuada, posuere turpis vel, varius augue. Suspendisse nulla velit, malesuada at nibh ut, lobortis blandit orci. Cras condimentum eros tortor, sed euismod nisi lacinia ac.</p>\r\n\r\n<p>Cras tempus, urna nec tempus venenatis, justo erat finibus orci, eu congue dui urna vitae nibh. Mauris euismod nec nisi id sollicitudin. Suspendisse vitae magna vitae tellus elementum vehicula. Morbi eu accumsan neque, vel egestas arcu. Fusce rutrum pellentesque erat in scelerisque. Integer ornare sem eu turpis venenatis, id posuere nulla luctus. Sed eu dolor in augue commodo dignissim pharetra in nisl. Nullam hendrerit odio et iaculis euismod. Pellentesque id tortor risus. Maecenas imperdiet tempor risus, quis suscipit lectus. Duis purus nulla, venenatis scelerisque turpis vitae, maximus ultrices dui. Ut suscipit, libero sed malesuada porttitor, felis ex congue quam, a sollicitudin magna arcu nec libero. Maecenas fringilla viverra leo, vel dignissim sem congue et. Etiam eleifend pretium ex, vestibulum luctus metus posuere a.</p>\r\n', 1446229809, 0, 5, 10),
+(25, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam venenatis maximus lectus ut aliquet. Cras bibendum at leo a accumsan. Sed sed mi imperdiet, ultricies neque et, rutrum erat. Nam interdum, libero nec vestibulum pellentesque, nunc erat tempus est, vel sagittis ante ex non enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean congue mattis nisl, quis fermentum metus volutpat ut. Aliquam laoreet vulputate ligula vel rhoncus. Etiam lobortis quis ante quis vestibulum. Fusce et nunc nisi. Aenean vitae volutpat purus, quis elementum arcu.</p>\r\n\r\n<p>Fusce volutpat mauris enim. Nulla vel feugiat erat. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam nec mauris felis. Mauris varius efficitur fermentum. Cras risus erat, tincidunt sit amet fermentum nec, consectetur nec urna. Integer eget leo consequat, laoreet sem sed, euismod ligula. Nunc at egestas dui. Aliquam sit amet congue metus, eu efficitur nunc. Donec facilisis risus nec iaculis suscipit. In interdum lorem eget nulla porttitor, non pretium quam convallis. Nullam laoreet nisi nunc, eu condimentum massa dictum ac. Pellentesque elit ligula, rutrum a pulvinar vitae, pellentesque eu ante. In varius, elit nec congue sodales, augue urna varius nisi, ut tincidunt lorem purus id sem. Nulla id tellus blandit leo volutpat venenatis non ut tellus. Integer at massa est.</p>\r\n\r\n<p>Nunc lobortis ante mi, ac ultricies turpis gravida eu. Ut efficitur iaculis tortor in eleifend. Sed non nisl purus. Maecenas eget ullamcorper turpis. Morbi interdum justo porttitor libero sagittis, et tempus erat semper. Suspendisse vestibulum arcu non sapien malesuada placerat. Proin non massa enim.</p>\r\n\r\n<p>Nunc porttitor quam urna, ac sollicitudin nulla iaculis in. Praesent sed leo neque. Phasellus dui dolor, mattis nec mollis id, maximus in lectus. Sed ut dolor aliquam, accumsan tortor in, mollis sapien. In hac habitasse platea dictumst. Curabitur quis ipsum vitae urna iaculis dictum ac eu nibh. Aliquam at velit eget nunc maximus volutpat. Cras viverra velit in pretium aliquet. Etiam nulla dolor, viverra ut sodales nec, auctor at nisl. Vivamus sit amet pulvinar turpis, pretium sodales libero. Praesent quis fermentum elit, id fringilla risus. Maecenas quis est lacus. Nam posuere eros sed nunc faucibus, sit amet finibus purus vestibulum.</p>\r\n', 1446229816, 0, 5, 10),
+(26, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam venenatis maximus lectus ut aliquet. Cras bibendum at leo a accumsan. Sed sed mi imperdiet, ultricies neque et, rutrum erat. Nam interdum, libero nec vestibulum pellentesque, nunc erat tempus est, vel sagittis ante ex non enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean congue mattis nisl, quis fermentum metus volutpat ut. Aliquam laoreet vulputate ligula vel rhoncus. Etiam lobortis quis ante quis vestibulum. Fusce et nunc nisi. Aenean vitae volutpat purus, quis elementum arcu.</p>\r\n\r\n<p>Fusce volutpat mauris enim. Nulla vel feugiat erat. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam nec mauris felis. Mauris varius efficitur fermentum. Cras risus erat, tincidunt sit amet fermentum nec, consectetur nec urna. Integer eget leo consequat, laoreet sem sed, euismod ligula. Nunc at egestas dui. Aliquam sit amet congue metus, eu efficitur nunc. Donec facilisis risus nec iaculis suscipit. In interdum lorem eget nulla porttitor, non pretium quam convallis. Nullam laoreet nisi nunc, eu condimentum massa dictum ac. Pellentesque elit ligula, rutrum a pulvinar vitae, pellentesque eu ante. In varius, elit nec congue sodales, augue urna varius nisi, ut tincidunt lorem purus id sem. Nulla id tellus blandit leo volutpat venenatis non ut tellus. Integer at massa est.</p>\r\n', 1446229829, 0, 5, 10),
+(27, '<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam venenatis maximus lectus ut aliquet. Cras bibendum at leo a accumsan. Sed sed mi imperdiet, ultricies neque et, rutrum erat. Nam interdum, libero nec vestibulum pellentesque, nunc erat tempus est, vel sagittis ante ex non enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean congue mattis nisl, quis fermentum metus volutpat ut. Aliquam laoreet vulputate ligula vel rhoncus. Etiam lobortis quis ante quis vestibulum. Fusce et nunc nisi. Aenean vitae volutpat purus, quis elementum arcu.</p>\r\n\r\n<p style="text-align: justify;">Fusce volutpat mauris enim. Nulla vel feugiat erat. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam nec mauris felis. Mauris varius efficitur fermentum. Cras risus erat, tincidunt sit amet fermentum nec, consectetur nec urna. Integer eget leo consequat, laoreet sem sed, euismod ligula. Nunc at egestas dui. Aliquam sit amet congue metus, eu efficitur nunc. Donec facilisis risus nec iaculis suscipit. In interdum lorem eget nulla porttitor, non pretium quam convallis. Nullam laoreet nisi nunc, eu condimentum massa dictum ac. Pellentesque elit ligula, rutrum a pulvinar vitae, pellentesque eu ante. In varius, elit nec congue sodales, augue urna varius nisi, ut tincidunt lorem purus id sem. Nulla id tellus blandit leo volutpat venenatis non ut tellus. Integer at massa est.</p>\r\n', 1446229841, 0, 5, 10),
+(28, '<p>Petit test pour voir si &ccedil;a marche bien!<br />\r\nBlabla bla blaPetit test pour voir si &ccedil;a marche bien!<br />\r\nBlabla bla bla</p>\r\n\r\n<p>Petit test pour voir si &ccedil;a marche bien!<br />\r\nBlabla bla bla</p>\r\n', 1446298791, 0, 16, 34),
+(29, '<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tristique cursus justo, a luctus sem eleifend eu. Curabitur consequat enim vel tristique congue. Mauris tempus facilisis aliquam. Aliquam orci eros, vulputate vitae blandit vel, porta at diam. Suspendisse potenti. Maecenas consectetur tempor tincidunt. Vivamus dolor velit, pharetra in metus et, vulputate semper velit. Ut vel ipsum mattis, pellentesque risus vel, dictum risus. Vestibulum placerat eleifend auctor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec et odio at nibh cursus ultricies at sagittis ex. Integer at tortor convallis, vehicula sem eu, placerat quam. Cras magna risus, viverra commodo turpis ac, accumsan pretium nisi. Ut velit tortor, efficitur vel posuere nec, blandit eu ipsum. Vestibulum nec vulputate velit, eu efficitur ante. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>\r\n\r\n<p style="text-align: justify;">Quisque tempor purus nec lectus tincidunt rhoncus. Aenean risus massa, ullamcorper quis nulla sed, elementum porttitor nibh. Phasellus sed libero et leo laoreet elementum. Suspendisse potenti. Donec justo nulla, mattis a turpis tincidunt, interdum tristique mi. Maecenas mollis nibh sit amet convallis vestibulum. Maecenas vel accumsan tellus, non tincidunt orci. Curabitur fermentum commodo nulla in sollicitudin. Morbi in nulla velit. Vestibulum a risus tellus. Ut velit orci, ultrices et blandit at, rhoncus id magna. In facilisis tempor finibus. Suspendisse vehicula fringilla ante, nec dictum dui bibendum a. Sed ac pretium enim. Nulla dui leo, porta ac velit maximus, pellentesque scelerisque nunc.</p>\r\n\r\n<p style="text-align: justify;">Vestibulum venenatis et purus sed ornare. Cras id nibh eget lorem vulputate laoreet. Proin porttitor, justo sit amet pharetra blandit, nisi ligula gravida turpis, vitae efficitur erat diam eu elit. Phasellus ut nunc non est condimentum laoreet a sit amet risus. Suspendisse nec felis tincidunt, fringilla ex in, tincidunt nisl. Etiam nibh elit, consectetur sed sagittis eu, condimentum sed lorem. Etiam a auctor ex. Duis vel nisi a tortor egestas euismod. Quisque non lorem vitae orci lacinia blandit. Etiam nisi nibh, laoreet nec tempor eget, maximus quis augue. Vestibulum rutrum quis metus non pretium. Proin ullamcorper quis dolor quis dictum.</p>\r\n', 1446300642, 0, 16, 10),
+(30, '<p>fdfsdfsgfdgfdgdfgfdgf</p>\r\n', 1446300675, 0, 16, 34),
+(31, '<p>Arr&ecirc;te</p>\r\n', 1446300680, 0, 16, 34),
+(32, '<p>tsddsgdf</p>\r\n', 1446316127, 0, 18, 10),
+(33, 'Votre forum privé vien d''être mis en ligne.\n					      Gardez un topic minimum ouvert pour que vos membres puissent le voir directement dans la partie "forum", dans le cas contraire ils pourront le consulter uniquement via au lien dans l''index de l''équipage !\n						  Bon jeu.', 1446331061, 0, 19, 13),
+(34, '<p>TEST</p>\r\n', 1446331768, 0, 5, 34),
+(35, 'Votre forum privé vien d''être mis en ligne.\n					      Gardez un topic minimum ouvert pour que vos membres puissent le voir directement dans la partie "forum", dans le cas contraire ils pourront le consulter uniquement via au lien dans l''index de l''équipage !\n						  Bon jeu.', 1446337576, 0, 20, 13),
+(36, 'Votre forum privé vien d''être mis en ligne.\n					      Gardez un topic minimum ouvert pour que vos membres puissent le voir directement dans la partie "forum", dans le cas contraire ils pourront le consulter uniquement via au lien dans l''index de l''équipage !\n						  Bon jeu.', 1446390991, 0, 21, 13),
+(37, '<p>Petit test Avatar !</p>\r\n', 1446416835, 0, 6, 36);
 
 -- --------------------------------------------------------
 
@@ -588,18 +588,18 @@ CREATE TABLE IF NOT EXISTS `news` (
   `message` text NOT NULL,
   `is_block` tinyint(1) NOT NULL,
   `id_users` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `news`
 --
 
 INSERT INTO `news` (`id`, `title`, `date_time`, `message`, `is_block`, `id_users`) VALUES
-(2, 'Une deuxième news', 0, 'Une deuxième news </br> Pour voir l''odre des news </br> NANANANANANA', 0, 10),
-(3, 'Troisième news', 0, 'Allleeez </br> Petite news au calme </br> Je suis dans mon jacouzie tu es dans ta ... </br> JALOUSIE', 0, 10),
-(4, 'Salut le staff', 0, 'Salut le staff,<br/><br/>\n\nJ''espère que la première version de la V3 vous satisfait.<br />\nPour le moment il n''y a aucun design, et c''est normal pour le moment ! ;) <br />\nVous pouvez naviguez sur le site, si vous avez des soucis contactez moi. <br />\nEssayez donc de créer votre compte, de vous connecter, de me MP, etc...\n<br />\n<br />\nHave fun !', 0, 10),
-(5, 'V3 IS COMING', 1435415275, 'Salut mes chéries, <br /> <br />\nJ''ai rajouté le système de date (Wouaw c''est beau on voit que j''ai écrit ça le 27 juin :P) <br />\nJ''ai aussi rajouter le système de commentaire pour chaque news ! Alors n''hésitez pas a vous déchainez !! :D <br /> <br />\nJ''ai bien bossé pour l''anniv de Pev ! :P <br /> <br />\nHave fun !', 0, 10),
-(6, 'Allez au taff', 1437569388, 'AU TAFF \nAU TAFF\n\nAU TAFF\n\n\nAU TAFFFFFFFFFFFFF :o', 0, 10);
+(13, 'Petite news', 1446211183, '<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed enim tellus. Vivamus eget sapien in ante laoreet tempor. Vivamus sed euismod mi. Aenean id sollicitudin libero, a dictum velit. In et venenatis tortor. Vivamus nec leo libero. Proin faucibus placerat urna non sollicitudin. Cras ac imperdiet tellus, eget ornare sapien.</p>\r\n\r\n<p style="text-align: justify;">Praesent in sapien a tellus ornare tempor a sed sapien. Praesent ac orci nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In sit amet leo ac risus gravida dapibus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam sodales augue pretium, ultrices tellus convallis, porta elit. Nulla elementum velit in ex efficitur, nec iaculis odio luctus.</p>\r\n\r\n<p style="text-align: justify;">Maecenas ut velit in urna placerat gravida ac eget lectus. Nunc enim felis, consectetur non pharetra porttitor, egestas id neque. Etiam elit tellus, mattis dignissim eleifend at, tincidunt eget metus. Integer nunc massa, rhoncus ac ante eu, tristique tristique leo. Aliquam iaculis fringilla quam non lacinia. In sit amet tristique quam. Quisque vitae volutpat est.</p>\r\n\r\n<p style="text-align: justify;">Integer non efficitur lectus. Nulla ac ante euismod, ultricies ipsum et, iaculis sapien. Nullam enim tellus, lacinia eget felis sagittis, volutpat condimentum enim. Maecenas dignissim porta dolor, a fringilla enim dignissim ac. Proin molestie sed felis consectetur condimentum. Sed commodo consectetur metus nec lacinia. Fusce justo turpis, pellentesque fringilla tristique vitae, fringilla et neque. In eget ornare diam, vitae rutrum nunc. Ut sit amet nisl auctor, malesuada augue accumsan, sagittis turpis. Curabitur malesuada vehicula magna, et auctor augue maximus sit amet. Cras semper lacinia augue, sit amet viverra erat tempor eu. Nunc non velit hendrerit, lobortis metus ac, pharetra lectus.</p>\r\n\r\n<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at laoreet ante, a viverra ipsum. Integer consequat metus in dolor vehicula, eu interdum orci volutpat. Vestibulum eget mauris pharetra, vehicula lorem a, vestibulum massa. Nam ac lacinia ligula, ut convallis justo. Duis ut massa volutpat, imperdiet lorem sed, consectetur magna. Morbi aliquam justo ac diam facilisis pharetra. Nam eget commodo tellus. Sed eu tortor laoreet, aliquet mi eu, semper sapien. Nulla consectetur enim porta odio semper, et commodo ipsum fermentum.</p>\r\n', 0, 10),
+(14, 'Deuxième news', 1446211201, '<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vulputate lectus nec ligula mollis, et tincidunt neque gravida. Curabitur a venenatis mi. Cras nec pellentesque est, eget tristique ipsum. Integer eget tincidunt lacus, non posuere erat. Suspendisse accumsan lorem nec neque posuere lobortis. Aliquam nec felis vel lacus mattis faucibus vitae ac tellus. Nulla felis magna, placerat in luctus nec, posuere in lacus. In dapibus faucibus magna sed condimentum. Donec quis arcu elit.</p>\r\n\r\n<p style="text-align: justify;">Duis interdum nisi orci, sit amet blandit felis porttitor vel. Nullam interdum neque ac felis semper aliquam. Aenean tempor nulla laoreet quam rhoncus pellentesque. Phasellus diam quam, tristique eu metus at, congue iaculis libero. Vivamus a dolor a dui congue tristique. Etiam facilisis ipsum at lorem placerat, quis lobortis diam fermentum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi non porta libero. Vivamus faucibus, nisi non scelerisque vestibulum, dolor enim mollis leo, quis cursus nisl leo hendrerit nunc. Mauris nulla erat, efficitur eu consequat et, consectetur in mauris. Fusce at euismod orci. Fusce in ligula at sapien iaculis congue. Donec sit amet auctor mi. In commodo egestas eros, nec porta nulla tempus a.</p>\r\n\r\n<p style="text-align: justify;">Vestibulum massa eros, pretium id nisl ac, vulputate convallis eros. Etiam vestibulum, nunc nec pulvinar laoreet, nulla enim porttitor diam, sit amet facilisis magna magna vel est. Vestibulum finibus dignissim quam at mattis. Sed vestibulum quam feugiat tincidunt bibendum. Vivamus dignissim libero quis pulvinar fermentum. Sed fermentum tortor non enim molestie, ac auctor eros egestas. Etiam ligula sapien, mattis non nunc id, condimentum hendrerit risus. Donec vel dolor nibh. Proin pharetra tempus malesuada. Quisque quis finibus velit, nec consequat sem.</p>\r\n\r\n<p style="text-align: justify;">Sed volutpat fermentum libero et condimentum. Vivamus eget congue magna. Nulla lobortis sagittis justo vel posuere. In rhoncus arcu a augue volutpat tristique. Sed sed dictum nunc, in pulvinar elit. Morbi quis imperdiet justo. Quisque a nibh euismod, pharetra mauris nec, luctus lorem. In aliquam ex id ex fringilla, at dignissim sapien facilisis. Nullam in dolor ligula. Sed feugiat sem vel diam venenatis, non aliquet libero porttitor. Integer vel aliquam mi. Duis dictum mollis elit, sit amet elementum nunc aliquet ac. Ut fermentum, ipsum in faucibus accumsan, est eros suscipit enim, id luctus justo risus in nibh. Nulla id commodo quam. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>\r\n\r\n<p style="text-align: justify;">Aliquam at arcu suscipit, sollicitudin nulla eget, efficitur elit. Quisque eu velit eleifend, tristique ipsum sit amet, imperdiet dui. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla ac metus iaculis, lobortis lectus sed, volutpat lectus. In eu ante consequat, tincidunt ex eget, pharetra erat. Fusce finibus velit nec libero luctus vulputate. Nunc varius id massa sit amet maximus. Nulla vulputate laoreet nulla, quis fermentum tellus gravida sit amet.</p>\r\n', 0, 10),
+(15, 'Troisième news', 1446211219, '<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam suscipit dui felis, a sollicitudin purus suscipit ut. Aliquam erat volutpat. Duis tristique condimentum sem, id mattis nisi hendrerit quis. In quis sapien rhoncus, tempus erat a, pulvinar lorem. Proin vel urna rutrum, molestie erat eget, ornare velit. Nullam viverra nulla et lacus mollis, in molestie velit fringilla. Curabitur volutpat luctus ultrices. Donec in pharetra nulla. Nunc odio nulla, luctus a nisl quis, tempus malesuada mi.</p>\r\n\r\n<p style="text-align: justify;">Integer pharetra risus a est euismod vestibulum. In lacinia malesuada magna, sit amet venenatis risus sodales in. Morbi neque tellus, pellentesque non arcu sed, consectetur mollis est. Cras sit amet mollis eros. Phasellus turpis augue, tempus eget finibus eu, viverra in justo. Nam ornare lorem a ligula sodales ullamcorper. Suspendisse condimentum blandit pulvinar. Sed enim dui, sagittis sed lorem et, mollis lobortis tortor. Sed ultricies magna faucibus justo tincidunt mattis. Nulla facilisi. Etiam molestie cursus nisl tempor maximus. In pellentesque aliquet est ac dapibus. Praesent eget velit in lectus aliquet lacinia. Curabitur sit amet velit vitae est pharetra sodales non quis ante.</p>\r\n\r\n<p style="text-align: justify;">Mauris nisl magna, auctor id nisl id, volutpat venenatis velit. Vestibulum aliquam erat non diam tempus dignissim. Maecenas pharetra dignissim justo, vel dictum elit sagittis ac. Aenean semper sit amet magna vitae facilisis. Nunc ipsum ex, mattis nec risus vel, fringilla pretium dolor. Nulla a augue aliquam, gravida odio malesuada, imperdiet nulla. Nulla facilisi. Sed vel neque magna. Donec dapibus vestibulum nibh, vitae mollis turpis pulvinar vitae. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>\r\n\r\n<p style="text-align: justify;">Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris sodales sodales ipsum. Mauris ac metus non tortor tristique tristique in non arcu. Maecenas libero metus, dictum et blandit vitae, congue hendrerit purus. Aenean at neque id elit facilisis aliquam in eget lorem. Fusce eu convallis massa, vel interdum ante. Maecenas eu velit tellus. Suspendisse dapibus lorem vitae arcu commodo efficitur.</p>\r\n\r\n<p style="text-align: justify;">Quisque semper justo finibus sapien tincidunt viverra. Duis sed congue est. Donec varius tortor sit amet lorem tristique viverra. Suspendisse molestie non urna non eleifend. Maecenas pretium justo vitae lorem volutpat, et ornare tellus porta. Nulla dictum nisl non aliquet molestie. Morbi pretium et elit sed lobortis. Cras semper egestas augue quis luctus. Ut varius lorem id feugiat fringilla. Mauris pulvinar nisl lacus, id vulputate lectus bibendum sit amet. Sed porta tempor purus eget dictum. Phasellus tincidunt sem nunc, non tincidunt elit consequat quis. Aliquam sed ultricies libero. Mauris ante risus, pulvinar non egestas non, dapibus vitae nisl.</p>\r\n', 0, 10),
+(16, '4eme news', 1446211251, '<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam orci est, imperdiet nec ultricies pharetra, fringilla non erat. Nam ut ante condimentum, aliquet eros in, gravida tortor. Maecenas non porta quam, vitae semper turpis. Pellentesque commodo et tellus et efficitur. Maecenas sed risus id nibh ultrices convallis non non massa. Aliquam nec mi dapibus, efficitur ipsum sed, volutpat lacus. Interdum et malesuada fames ac ante ipsum primis in faucibus. In volutpat turpis erat, et viverra mauris auctor congue. Integer pulvinar condimentum scelerisque. Sed dapibus vel urna a interdum. Duis blandit magna nisi, eu viverra dolor consectetur id. Mauris consequat porta purus eget tristique. Aenean pulvinar lorem lacus, vitae rhoncus metus volutpat in. Suspendisse eleifend, justo viverra imperdiet aliquam, sapien metus ornare magna, non mattis ante nisi vel diam. Sed dictum felis eu aliquam molestie.</p>\r\n\r\n<p style="text-align: justify;">Suspendisse tincidunt justo ut mauris dapibus mattis. In hac habitasse platea dictumst. Maecenas porttitor semper purus, ut mollis urna dapibus ac. In accumsan sapien non erat consectetur, sed dapibus diam hendrerit. Cras in sem efficitur, ultrices augue vitae, facilisis sem. Sed vitae arcu accumsan, consequat urna in, ultrices velit. Sed at sagittis tortor, eget viverra tortor. Nulla fermentum nec velit quis mattis. Etiam pharetra ligula sed sapien mattis, tincidunt iaculis sapien semper. Nulla facilisi. Integer blandit mollis metus. Aliquam auctor aliquam cursus.</p>\r\n\r\n<p style="text-align: justify;">Vestibulum eros dolor, porttitor ac eros id, gravida fermentum nisl. Etiam semper urna et felis gravida semper. Praesent turpis metus, porta quis turpis eu, auctor posuere ante. Duis eleifend purus ut dolor congue, non tempor eros fringilla. Donec semper lobortis mauris vel elementum. Suspendisse at tortor sit amet urna congue sagittis eu gravida mi. Nunc consequat enim ut turpis ornare, id sollicitudin mi consequat.</p>\r\n\r\n<p style="text-align: justify;">Praesent non metus vitae nisi sagittis mattis. Maecenas ornare dignissim odio. Morbi vitae velit mollis, lacinia diam eu, luctus dolor. In et ex porttitor, vestibulum neque ut, rutrum est. Quisque vulputate ut risus vel efficitur. Suspendisse in auctor justo. Sed eu purus velit. Phasellus id eros ut felis lacinia commodo sit amet a augue. Phasellus malesuada lorem nunc, vel facilisis ex eleifend ultricies. Curabitur ac cursus magna. Donec a congue neque, in malesuada urna. Proin sollicitudin ligula enim, ac fringilla dui pretium ac. Duis cursus leo quis sem convallis vehicula.</p>\r\n\r\n<p style="text-align: justify;">Quisque aliquet erat id dui bibendum feugiat in ut ex. Pellentesque tristique ipsum metus, vitae pulvinar mauris malesuada eu. Curabitur id cursus quam. Ut commodo dignissim sodales. Duis vestibulum massa ac leo tincidunt, eget lobortis ante auctor. Pellentesque ultricies ullamcorper arcu sed consequat. Pellentesque sit amet elementum nibh. Proin orci metus, molestie et orci sed, imperdiet ultricies lectus. Nunc eget arcu id arcu vehicula luctus at quis mi. Mauris dui urna, ultricies sodales venenatis a, consectetur quis odio. Sed arcu lacus, consequat ac tortor in, egestas scelerisque magna. Ut aliquet neque vel elit consectetur molestie cursus ut nunc. Aliquam auctor feugiat ex, at pellentesque mauris cursus sed. Duis laoreet nulla sed urna egestas, eu pulvinar nunc bibendum. Nullam luctus pellentesque dolor, sit amet eleifend ipsum accumsan vitae.</p>\r\n', 0, 10),
+(17, '5eme news', 1446211268, '<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nec neque laoreet, eleifend sem sed, condimentum dolor. Quisque malesuada convallis accumsan. Fusce quis sapien at risus finibus sodales sit amet et diam. Curabitur sodales vitae ipsum nec interdum. Cras hendrerit viverra lacinia. Etiam pulvinar leo sem, sed gravida tellus venenatis ac. Curabitur non volutpat lacus. Nulla vel laoreet tellus. Ut accumsan urna ac varius hendrerit. Nulla auctor consectetur pretium. Sed eget tempor arcu, sed pulvinar ex. Donec dictum justo nec venenatis rutrum. Maecenas vulputate fermentum ultricies. Maecenas vel ullamcorper magna. Vivamus iaculis sapien at eros aliquet, sit amet euismod lacus venenatis.</p>\r\n\r\n<p style="text-align: justify;">Etiam malesuada eros leo, quis ultrices ex tincidunt in. Suspendisse potenti. Nunc et ligula commodo, placerat quam eget, suscipit nulla. In viverra nibh pulvinar tellus euismod, sed cursus augue scelerisque. Vestibulum eget eros quis risus volutpat finibus. Aliquam malesuada ipsum lacus, vitae sollicitudin sem sagittis eu. Cras suscipit pellentesque pellentesque. In dapibus sed risus sit amet pretium. Vivamus tortor leo, pulvinar sit amet magna vel, facilisis vestibulum risus. Morbi pretium felis vitae erat lacinia molestie. Nullam scelerisque tellus quis felis vehicula tempor. Morbi ullamcorper metus odio, eget facilisis purus lacinia ut. In rutrum risus a magna pretium fermentum. Nunc auctor ante ut magna faucibus, tempus congue metus maximus. Maecenas tincidunt tellus vitae turpis ornare sollicitudin.</p>\r\n\r\n<p style="text-align: justify;">Etiam ornare scelerisque mollis. Aliquam fringilla sed metus sed luctus. Curabitur ac placerat ipsum, in dapibus eros. Nulla ut dolor ac erat consectetur tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam at viverra nulla, in suscipit metus. Suspendisse aliquam id est nec malesuada. Cras non sem bibendum, semper libero sit amet, congue velit.</p>\r\n\r\n<p style="text-align: justify;">Mauris et ultrices ante, non venenatis enim. Fusce commodo in ipsum sed iaculis. Nullam eget tellus nisi. Morbi ultrices rutrum feugiat. Morbi sed elit laoreet ligula tincidunt consectetur. Quisque commodo nunc at feugiat lobortis. Integer elementum ante tortor, at auctor purus varius sit amet.</p>\r\n\r\n<p style="text-align: justify;">Nunc vehicula turpis nec ex gravida tincidunt sed eu ex. Suspendisse vitae laoreet turpis. Suspendisse pellentesque quam lacus, et elementum nisl tempor vel. Aenean finibus eu ipsum at venenatis. Quisque luctus laoreet lectus, a dictum enim. Proin quis interdum nisl, ut hendrerit tellus. In ut viverra ligula. Nunc sed nisi tristique, facilisis ante eu, pellentesque neque.</p>\r\n', 0, 10);
 
 -- --------------------------------------------------------
 
@@ -614,25 +614,19 @@ CREATE TABLE IF NOT EXISTS `news_comments` (
   `is_block` tinyint(1) NOT NULL,
   `id_users` int(11) NOT NULL,
   `id_news` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `news_comments`
 --
 
 INSERT INTO `news_comments` (`id`, `date_time`, `message`, `is_block`, `id_users`, `id_news`) VALUES
-(1, 1435415363, 'Yearl ça marche </br>\nIzi izi', 0, 10, 5),
-(2, 1435416183, 'Journal !', 0, 15, 5),
-(4, 1435416952, 'C''est bon tu y arrives ?', 0, 10, 5),
-(6, 1435417657, 'Pagination :(', 0, 15, 5),
-(7, 1435417824, 'J''écris sur ton message', 0, 15, 5),
-(8, 1435417870, '10', 0, 15, 5),
-(9, 1435417982, 'test', 0, 10, 5),
-(10, 1435418140, 'pas 5 mais 2', 0, 15, 2),
-(12, 1435421512, 'J''écris à 5', 0, 15, 5),
-(13, 1435421533, 'J''écris à 3', 0, 15, 3),
-(14, 1435425342, 'Tu écris à 5 ?\nBon bah j''écris à 6 x)', 0, 10, 5),
-(16, 1444669881, 'test', 0, 10, 6);
+(20, 1446211793, '<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu congue risus. Ut vulputate nibh in malesuada interdum. Duis cursus risus a nisl consectetur, a elementum nulla pellentesque. Suspendisse sed nisi orci. Maecenas venenatis condimentum porta. Duis pretium nunc non mauris egestas dapibus. Fusce vehicula enim in consequat imperdiet. Nullam eu fermentum lectus, vel venenatis arcu.</p>\r\n\r\n<p style="text-align: justify;">Vivamus malesuada odio eu enim tempor, quis ornare ante malesuada. Proin ultrices pulvinar risus ac vestibulum. Cras consectetur magna sed tincidunt gravida. Aliquam vestibulum consequat scelerisque. Donec porta dictum eleifend. Duis ac arcu nec eros ornare ultrices vel sed enim. Phasellus mollis, arcu id laoreet tincidunt, erat nibh tempus est, non ornare ex nisl non nibh. Pellentesque aliquet a tellus in dapibus. Aenean ornare arcu sed diam tristique ultrices. Aliquam ipsum est, sodales ac orci eu, efficitur lobortis enim. In hendrerit vel turpis ac sollicitudin. Fusce finibus semper lorem. Maecenas nec est quis nisl mattis sodales quis eget velit. Curabitur volutpat, odio sit amet semper commodo, ex ante suscipit risus, eu facilisis dolor magna ut enim. Pellentesque massa dui, posuere eu mollis eget, posuere non nulla.</p>\r\n', 0, 10, 17),
+(21, 1446211806, '<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu congue risus. Ut vulputate nibh in malesuada interdum. Duis cursus risus a nisl consectetur, a elementum nulla pellentesque. Suspendisse sed nisi orci. Maecenas venenatis condimentum porta. Duis pretium nunc non mauris egestas dapibus. Fusce vehicula enim in consequat imperdiet. Nullam eu fermentum lectus, vel venenatis arcu.</p>\r\n', 0, 10, 17),
+(22, 1446211825, '<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis ullamcorper felis, malesuada lacinia odio. Sed eget purus augue. Fusce dapibus consectetur eros quis semper. Ut eget dapibus nunc. Mauris eget ligula ut quam porttitor fringilla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed commodo, leo in iaculis blandit, mi risus lacinia quam, vitae aliquet nisl sapien at sapien. Cras eget odio condimentum, fermentum purus quis, tempus libero. Sed tempus nisi vel consectetur sollicitudin. Aliquam eu ultrices eros, id maximus urna. Morbi elementum felis urna, at congue ligula convallis nec. Fusce hendrerit at felis ac fermentum. Etiam gravida leo ut arcu porttitor eleifend.</p>\r\n', 0, 10, 17),
+(23, 1446211835, '<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quis ullamcorper felis, malesuada lacinia odio. Sed eget purus augue. Fusce dapibus consectetur eros quis semper. Ut eget dapibus nunc. Mauris eget ligula ut quam porttitor fringilla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed commodo, leo in iaculis blandit, mi risus lacinia quam, vitae aliquet nisl sapien at sapien. Cras eget odio condimentum, fermentum purus quis, tempus libero. Sed tempus nisi vel consectetur sollicitudin. Aliquam eu ultrices eros, id maximus urna. Morbi elementum felis urna, at congue ligula convallis nec. Fusce hendrerit at felis ac fermentum. Etiam gravida leo ut arcu porttitor eleifend.</p>\r\n\r\n<p style="text-align: justify;">Cras ut augue efficitur, commodo sapien non, pretium urna. Sed quis efficitur enim. Nam non mollis ligula. Curabitur nec tempus enim. In laoreet dictum sem, ac malesuada augue lobortis quis. Duis pretium ligula eget lorem pellentesque, a lobortis tellus aliquam. Pellentesque pellentesque lacus eget tempus pulvinar. Nunc a egestas magna, a porta mauris. Phasellus nec rhoncus ligula. Proin id diam eu mi varius sodales a in enim. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>\r\n', 0, 10, 17),
+(24, 1446211850, '<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultrices ipsum non justo placerat posuere. Aenean enim orci, ornare in dolor vel, aliquam mattis lacus. Aenean ornare leo ipsum, sit amet elementum dolor eleifend in. Integer lorem ante, vehicula id accumsan eu, vulputate quis orci. Nam at erat mi. Donec vel mauris in ligula tristique malesuada. Donec erat dolor, porta ut sodales gravida, feugiat sed ligula. Mauris dictum dui odio, ut tempus tellus commodo vel. Maecenas fermentum venenatis orci quis interdum. Quisque sit amet quam neque. Suspendisse potenti.</p>\r\n\r\n<p style="text-align: justify;">Praesent varius vehicula nisi, ut dapibus erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam maximus eros in libero consectetur, ut tincidunt odio varius. Donec auctor vel risus a imperdiet. Integer vel laoreet ante. Cras porttitor, turpis sed finibus venenatis, nisi enim egestas odio, non interdum purus ex at eros. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin lobortis lacinia neque ac blandit. Integer ut convallis diam. In ac feugiat ligula.</p>\r\n', 0, 10, 17),
+(25, 1446211872, '<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut volutpat dui. Aenean fringilla ante vitae tincidunt lacinia. Sed porttitor, ante id mattis hendrerit, arcu sem imperdiet arcu, sed tempor nisi metus nec erat. Phasellus placerat magna sodales nisl lacinia accumsan. Quisque tristique arcu ut iaculis facilisis. Aenean vehicula tempor massa fermentum hendrerit. Quisque eu lobortis velit. Aliquam congue sapien eget tempus varius. Suspendisse id ligula diam. Ut in dui augue.</p>\r\n\r\n<p style="text-align: justify;">Vestibulum pulvinar pretium diam. Curabitur porttitor orci sed nunc aliquam, ac condimentum nunc condimentum. In vitae blandit metus. Suspendisse potenti. Praesent tempor faucibus ornare. Praesent a tellus ut mi luctus tincidunt. Nullam nec erat finibus, posuere justo non, tincidunt ex. Mauris vestibulum tortor at placerat malesuada. Pellentesque vitae cursus urna. Vivamus rutrum ex a mauris molestie, in maximus nisl molestie. Curabitur venenatis metus nec sagittis auctor. Nunc in lorem accumsan, semper dui et, tincidunt risus. Phasellus pharetra magna neque, eu facilisis diam sollicitudin sed. Praesent congue vestibulum leo malesuada consectetur. Mauris in diam ut dolor scelerisque laoreet. Nam bibendum, nisi sit amet mollis ultricies, quam tellus cursus augue, eu hendrerit erat orci at risus.</p>\r\n\r\n<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ut volutpat dui. Aenean fringilla ante vitae tincidunt lacinia. Sed porttitor, ante id mattis hendrerit, arcu sem imperdiet arcu, sed tempor nisi metus nec erat. Phasellus placerat magna sodales nisl lacinia accumsan. Quisque tristique arcu ut iaculis facilisis. Aenean vehicula tempor massa fermentum hendrerit. Quisque eu lobortis velit. Aliquam congue sapien eget tempus varius. Suspendisse id ligula diam. Ut in dui augue.</p>\r\n\r\n<p style="text-align: justify;">Vestibulum pulvinar pretium diam. Curabitur porttitor orci sed nunc aliquam, ac condimentum nunc condimentum. In vitae blandit metus. Suspendisse potenti. Praesent tempor faucibus ornare. Praesent a tellus ut mi luctus tincidunt. Nullam nec erat finibus, posuere justo non, tincidunt ex. Mauris vestibulum tortor at placerat malesuada. Pellentesque vitae cursus urna. Vivamus rutrum ex a mauris molestie, in maximus nisl molestie. Curabitur venenatis metus nec sagittis auctor. Nunc in lorem accumsan, semper dui et, tincidunt risus. Phasellus pharetra magna neque, eu facilisis diam sollicitudin sed. Praesent congue vestibulum leo malesuada consectetur. Mauris in diam ut dolor scelerisque laoreet. Nam bibendum, nisi sit amet mollis ultricies, quam tellus cursus augue, eu hendrerit erat orci at risus.</p>\r\n', 0, 10, 17);
 
 -- --------------------------------------------------------
 
@@ -793,91 +787,29 @@ CREATE TABLE IF NOT EXISTS `privates_messages` (
   `is_trash` tinyint(1) NOT NULL,
   `id_users` int(11) NOT NULL,
   `id_users_1` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `privates_messages`
 --
 
 INSERT INTO `privates_messages` (`id`, `content`, `date_time`, `is_read`, `is_trash`, `id_users`, `id_users_1`) VALUES
-(3, 'Petit message de test <br /> allez a plus tard mon choux', 0, 1, 0, 10, 11),
-(4, 'dfdfd', 0, 1, 0, 10, 11),
-(5, 'dffd', 0, 1, 1, 10, 10),
-(6, 'tedsfd', 0, 1, 1, 11, 10),
-(7, 'fdfdgf', 0, 1, 1, 10, 10),
-(8, 'dfsfdfd', 0, 1, 1, 10, 10),
-(9, 'Je vais te tuer et voler ton corps de son tombeau !', 0, 1, 1, 15, 10),
-(10, 'Évite pas mes messages, je t''aurais !!!!', 0, 1, 0, 15, 10),
-(11, ':o J''ai peur maintenant !!', 0, 1, 1, 10, 15),
-(12, 'Un jours, je t''aurais !', 0, 1, 0, 15, 10),
-(13, 'Tu as raison d''avoir peur, être inférieur !', 0, 1, 0, 15, 10),
-(14, 'Comment oses tu me parler ainsi ?', 0, 1, 1, 10, 15),
-(15, 'dfdfd', 0, 1, 1, 10, 10),
-(16, 'dfdfddffgf', 0, 1, 1, 10, 10),
-(17, 'Voilà corrigé', 0, 1, 1, 10, 15),
-(18, 'Tu codes comme tu écris ton propre nom, mal :)', 0, 1, 1, 15, 10),
-(19, 'Pourquoi donc je reste sur oprpg si c''est pour lire des conneries comme ça ? :''(', 0, 1, 0, 10, 15),
-(20, 'Salut ma beauté <3', 0, 1, 0, 10, 14),
-(21, 'On dit :\n"Je vous pris de m''excuser pour les désagréments, mais maintenant, il ne devrait plus y avoir de problème.\n\nMerci pour votre compréhension\n\n\nDumbeldor"', 0, 1, 1, 15, 10),
-(22, 'draaaaaaaaaaaaa Cortex des pyramides', 0, 1, 0, 10, 15),
-(23, 'test', 0, 1, 1, 10, 10),
-(24, 'Salut bb,<br />\nTu es là ? :D', 0, 1, 1, 10, 15),
-(25, 'On va tester ça en faisant du ping-pong\n\n\n   _________\n 0 |   |  °| 0\n | |   |   | |\n   ---------\n', 0, 1, 1, 15, 15),
-(26, 'On va tester ça en faisant du ping-pong \n\n   _________\n 0 |   |  °| 0\n | |   |   | |\n   --------- ', 0, 1, 1, 15, 10),
-(27, 'Ouais mais je sais pas jouer au ping pong virtuel moi :''( <br />\n0 | | °| 0 | | | | | --------- ', 0, 1, 0, 10, 15),
-(28, 'Surtout quand ça déforme ton message ...', 0, 1, 1, 15, 10),
-(29, 'Nan mon système de messagerie est parfait ! <br />\nIl déforme rien du tout ! :''(', 0, 1, 0, 10, 15),
-(30, 'Journal\n\nEncore des tests à faire ou je peux déco ?', 0, 1, 1, 15, 10),
-(31, 'Déco c''est bon trk\nMerci !', 0, 1, 0, 10, 15),
-(34, 'test', 0, 1, 1, 10, 10),
-(35, 'test', 0, 1, 1, 10, 10),
-(36, 'Petite réponse pour test ;)\n\n				-----------------------------------------------Réponse------------------------------------------\n				Tu as raison d''avoir peur, être inférieur !', 1435443523, 1, 1, 10, 10),
-(37, 'Test de la réponse + de la date :)\nHave fun !\n\n				-----------------------------------------------Réponse------------------------------------------\n				Un jours, je t''aurais !', 1435443638, 1, 0, 10, 15),
-(38, '\n\n				-----------------------------------------------Réponse------------------------------------------\ntestitttttttiiii', 1435446255, 1, 0, 11, 10),
-(39, 'GG\n\n				-----------------------------------------------Réponse------------------------------------------\n				\n\n				-----------------------------------------------Réponse------------------------------------------\ntestitttttttiiii', 1435446330, 1, 0, 10, 11),
-(40, 'KOUKOU TU VEUX VOIR MA BITE ?\n\n<3', 1435446568, 1, 0, 10, 11),
-(41, 'Un truc me chiffone\n\n				-----------------------------------------------Réponse------------------------------------------\n				Test de la réponse + de la date :)\n                               Je suis un vilain garçon\nHave fun !\n\n				-----------------------------------------------Réponse------------------------------------------\n				Un jours, je t''aurais !', 1435474112, 1, 0, 15, 10),
-(42, 'Quoi donc ?\n\n				-----------------------------------------------Réponse------------------------------------------\n				Un truc me chiffone\n\n				-----------------------------------------------Réponse------------------------------------------\n				Test de la réponse + de la date :)\n                               Je suis un vilain garçon\nHave fun !\n\n				-----------------------------------------------Réponse------------------------------------------\n				Un jours, je t''aurais !', 1435664083, 0, 0, 10, 15),
-(43, 'Méchant !', 1438188725, 1, 0, 10, 18),
-(44, 'Test', 1438191808, 1, 0, 10, 10),
-(45, 'Les messages restent indéfiniment où il y a une limite de temps ?', 1438415341, 1, 0, 18, 10),
-(46, 'Indefiniment\n\n				-----------------------------------------------Réponse------------------------------------------\n				Les messages restent indéfiniment où il y a une limite de temps ?', 1438471349, 1, 0, 10, 10),
-(47, 'Test', 1438502585, 1, 0, 20, 10),
-(48, 'Hello', 1438502676, 1, 0, 20, 20),
-(49, 'Test test\n\n				-----------------------------------------------Réponse------------------------------------------\n				Test', 1438584416, 0, 0, 10, 20),
-(50, 'Test message privé', 1438624479, 1, 0, 25, 10),
-(51, 'test\n\n				-----------------------------------------------Réponse------------------------------------------\n				Test message privé', 1438697120, 1, 1, 10, 25),
-(52, 'Salut beau gosse <3', 1438725197, 0, 1, 10, 19),
-(53, 'Je t''aime fort Vince. Désolé d''avoir fait le con :(\n\nJ''espère que tu me pardonnera D:', 1440224687, 1, 0, 19, 10),
-(54, 'Oui je te pardonne t''inquiète pas. Tu es cool comme mec, mais comme modérateur tu dois faire des progrès.\n\n				-----------------------------------------------Réponse------------------------------------------\n				Je t''aime fort Vince. Désolé d''avoir fait le con :(\n\nJ''espère que tu me pardonnera D:', 1441113872, 1, 1, 10, 19),
-(55, 'Salut chérie !!!!! <3', 1441115258, 1, 0, 10, 28),
-(56, 'merci pour l''acceuil. xD\n\n				-----------------------------------------------Réponse------------------------------------------\n				Salut chérie !!!!! <3', 1441115888, 1, 0, 28, 10),
-(57, ':P\n\n				-----------------------------------------------Réponse------------------------------------------\n				merci pour l''acceuil. xD\n\n				-----------------------------------------------Réponse------------------------------------------\n				Salut chérie !!!!! <3', 1441115992, 1, 0, 10, 28),
-(58, 'C''est plutôt que j''ai trop d''histoire sur OPRPG pour en être un bon modo x)', 1441136950, 1, 0, 19, 10),
-(59, '^^\n\n				-----------------------------------------------Réponse------------------------------------------\n				C''est plutôt que j''ai trop d''histoire sur OPRPG pour en être un bon modo x)', 1441144799, 0, 0, 10, 19);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `sessions`
---
-
-CREATE TABLE IF NOT EXISTS `sessions` (
-  `session_id` varchar(40) NOT NULL DEFAULT '0',
-  `id_user` int(11) NOT NULL,
-  `ip_address` varchar(45) NOT NULL DEFAULT '0',
-  `user_agent` varchar(120) NOT NULL,
-  `last_activity` int(10) unsigned NOT NULL DEFAULT '0',
-  `user_data` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `sessions`
---
-
-INSERT INTO `sessions` (`session_id`, `id_user`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('591284c658d61dde95985c960094fc58', 10, '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2531.0 Safari/537.36', 1444765671, 'a:16:{s:7:"id_user";i:0;s:9:"user_data";s:0:"";s:2:"id";s:2:"10";s:3:"ban";s:1:"0";s:6:"pseudo";s:9:"Dumbeldor";s:5:"email";s:23:"vincentglize@hotmail.fr";s:8:"birthday";s:10:"0000-00-00";s:4:"sexe";N;s:7:"is_kick";s:1:"0";s:14:"id_personnages";s:1:"1";s:9:"id_levels";s:1:"1";s:10:"id_objects";s:1:"1";s:14:"id_users_types";s:1:"6";s:4:"rank";s:14:"Administrateur";s:8:"crewName";s:9:"testatest";s:4:"auth";b:1;}'),
-('f840688f3ce5cc8b886bc65850a94a2a', 11, '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2531.0 Safari/537.36', 1444765644, 'a:15:{s:7:"id_user";i:0;s:9:"user_data";s:0:"";s:2:"id";s:2:"11";s:3:"ban";s:1:"0";s:6:"pseudo";s:4:"test";s:5:"email";s:12:"test@test.fr";s:8:"birthday";s:10:"0000-00-00";s:4:"sexe";N;s:7:"is_kick";s:1:"0";s:14:"id_personnages";s:1:"1";s:9:"id_levels";s:1:"1";s:10:"id_objects";s:1:"1";s:14:"id_users_types";s:1:"1";s:4:"rank";s:6:"Membre";s:4:"auth";b:1;}');
+(77, '<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tellus diam, varius vel condimentum at, dictum eu massa. Integer eget libero eu magna ornare malesuada eu vitae magna. Mauris eget laoreet ante. Nulla vel tortor in erat feugiat aliquet at quis tellus. Cras ipsum neque, pretium in ullamcorper vel, egestas quis neque. Maecenas in lobortis mi. Donec laoreet mauris et nisl ullamcorper facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia purus purus, vel scelerisque leo aliquet sed. Aliquam egestas lacus urna, varius suscipit nulla faucibus quis. Donec magna enim, ullamcorper eu turpis quis, auctor blandit purus.</p>\r\n\r\n<p style="text-align: justify;">Phasellus tristique, elit quis tincidunt ultricies, dolor leo luctus tortor, id pellentesque ligula magna nec ipsum. Fusce porta enim a porttitor feugiat. Praesent tempor in metus quis elementum. Vivamus in interdum nibh. Cras luctus euismod sapien vel iaculis. Duis fringilla, turpis vitae egestas fermentum, felis turpis aliquam ipsum, nec finibus urna nulla sed velit. Curabitur rutrum mi vitae viverra finibus. Nam hendrerit odio vitae diam accumsan, in ultricies enim sagittis.</p>\r\n', 1446214106, 1, 1, 10, 10),
+(78, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tellus diam, varius vel condimentum at, dictum eu massa. Integer eget libero eu magna ornare malesuada eu vitae magna. Mauris eget laoreet ante. Nulla vel tortor in erat feugiat aliquet at quis tellus. Cras ipsum neque, pretium in ullamcorper vel, egestas quis neque. Maecenas in lobortis mi. Donec laoreet mauris et nisl ullamcorper facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia purus purus, vel scelerisque leo aliquet sed. Aliquam egestas lacus urna, varius suscipit nulla faucibus quis. Donec magna enim, ullamcorper eu turpis quis, auctor blandit purus.</p>\r\n', 1446214127, 1, 1, 10, 10),
+(79, '<p>lobortis mi. Donec laoreet mauris et nisl ullamcorper facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia purus purus, vel scelerisque leo aliquet sed. Aliquam egestas lacus urna, varius suscipit nulla faucibus quis. Donec magna enim, ullamcorper eu turpis quis, auctor blandit purus.</p>\r\n\r\n<p>Phasellus tristique, elit quis tincidunt ultricies, dolor leo luctus tortor, id pellentesque ligula magna nec ipsum. Fusce porta enim a porttitor feugiat. Praesent tempor in metus quis elementum. Vivamus in interdum nibh. Cras luctus euismod sapien vel iaculis. Duis fringilla, turpis vitae egestas fermentum, felis turpis aliquam ipsum, nec finibus urna nulla sed velit. Curabitur rutrum mi vitae viverra finibus. Nam hendrerit odio vitae diam accumsan, in ultricies enim sagittis.</p>\r\n', 1446214135, 1, 1, 10, 10),
+(80, '<blockquote>\r\n<p><u><strong><em>Message pr&eacute;c&eacute;dent de Dumbeldor</em></strong></u></p>\r\n\r\n<p>lobortis mi. Donec laoreet mauris et nisl ullamcorper facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia purus purus, vel scelerisque leo aliquet sed. Aliquam egestas lacus urna, varius suscipit nulla faucibus quis. Donec magna enim, ullamcorper eu turpis quis, auctor blandit purus.</p>\r\n\r\n<p>Phasellus tristique, elit quis tincidunt ultricies, dolor leo luctus tortor, id pellentesque ligula magna nec ipsum. Fusce porta enim a porttitor feugiat. Praesent tempor in metus quis elementum. Vivamus in interdum nibh. Cras luctus euismod sapien vel iaculis. Duis fringilla, turpis vitae egestas fermentum, felis turpis aliquam ipsum, nec finibus urna nulla sed velit. Curabitur rutrum mi vitae viverra finibus. Nam hendrerit odio vitae diam accumsan, in ultricies enim sagittis.</p>\r\n</blockquote>\r\n\r\n<p>Petit message,<br />\r\nPour voir si &ccedil;a marche bien !</p>\r\n\r\n<p>Phasellus tristique, elit quis tincidunt ultricies, dolor leo luctus tortor, id pellentesque ligula magna nec ipsum. Fusce porta enim a porttitor feugiat. Praesent tempor in metus quis elementum. Vivamus in interdum nibh. Cras luctus euismod sapien vel iaculis. Duis fringilla, turpis vitae egestas fermentum, felis turpis aliquam ipsum, nec finibus urna nulla sed velit. Curabitur rutrum mi vitae viverra finibus. Nam hendrerit odio vitae diam accumsan, in ultricies enim sagittis.</p>\r\n\r\n<p>Tchous !</p>\r\n', 1446215022, 1, 1, 10, 10),
+(81, '<blockquote>\r\n<p><u><strong><em>Message pr&eacute;c&eacute;dent de Dumbeldor</em></strong></u></p>\r\n\r\n<p>lobortis mi. Donec laoreet mauris et nisl ullamcorper facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia purus purus, vel scelerisque leo aliquet sed. Aliquam egestas lacus urna, varius suscipit nulla faucibus quis. Donec magna enim, ullamcorper eu turpis quis, auctor blandit purus.</p>\r\n\r\n<p>Phasellus tristique, elit quis tincidunt ultricies, dolor leo luctus tortor, id pellentesque ligula magna nec ipsum. Fusce porta enim a porttitor feugiat. Praesent tempor in metus quis elementum. Vivamus in interdum nibh. Cras luctus euismod sapien vel iaculis. Duis fringilla, turpis vitae egestas fermentum, felis turpis aliquam ipsum, nec finibus urna nulla sed velit. Curabitur rutrum mi vitae viverra finibus. Nam hendrerit odio vitae diam accumsan, in ultricies enim sagittis.</p>\r\n</blockquote>\r\n\r\n<p>Test&nbsp;</p>\r\n', 1446215194, 1, 1, 10, 10),
+(82, '<blockquote>\r\n<p><strong><em>Message pr&eacute;c&eacute;dent de Dumbeldor</em></strong></p>\r\n\r\n<p>lobortis mi. Donec laoreet mauris et nisl ullamcorper facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia purus purus, vel scelerisque leo aliquet sed. Aliquam egestas lacus urna, varius suscipit nulla faucibus quis. Donec magna enim, ullamcorper eu turpis quis, auctor blandit purus.</p>\r\n\r\n<p>Phasellus tristique, elit quis tincidunt ultricies, dolor leo luctus tortor, id pellentesque ligula magna nec ipsum. Fusce porta enim a porttitor feugiat. Praesent tempor in metus quis elementum. Vivamus in interdum nibh. Cras luctus euismod sapien vel iaculis. Duis fringilla, turpis vitae egestas fermentum, felis turpis aliquam ipsum, nec finibus urna nulla sed velit. Curabitur rutrum mi vitae viverra finibus. Nam hendrerit odio vitae diam accumsan, in ultricies enim sagittis.</p>\r\n\r\n<p>&nbsp;</p>\r\n</blockquote>\r\n\r\n<p>test</p>\r\n', 1446215289, 1, 1, 10, 10),
+(83, '<blockquote>\r\n<p><u><strong><em>Message pr&eacute;c&eacute;dent de Dumbeldor</em></strong></u></p>\r\n\r\n<p>lobortis mi. Donec laoreet mauris et nisl ullamcorper facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia purus purus, vel scelerisque leo aliquet sed. Aliquam egestas lacus urna, varius suscipit nulla faucibus quis. Donec magna enim, ullamcorper eu turpis quis, auctor blandit purus.</p>\r\n\r\n<p>Phasellus tristique, elit quis tincidunt ultricies, dolor leo luctus tortor, id pellentesque ligula magna nec ipsum. Fusce porta enim a porttitor feugiat. Praesent tempor in metus quis elementum. Vivamus in interdum nibh. Cras luctus euismod sapien vel iaculis. Duis fringilla, turpis vitae egestas fermentum, felis turpis aliquam ipsum, nec finibus urna nulla sed velit. Curabitur rutrum mi vitae viverra finibus. Nam hendrerit odio vitae diam accumsan, in ultricies enim sagittis.</p>\r\n\r\n<p>&nbsp;</p>\r\n</blockquote>\r\n\r\n<p>Ok nickel !</p>\r\n', 1446215446, 1, 1, 10, 10),
+(84, '<blockquote>\r\n<p><u><strong><em>Message pr&eacute;c&eacute;dent de Dumbeldor</em></strong></u></p>\r\n\r\n<blockquote>\r\n<p><u><strong><em>Message pr&eacute;c&eacute;dent de Dumbeldor</em></strong></u></p>\r\n\r\n<p>lobortis mi. Donec laoreet mauris et nisl ullamcorper facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia purus purus, vel scelerisque leo aliquet sed. Aliquam egestas lacus urna, varius suscipit nulla faucibus quis. Donec magna enim, ullamcorper eu turpis quis, auctor blandit purus.</p>\r\n\r\n<p>Phasellus tristique, elit quis tincidunt ultricies, dolor leo luctus tortor, id pellentesque ligula magna nec ipsum. Fusce porta enim a porttitor feugiat. Praesent tempor in metus quis elementum. Vivamus in interdum nibh. Cras luctus euismod sapien vel iaculis. Duis fringilla, turpis vitae egestas fermentum, felis turpis aliquam ipsum, nec finibus urna nulla sed velit. Curabitur rutrum mi vitae viverra finibus. Nam hendrerit odio vitae diam accumsan, in ultricies enim sagittis.</p>\r\n\r\n<p>&nbsp;</p>\r\n</blockquote>\r\n\r\n<p>Ok nickel !</p>\r\n\r\n<p>&nbsp;</p>\r\n</blockquote>\r\n\r\n<p>obortis mi. Donec laoreet mauris et nisl ullamcorper facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia purus purus, vel scelerisque leo aliquet sed. Aliquam egestas lacus urna, varius suscipit nulla faucibus quis. Donec magna enim, ullamcorper eu turpis quis, auctor blandit purus.</p>\r\n\r\n<p>Phasellus tristique, elit quis tincidunt ultricies, dolor leo luctus tortor, id pellentesque ligula magna nec ipsum. Fusce porta enim a porttitor feugiat. Praesent tempor in metus quis elementum. Vivamus in interdum nibh. Cras luctus euismod sapien vel iaculis. Duis</p>\r\n', 1446215478, 1, 1, 10, 10),
+(85, '<blockquote>\r\n<p><u><strong><em>Message pr&eacute;c&eacute;dent de Dumbeldor</em></strong></u></p>\r\n\r\n<blockquote>\r\n<p><u><strong><em>Message pr&eacute;c&eacute;dent de Dumbeldor</em></strong></u></p>\r\n\r\n<blockquote>\r\n<p><u><strong><em>Message pr&eacute;c&eacute;dent de Dumbeldor</em></strong></u></p>\r\n\r\n<p>lobortis mi. Donec laoreet mauris et nisl ullamcorper facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia purus purus, vel scelerisque leo aliquet sed. Aliquam egestas lacus urna, varius suscipit nulla faucibus quis. Donec magna enim, ullamcorper eu turpis quis, auctor blandit purus.</p>\r\n\r\n<p>Phasellus tristique, elit quis tincidunt ultricies, dolor leo luctus tortor, id pellentesque ligula magna nec ipsum. Fusce porta enim a porttitor feugiat. Praesent tempor in metus quis elementum. Vivamus in interdum nibh. Cras luctus euismod sapien vel iaculis. Duis fringilla, turpis vitae egestas fermentum, felis turpis aliquam ipsum, nec finibus urna nulla sed velit. Curabitur rutrum mi vitae viverra finibus. Nam hendrerit odio vitae diam accumsan, in ultricies enim sagittis.</p>\r\n\r\n<p>&nbsp;</p>\r\n</blockquote>\r\n\r\n<p>Ok nickel !</p>\r\n\r\n<p>&nbsp;</p>\r\n</blockquote>\r\n\r\n<p>obortis mi. Donec laoreet mauris et nisl ullamcorper facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacinia purus purus, vel scelerisque leo aliquet sed. Aliquam egestas lacus urna, varius suscipit nulla faucibus quis. Donec magna enim, ullamcorper eu turpis quis, auctor blandit purus.</p>\r\n\r\n<p>Phasellus tristique, elit quis tincidunt ultricies, dolor leo luctus tortor, id pellentesque ligula magna nec ipsum. Fusce porta enim a porttitor feugiat. Praesent tempor in metus quis elementum. Vivamus in interdum nibh. Cras luctus euismod sapien vel iaculis. Duis</p>\r\n\r\n<p>&nbsp;</p>\r\n</blockquote>\r\n\r\n<p><img alt="heart" src="http://localhost/oprpg/assets/ckeditor/plugins/smiley/images/heart.png" style="height:23px; width:23px" title="heart" /></p>\r\n', 1446232779, 1, 1, 10, 10),
+(86, '<p>test</p>\r\n', 1446233620, 1, 0, 10, 34),
+(87, 'Bonjour, l''équipe aaaaa ne vous a pas accepté.\n						  Candidature traité par Dumbeldor qui est Capitaine\n						  Vous pouvez dès à présent dès à présent chercher un autre équipage !..\n						  Bonne chance !', 1446331269, 1, 0, 13, 34),
+(88, '<p>Tedfdgfdfgfdg</p>\r\n', 1446399721, 1, 1, 10, 10),
+(89, '<blockquote>\r\n<p><u><strong><em>Message pr&eacute;c&eacute;dent de Dumbeldor</em></strong></u></p>\r\n\r\n<p>Tedfdgfdfgfdg</p>\r\n\r\n<p>&nbsp;</p>\r\n</blockquote>\r\n\r\n<p>sdfsdgdfgdf</p>\r\n\r\n<p>hgfhfghghfgh<br />\r\nfdgdfgfhgfhgjjhfsdfsd</p>\r\n\r\n<p>fdsogjdfgikdfgdf</p>\r\n', 1446399734, 1, 1, 10, 10),
+(90, '<blockquote>\r\n<p><u><strong><em>Message pr&eacute;c&eacute;dent de Dumbeldor</em></strong></u></p>\r\n\r\n<p>test</p>\r\n\r\n<p>&nbsp;</p>\r\n</blockquote>\r\n\r\n<p>Aye super tu g&egrave;res !</p>\r\n', 1446399761, 1, 0, 34, 10),
+(91, '<p>dsfdgdgfdgdf</p>\r\n', 1446399838, 1, 1, 10, 10),
+(92, '<p>fdsfgdgdf</p>\r\n', 1446399991, 1, 0, 10, 10);
 
 -- --------------------------------------------------------
 
@@ -888,9 +820,19 @@ INSERT INTO `sessions` (`session_id`, `id_user`, `ip_address`, `user_agent`, `la
 CREATE TABLE IF NOT EXISTS `tchats` (
   `id` int(11) NOT NULL,
   `name` varchar(25) NOT NULL,
+  `descr` varchar(255) NOT NULL,
   `is_block` tinyint(1) NOT NULL,
   `id_tchats_types` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `tchats`
+--
+
+INSERT INTO `tchats` (`id`, `name`, `descr`, `is_block`, `id_tchats_types`) VALUES
+(1, 'Général', 'Vous avez envie de discuter, déconner, s''amuser alors c''est par ici !', 0, 1),
+(2, 'Aide', 'Ici vous pouvez demander de l''aide !', 0, 1),
+(3, 'Commerce', 'Vous cherchez quelques choses / vendez ? C''est par ici !', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -905,7 +847,46 @@ CREATE TABLE IF NOT EXISTS `tchats_messages` (
   `is_block` tinyint(1) NOT NULL,
   `id_tchats` int(11) NOT NULL,
   `id_users` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=275 DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `tchats_messages`
+--
+
+INSERT INTO `tchats_messages` (`id`, `message`, `date_time`, `is_block`, `id_tchats`, `id_users`) VALUES
+(62, 'fgh', '2015-10-30 23:04:11', 0, 2, 10),
+(63, 'fdd', '2015-10-30 23:05:48', 0, 2, 10),
+(244, 'aa', '2015-10-31 22:14:18', 0, 1, 10),
+(245, 'ggg', '2015-10-31 22:14:21', 0, 1, 34),
+(246, 'fgfg', '2015-10-31 22:17:32', 0, 1, 10),
+(247, 'aa', '2015-10-31 22:17:34', 0, 1, 10),
+(248, 'aaa', '2015-10-31 22:17:51', 0, 1, 34),
+(249, 'dffd', '2015-10-31 22:18:13', 0, 1, 10),
+(250, 'dfgf', '2015-10-31 22:18:47', 0, 1, 10),
+(251, 'gfgf', '2015-10-31 22:18:55', 0, 1, 10),
+(252, 'dfgfdg', '2015-10-31 22:19:11', 0, 1, 10),
+(253, 'gg', '2015-10-31 22:20:20', 0, 1, 10),
+(254, 'hghg', '2015-10-31 22:21:17', 0, 1, 10),
+(255, 'f', '2015-10-31 22:51:28', 0, 1, 34),
+(256, 'fg', '2015-10-31 23:13:09', 0, 1, 10),
+(257, 'g', '2015-10-31 23:17:24', 0, 1, 10),
+(258, 'a', '2015-10-31 23:17:26', 0, 1, 10),
+(259, 'gg', '2015-10-31 23:17:58', 0, 1, 10),
+(260, 'aa', '2015-10-31 23:18:16', 0, 1, 10),
+(261, 'ee', '2015-10-31 23:18:38', 0, 1, 10),
+(262, 'e', '2015-10-31 23:18:55', 0, 1, 10),
+(263, 'vv', '2015-10-31 23:19:04', 0, 1, 34),
+(264, 'ghh', '2015-11-01 14:42:31', 0, 1, 10),
+(265, 'hgjh', '2015-11-01 14:42:34', 0, 1, 10),
+(266, 'fdgdfg', '2015-11-01 14:43:14', 0, 1, 10),
+(267, 'fdgf', '2015-11-01 14:44:13', 0, 1, 10),
+(268, 'ghg', '2015-11-01 14:45:21', 0, 1, 10),
+(269, 'fdf', '2015-11-01 23:17:25', 0, 1, 36),
+(270, 'dfd', '2015-11-01 23:43:23', 0, 1, 36),
+(271, 'dfd', '2015-11-01 23:44:53', 0, 1, 36),
+(272, 'aa', '2015-11-01 23:44:55', 0, 1, 36),
+(273, '', '2015-11-01 23:44:56', 0, 1, 36),
+(274, 'dsds', '2015-11-01 23:45:30', 0, 1, 36);
 
 -- --------------------------------------------------------
 
@@ -918,7 +899,14 @@ CREATE TABLE IF NOT EXISTS `tchats_types` (
   `name` varchar(25) NOT NULL,
   `descr` varchar(255) NOT NULL,
   `is_block` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `tchats_types`
+--
+
+INSERT INTO `tchats_types` (`id`, `name`, `descr`, `is_block`) VALUES
+(1, 'Tchat', 'Tchat', 0);
 
 -- --------------------------------------------------------
 
@@ -1010,33 +998,20 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id_users_types` int(11) NOT NULL,
   `id_users_ranks` int(11) NOT NULL,
   `id_crews_candidacy` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `users`
 --
 
 INSERT INTO `users` (`id`, `ban`, `pseudo`, `email`, `birthday`, `sexe`, `password`, `is_kick`, `messNumber`, `id_personnages`, `id_levels`, `id_objects`, `id_users_types`, `id_users_ranks`, `id_crews_candidacy`) VALUES
-(10, 0, 'Dumbeldor', 'vincentglize@hotmail.fr', '0000-00-00', NULL, '592c6815731dbe783453db69a60461294bf9ffbe8f0a61cea640d492bd8edba9b7de9c690ef66552bf0334e0ec6811c109cd6b913f91d79b53b2ab986afdccd3', 0, 39, 1, 1, 1, 6, 6, 0),
-(11, 0, 'test', 'test@test.fr', '0000-00-00', NULL, '822b039ea55fd409e2a0714408bb1a2019f86d536954c3354f3e9a6ffe6b3fe94898519dda6add948cdd394b849fdfad4c80cfd211bdba360199fbe4bebdffb9', 0, 3, 1, 1, 1, 1, 0, 0),
-(12, 0, 'ttt', 't@t.fr', '0000-00-00', NULL, '219810b025e577865192c35f9f7a7f46864e98794a8f9b41f3bb73aa675023f8f299daf9812fb6567ecdaf8ed7e972b7d9f335ed15e70dd9908b51410634ab36', 0, 0, 1, 1, 1, 1, 0, 0),
-(13, 0, 'lebg', 'lebg@lebg.fr', '0000-00-00', NULL, '28dc62537cce4d7c96eae5dc92f98a84abb6d078f741a57bccc4ce7ce24cb425e89249ae87974afca8b0fb95e0d8aa77fdd3d94a4f97f088603071170cb879b1', 0, 0, 1, 1, 1, 1, 0, 0),
-(14, 0, 'Atchoum', 'atchoumestunnaim@hotmail.com', '0000-00-00', NULL, '424a502e30cafb4a393fc4228ea9bad05006df9ec452e304929af4bddc7dcb02c9fcc55f0e1422167147f8467f404598b3507c7de9bb84a2bdd21061fa801936', 0, 0, 1, 1, 1, 1, 0, 0),
-(15, 0, 'Voledesmorts', 'jesuisunmechant@hotmail.com', '0000-00-00', NULL, '96dd74403a86f694ea9c1e59c22dc5bb8e9baae55af500d2a212239953c4eca2aac9dc62c0bf0b4e3ee14d8ea977a285ce17fffde9f396f5d37efc389336fa62', 0, 0, 1, 1, 1, 1, 0, 0),
-(17, 0, 'Enelos', 'go_tchou@hotmail.fr', '0000-00-00', NULL, '8d83b330e92c3fffb7d63a9d6dab373e97e0d1a6a5a2456570f3f98d629ea3436514d70d77327b96491936f91ef2fe55415a900e627da24694ec85f6d0831501', 0, 0, 1, 1, 1, 1, 0, 0),
-(18, 0, 'Méchant', 'carjesuislemechant@gmail.com', '0000-00-00', NULL, 'df14471f72e3cdd33c344619c45fac6451b0eb6865da737b3b4dcb631736ca52455e34ea9bb7b2e4ee68acf5cc0219cb909faed6442b5ab7f5cb08083bea5a58', 0, 0, 1, 1, 1, 1, 0, 0),
-(19, 0, 'Trinity', 'kevinvaik@hotmail.com', '0000-00-00', NULL, '9570755c957c635e91095f232c25c63d84fae2173a60fa17a54947191c0fccb650d535810a474e3ab96126530707bd1aea04ecea39079bc9ca3e5de06918d2e2', 0, 0, 1, 1, 1, 1, 0, 0),
-(20, 0, 'Pev', 'pev.arfan@gmail.com', '0000-00-00', NULL, 'fb18e02a3391f66c9d5ccd5f0f43d163a9a59438e98bd4935fa9de515ba45bb0eef259f0642296392c6e91b4e4f3d8865ba89f6630b7dfae221469c346605118', 0, 0, 1, 1, 1, 1, 0, 0),
-(21, 0, 'Yoniko', 'gout_brule@hotmail.com', '0000-00-00', NULL, 'c4a0b6c9217510e5d4cf0c6a26c1adc78f88e0d450642ace2d01e65ad291a914faec8ca00f665e9de107c65a7885c667e4b5865b70d4d33693d95f42fce0cf05', 0, 0, 1, 1, 1, 1, 0, 0),
-(22, 0, 'Mello', 'bokax46@hotmail.com', '0000-00-00', NULL, 'b18053da156ea1daf5bbf37881840ebcede1ba771f7b519f7b72acb7f312bac3db7d11508887c82d1bd8c6c88e9bbc5e4f778680012c184ce4c3316a49f1c4b3', 0, 0, 1, 1, 1, 1, 0, 0),
-(23, 0, 'Perceval', 'kadriano@hotmail.fr', '0000-00-00', NULL, '837caef52210b51a1f1a61a79408adc9c57ece6dccb36a43e4cda888debe810de48a104681652e2d51cdab0a671d4a75f31cce4eaa6fff67d7996200e44d86c8', 0, 0, 1, 1, 1, 1, 0, 0),
-(24, 0, 'Alé@#', 'a@a.com', '0000-00-00', NULL, '74090d4d8479c76a7abc916de3ddc1716d18d9135e28316ae3fc5f05851712aa0025a6341a94adafa5da5870a528d18442b957930fcca7c5b7a92a832aa26445', 0, 0, 1, 1, 1, 1, 0, 0),
-(25, 0, 'Perceval1', 'kamen@yopmail.com', '0000-00-00', NULL, '473ed6e4875a7d32b7743f2111717d6b9cefe61b9dcd279c2fa8c0c1967a2abe6961120d8d9d9d52960b567c5270e870d26e7fcc32b31316fb6f42d92ab96301', 0, 0, 1, 1, 1, 1, 0, 0),
-(26, 0, 'Tintin', 'yoniko@outlook.com', '0000-00-00', NULL, '96946d3ecd307d0c93b4453a10e71912992190e2b2b64428d3200a7041e7e95a77851edff3f02d5874cc3bc36bece774edbf2f56a8fc2242954013a221359785', 0, 0, 1, 1, 1, 1, 0, 0),
-(27, 0, 'Salbei', 'david@chalvia.fr', '0000-00-00', NULL, 'f0cbeba50b3c2132eb977a0155760a10c4727359d89fe3a58c16f9aa2ab3e59cf67a9478aa463fe297c409885ce500c7de7a80d4b393c09b5a34bf699e37ae15', 0, 0, 1, 1, 1, 1, 0, 0),
-(28, 0, 'Maniak', 'christophe.botte@outlook.com', '0000-00-00', NULL, '794b05270fe733a7bad007a60685d13d55e17e9dc4ee1dae8f8cf1fc6cc132d3fb85160c958f4f801c1a8957c91afbc3501f998be3f6bc8ee64e4f0cf2a2ec73', 0, 2, 1, 1, 1, 4, 4, 0),
-(29, 0, 'Nelose', 'tobi2596@live.fr', '0000-00-00', NULL, '8a94e3cc57927548dec602b0902a9fcad68b5f479d6e7c1021e36a020db6a792e1c556e627dd3f7694a2fdd04a97bf8ca916206a7360fbcc49b77bb982ac6895', 0, 0, 2, 1, 1, 1, 0, 0),
-(30, 0, 'Password', 'oubliermotdepasse@gmail.com', '0000-00-00', NULL, '80c08d8f436dd6e12de05c54acf0fc32343a366f98cf0c7a9f4c7642bd71580f8c567b3af50e3c0f636a1bcf8f2c28094eb7f3fdf786210df6ed71b67a266759', 0, 0, 1, 1, 1, 1, 0, 0);
+(10, 0, 'Dumbeldor', 'vincentglize@hotmail.fr', '0000-00-00', NULL, '$2y$10$IEa/yx86U2McxcjbOvFztO42KXsfCCySz75rnHc7.MbejHj6ZPOJ6', 0, 104, 1, 1, 1, 6, 6, 0),
+(13, 0, 'Pandaman', 'lebg@lebg.fr', '0000-00-00', NULL, '28dc62537cce4d7c96eae5dc92f98a84abb6d078f741a57bccc4ce7ce24cb425e89249ae87974afca8b0fb95e0d8aa77fdd3d94a4f97f088603071170cb879b1', 0, -1, 1, 1, 1, 3, 0, 0),
+(33, 0, 'oooo', 'oooo@1234.fr', '0000-00-00', NULL, '$2y$10$P5OJgmKQOlQupvKfj279pu4bmT1w4AarJz3JTsGqnNoDkXja9a3J.', 0, 1, 1, 1, 1, 1, 0, 0),
+(34, 0, 'Omagad', 'omagad@gmail.fr', '0000-00-00', NULL, '$2y$10$IEa/yx86U2McxcjbOvFztO42KXsfCCySz75rnHc7.MbejHj6ZPOJ6', 0, 4, 1, 1, 1, 4, 0, 0),
+(35, 0, 'mouallez', 'mouallez@vincent.fr', '0000-00-00', NULL, '$2y$10$/kF2.rXDgCsS8zfRlSqEIeiPU1D98HOsDLoP4ANZin4A69/BaymrC', 0, 0, 1, 1, 1, 1, 0, 0),
+(36, 0, 'Vincent', 'zzzed@dfjfdsf.fr', '0000-00-00', NULL, '$2y$10$kWAUVOOTIlSbkE1itJj1TORoFBhCAir9ZE3XtYtZj0ypQICIxpdRK', 0, 1, 1, 1, 1, 1, 0, 0),
+(37, 0, 'Bella', 'bella@gmail.fr', '0000-00-00', NULL, '$2y$10$Ls3UthNvX1Fi0AP.v5SzGe/vQdtFu7IxYs1GEPpNkrJQy4kDKnC3C', 0, 0, 1, 1, 1, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1166,6 +1141,12 @@ ALTER TABLE `chests_objects`
 --
 ALTER TABLE `chests_types`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `ci_sessions`
+--
+ALTER TABLE `ci_sessions`
+  ADD KEY `ci_sessions_timestamp` (`timestamp`);
 
 --
 -- Index pour la table `coffres_comptes`
@@ -1388,13 +1369,6 @@ ALTER TABLE `privates_messages`
   ADD KEY `FK_privates_messages_id_users_1` (`id_users_1`);
 
 --
--- Index pour la table `sessions`
---
-ALTER TABLE `sessions`
-  ADD PRIMARY KEY (`session_id`),
-  ADD KEY `last_activity_idx` (`last_activity`);
-
---
 -- Index pour la table `tchats`
 --
 ALTER TABLE `tchats`
@@ -1526,12 +1500,17 @@ ALTER TABLE `chests_types`
 -- AUTO_INCREMENT pour la table `crews`
 --
 ALTER TABLE `crews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=56;
 --
 -- AUTO_INCREMENT pour la table `crews_banks`
 --
 ALTER TABLE `crews_banks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
+--
+-- AUTO_INCREMENT pour la table `crews_candidacy`
+--
+ALTER TABLE `crews_candidacy`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `crews_equipments`
 --
@@ -1546,7 +1525,7 @@ ALTER TABLE `crews_equipments_types`
 -- AUTO_INCREMENT pour la table `crews_grades`
 --
 ALTER TABLE `crews_grades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pour la table `crews_types`
 --
@@ -1561,17 +1540,17 @@ ALTER TABLE `ennemies`
 -- AUTO_INCREMENT pour la table `forums_categories`
 --
 ALTER TABLE `forums_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=56;
 --
 -- AUTO_INCREMENT pour la table `forums_topics`
 --
 ALTER TABLE `forums_topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT pour la table `forums_topics_messages`
 --
 ALTER TABLE `forums_topics_messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=70;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT pour la table `forums_topics_types`
 --
@@ -1596,12 +1575,12 @@ ALTER TABLE `levels`
 -- AUTO_INCREMENT pour la table `news`
 --
 ALTER TABLE `news`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT pour la table `news_comments`
 --
 ALTER TABLE `news_comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT pour la table `objects`
 --
@@ -1651,22 +1630,22 @@ ALTER TABLE `places_types`
 -- AUTO_INCREMENT pour la table `privates_messages`
 --
 ALTER TABLE `privates_messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=60;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=93;
 --
 -- AUTO_INCREMENT pour la table `tchats`
 --
 ALTER TABLE `tchats`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `tchats_messages`
 --
 ALTER TABLE `tchats_messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=275;
 --
 -- AUTO_INCREMENT pour la table `tchats_types`
 --
 ALTER TABLE `tchats_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `tech_ennemies`
 --
@@ -1696,7 +1675,7 @@ ALTER TABLE `tickets_sujets`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT pour la table `users_ranks`
 --

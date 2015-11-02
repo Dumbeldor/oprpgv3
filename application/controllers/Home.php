@@ -20,43 +20,44 @@ class Home extends MY_Controller {
 	{
 		if(!$this->user->isAuthenticated())
 		{
-			redirect(base_url('/home/accueil'));
-		}
-		$this->load->library('pagination');
-		$this->load->model('news_model');
-		$this->load->helper('url');
-
-		$data = array();
-		$data['title'] = 'Accueil';
-		$data['nbnews'] = $this->news_model->count();
-		
-		$config['base_url'] = base_url('/news/page/');
-		$config['use_page_numbers'] = TRUE;
-		$config['total_rows'] = $data['nbnews'];
-		$config['per_page'] = 4;
-		$config['last_link'] = 'Dernière';
-		$config['first_link'] = 'Première';
-		$news_get = $news_get * 2;
-		
-		$this->pagination->initialize($config);
-
-		if($news_get > 0)
-		{
-			if($news_get <= $data['nbnews'])
-				$news_get = intval($news_get);
+			$this->accueil();
+		} else {
+			$this->load->library('pagination');
+			$this->load->model('news_model');
+			$this->load->helper('url');
+	
+			$data = array();
+			$data['title'] = 'Accueil';
+			$data['nbnews'] = $this->news_model->count();
+			
+			$config['base_url'] = base_url('/news/page/');
+			$config['use_page_numbers'] = TRUE;
+			$config['total_rows'] = $data['nbnews'];
+			$config['per_page'] = 4;
+			$config['last_link'] = 'Dernière';
+			$config['first_link'] = 'Première';
+			$news_get = $news_get * 2;
+			
+			$this->pagination->initialize($config);
+	
+			if($news_get > 0)
+			{
+				if($news_get <= $data['nbnews'])
+					$news_get = intval($news_get);
+				else
+					$news_get = 0;
+			}
 			else
 				$news_get = 0;
+	
+	
+			$data['pagination'] = $this->pagination->create_links();
+			$data['news'] = $this->news_model->lists(4, $news_get);
+			$data['nbComments'] = $this->news_model->countComments($data['news'][0]->id);
+	
+			$data['audata'] = $this->session->all_userdata();
+			 $this->construct_page('pages/home', $data);
 		}
-		else
-			$news_get = 0;
-
-
-		$data['pagination'] = $this->pagination->create_links();
-		$data['news'] = $this->news_model->lists(4, $news_get);
-		$data['nbComments'] = $this->news_model->countComments($data['news'][0]->id);
-
-		$data['audata'] = $this->session->all_userdata();
-		 $this->construct_page('pages/home', $data);
 	}
 	
 	/**
