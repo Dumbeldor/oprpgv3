@@ -76,6 +76,7 @@ class Users extends MY_Controller {
   		redirect(base_url('/home/accueil'));
 	$data['users'] = $this->users_model->view_user($id);
     $data['title'] = "Profil de ".$data['users']['pseudo'];
+	$data['id'] = $id;
     
     $this->construct_page('users/view', $data);
   }
@@ -91,6 +92,7 @@ class Users extends MY_Controller {
   	$this->construct_page('users/list', $data);
   }
   
+  
   /**
    * Treaty the post of the registration form
    * ----------------------------------------------------------------------- */
@@ -104,15 +106,24 @@ class Users extends MY_Controller {
 	$this->form_validation->set_rules('password', 'Mot de passe', 'required|min_length[3]|max_length[249]|matches[passconf]');
 	$this->form_validation->set_rules('passconf', 'Mot de passe de confirmation', 'required');
 	$this->form_validation->set_rules('email', 'Email', 'required|min_length[3]|max_length[249]|valid_email');
-
-    
-    if ($this->form_validation->run() === FALSE) {
+	
+	if ($this->form_validation->run() === FALSE) {
       $query_persos_jouables = $this->db->query('SELECT * FROM personnages');
       $data['persos'] = $query_persos_jouables->result_array();
+	  
+	  $data['nb_cheveux_homme']=9;
+	  $data['nb_cheveux_femme']=9;
+	  $data['nb_corps_homme']=3;
+	  $data['nb_corps_femme']=3;
+	  $data['nb_yeux']=4;
+	  $data['nb_bouches']=6;
+	  
+	  $data['scripts'][] = base_url('assets/js/users/create_avatar.js');
       $this->construct_page('users/create', $data);
     }
     else {
-      $this->users_model->set_user();
+      $id = $this->users_model->set_user();
+	  $this->users_model->create_avatar($id);
       $this->construct_page('users/success', $data);
     }
   }

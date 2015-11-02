@@ -1,7 +1,7 @@
 <div class="row pageNormale">
     <br />
-    <img src="<?php echo base_url('assets/img/avatarDefault.png');?>"></img><br>	<br />
-    Pseudo : <?php echo $users['pseudo']; ?> <br />
+    <img src="<?php echo base_url('assets/img/avatarsJoueurs/'.$id.'.png');?>"></img><br>	<br />
+    Pseudo : <a href="#" class="<?= $users['rank']?>"><?php echo $users['pseudo']; ?></a> <br />
     Lvl : <?php echo $users['lvl'];?> <br />
     <a href="<?php echo base_url('/messaging/write/'.$users['pseudo']);?>">Envoyer un message</a><br />
     Rang : <?php echo $users['rank']; ?> <br />
