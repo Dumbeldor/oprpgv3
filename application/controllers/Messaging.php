@@ -70,7 +70,7 @@ class Messaging extends MY_Controller {
 		{
 			$follow = $this->messaging_model->getFollow($receptor);
 			$data['receptor'] = $follow[0]['pseudo'];
-			$data['contents'] = '<blockquote><p><u><strong><em>Message précédent de '.$data['receptor'].'</em></strong></u><br>'.$follow[0]['content'].'</p></blockquote><br>';
+			$data['contents'] = '<br><blockquote><p><u><strong><em>Message précédent de '.$data['receptor'].'</em></strong></u><br>'.$follow[0]['content'].'</p></blockquote><br>';
 
 		}
 		$this->form_validation->set_rules('pseudo', 'Pseudonyme', 'required');

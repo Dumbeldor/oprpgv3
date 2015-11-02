@@ -11,9 +11,9 @@
   <div class="form-group">
   <textarea rows="20" name="content" cols="30"><?php echo set_value('content'); if(!empty($contents)){echo $contents;} ?></textarea>
   </div>
-  <div class="form-group">
+  <div id="messaging_send_button" class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <input type="submit" name="submit" class="btn btn-default" value="Let's Go !" />
+      <input type="submit" name="submit" id="send_button" value="Poster" />
     </div>
   </div>
   <script>
