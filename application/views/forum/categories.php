@@ -1,13 +1,14 @@
 <div class="row">
-  <a href="<?php echo base_url('forum/');?>">Retour</a><br /> <br />
-  <?php 
-  echo $pagination;?>
-  <br /> <br />
+<div class="pagination-centered">
+			<ul class="pagination">
+				<?php echo $pagination; ?>
+			</ul>
+		</div>
   <a href="<?php echo base_url('forum');?>"><i>Les forums</i></a>-><a href="<?php echo base_url('forum/c/'.$aria['id']); ?>"><i><strong><?php echo $aria['name'];?></strong></i></a>
   <br /><br />
   <?php echo form_open('forum/create_topic'); ?>
   <input type="hidden" name="id_categorie" value="<?php echo $id_categorie; ?>">
-  <input type="submit" value="Nouveau Topic">
+  <input type="submit" value="Nouveau Topic" id="send_button">
 	</form>
   <br />
   <br />
@@ -52,7 +53,7 @@
   <?php if($connecte):
   echo form_open('forum/create_topic'); ?>
   <input type="hidden" name="id_categorie" value="<?php echo $id_categorie; ?>">
-  <input type="submit" value="Nouveau Topic">
+  <input type="submit" value="Nouveau Topic" id="send_button">
   </form>
   <?php endif; ?>
 </div>

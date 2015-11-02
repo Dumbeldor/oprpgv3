@@ -164,6 +164,15 @@ textarea {
 	margin-left: auto;
 }
 
+#send_button {
+	background-image: url('../img/nav-rep.png');
+	color: #ffffff;
+	border-color: #9b642e;
+    border-style: solid;
+    border-width: 3px;
+	border-radius: 7px;
+}
+
 #form_tchat #send_button {
 	background-image: url('../img/nav-rep.png');
 	color: #ffffff;

@@ -103,9 +103,10 @@ class Users extends MY_Controller {
     $data['title'] = 'Inscription';
     
     $this->form_validation->set_rules('pseudo', 'Pseudonyme', 'required|min_length[3]|max_length[50]');
-	$this->form_validation->set_rules('password', 'Mot de passe', 'required|min_length[3]|max_length[249]|matches[passconf]');
+	$this->form_validation->set_rules('password', 'Mot de passe', 'required|min_length[6]|max_length[249]|matches[passconf]');
 	$this->form_validation->set_rules('passconf', 'Mot de passe de confirmation', 'required');
 	$this->form_validation->set_rules('email', 'Email', 'required|min_length[3]|max_length[249]|valid_email');
+	$this->form_validation->set_rules('sexe', 'sexe', 'required');
 	
 	if ($this->form_validation->run() === FALSE) {
       $query_persos_jouables = $this->db->query('SELECT * FROM personnages');

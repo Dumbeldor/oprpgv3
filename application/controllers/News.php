@@ -37,8 +37,34 @@ class news extends MY_Controller
 		$config['use_page_numbers'] = TRUE;
     	$config['total_rows'] = $data['nbnews'];
     	$config['per_page'] = 4;
-    	$config['last_link'] = 'Dernière';
-    	$config['first_link'] = 'Première';
+		$config['num_links'] = 10;
+		
+		$config['last_tag_open'] = '<li class="arrow">';
+		$config['last_tag_close'] = '</li>';
+    	$config['last_link'] = '&raquo;';
+    	
+		$config['first_tag_open'] = '<li class="arrow">';
+		$config['first_tag_close'] = '</li>';
+		$config['first_link'] = '&laquo;';		
+		//Courant
+		$config['cur_tag_open'] = '<li class="current">';
+		$config['cur_tag_close'] = '</li>';		
+		
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		
+
+		$config['next_tag_open'] = ' <li class="arrow">';
+		 $config['next_tag_close'] = '</li>';
+		
+		
+
+		$config['prev_tag_open'] = '<li class="arrow">';
+		$config['prev_tag_close'] = '</liv>';
+		
+		
+		  
+		
 		$news_get = $news_get * 2;
     
     	$this->pagination->initialize($config);

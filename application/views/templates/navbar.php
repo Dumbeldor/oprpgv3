@@ -12,7 +12,7 @@
         <!-- Right Nav Section -->
         <ul class="right">
           <li class="divider"></li>
-          <li><a href="<?php echo base_url('/home/index'); ?>">Accueil</a></li>
+          <li><a href="<?php echo base_url('/home/index'); ?>">News</a></li>
 		  <li class="divider"></li>
 		  <li class="has-dropdown">
 			<a href="#">Autre</a>

@@ -1,5 +1,6 @@
 <div class="row">
     <h1>Les news</h1>
+
     <?php if($nbnews <= 0) { ?>
 			Il y a aucune news<br />
 			<a href="<?php echo base_url('/news/add/'); ?>">Ajouter une news</a>
@@ -8,7 +9,11 @@
 		<?php
 		if ($connecte && $admin) { ?>
 		  <a href="<?php echo base_url('/news/add/'); ?>">Ajouter une news</a> <br /><?php } ?>
-		<?php echo $pagination; ?>
+		<div class="pagination-centered">
+			<ul class="pagination">
+				<?php echo $pagination; ?>
+			</ul>
+		</div>
 		<ul class="large-block-grid-2 small-block-grid-1">
 		<?php foreach($news as $new): ?>
 		  <li>
@@ -26,7 +31,11 @@
 	    </li>
       <?php endforeach; ?>
 		</ul>
-		<?php echo $pagination; ?>
+		<div class="pagination-centered">
+			<ul class="pagination">
+				<?php echo $pagination; ?>
+			</ul>
+		</div>
 		</div>
      
     <?php } ?>

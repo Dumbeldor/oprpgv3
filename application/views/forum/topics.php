@@ -1,11 +1,15 @@
 <div class="row">
-		<?php echo $pagination; ?>
+		<div class="pagination-centered">
+			<ul class="pagination">
+				<?php echo $pagination; ?>
+			</ul>
+		</div>
 		<br /> <br />
 			<a href="<?php echo base_url('forum');?>"><i>Les forums</i></a>-><a href="<?php echo base_url('forum/c/'.$aria['categorieId']); ?>"><i><?php echo $aria['categorieName'];?></i></a>-><a href="<?php echo base_url('forum/t/'.$aria['topicId']); ?>"><strong><?php echo $aria['topicName'];?></strong></a><br /><br />
 		<?php echo form_open('forum/answer');
 		?>
 				<input type="hidden" name="id_topic" value="<?php echo $id_topic; ?>">
-				<input type="submit" value="Répondre">
+				<input type="submit" value="Répondre" id="send_button">
 			</form>
 			<br />
 			<br />
@@ -48,14 +52,14 @@
 		<?php if($connecte):
 			echo form_open('forum/answer');
 		?>
+		<br /> <br />
 				<input type="hidden" name="id_topic" value="<?php echo $id_topic; ?>">
-				<input type="submit" value="Répondre">
+				<input type="submit" value="Répondre" id="send_button">
 			</form><br />
-		<?php echo form_open('forum/create_topic'); ?>
-				<input type="hidden" name="id_categorie" value="<?php echo $id_categorie; ?>">
-				<input type="submit" value="Nouveau Topic dans cette catégorie">
-			</form>
 		<?php endif; ?>
-		<br /><br />
-		<?php echo $pagination; ?>
+		<div class="pagination-centered">
+			<ul class="pagination">
+				<?php echo $pagination; ?>
+			</ul>
+		</div>
 </div>

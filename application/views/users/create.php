@@ -4,7 +4,7 @@
   <div class="form-group">
     <label for="pseudo" class="col-sm-2 control-label">Pseudo</label>
     <?php echo form_error('pseudo'); ?>
-    <div class="col-sm-10"> 
+     <div class="col-sm-10">  
       <input type="input" name="pseudo" value="<?php echo set_value('pseudo'); ?>"/>
     </div>
   </div>
@@ -32,6 +32,7 @@
   
   <br>
     <label>Sexe</label>
+     <?php echo form_error('sexe'); ?>
     <input type="radio" name="sexe" value="Homme" id="sexeHomme"><label for="sexeHomme">Homme</label>
     <input type="radio" name="sexe" value="Femme" id="sexeFemme"><label for="sexeFemme">Femme</label>
    
