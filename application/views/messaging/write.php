@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="form-group">
-  <textarea rows="20" name="content" cols="30"><?php echo set_value('content'); if(!empty($contents)){echo $contents;} ?></textarea>
+  <textarea rows="20" name="content" cols="30"></textarea>
   </div>
   <div id="messaging_send_button" class="form-group">
     <div class="col-sm-offset-2 col-sm-10">

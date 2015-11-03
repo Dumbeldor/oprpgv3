@@ -16,27 +16,64 @@ class Messaging_model extends CI_Model
 		$this->load->library('user');
 	}
 	/**
-	 * List of private message for user
-	 * returns $nb number of private message starting with the $begin
+	 * List of conversations for user
+	 * returns conversations as array of array of private messages
 	 * ----------------------------------------------------------------------- */
-	public function lists($nb = 5, $begin = 0)
+	public function lists($id = 0)
 	{		
-		//initialize private message as not belonging to the man who read it right now
-		$catcher = false;
-		$query = $this->db->query("SELECT privates_messages.id AS id,
-			date_time, is_read, is_trash,
-			id_users, content, pseudo, users_types.name as rank,
-			privates_messages.id_users_1 AS catcher 
-			FROM privates_messages 
-			JOIN users ON id_users = users.id
-			JOIN users_types ON users_types.id = users.id_users_types
-			WHERE privates_messages.id_users_1 = ? AND privates_messages.is_trash = 0
-			ORDER BY privates_messages.id DESC", array($this->user->getId()));
-		$resultat = $query->result_array();
-		//If the user can see the selected private message, then put it as "seen"
+		if($id == 0) {
+			$query = $this->db->query("SELECT privates_messages.id AS id,
+				date_time, is_read, is_trash,
+				id_author, content, u1.pseudo as pseudo_author, u2.pseudo as pseudo_dest,
+				users_types.name as rank_author, ut2.name as rank_dest, privates_messages.id_dest
+				FROM privates_messages 
+				JOIN users u1 ON id_author = u1.id
+				JOIN users u2 ON id_dest = u2.id
+				JOIN users_types ON users_types.id = u1.id_users_types
+				JOIN users_types ut2 ON ut2.id = u2.id_users_types
+				JOIN privates_messages_appartenance pma ON pma.id_user = ?
+				WHERE (privates_messages.id_author = pma.id_user OR privates_messages.id_dest = pma.id_user)
+					AND privates_messages.id=pma.id_msg
+				ORDER BY privates_messages.id DESC", array($this->user->getId()));
+		}
+		else {
+			$query = $this->db->query("SELECT privates_messages.id AS id,
+				date_time, is_read, is_trash,
+				id_author, content, u1.pseudo as pseudo_author, u2.pseudo as pseudo_dest,
+				users_types.name as rank_author, ut2.name as rank_dest, privates_messages.id_dest
+				FROM privates_messages 
+				JOIN users u1 ON id_author = u1.id
+				JOIN users u2 ON id_dest = u2.id
+				JOIN users_types ON users_types.id = u1.id_users_types
+				JOIN users_types ut2 ON ut2.id = u2.id_users_types
+				JOIN privates_messages_appartenance pma ON pma.id_user = ?
+				WHERE (privates_messages.id_author = pma.id_user OR privates_messages.id_dest = pma.id_user)
+					AND (privates_messages.id_author = ? OR privates_messages.id_dest = ?)
+					AND privates_messages.id=pma.id_msg
+				ORDER BY privates_messages.id DESC", array($this->user->getId(), $id, $id));
+		}
+		$messages = $query->result_array();
 		
-		$this->db->where('id_users_1', $this->user->getId());
-		$this->db->update($this->table, array('is_read' => 1));
+		$resultat = array();
+		//modify array structure to group messages by conversation
+		foreach($messages as $message) {
+			// Si le message est à nous on regarde le destinataire
+			if($message['id_author'] == $this->user->getId()) {
+				$id_autre = $message['id_dest'];
+				$autre = $message['pseudo_dest'];
+			}
+			// Le message nous est destiné donc on regarde l'auteur
+			else {
+				$id_autre = $message['id_author'];
+				$autre = $message['pseudo_author'];
+			}
+			
+			if(!array_key_exists($autre, $resultat)) {
+				$resultat[$autre] = array();
+				$resultat[$autre][] = $id_autre;
+			}
+			$resultat[$autre][] = $message;
+		}
 		
 		return $resultat;
 	}
@@ -49,12 +86,12 @@ class Messaging_model extends CI_Model
 	{
 		$query = $this->db->query("SELECT privates_messages.id AS id,
 			date_time, is_read, is_trash,
-			id_users, content, pseudo, users_types.name as rank,
-			privates_messages.id_users_1 AS catcher 
+			id_author, content, pseudo, users_types.name as rank,
+			privates_messages.id_dest AS catcher 
 			FROM privates_messages 
-			JOIN users ON id_users_1 = users.id
+			JOIN users ON id_dest = users.id
 			JOIN users_types ON users_types.id = users.id_users_types
-			WHERE privates_messages.id_users = ? AND privates_messages.is_trash = 0
+			WHERE privates_messages.id_author = ? AND privates_messages.is_trash = 0
 			ORDER BY privates_messages.id DESC", array($this->user->getId()));
 		return $resultat = $query->result_array();
 
@@ -72,13 +109,13 @@ class Messaging_model extends CI_Model
 		$catcher = false;
 		$query = $this->db->query("SELECT privates_messages.id AS id,
 			date_time, is_read, is_trash,
-			id_users, content, pseudo,
-			privates_messages.id_users_1 AS catcher 
+			id_author, content, pseudo,
+			privates_messages.id_dest AS catcher 
 			FROM privates_messages 
 			JOIN users ON id_users = users.id 
-			WHERE privates_messages.id_users_1 = ? 
+			WHERE privates_messages.id_dest = ? 
 			AND privates_messages.id = ? 
-			OR privates_messages.id_users = ? 
+			OR privates_messages.id_author = ? 
 			AND privates_messages.id = ?", array($this->user->getId(), $id, $this->user->getId(), $id));
 		$resultat = $query->result_array();
 		//If the user can see the selected private message, then put it as "seen"
@@ -102,7 +139,7 @@ class Messaging_model extends CI_Model
 	public function delete($id)
 	{
 		$this->db->where('id', $id)
-			->where('id_users_1', $this->user->getId())
+			->where('id_dest', $this->user->getId())
 			->update($this->table, array('is_trash' => 1));
 	}
 
@@ -114,15 +151,29 @@ class Messaging_model extends CI_Model
 	public function send($pseudo, $content)
 	{
 		setlocale (LC_TIME, 'fr_FR.utf8','fra'); 
+		$id_dest = $this->users_model->idPseudo($pseudo);
 		$data = array(
 			'content' => $content,
 			'date_time' => time(),
 			'is_read' => 0,
 			'is_trash' => 0,
-			'id_users' => $this->user->getId(),
-			'id_users_1' => $this->users_model->idPseudo($pseudo),        
+			'id_author' => $this->user->getId(),
+			'id_dest' => $id_dest,        
 		);
 		$this->db->insert('privates_messages', $data);
+		$msg_id = $this->db->insert_id();
+		
+		$data = array(
+			'id_msg' => $msg_id,
+			'id_user' => $this->user->getId()
+		);
+		$this->db->insert('privates_messages_appartenance', $data);
+		
+		$data = array(
+			'id_msg' => $msg_id,
+			'id_user' => $id_dest
+		);
+		$this->db->insert('privates_messages_appartenance', $data);
 	}
 
 	/**
@@ -132,7 +183,7 @@ class Messaging_model extends CI_Model
 	public function getFollow($id)
 	{
 		$query = $this->db->query("SELECT privates_messages.content, users.pseudo 
-			FROM privates_messages JOIN users ON id_users = users.id 
+			FROM privates_messages JOIN users ON id_author = users.id 
 			WHERE privates_messages.id = ? ", array($id));
 		return $query->result_array();
 	}
@@ -144,7 +195,7 @@ class Messaging_model extends CI_Model
 	public function markRead($id)
 	{
 		$this->db->where('id', $id)
-			->where('id_users_1', $this->user->getId())
+			->where('id_dest', $this->user->getId())
 			->update($this->table, array('is_read' => 1));
 	}
 }

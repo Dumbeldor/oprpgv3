@@ -9,18 +9,22 @@
  ******************************************************************************
  */
 ?>
-<div class="row pageNormale">
+<div id="messagingIndex" class="row pageNormale">
 	<br />
-	<a href="<?php echo base_url("/messaging/"); ?>">Reçus</a> / 
-	<a href="<?php echo base_url("/messaging/sending"); ?>">Envois</a>
-	<br />
-	<br />
-	<a href="<?php echo base_url("/messaging/write"); ?>">Ecrire un message</a>
-	<?php if($private_message == NULL){ ?>
-		<h3>Vous n'avez encore aucun message...</h3>
+	<div class="row">
+		<div id="messagingChoice">
+			<a href="<?php echo base_url("/messaging/"); ?>"><div id="send_button">Reçus</div></a>
+			<a href="<?php echo base_url("/messaging/sending"); ?>"><div id="send_button">Envois</div></a>
+		</div>
+	</div>
+	<div id="messagingSend" class="row">
+		<a href="<?php echo base_url("/messaging/write"); ?>"><div id="send_button">Ecrire un message</div></a>
+	</div>
+	<?php if(count($conversations) == 0){ ?>
+		<h3>Vous n'avez aucune conversation active...</h3>
 	<?php } else {?>
 		<p>
-	    Voici vos messages privés :</p>
+	    Vos conversations :</p>
 		 <?php echo form_open(base_url('messaging/form'));?>
 		<input type="submit" name="delete" class="btn btn-default" value="Supprimer" />
 		<br />
@@ -29,29 +33,34 @@
 		<br />
 		
 			<ul class="accordion" data-accordion>
-		<?php foreach ($private_message as $message) {
+		<?php foreach ($conversations as $pseudo_autre => $conversation) {
 			?>
+			<a href="<?php echo base_url('messaging/read/'.$conversation[0]) ; ?>">Afficher toute la conversation</a>
 			<li class="accordion-navigation">
 				<div class="columns small-1">
-				<input type="checkbox" name="mess[]" value="<?php echo $message['id']; ?>">
+				<input type="checkbox" name="mess[]" value="<?php echo $conversation[0]; ?>">
 				</div>
 				
-				<a href="#panel<?= $message['id']?>" class="<?= $message['rank']?>">
-					<?php  if($message['is_read'] == 0) {//If private message not read
-						?><strong>Message non lu</strong> <?php
-					}
-					?>De : <?php echo $message['pseudo'] .' le '. date('d/m/Y à H\hi',$message['date_time']); ?>
-				</a>
-				<div id="panel<?= $message['id']?>" class="content">
-					<?php 
-					//Displays the beginning of the message and displays a link if the member wants to read the entire message
-					echo $message['content']; ?>
-					<br />
-					<?php if($message['catcher'] == $this->user->getId()) {?>
-          <a href="<?php echo base_url("/messaging/write/".$message['id']); ?>">Répondre</a>
-          <a href="<?php echo base_url("/messaging/delete/".$message['id']); ?>">Supprimer message</a>
-          <?php }?>
 				
+				<a href="#panel<?= $conversation[0]?>" class="<?= $conversation[1]['rank_author']?>">
+					<?php  if($conversation[1]['is_read'] == 0) {//If private message not read
+						?><strong>Nouveau message</strong> <?php
+					}
+					?>De : <?php echo $pseudo_autre .' le '. date('d/m/Y à H\hi',$conversation[1]['date_time']); ?>
+				</a>
+				<div id="panel<?= $conversation[0]?>" class="content">
+					<?php 
+						//Displays the last two messages of the conversation
+						$limit = min(2, count($conversation)-1);
+						for($i=1; $i<=$limit; $i++) {
+							$msg = $conversation[$i]['content'];
+							$cssClass = ($conversation[$i]['id_dest'] == $conversation[0]) ? 'meAuthor' : '';
+							?>
+							<div class="row"><div class="panel panel-mp-msg <?php echo $cssClass; ?>"><?php echo $msg; ?></div></div>
+							<?php
+						}
+					?>
+					<br />
 				</div>
 			</li>
 			<?php

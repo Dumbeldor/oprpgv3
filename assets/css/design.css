@@ -276,3 +276,54 @@ div#etapesPanel {
 div#optionsPanel {
 	min-height: 12.2rem;
 }
+
+/* Messaging */
+#messaging div#send_button {
+	width: 5.5rem;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#messaging_send_button #send_button, .messagingOptions #send_button {
+	margin-top: 1rem;
+	height: 2.5rem;
+	width: 5.5rem;
+}
+
+#messaging_send_button {
+	text-align: center;
+}
+
+.messagingButton {
+	float: right;
+	margin-left: 1rem;
+}
+
+div#messagingIndex #send_button {
+	width: 5rem;
+	float: left;
+	margin-right: 1rem;
+	margin-left: 1rem;
+	text-align: center;
+}
+
+div#messagingChoice {
+	margin: 0 auto;
+	width: 25%;
+	margin-bottom: 4rem;
+}
+
+div#messagingSend #send_button {
+	width: 10rem;
+}
+
+.panel-mp-msg {
+	width: 45%;
+}
+
+.meAuthor {
+	float: right;
+	border-color: #6699CC;
+	margin-right: 1rem;
+}

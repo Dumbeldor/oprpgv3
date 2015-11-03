@@ -9,27 +9,28 @@
  ******************************************************************************
  */
 ?>
-<div class="row">
-<p>
-    Lecture du message privé :</p>
-<ul class="small-block-grid-1">
-<?php foreach ($private_message as $message) {?>
-    <li>
-		<div class="panel">
-          De : <?php echo $message['pseudo'];?>
-         <br />
-
-          <?php 
-    //Displays the beginning of the message and displays a link if the member wants to read the entire message
-          echo $message['content']; ?> 
-           <br /><br />
-          <a href="<?php echo base_url("/messaging/"); ?>">Retour</a>
-          <?php if($message['catcher'] == $this->user->getId()) {?>
-          <a href="<?php echo base_url("/messaging/write/".$message['id']); ?>">Répondre</a>
-          <a href="<?php echo base_url("/messaging/delete/".$message['id']); ?>">Supprimer message</a>
-          <?php }?>
-    </li>
-        </div>
-        <?php
-      }
-?></div>
+<div id="messaging" class="row">
+    <div class="pageNormale"><?php
+		if(count($conversations) > 0) {
+			$pseudo_autre = key($conversations);
+			$conversation = $conversations[$pseudo_autre];
+			for($i=1; $i<count($conversation); $i++) {
+				$msg = $conversation[$i]['content'];
+				$cssClass = ($conversation[$i]['id_dest'] == $conversation[0]) ? 'meAuthor' : '';
+				?>
+				<div class="row"><div class="panel panel-mp-msg <?php echo $cssClass; ?>"><?php echo $msg; ?></div></div>
+				<?php
+			}
+			?>
+			<div class="messagingOptions">
+				<div class="row">
+					<a class="messagingButton" href="<?php echo base_url("/messaging/"); ?>"><div id="send_button">Retour</div></a>
+					<a class="messagingButton" href="<?php echo base_url("/messaging/write/".$id_autre); ?>"><div id="send_button">Répondre</div></a>
+					<a class="messagingButton" href="<?php echo base_url("/messaging/delete/".$id_autre); ?>"><div id="send_button">Supprimer</div></a>
+				</div>
+			</div>
+		<?php } else {
+			?><h1>Aucune discussion</h1><?php
+		}?>
+    </div>
+</div>

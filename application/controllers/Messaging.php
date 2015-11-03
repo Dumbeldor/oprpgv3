@@ -29,17 +29,18 @@ class Messaging extends MY_Controller {
 	{
 		$this->load->helper('form');
 		$data['title'] = 'Messagerie';
-		$data['private_message'] = $this->messaging_model->lists(5, 0);
+		$data['conversations'] = $this->messaging_model->lists();
 		$this->construct_page('messaging/index', $data);
 	}
 	/**
-	 * Read a private message particulary
+	 * Read a private conversation particulary
 	 * ----------------------------------------------------------------------- */
 	public function read($id)
 	{
 		$data['title'] = 'Messagerie';
-		$data['private_message'] = $this->messaging_model->read($id);
-		if(empty($data['private_message'])) //redirection if id does not exist private message
+		$data['conversations'] = $this->messaging_model->lists($id);
+		$data['id_autre'] = $id;
+		if(empty($data['conversations'])) //redirection if id does not exist private message
 			redirect('messaging/index');
 		$this->construct_page('messaging/read', $data);
 	}
@@ -64,14 +65,12 @@ class Messaging extends MY_Controller {
 
 		$this->load->helper('form');
 		$this->load->library('form_validation');
-		$data['title'] = "Ecrire un message privé";
+		$data['title'] = "MP";
 		$data['receptor'] = $receptor;
 		if(!empty($receptor) && $receptor > 0)
 		{
 			$follow = $this->messaging_model->getFollow($receptor);
 			$data['receptor'] = $follow[0]['pseudo'];
-			$data['contents'] = '<br><blockquote><p><u><strong><em>Message précédent de '.$data['receptor'].'</em></strong></u><br>'.$follow[0]['content'].'</p></blockquote><br>';
-
 		}
 		$this->form_validation->set_rules('pseudo', 'Pseudonyme', 'required');
 		$this->form_validation->set_rules('content', 'texte', 'required');
@@ -80,13 +79,15 @@ class Messaging extends MY_Controller {
 			$this->construct_page('messaging/write', $data);
 		}
 		else {
-			if($this->users_model->exist($_POST['pseudo'])) //If the username exists
+			$pseudo = $this->input->post('pseudo');
+			$content = $this->input->post('content');
+			if($this->users_model->exist($pseudo)) //If the username exists
 			{
-				$this->messaging_model->send($_POST['pseudo'], $_POST['content']);
+				$this->messaging_model->send($pseudo, $content);
 				redirect('messaging/index');
 			}
 			else{
-				$data['error'] = "Le joueur ".$_POST['pseudo']." n'existe pas";
+				$data['error'] = "Le joueur ".$pseudo." n'existe pas";
 				$this->construct_page('messaging/write', $data);
 			}
 		}

@@ -120,6 +120,12 @@ class Users_model extends CI_Model {
       return $id['id'];
   }
   
+  public function pseudoFromId($id) {
+      $query = $this->db->query("SELECT pseudo FROM users WHERE id = ?", array($id));
+      $pseudo = $query->row_array();
+      return $pseudo['pseudo'];
+  }
+  
   public function setup_connexion($pseudo) {
     $query = $this->db->query("SELECT users.id, ban, pseudo, email, birthday, sexe, is_kick, id_personnages,
 							  id_levels, id_objects, id_users_types, users_types.name AS rank
@@ -146,7 +152,7 @@ class Users_model extends CI_Model {
   * Count The number of private messages
   */
   public function amountMP($id) {
-    return (int) $this->db->where('id_users_1', $id)
+    return (int) $this->db->where('id_dest', $id)
     					  ->where('is_read', 0)
     					  ->where('is_trash', 0)
             ->count_all_results('privates_messages');
