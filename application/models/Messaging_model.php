@@ -23,7 +23,7 @@ class Messaging_model extends CI_Model
 	{		
 		if($id == 0) {
 			$query = $this->db->query("SELECT privates_messages.id AS id,
-				date_time, pma.is_read, is_trash,
+				date_time, pma.is_read,
 				id_author, content, u1.pseudo as pseudo_author, u2.pseudo as pseudo_dest,
 				users_types.name as rank_author, ut2.name as rank_dest, privates_messages.id_dest
 				FROM privates_messages 
@@ -38,7 +38,7 @@ class Messaging_model extends CI_Model
 		}
 		else {
 			$query = $this->db->query("SELECT privates_messages.id AS id,
-				date_time, pma.is_read, is_trash,
+				date_time, pma.is_read,
 				id_author, content, u1.pseudo as pseudo_author, u2.pseudo as pseudo_dest,
 				users_types.name as rank_author, ut2.name as rank_dest, privates_messages.id_dest
 				FROM privates_messages 
@@ -159,7 +159,6 @@ class Messaging_model extends CI_Model
 		$data = array(
 			'content' => $content,
 			'date_time' => time(),
-			'is_trash' => 0,
 			'id_author' => $this->user->getId(),
 			'id_dest' => $id_dest,        
 		);
