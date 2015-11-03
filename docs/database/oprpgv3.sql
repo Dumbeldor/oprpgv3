@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 03 Novembre 2015 à 02:38
+-- Généré le :  Mar 03 Novembre 2015 à 20:25
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -649,14 +649,13 @@ CREATE TABLE IF NOT EXISTS `privates_messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
   `date_time` int(15) NOT NULL,
-  `is_read` tinyint(1) NOT NULL,
   `is_trash` tinyint(1) NOT NULL,
   `id_author` int(11) NOT NULL,
   `id_dest` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_privates_messages_id_users` (`id_author`),
   KEY `FK_privates_messages_id_users_1` (`id_dest`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=102 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=108 ;
 
 -- --------------------------------------------------------
 
@@ -668,8 +667,9 @@ CREATE TABLE IF NOT EXISTS `privates_messages_appartenance` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_msg` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
+  `is_read` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 -- --------------------------------------------------------
 
