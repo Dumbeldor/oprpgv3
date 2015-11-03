@@ -23,7 +23,7 @@ class Messaging_model extends CI_Model
 	{		
 		if($id == 0) {
 			$query = $this->db->query("SELECT privates_messages.id AS id,
-				date_time, is_read, is_trash,
+				date_time, pma.is_read, is_trash,
 				id_author, content, u1.pseudo as pseudo_author, u2.pseudo as pseudo_dest,
 				users_types.name as rank_author, ut2.name as rank_dest, privates_messages.id_dest
 				FROM privates_messages 
@@ -38,7 +38,7 @@ class Messaging_model extends CI_Model
 		}
 		else {
 			$query = $this->db->query("SELECT privates_messages.id AS id,
-				date_time, is_read, is_trash,
+				date_time, pma.is_read, is_trash,
 				id_author, content, u1.pseudo as pseudo_author, u2.pseudo as pseudo_dest,
 				users_types.name as rank_author, ut2.name as rank_dest, privates_messages.id_dest
 				FROM privates_messages 
@@ -82,7 +82,7 @@ class Messaging_model extends CI_Model
 	 * List of message sent by the user
 	 * returns $nb number of private message starting with the $begin
 	 * ----------------------------------------------------------------------- */
-	public function listsSending($nb = 5, $begin = 0)
+	/*public function listsSending($nb = 5, $begin = 0)
 	{
 		$query = $this->db->query("SELECT privates_messages.id AS id,
 			date_time, is_read, is_trash,
@@ -96,19 +96,19 @@ class Messaging_model extends CI_Model
 		return $resultat = $query->result_array();
 
 
-	}
+	}*/
 
 	/**
 	 * 
 	 *read private message particularly
 	 * Returns the private message corresponding to the id $id and if the message is hers
 	 * ----------------------------------------------------------------------- */
-	public function read($id)
+	/*public function read($id)
 	{
 		//initialize private message as not belonging to the man who read it right now
 		$catcher = false;
 		$query = $this->db->query("SELECT privates_messages.id AS id,
-			date_time, is_read, is_trash,
+			date_time, is_trash,
 			id_author, content, pseudo,
 			privates_messages.id_dest AS catcher 
 			FROM privates_messages 
@@ -129,7 +129,7 @@ class Messaging_model extends CI_Model
 			}
 		}
 		return $resultat;
-	}
+	}*/
 
 	/**
 	 * 
@@ -138,9 +138,13 @@ class Messaging_model extends CI_Model
 	 * ----------------------------------------------------------------------- */
 	public function delete($id)
 	{
-		$this->db->where('id', $id)
-			->where('id_dest', $this->user->getId())
-			->update($this->table, array('is_trash' => 1));
+		$this->db->query("DELETE FROM privates_messages_appartenance
+			WHERE id_user = ?
+			AND id_msg IN (
+				SELECT id 
+				FROM privates_messages
+				WHERE id_author = ? OR id_dest = ?
+			)", array($this->user->getId(), $id, $id));
 	}
 
 	/**
@@ -155,7 +159,6 @@ class Messaging_model extends CI_Model
 		$data = array(
 			'content' => $content,
 			'date_time' => time(),
-			'is_read' => 0,
 			'is_trash' => 0,
 			'id_author' => $this->user->getId(),
 			'id_dest' => $id_dest,        
@@ -165,13 +168,15 @@ class Messaging_model extends CI_Model
 		
 		$data = array(
 			'id_msg' => $msg_id,
-			'id_user' => $this->user->getId()
+			'id_user' => $this->user->getId(),
+			'is_read' => 1
 		);
 		$this->db->insert('privates_messages_appartenance', $data);
 		
 		$data = array(
 			'id_msg' => $msg_id,
-			'id_user' => $id_dest
+			'id_user' => $id_dest,
+			'is_read' => 0
 		);
 		$this->db->insert('privates_messages_appartenance', $data);
 	}
@@ -189,13 +194,25 @@ class Messaging_model extends CI_Model
 	}
 
 	/**
-	 * Use to mark messages as read
-	 * @param id messassing
+	 * Use to mark conversations as read
+	 * @param id user_id of the other person in the conversation
 	 * ----------------------------------------------------------------------- */
-	public function markRead($id)
+	public function markRead($id=0)
 	{
-		$this->db->where('id', $id)
-			->where('id_dest', $this->user->getId())
-			->update($this->table, array('is_read' => 1));
+		if($id==0) {
+			$this->db->where('id_user', $this->user->getId())
+			->where('is_read', 0)
+			->update('privates_messages_appartenance', array('is_read' => 1));
+		} else {
+			$this->db->query("UPDATE privates_messages_appartenance
+				SET is_read=1
+				WHERE id_user = ?
+				AND id_msg IN (
+					SELECT id 
+					FROM privates_messages
+					WHERE id_author = ? OR id_dest = ?
+				)
+				AND is_read=0", array($this->user->getId(), $id, $id));
+		}
 	}
 }

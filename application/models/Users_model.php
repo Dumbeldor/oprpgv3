@@ -152,10 +152,9 @@ class Users_model extends CI_Model {
   * Count The number of private messages
   */
   public function amountMP($id) {
-    return (int) $this->db->where('id_dest', $id)
+    return (int) $this->db->where('id_user', $id)
     					  ->where('is_read', 0)
-    					  ->where('is_trash', 0)
-            ->count_all_results('privates_messages');
+            ->count_all_results('privates_messages_appartenance');
     return $nb_resultat;
   }
   

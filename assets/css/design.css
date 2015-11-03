@@ -18,27 +18,27 @@ a.Administrateur, a.Administratrice{
     color:red;
     font-weight: bold;
 }
-div#Membre{
+div#Membre, div.Membre{
     border-color:#9B9B9B;
     border-radius: 10px
 }
-div#Rédacteur, div#Rédactrice{
+div#Rédacteur, div#Rédactrice, div.Rédacteur, div.Rédactrice{
     border-color:#1BFFC7;
     border-radius: 10px
 }
-div#Designer, div#Designeuse{
+div#Designer, div#Designeuse, div.Designer, div.Designeuse{
     border-color:#1B2AFF;
     border-radius: 10px
 }
-div#Modérateur, div#Modératrice{
+div#Modérateur, div#Modératrice, div.Modérateur, div.Modératrice{
     border-color:#1BFF1F;
     border-radius: 10px
 }
-div#Co-Administrateur, div#Co-Administratrice{
+div#Co-Administrateur, div#Co-Administratrice, div.Co-Administrateur, div.Co-Administratrice{
     border-color:#FF911B;
     border-radius: 10px
 }
-div#Administrateur, div#Administratrice{
+div#Administrateur, div#Administratrice, div.Administrateur, div.Administratrice{
     border-color:#FF7373;
     border-radius: 10px
 }
@@ -296,11 +296,13 @@ div#optionsPanel {
 }
 
 .messagingButton {
-	float: right;
 	margin-left: 1rem;
+	width: 5rem;
+	height: 2rem;
+	float:right;
 }
 
-div#messagingIndex #send_button {
+div#messagingChoice #send_button {
 	width: 5rem;
 	float: left;
 	margin-right: 1rem;
@@ -310,20 +312,76 @@ div#messagingIndex #send_button {
 
 div#messagingChoice {
 	margin: 0 auto;
-	width: 25%;
+	width: 20%;
 	margin-bottom: 4rem;
 }
 
-div#messagingSend #send_button {
+div#messagingChoice #send_button {
 	width: 10rem;
+}
+
+.suppButton {
+	margin-top: 2rem;
+	height: 2rem;
+}
+
+span#myConv {
+	font-weight: bold;
+	text-decoration: underline;
 }
 
 .panel-mp-msg {
 	width: 45%;
+	background-color: white;
+	border-radius: 15px;
 }
 
 .meAuthor {
 	float: right;
 	border-color: #6699CC;
 	margin-right: 1rem;
+	padding-bottom: 0.5rem;
+	padding-top: 0.5rem;
+}
+
+.otherAuthor {
+	margin-left: 1rem;
+	float: left;
+	padding-bottom: 0.5rem;
+	padding-top: 0.5rem;
+}
+
+div#messagingIndex .conversationPanel {
+	margin-bottom: 1rem;
+	margin-right: 1rem;
+	margin-left: 1rem;
+}
+
+div#messagingIndex .conversationPanelHeader {
+	
+}
+
+div#messagingIndex .conversationPanelContent {
+	border-top-style: solid;
+	border-top-width: 2px;
+	border-radius: 0 !important;
+	margin-top: 1rem;
+	padding-top: 1.5rem;
+	display: none;
+}
+
+.mp-bas {
+	font-style: italic;
+	font-size: 10px;
+	float: right;
+}
+
+div.pageNormale div.backToMessagingIndex {
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+div.pageNormale div.backToMessagingIndex a{
+	float:left;
+	margin-left: 0;
 }

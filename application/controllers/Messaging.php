@@ -29,7 +29,9 @@ class Messaging extends MY_Controller {
 	{
 		$this->load->helper('form');
 		$data['title'] = 'Messagerie';
+		$data['scripts'][] = base_url('assets/js/messaging/index.js');
 		$data['conversations'] = $this->messaging_model->lists();
+		$this->messaging_model->markRead();
 		$this->construct_page('messaging/index', $data);
 	}
 	/**
@@ -42,6 +44,7 @@ class Messaging extends MY_Controller {
 		$data['id_autre'] = $id;
 		if(empty($data['conversations'])) //redirection if id does not exist private message
 			redirect('messaging/index');
+		$this->messaging_model->markRead($id);
 		$this->construct_page('messaging/read', $data);
 	}
 
@@ -69,8 +72,7 @@ class Messaging extends MY_Controller {
 		$data['receptor'] = $receptor;
 		if(!empty($receptor) && $receptor > 0)
 		{
-			$follow = $this->messaging_model->getFollow($receptor);
-			$data['receptor'] = $follow[0]['pseudo'];
+			$data['receptor'] = $this->users_model->pseudoFromId($receptor);
 		}
 		$this->form_validation->set_rules('pseudo', 'Pseudonyme', 'required');
 		$this->form_validation->set_rules('content', 'texte', 'required');
@@ -81,12 +83,16 @@ class Messaging extends MY_Controller {
 		else {
 			$pseudo = $this->input->post('pseudo');
 			$content = $this->input->post('content');
-			if($this->users_model->exist($pseudo)) //If the username exists
+			if($this->users_model->exist($pseudo) && $this->user->getPseudo() != $pseudo) //If the username exists and not sender
 			{
 				$this->messaging_model->send($pseudo, $content);
 				redirect('messaging/index');
 			}
-			else{
+			else if ($this->user->getPseudo() == $pseudo) {
+				$data['error'] = "Vous ne pouvez pas vous envoyer un message à vous même !";
+				$this->construct_page('messaging/write', $data);
+			}
+			else {
 				$data['error'] = "Le joueur ".$pseudo." n'existe pas";
 				$this->construct_page('messaging/write', $data);
 			}
@@ -111,14 +117,13 @@ class Messaging extends MY_Controller {
 	 *  ------------------------------------------------------------------------ */
 	public function form()
 	{
-		if(!empty($_POST['mess']))
+		$convs = $this->input->post('mess');
+		$delete = $this->input->post('delete');
+		if(!empty($convs) && isset($delete))
 		{
-			foreach($_POST['mess'] as $valeur)
+			foreach($convs as $valeur)
 			{
-				if(isset($_POST['delete']))
-					$this->messaging_model->delete($valeur);
-				if(isset($_POST['markRead']))
-					$this->messaging_model->markRead($valeur);
+				$this->messaging_model->delete($valeur);
 			}
 		}
 		redirect('/messaging/');

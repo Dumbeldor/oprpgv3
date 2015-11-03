@@ -14,11 +14,16 @@
 		if(count($conversations) > 0) {
 			$pseudo_autre = key($conversations);
 			$conversation = $conversations[$pseudo_autre];
-			for($i=1; $i<count($conversation); $i++) {
+			for($i=count($conversation)-1; $i>=1; $i--) {
 				$msg = $conversation[$i]['content'];
-				$cssClass = ($conversation[$i]['id_dest'] == $conversation[0]) ? 'meAuthor' : '';
+				$cssClass = ($conversation[$i]['id_dest'] == $conversation[0]) ? 'meAuthor' : 'otherAuthor';
 				?>
-				<div class="row"><div class="panel panel-mp-msg <?php echo $cssClass; ?>"><?php echo $msg; ?></div></div>
+				<div class="row">
+					<div class="panel panel-mp-msg <?php echo $cssClass; ?>">
+						<div class="mp-haut"><?php echo $msg; ?></div>
+						<div class="mp-bas">Envoyé le <?php echo date('d/m/Y à H\hi',$conversation[1]['date_time']);?></div>
+					</div>
+				</div>
 				<?php
 			}
 			?>
