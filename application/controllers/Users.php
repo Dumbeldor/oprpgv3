@@ -140,6 +140,7 @@ class Users extends MY_Controller {
     $data['title'] = 'Connexion';
     $pseudo = $this->input->post('pseudo');
     $password = $this->input->post('password');
+	$userAlreadyCo = false;
     if ($pseudo == null XOR $password == null) {
       $data['error'] = 'Veuillez fournir toutes les informations requises.';
       $this->construct_page('users/connect', $data);
@@ -149,13 +150,16 @@ class Users extends MY_Controller {
     }
     else {
       $valid_connexion = $this->users_model->validate_connexion($pseudo, $password);
-      if($valid_connexion) {
+      if($valid_connexion == 1) {
         $data['title'] = 'Home';
         $this->users_model->setup_connexion($pseudo);
         redirect('');
       }
       else {
-        $data['error'] = "La combinaison pseudo/mot de passe n'est pas bonne.";
+		if($valid_connexion == -1)
+		  $data['error'] = "Un joueur est déjà connecté sur ce compte.";
+		else
+		  $data['error'] = "La combinaison pseudo/mot de passe n'est pas bonne.";
         $this->construct_page('users/connect', $data);
       }
     }

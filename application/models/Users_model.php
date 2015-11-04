@@ -95,17 +95,32 @@ class Users_model extends CI_Model {
   }
   
   public function validate_connexion($pseudo, $password) {
-    $query = $this->db->query("SELECT * FROM users WHERE pseudo = ?", array($pseudo));
-    
+	//If the player is inactive for 10 mn
+	$this->db->query("DELETE ci_sessions FROM ci_sessions
+			JOIN users ON ci_sessions.idUser = users.id
+			WHERE timestamp < ".time()."-600
+			AND pseudo = ?", array($pseudo));
+
+					  
+	$nbCo = $this->db->join('users', 'ci_sessions.idUser = users.id')
+						  ->where('pseudo', $pseudo)
+						  ->count_all_results('ci_sessions');	
+	if($nbCo > 0) {
+	  $userAlreadyCo = true;
+	  return -1;
+	}
+	
+	$query = $this->db->query("SELECT * FROM users WHERE pseudo = ?", array($pseudo));
+					  
     if($query->num_rows() == 1) {
 	  $res = $query->result_array();
 	  if(password_verify($password, $res[0]['password']))
-		return TRUE;
+		return 1;
 	  else
-		return FALSE;
+		return 0;
     }
     else {
-      return FALSE;
+      return 0;
     }
   }
   
@@ -163,7 +178,7 @@ class Users_model extends CI_Model {
    */
   public function listCo() {
   	//If the player is inactive for one hour
-  	$this->db->delete('ci_sessions', array('timestamp <' => time() - 7200));
+  	$this->db->delete('ci_sessions', array('timestamp <' => time() - 3600));
   	
   	return $this->db->select('ci_sessions.idUser, users.id, users.pseudo, levels.number AS lvl, timestamp, users_types.name')
   	->from('ci_sessions')
@@ -171,7 +186,6 @@ class Users_model extends CI_Model {
 	->join('users_types', 'users.id_users_types = users_types.id')
   	->join('levels', 'levels.id = users.id_levels')
   	->order_by('timestamp', 'desc')
-	->distinct()
   	->get()
   	->result();
   }
