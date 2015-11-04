@@ -4,6 +4,8 @@ class Tchat extends MY_Controller {
   // Default Constructor
   public function __construct() {
     parent::__construct();
+	if(!$this->user->isAuthenticated())
+  		redirect(base_url('/'));
     $this->load->model('tchat_model');
     $this->load->model('users_model');
     $this->load->helper('smiley');
