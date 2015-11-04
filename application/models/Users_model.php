@@ -163,13 +163,14 @@ class Users_model extends CI_Model {
    */
   public function listCo() {
   	//If the player is inactive for one hour
-  	$this->db->delete('sessions', array('last_activity <' => time() - 7200)); 	
+  	$this->db->delete('ci_sessions', array('timestamp <' => time() - 7200)); 	
   	
-  	return $this->db->select('sessions.id_user, users.id, users.pseudo, levels.number AS lvl, last_activity')
-  	->from('sessions')
-  	->join('users', 'sessions.id_user = users.id')
+  	return $this->db->select('ci_sessions.idUser, users.id, users.pseudo, levels.number AS lvl, timestamp, users_types.name')
+  	->from('ci_sessions')
+  	->join('users', 'ci_sessions.idUser = users.id')
+	->join('users_types', 'users.id_users_types = users_types.id')
   	->join('levels', 'levels.id = users.id_levels')
-  	->order_by('last_activity', 'desc')
+  	->order_by('timestamp', 'desc')
   	->get()
   	->result();
   }

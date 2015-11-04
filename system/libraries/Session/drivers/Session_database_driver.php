@@ -207,11 +207,17 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 		{
 			return FALSE;
 		}
+		
+		if(isset($_SESSION['id']))
+			$idUser = $_SESSION['id'];
+		else
+			$idUser = 0;
 
 		if ($this->_row_exists === FALSE)
 		{
 			$insert_data = array(
 				'id' => $session_id,
+				'idUser' => $idUser,
 				'ip_address' => $_SERVER['REMOTE_ADDR'],
 				'timestamp' => time(),
 				'data' => ($this->_platform === 'postgre' ? base64_encode($session_data) : $session_data)
@@ -232,7 +238,7 @@ class CI_Session_database_driver extends CI_Session_driver implements SessionHan
 			$this->_db->where('ip_address', $_SERVER['REMOTE_ADDR']);
 		}
 
-		$update_data = array('timestamp' => time());
+		$update_data = array('timestamp' => time(), 'idUser' => $idUser);
 		if ($this->_fingerprint !== md5($session_data))
 		{
 			$update_data['data'] = ($this->_platform === 'postgre')
