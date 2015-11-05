@@ -65,7 +65,7 @@
 								<div class="row">
 									<div class="panel panel-mp-msg <?php echo $cssClass; ?>">
 										<div class="mp-haut"><?php echo $msg; ?></div>
-										<div class="mp-bas">Envoyé le <?php echo date('d/m/Y à H\hi',$conversation[1]['date_time']);?></div>
+										<div class="mp-bas">Envoyé le <?php echo date('d/m/Y à H\hi',$conversation[$i]['date_time']);?></div>
 									</div>
 								</div>
 								<?php
