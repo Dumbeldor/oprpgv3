@@ -105,7 +105,11 @@ class Forum extends MY_Controller {
 	 * @param $id_topic topic's id
 	 * ----------------------------------------------------------------------- */
 	public function topics($id_topic, $page=0) {
-		
+		// Verifiy user is not accessing secret topic
+		$data['id_categorie'] = $this->forum_model->get_id_categorie($id_topic)[0]['id_forums_categories'];
+		if($data['id_categorie'] == 1 && !($this->user->isModo() || $this->user->isAdmin()))
+			redirect('forum/');
+			
 		if(!$this->forum_model->iscrew_forum_topic($id_topic))
 			redirect('forum/');
 		
@@ -173,9 +177,7 @@ class Forum extends MY_Controller {
 		// these information will be stored in this array)
 		$data['aria'] = $this->forum_model->get_aria_topic($id_topic)[0];
 		$data['id_topic'] = $id_topic;
-		$data['id_categorie'] = $this->forum_model->get_id_categorie($id_topic)[0]['id_forums_categories'];
-		if($data['id_categorie'] == 1 && !($this->user->isModo() || $this->user->isAdmin()))
-			redirect('forum/');
+		
 		// Get all topic's messages
 		$data['messages'] = $this->forum_model->get_messages($id_topic, 30, $page);
 		
@@ -208,6 +210,17 @@ class Forum extends MY_Controller {
 	public function quote($idTopic = 0, $idCitation = 0) {
 		if($idTopic == 0 || $idCitation == 0)
 			redirect('forum/');
+		
+		// Verifiy user is not accessing secret topic
+		$id_cat = $this->forum_model->get_id_categorie($idTopic)[0]['id_forums_categories'];
+		if($id_cat == 1 && !($this->user->isModo() || $this->user->isAdmin())) {
+			redirect('forum/');
+		}
+		
+		// Verify user is not quoting message from another crew's forum
+		if(!$this->forum_model->iscrew_forum_topic($idTopic))
+			redirect('forum/');
+		
 		$this->load->helper('form');
 		$citation = $this->forum_model->getQuote($idTopic, $idCitation);
 		if(empty($citation))
@@ -218,6 +231,7 @@ class Forum extends MY_Controller {
 		}
 		$data['idTopic'] = $idTopic;
 		// Construct this page
+		$data['title'] = 'Forum';
 		$this->construct_page('forum/answer', $data);
 	}
 
@@ -286,7 +300,13 @@ class Forum extends MY_Controller {
 		//If topic close
 		if($this->forum_model->is_close($id_topic)[0]['is_block'])
 			redirect('/forum/');
-			
+		
+		// Verify user is not sending messages on unauthorized topics (secret category of other crew's category)
+		$id_cat = $this->forum_model->get_id_categorie($id_topic)[0]['id_forums_categories'];
+		if(($id_cat == 1 && !($this->user->isModo() || $this->user->isAdmin())) || !$this->forum_model->iscrew_forum_topic($id_topic)) {
+			redirect('forum/');
+		}
+		
 		// Redirect to forum's model for action function
 		$this->forum_model->send_message($id_topic,$message,$date_message,$id_user);
 		
