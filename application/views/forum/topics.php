@@ -5,7 +5,7 @@
 			</ul>
 		</div>
 		<br /> <br />
-			<a href="<?php echo base_url('forum');?>"><i>Les forums</i></a>-><a href="<?php echo base_url('forum/c/'.$aria['categorieId']); ?>"><i><?php echo $aria['categorieName'];?></i></a>-><a href="<?php echo base_url('forum/t/'.$aria['topicId']); ?>"><strong><?php echo $aria['topicName'];?></strong></a><br /><br />
+			<a href="<?php echo base_url('forum');?>"><i>Les forums</i></a>-><a href="<?php echo base_url('forum/c/'.$aria['categorieId']); ?>"><i><?php echo $aria['categorieName'];?></i></a>-><a href="<?php echo base_url('forum/t/'.$aria['topicId']); ?>"><strong><?php echo htmlspecialchars($aria['topicName']);?></strong></a><br /><br />
 		<?php echo form_open('forum/answer');
 		?>
 				<input type="hidden" name="id_topic" value="<?php echo $id_topic; ?>">

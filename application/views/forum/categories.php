@@ -22,7 +22,7 @@
   if($topics['type'] == 'post-it')
   echo "<strong>POST-IT</strong>";
   ?>
-  <a href="<?php echo base_url('forum/t/'.$topics['id']); ?>"> <?php echo $topics['name'];?></a>
+  <a href="<?php echo base_url('forum/t/'.$topics['id']); ?>"> <?php echo htmlspecialchars($topics['name']);?></a>
   <?php
 	if($this->user->isAdmin() || $this->user->isModo() ||
   		($this->user->getAttribute('crewId') == $id_categorie && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){

@@ -17,7 +17,7 @@ if($categories['id'] != 1 || ($moderator || $admin)):
 		<i>De <a href="<?php echo base_url('users/view/'.$categories['userId']);?>" class="<?= $categories['rank'] ?>"></i><?php echo $categories['pseudo'];?><i></a> dans <?php
         $page = floor($categories['countMsg'] / 15);
         if($page == 1 OR $page == 0) { ?>
-            <a href="<?php echo base_url('forum/t/'. $categories['topicId'].'#'.$categories['messId']);?>"><?php echo $categories['topicName'];?></a></i>
+            <a href="<?php echo base_url('forum/t/'. $categories['topicId'].'#'.$categories['messId']);?>"><?php echo htmlspecialchars($categories['topicName']);?></a></i>
         <?php } else { ?>
             <a href="<?php echo base_url('forum/t/'. $categories['topicId'].'/'.$page.'#'.$categories['messId']);?>"><?php echo $categories['topicName'];?></a></i>
         <?php } ?>
