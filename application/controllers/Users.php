@@ -109,9 +109,6 @@ class Users extends MY_Controller {
 	$this->form_validation->set_rules('sexe', 'sexe', 'required');
 	
 	if ($this->form_validation->run() === FALSE) {
-      $query_persos_jouables = $this->db->query('SELECT * FROM personnages');
-      $data['persos'] = $query_persos_jouables->result_array();
-	  
 	  $data['nb_cheveux_homme']=9;
 	  $data['nb_cheveux_femme']=9;
 	  $data['nb_corps_homme']=3;
@@ -124,8 +121,21 @@ class Users extends MY_Controller {
     }
     else {
       $id = $this->users_model->set_user();
-	  $this->users_model->create_avatar($id);
-      $this->construct_page('users/success', $data);
+      if($id == 0) {
+         $data['nb_cheveux_homme']=9;
+         $data['nb_cheveux_femme']=9;
+          $data['nb_corps_homme']=3;
+          $data['nb_corps_femme']=3;
+          $data['nb_yeux']=4;
+          $data['nb_bouches']=6;
+          
+          $data['scripts'][] = base_url('assets/js/users/create_avatar.js');
+          $data['error'] = "Pseudo déjà utilisé !";
+          $this->construct_page('users/create', $data);
+      } else {
+  	    $this->users_model->create_avatar($id);
+        $this->construct_page('users/success', $data);
+      }
     }
   }
   

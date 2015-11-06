@@ -1,6 +1,9 @@
 <div class="row pageNormale">
-<h2>Inscription</h2>
-<?php echo form_open(base_url('users/create')); ?>
+<h2>Inscription</h2><br>
+<?php if(isset($error)) {
+  ?><br><br><strong><?= $error ?></strong><br> <?php
+}
+echo form_open(base_url('users/create')); ?>
   <div class="form-group">
     <label for="pseudo" class="col-sm-2 control-label">Pseudo</label>
     <?php echo form_error('pseudo'); ?>

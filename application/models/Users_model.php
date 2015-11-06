@@ -70,6 +70,10 @@ class Users_model extends CI_Model {
   }
   
   public function set_user() {
+  	$nbUser = $this->db->where('pseudo', $this->input->post('pseudo'))
+            	->count_all_results('users');
+    if($nbUser > 0)
+    	return 0;
     $password_hash = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
     $data = array(
         'pseudo' => $this->input->post('pseudo'),
@@ -170,7 +174,6 @@ class Users_model extends CI_Model {
     return (int) $this->db->where('id_user', $id)
     					  ->where('is_read', 0)
             ->count_all_results('privates_messages_appartenance');
-    return $nb_resultat;
   }
   
   /*
