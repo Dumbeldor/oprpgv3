@@ -16,7 +16,7 @@ class Home extends MY_Controller {
 	 * site index with display of news.
 	 * @param $news_get number of the new
 	 * ----------------------------------------------------------------------- */
-	public function index($news_get = 1)
+	public function index($news_get = 0)
 	{
 		if(!$this->user->isAuthenticated())
 		{
@@ -89,4 +89,14 @@ class Home extends MY_Controller {
 		$data['title'] = 'Bienvenue sur Onepiece-rpg !';
 		$this->construct_page('pages/accueil', $data);
 	}
+
+	/**
+	 * Site index for user not connect
+	 */
+	public function coming_soon()
+	{
+		$data['title'] = 'Coming Soon !';
+		$this->construct_page('pages/coming_soon', $data);
+	}
+
 }

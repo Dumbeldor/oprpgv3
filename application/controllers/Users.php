@@ -97,6 +97,8 @@ class Users extends MY_Controller {
    * Treaty the post of the registration form
    * ----------------------------------------------------------------------- */
   public function create() {
+    if($this->user->isAuthenticated())
+      redirect(base_url('/home/accueil'));
     $this->load->helper('form');
     $this->load->library('form_validation');
     
@@ -143,9 +145,10 @@ class Users extends MY_Controller {
    * Treaty post the login form
    * ----------------------------------------------------------------------- */
   public function connect() {
+    if($this->user->isAuthenticated())
+      redirect(base_url('/home/accueil'));
     $this->load->helper('form');
     $this->load->library('form_validation');
-    $this->load->helper('url');
     
     $data['title'] = 'Connexion';
     $pseudo = $this->input->post('pseudo');
@@ -173,6 +176,34 @@ class Users extends MY_Controller {
         $this->construct_page('users/connect', $data);
       }
     }
+  }
+
+  /*
+  * Lost password
+  * ------------------------------------------------------------------------- */
+  public function lostPass(){
+    if($this->user->isAuthenticated())
+      redirect(base_url('/home/accueil'));
+    $this->load->helper('form');
+    $this->load->library('form_validation');
+
+    $data['title'] = 'Mot de passe oublié';
+    $this->form_validation->set_rules('email', 'Email', 'required|min_length[3]|max_length[249]|valid_email');
+    if ($this->form_validation->run() === FALSE) {
+      $this->construct_page('users/lostPass', $data);
+    }
+    else {
+      $success = $this->users_model->emailExist();
+      if(!$success) {
+        $data['error'] = "L'email n'existe pas !";
+        $this->construct_page('users/lostPass', $data);
+      }
+      else {
+        $this->users_model->sendTookenLostPass();
+        $this->construct_page('users/lostPassSendEmail');
+      }
+    }
+
   }
   
     /*
