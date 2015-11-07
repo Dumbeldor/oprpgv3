@@ -138,4 +138,23 @@ class News_model extends CI_Model
 
 		return $this->db->insert('news_comments');
 	}
+
+	public function getEdit($id)
+	{
+		return $this->db->select('title, message')
+						->from('news')
+						->where('id', $id)
+						->get()
+						->result();
+	}
+
+	public function edit($id)
+	{
+		$data = array(
+			'title' => $this->input->post('title'),
+			'message' => $this->input->post('content')
+			);
+		$this->db->where('id', $id)
+				 ->update('news', $data);
+	}
 }

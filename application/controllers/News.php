@@ -17,6 +17,7 @@ class news extends MY_Controller
       	parent::__construct();
       	if(!$this->user->isAuthenticated())
       		redirect(base_url('/home/accueil'));
+        $this->load->model('news_model');
     }
     
     /**
@@ -26,7 +27,6 @@ class news extends MY_Controller
     public function page($news_get = 0)
     {
     	$this->load->library('pagination');
-    	$this->load->model('news_model');
     	$this->load->helper('url');
     
     	$data = array();
@@ -98,7 +98,6 @@ class news extends MY_Controller
 			redirect('index');
 		$this->load->helper('form');
     	$this->load->library('form_validation');
-    	$this->load->model('news_model');
     
     	$data['title'] = 'Ajouter News';
     	$data['add'] = false;
@@ -129,7 +128,6 @@ class news extends MY_Controller
 		//If the member is not Admin or Moderator then redirected to the index.
 		if(!($this->user->isAdmin() || $this->user->isModo()))
 			redirect('index');
-		$this->load->model('news_model');
 		$this->news_model->delete($id);
 		redirect('/index');
 	}
@@ -142,7 +140,6 @@ class news extends MY_Controller
 	{
 		if($id < 0)
 			redirect('index');
-		$this->load->model('news_model');
 		$data['title'] = "Les commentaires";
 		$data['new'] = $this->news_model->getNew($id);
 		$data['comments'] = $this->news_model->listComments($id);
@@ -161,7 +158,6 @@ class news extends MY_Controller
 			redirect('news/comment/'.$id);
 		$this->load->helper('form');
     	$this->load->library('form_validation');
-    	$this->load->model('news_model');
     
     	$data['title'] = 'Ajouter commentaire';
     	$data['add'] = false;
@@ -175,8 +171,28 @@ class news extends MY_Controller
     	else {
     		$this->news_model->addComments($contents, $id);
         	redirect('/news/comment/'.$id);
-      	}
-		
-		
+      	}	
 	}
+
+
+  public function edit($id=0)
+  {
+    if($id == 0 || $this->user->isModo())
+      redirect('/');
+    $data['id'] = $id;
+    $data['title'] = 'Edite d\'une news';
+    $this->load->library('form_validation');
+    $this->load->helper('form');
+    $this->form_validation->set_rules('title', 'Titre de la news', 'required|min_length[3]|max_length[50]');
+    $this->form_validation->set_rules('content', 'Contenu de la news', 'required|min_length[3]');
+    if ($this->form_validation->run() === FALSE) {
+      $data['error'] = 'Veuillez saisir au moins un texte de 10 caractères';
+      $data['new'] = $this->news_model->getEdit($id)[0];
+      $this->construct_page('news/edit', $data);
+    }
+    else {
+      $this->news_model->edit($id);
+      redirect('news/comments'.$id);
+    } 
+  }
 }
