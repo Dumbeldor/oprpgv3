@@ -1,6 +1,10 @@
 <div class="row pageNormale">
+
+  <!-- ========== STAFF ========== -->
   <h1>Staff</h1>
-  <br>  
+  <p>Description du staff...</p>
+
+  <!-- ========== LIST ========== -->
   <table class="table">  
     <thead>
       <tr>
@@ -8,13 +12,21 @@
         <th>Rang</th>
       </tr>
     </thead>
-    <tbody>  
-      <?php foreach ($users as $user): ?>
-        <tr>  
-          <td><a href="<?php echo base_url('/users/view/'.$user['id']); ?>"><?php echo $user['pseudo'] ?></a></td>
-          <td><?php echo $user['name'] ?></td>
-        </tr>
-      <?php endforeach ?>
-    </tbody> 
+    <tbody>
+
+      <?php 
+        // Loop staff
+        foreach ($users as $user):
+          echo '<tr>';
+          echo '<td>';
+          echo '<a href="'.base_url('/users/view/'.$user['id']).'" ';
+          echo 'class="'.$user['name'].'">';
+          echo $user['pseudo'].'</a></td>';
+          echo '<td>'.$user['name'].'</td>';
+          echo '</tr>';
+        endforeach 
+      ?>
+
+    </tbody>
   </table>
 </div>

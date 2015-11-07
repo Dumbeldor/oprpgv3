@@ -3,7 +3,7 @@
  ******************************************************************************
  * Description : 
  * This page contains the news
- * @todo Finish this description
+ * @todo Finish this description + add edit method
  * @author Dumbeldor
  * @version 1.0.0
  ******************************************************************************

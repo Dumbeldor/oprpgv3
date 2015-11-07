@@ -38,13 +38,15 @@
  * |
  * */
 
+/* Coming soon */
+$route['pages/coming_soon'] = 'home/coming_soon';
  
 /* Tchat */
- $route['tchat/salle/getMessages/(:num)'] = 'tchat/getMessages/$1';
- $route['tchat/salle/postMessage'] = 'tchat/post';
- $route['tchat/delete_message/(:num)'] = 'tchat/delete_message/$1';
+$route['tchat/salle/getMessages/(:num)'] = 'tchat/getMessages/$1';
+$route['tchat/salle/postMessage'] = 'tchat/post';
+$route['tchat/delete_message/(:num)'] = 'tchat/delete_message/$1';
  
- /* News */
+/* News */
 $route['news/(:num)'] = 'home/index/$1';
 
 /* Crew */
@@ -59,7 +61,6 @@ $route['crews/kick/(:num)'] = 'crews/kick/$1';
 $route['crews/changeRanks/(:num)'] = 'crews/changeRanks/$1';
 
 /* Forum */
-
 $route['forum/c/(:num)'] = 'forum/categories/$1';
 $route['forum/t/(:num)'] = 'forum/topics/$1';
 $route['forum/t/(:num)/(:num)'] = 'forum/topics/$1/$2';
@@ -74,10 +75,11 @@ $route['forum/delete_topic/(:num)'] = 'forum/delete_topic/$1';
 $route['forum/edit/(:num)'] = 'forum/edit/$1';
 $route['forum/quote/(:num)/(:num)'] = 'forum/quote/$1/$2';
 
-
+/* Messagerie */
 $route['private_messages/answer_message'] = '$1/$2';
 $route['private_messages/delete_message/(:num)'] = 'private_messages/delete_message/$1';
 
+/* Annuaire */
 $route['users/annuaire/(:num)'] = 'users/annuaire/$1';
 
 
