@@ -35,7 +35,7 @@
 
     <div class="row collapse">
       <div class="col-sm-offset-2 col-sm-10">
-        <a href="#">J'ai oublié mon mot de passe...</a>
+        <a href="<?= base_url('users/lostPass')?>">J'ai oublié mon mot de passe...</a>
       </div>
     </div>
 

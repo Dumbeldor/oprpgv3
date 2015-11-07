@@ -73,13 +73,25 @@ class News_model extends CI_Model
 	*/
 	public function lists($nb = 5, $debut = 0)
 	{
-		return $this->db->select('news.id, date_time, title, message, is_block, pseudo, (SELECT COUNT(*) FROM news_comments WHERE id_news = news.id LIMIT '.$debut.', '.$nb.') as nbComments')
+		return $this->db->select('news.id, date_time, title, message, news.is_block, pseudo, users.id AS idUser, users_types.name AS rank,
+			(SELECT COUNT(*) FROM news_comments WHERE id_news = news.id LIMIT '.$debut.', '.$nb.') as nbComments')
 			->from($this->table)
 			->join('users', 'news.id_users = users.id')
+			->join('users_types', 'users.id_users_types = users_types.id')
 			->limit($nb, $debut)
 			->order_by('news.id', 'desc')
 			->get()
 			->result();
+	}
+
+	public function getNew($id)
+	{
+		return $this->db->select('date_time, title, message, pseudo, users.id AS idUser, users_types.name AS rank')
+			->from($this->table)
+			->join('users', 'news.id_users = users.id')
+			->join('users_types', 'users.id_users_types = users_types.id')
+			->get()
+			->result_array()[0];
 	}
 	
 	/**
@@ -88,10 +100,11 @@ class News_model extends CI_Model
 	 */
 	public function listComments($id)
 	{
-		return $this->db->select('news_comments.id, news_comments.date_time, news_comments.message, news_comments.is_block, users.pseudo')
+		return $this->db->select('news_comments.id, news_comments.date_time, news_comments.message, news_comments.is_block, users.pseudo, users.id AS idUser, users_types.name AS rank')
 		->from('news_comments')
 		->join('users', 'news_comments.id_users = users.id')
 		->join('news', 'news_comments.id_news = news.id')
+		->join('users_types', 'users.id_users_types = users_types.id')
 		->order_by('news_comments.id', 'desc')
 		->where('id_news', $id)
 		->get()

@@ -49,11 +49,11 @@
         echo '<h4>'.$new->title.'</h4>';
 
         // News Informations
-        echo '<small>'.$new->pseudo;
+        echo '<small><a href="'.$new->idUser.'" class="'.$new->rank.'">'.$new->pseudo.'</a>';
         echo ' le '.date('d/m/Y à H\hi', $new->date_time).'</small><br><br>';
 
         // News Content
-        echo substr($new->message,0,200).' ...';
+        echo substr($new->message,0,200).'...<br><a href="'.base_url('news/comment/'.$new->id).'">Lire la suite</a>';
 
         // News Socials Comments
         echo '<div class="row">';

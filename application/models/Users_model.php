@@ -72,8 +72,12 @@ class Users_model extends CI_Model {
   public function set_user() {
   	$nbUser = $this->db->where('pseudo', $this->input->post('pseudo'))
             	->count_all_results('users');
+    $nbEmail = $this->db->where('email', $this->input->post('email'))
+            	->count_all_results('users');
     if($nbUser > 0)
     	return 0;
+    if($nbEmail > 0)
+    	return -1;
     $password_hash = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
     $data = array(
         'pseudo' => $this->input->post('pseudo'),
@@ -265,4 +269,19 @@ class Users_model extends CI_Model {
 	 imagedestroy($image_c);
 	 imagedestroy($image_d);
   }
+
+  public function emailExist() {
+  	 $nbEmail = $this->db->where('email', $this->input->post('email'))
+            	->count_all_results('users');
+     if($nbEmail == 1)
+     	return true;
+     return false;
+  }
+
+  //Send url for reset mdp
+  public function sendTookenLostPass() {
+  	//bin2hex(random_bytes(150));
+  	
+  }
+
 }

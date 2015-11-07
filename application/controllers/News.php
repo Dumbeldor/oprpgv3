@@ -144,8 +144,9 @@ class news extends MY_Controller
 			redirect('index');
 		$this->load->model('news_model');
 		$data['title'] = "Les commentaires";
-		$data['nbComments'] = $this->news_model->countComments($id);
+		$data['new'] = $this->news_model->getNew($id);
 		$data['comments'] = $this->news_model->listComments($id);
+    $data['nbComments'] = count($data['comments']);
 		$data['id'] = $id;
 		$this->construct_page('pages/comments', $data);		
 	}

@@ -109,32 +109,31 @@ class Users extends MY_Controller {
 	$this->form_validation->set_rules('passconf', 'Mot de passe de confirmation', 'required');
 	$this->form_validation->set_rules('email', 'Email', 'required|min_length[3]|max_length[249]|valid_email');
 	$this->form_validation->set_rules('sexe', 'sexe', 'required');
+
+  $data['nb_cheveux_homme']=9;
+  $data['nb_cheveux_femme']=9;
+  $data['nb_corps_homme']=3;
+  $data['nb_corps_femme']=3;
+  $data['nb_yeux']=4;
+  $data['nb_bouches']=6;
 	
-	if ($this->form_validation->run() === FALSE) {
-	  $data['nb_cheveux_homme']=9;
-	  $data['nb_cheveux_femme']=9;
-	  $data['nb_corps_homme']=3;
-	  $data['nb_corps_femme']=3;
-	  $data['nb_yeux']=4;
-	  $data['nb_bouches']=6;
-	  
-	  $data['scripts'][] = base_url('assets/js/users/create_avatar.js');
-      $this->construct_page('users/create', $data);
+	if ($this->form_validation->run() === FALSE) {	  
+	     $data['scripts'][] = base_url('assets/js/users/create_avatar.js');
+       $this->construct_page('users/create', $data);
     }
     else {
       $id = $this->users_model->set_user();
       if($id == 0) {
-         $data['nb_cheveux_homme']=9;
-         $data['nb_cheveux_femme']=9;
-          $data['nb_corps_homme']=3;
-          $data['nb_corps_femme']=3;
-          $data['nb_yeux']=4;
-          $data['nb_bouches']=6;
-          
           $data['scripts'][] = base_url('assets/js/users/create_avatar.js');
           $data['error'] = "Pseudo déjà utilisé !";
           $this->construct_page('users/create', $data);
-      } else {
+      } else if($id == -1) {
+          $data['scripts'][] = base_url('assets/js/users/create_avatar.js');
+          $data['error'] = "Email déjà utilisé !";
+          $this->construct_page('users/create', $data);
+      }
+
+      else {
   	    $this->users_model->create_avatar($id);
         $this->construct_page('users/success', $data);
       }
@@ -193,8 +192,7 @@ class Users extends MY_Controller {
       $this->construct_page('users/lostPass', $data);
     }
     else {
-      $success = $this->users_model->emailExist();
-      if(!$success) {
+      if(!$this->users_model->emailExist()) {
         $data['error'] = "L'email n'existe pas !";
         $this->construct_page('users/lostPass', $data);
       }
