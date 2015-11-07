@@ -40,7 +40,7 @@ class Users_model extends CI_Model {
   public function view_user($id = 0) {
         //Selection of all useful information to display on the member's profile
     $query = $this->db->query("SELECT users.pseudo, users.messNumber, users_types.name AS rank, levels.number AS lvl,
-    							crews.name AS crewName, crews_grades.name AS crewGrade, crews.id AS crewId
+    							crews.name AS crewName, crews_grades.name AS crewGrade, crews.id AS crewId, registration, last_connection
                                 FROM users
                                 JOIN levels ON levels.id = users.id_levels 
                                 JOIN users_types ON users_types.id = users.id_users_types
@@ -54,7 +54,9 @@ class Users_model extends CI_Model {
   
   public function annuaire($nb = 5, $debut = 0) {
 	$query = $this->db->limit($nb, $debut)
-			->select('users.id, pseudo, is_kick, id_levels')
+			->select('users.id, pseudo, registration, is_kick, users_types.name AS rank')
+      ->join('users_types', 'users.id_users_types = users_types.id')
+      ->order_by('users.id')
 			->get('users');
         return $query->result_array();
   }
@@ -82,6 +84,7 @@ class Users_model extends CI_Model {
     $data = array(
         'pseudo' => $this->input->post('pseudo'),
         'password' => $password_hash,
+        'registration' => time(),
         'email' => $this->input->post('email'),
         'id_personnages' => 1,
         'id_levels' => 1,
@@ -150,25 +153,31 @@ class Users_model extends CI_Model {
   }
   
   public function setup_connexion($pseudo) {
-    $query = $this->db->query("SELECT users.id, ban, pseudo, email, birthday, sexe, is_kick, id_personnages,
+      $query = $this->db->query("SELECT users.id, ban, pseudo, email, birthday, sexe, is_kick, id_personnages,
 							  id_levels, id_objects, id_users_types, users_types.name AS rank
 							  FROM users
 							  JOIN users_types ON users_types.id = id_users_types
 							  WHERE pseudo = ?", array($pseudo));
-    $user = $query->result_array();
-	$query = $this->db->query("SELECT crews.name AS crewName, crews.id AS crewId, crews_grades.name as crewRank
+      $user = $query->result_array();
+	     $query = $this->db->query("SELECT crews.name AS crewName, crews.id AS crewId, crews_grades.name as crewRank
 							  FROM crews_users
 							  JOIN users ON crews_users.id_users = users.id
 							  JOIN crews ON crews_users.id = crews.id
 							  JOIN crews_grades ON crews_users.id_crews_grades = crews_grades.id
 							  WHERE users.id = ?", array($user[0]['id']));
-	$crew = $query->result_array();
-	if(!$user[0]['ban'] && !$user[0]['is_kick']){
-	  $this->user->hydrate($user[0]);
-	  $this->user->hydrate($crew[0]);
-	  //$this->user->hydrate($user[1]);
-	  $this->user->setAuthenticated(true);
-	}
+	   $crew = $query->result_array();
+	   if(!$user[0]['ban'] && !$user[0]['is_kick']){
+	     $this->user->hydrate($user[0]);
+	     $this->user->hydrate($crew[0]);
+	     //$this->user->hydrate($user[1]);
+	     $this->user->setAuthenticated(true);
+	   }
+
+      $data = array(
+        'last_connection' => time()
+      );
+      $this->db->where('pseudo', $pseudo)
+         ->update('users', $data);
   }
 
   /*

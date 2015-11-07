@@ -1,9 +1,7 @@
   <header>
 
   <!-- ========== CONNECTED ========== -->
-
-    <?php if ($connecte) {?>
-
+<?php if ($connecte) {?>
       <div id="topbar">
         <nav class="top-bar bois" data-topbar>
 
@@ -68,13 +66,6 @@
               <li><a href="<?php echo base_url('/tchat') ?>">T'chat</a></li>
               <li class="divider"></li>
 
-              <?php if(!$connecte): ?>  
-                <li><a href="<?php echo base_url('/users/create') ?>">Inscription</a></li>
-                <li class="divider"></li>
-                <li><a href="<?php echo base_url('/users/connect') ?>">Connexion</a></li>
-                <li class="divider"></li>
-
-              <?php else: ?>
                 <li><a href="<?php echo base_url('/crews/index') ?>">Équipage</a></li>
                 <li class="divider"></li>
                 <li><a href="<?php echo base_url('/account') ?>">Mon Compte
@@ -84,7 +75,6 @@
                 <li class="divider"></li>
                 <li><a href="<?php echo base_url('/users/disconnect') ?>">Deconnexion</a></li>
                 <li class="divider"></li>
-              <?php endif; ?>
 
             </ul> <!-- /<ul class="right"> -->
 
@@ -98,7 +88,7 @@
     <?php } else {?>
 
        <div id="topbar">
-        <nav class="top-bar" data-topbar >
+        <nav class="top-bar bois" data-topbar >
 
           <!-- :::::::::: TITLE :::::::::: -->
 

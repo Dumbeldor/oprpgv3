@@ -27,7 +27,7 @@
             <thead>
               <tr>
                 <th>Pseudo</th>
-                <th>Id</th>
+                <th>Date d'inscription</th>
               </tr>
             </thead>
             <tbody>
@@ -37,10 +37,10 @@
                 foreach ($users as $user):
                   echo '<tr>';
                   echo '<td>';
-                  echo '<a href="'.base_url('/users/view/'.$user['id']).'">';
+                  echo '<a href="'.base_url('/users/view/'.$user['id']).'" class="'.$user['rank'].'">';
                   echo $user['pseudo'].'</a>';
                   echo '</td>';
-                  echo '<td>'.$user['id'].'</td>';
+                  echo '<td>'. date('d/m/Y à H\hi',$user['registration']).'</td>';
                   echo '</tr>';
                 endforeach 
               ?>
