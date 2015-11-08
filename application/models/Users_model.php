@@ -229,10 +229,11 @@ class Users_model extends CI_Model {
 	$hair = $this->input->post('hair');
 	$eyes = $this->input->post('eyes');
 	$mouth = $this->input->post('mouth');
+  $couleur = $this->input->post('couleur');
 	
 	if($sexe=='Homme') {
-		$this->merge_images('assets/img/avatars/man/body/' . $body . '.png', 'assets/img/avatars/man/hair/' . $hair . '.png',
-		'assets/img/avatars/eyes/' . $eyes . '.png', 'assets/img/avatars/mouths/' . $mouth . '.png', 
+		$this->merge_images('assets/img/avatars/man/body/' . $body . '.png', 'assets/img/avatars/man/eyes/' . $eyes . '.png',
+    'assets/img/avatars/mouths/' . $mouth . '.png', 'assets/img/avatars/man/hair/'.$couleur.'/'. $hair . '.png', 
 		'assets/img/avatarsJoueurs/' . $id . '.png');
 	} else {
 		$this->merge_images('assets/img/avatars/woman/body/' . $body . '.png', 'assets/img/avatars/woman/hair/' . $hair . '.png',

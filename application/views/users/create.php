@@ -1,3 +1,5 @@
+ <link rel="stylesheet" 
+      href="<?php echo base_url('assets/css/design.css');?>"/>
 <div class="row pageNormale">
 
   <!-- ========== HEAD ========== -->
@@ -92,15 +94,27 @@
 
     <div class="row collapse">
 
-      <div class="small-2 large-4 columns panel">
-        <div id="show_avatar" class="columns small-3">
+      <div class="small-2 large-2 columns panel">
+        <div id="show_avatar" class="columns small-12">
           <div id="currentAvatarPanel">
             <img class="currentAvatar" src="<?php echo base_url('assets/img/corps.png'); ?>">
           </div>
+              Couleur cheveux:<br>
+
+              <a href="#noir" onclick="avatarCouleur('noir')">Noir</a><br>
+              <a href="#marron" onclick="avatarCouleur('marron')">Marron</a><br>
+              <a href="#rouge" onclick="avatarCouleur('rouge')">Rouge</a><br>
+              <a href="#orange" onclick="avatarCouleur('orange')">Orange</a><br>
+              <a href="#jaune" onclick="avatarCouleur('jaune')">Jaune</a><br>
+              <a href="#vert" onclick="avatarCouleur('vert')">Vert</a><br>
+              <a href="#bleu" onclick="avatarCouleur('bleu')">Bleu</a><br>
+              <a href="#blanc" onclick="avatarCouleur('blanc')">Blanc</a><br>
+              <a href="#rose" onclick="avatarCouleur('rose')">Rose</a><br>
+            
         </div>
       </div>
 
-      <div class="small-2 large-4 columns panel">
+      <div class="small-2 large-2 columns panel">
         <div id="etapes_avatars" class="columns small-3">
           <div id="etapesPanel" >
             <a id="etape_corps">1- Corps</a><br>
@@ -111,8 +125,8 @@
         </div>
       </div>
 
-      <div class="small-2 large-4 columns panel">
-        <div id="options_avatars" class="columns small-6">
+      <div class="small-8 large-8 columns panel">
+        <div id="options_avatars">
           <div id="optionsPanel">
             <div id="options">
             </div>
@@ -132,17 +146,31 @@
     <input id="input_hair" type="hidden" name="hair" value="0">
     <input id="input_eyes" type="hidden" name="eyes" value="0">
     <input id="input_mouth" type="hidden" name="mouth" value="0">
+     <input id="input_couleur" type="hidden" name="couleur" value="0">
 
   <?php echo form_close(); ?>
 
   <!-- ========== SCRIPT ========== -->
   <script>
     var avat_dir = "<?php echo base_url('assets/img/avatars'); ?>";
-    var nb_cheveux_homme=<?php echo $nb_cheveux_homme; ?>;
+    var color = 'noir';
+
+    var nb_cheveux_homme_noir = <?= $nb_cheveux_homme_noir ?>;
+    var nb_cheveux_homme_marron = <?= $nb_cheveux_homme_marron ?>;
+    var nb_cheveux_homme_rouge = <?= $nb_cheveux_homme_rouge ?>;
+    var nb_cheveux_homme_orange = <?= $nb_cheveux_homme_orange ?>;
+    var nb_cheveux_homme_jaune = <?= $nb_cheveux_homme_jaune ?>;
+    var nb_cheveux_homme_vert = <?= $nb_cheveux_homme_vert ?>;
+    var nb_cheveux_homme_bleu = <?= $nb_cheveux_homme_bleu ?>;
+    var nb_cheveux_homme_blanc = <?= $nb_cheveux_homme_blanc ?>;
+    var nb_cheveux_homme_rose = <?= $nb_cheveux_homme_rose ?>;
+
+   
     var nb_cheveux_femme=<?php echo $nb_cheveux_femme; ?>;
     var nb_corps_homme=<?php echo $nb_corps_homme; ?>;
     var nb_corps_femme=<?php echo $nb_corps_femme; ?>;
-    var nb_yeux=<?php echo $nb_yeux; ?>;
+    var nb_yeux_homme=<?php echo $nb_yeux_homme; ?>;
+    var nb_yeux_femme=<?php echo $nb_yeux_femme; ?>;
     var nb_bouches=<?php echo $nb_bouches; ?>;
   </script>
 

@@ -110,12 +110,23 @@ class Users extends MY_Controller {
 	$this->form_validation->set_rules('email', 'Email', 'required|min_length[3]|max_length[249]|valid_email');
 	$this->form_validation->set_rules('sexe', 'sexe', 'required');
 
-  $data['nb_cheveux_homme']=9;
-  $data['nb_cheveux_femme']=9;
+  $url = 'C:\xampp\htdocs\oprpg\assets\img\avatars\man\hair';
+
+  $data['nb_cheveux_homme_noir']=count(scandir($url.'/noir'))-2;
+  $data['nb_cheveux_homme_marron']=count(scandir($url.'/marron'))-2;
+  $data['nb_cheveux_homme_rouge']=count(scandir($url.'/rouge'))-2;
+  $data['nb_cheveux_homme_orange']=count(scandir($url.'/orange'))-2;
+  $data['nb_cheveux_homme_jaune']=count(scandir($url.'/jaune'))-2;
+  $data['nb_cheveux_homme_vert']=count(scandir($url.'/vert'))-2;
+  $data['nb_cheveux_homme_bleu']=count(scandir($url.'/bleu'))-2;
+  $data['nb_cheveux_homme_blanc']=count(scandir($url.'/blanc'))-2;
+  $data['nb_cheveux_homme_rose']=count(scandir($url.'/rose'))-2;
+  $data['nb_cheveux_femme']=110;
   $data['nb_corps_homme']=3;
   $data['nb_corps_femme']=3;
-  $data['nb_yeux']=4;
-  $data['nb_bouches']=6;
+  $data['nb_yeux_homme']=58;
+  $data['nb_yeux_femme']=73;
+  $data['nb_bouches']=9;
 	
 	if ($this->form_validation->run() === FALSE) {	  
 	     $data['scripts'][] = base_url('assets/js/users/create_avatar.js');
