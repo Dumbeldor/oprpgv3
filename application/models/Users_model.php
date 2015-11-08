@@ -290,5 +290,19 @@ class Users_model extends CI_Model {
   	//bin2hex(random_bytes(150));
   	
   }
+  
+  public function countBody($sexe = 0){
+	return $this->db->where('sexe', $sexe)
+				  ->count_all_results('body');
+  }
+  
+  public function countEyes($sexe=0) {
+	return $this->db->where('sexe', $sexe)
+				  ->count_all_results('eyes');
+  }
+  
+  public function countMouths() {
+	return $this->db->count_all_results('mouths');
+  }
 
 }
