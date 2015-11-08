@@ -40,25 +40,31 @@ class Forum extends MY_Controller {
    * Default Page or Display each type of forum
    * ----------------------------------------------------------------------- */
   public function index() {
+
     // Set title and loading forum's type
     $data['title'] = 'Forum';
-      $data['categorie'] = $this->forum_model->get_categories();
+    $data['categorie'] = $this->forum_model->get_categories();
       
-      // Construct this page
-      $this->construct_page('forum/index', $data);
-  }
+    // Construct this page
+    $this->construct_page('forum/index', $data);
+
+  } // end function index()
   
   /**
    * Display each topic of a chosen categorie 
    * @param $id_cate categorie's id
+   * @param $page Descript
    * ----------------------------------------------------------------------- */
   public function categories($id_categorie, $page = 0) {
     
-    if($id_categorie == 1 && !($this->user->isModo() || $this->user->isAdmin()))
+    if($id_categorie == 1 && !($this->user->isModo() 
+      || $this->user->isAdmin())){
       redirect('forum/');
+    }
       
-    if(!$this->forum_model->iscrew_forum_categorie($id_categorie))
+    if(!$this->forum_model->iscrew_forum_categorie($id_categorie)){
       redirect('forum/');
+    }
     
     $this->load->helper('form');
     $this->load->library('pagination');
@@ -76,46 +82,50 @@ class Forum extends MY_Controller {
     $this->pagination->initialize($config);
     $page = $page * 10;
     
-    if($page > 0)
-    {
-      if($page <= $nbMess)
+    if($page > 0){
+
+      if($page <= $nbMess){
         $page = intval($page);
-      else
+      } else {
         $page = 0;
-    }
-    else
+      }
+
+    } else {
       $page = 0;
-    
+    }
     
     $data['pagination'] = $this->pagination->create_links();
     
-    
-    
     // Set title and loading categories
     $data['title'] = 'Forum';
-      $data['topic'] = $this->forum_model->get_topics($id_categorie, 10, $page);
+    $data['topic'] = $this->forum_model->get_topics($id_categorie, 10, $page);
+
+    $data['aria'] = $this->forum_model->get_aria_categorie($id_categorie)[0];
+    $data['id_categorie'] = $id_categorie;
     
-  
-    
-      $data['aria'] = $this->forum_model->get_aria_categorie($id_categorie)[0];
-      $data['id_categorie'] = $id_categorie;
-    
-      // Construct this page
-      $this->construct_page('forum/categories', $data);
-  }
+    // Construct this page
+    $this->construct_page('forum/categories', $data);
+
+  } //-- end function categories($id_categorie, $page = 0)
   
   /**
    * Displays the topic posts
    * @param $id_topic topic's id
+   * @param $page Descript
    * ----------------------------------------------------------------------- */
   public function topics($id_topic, $page=0) {
+
     // Verifiy user is not accessing secret topic
     $data['id_categorie'] = $this->forum_model->get_id_categorie($id_topic)[0]['id_forums_categories'];
-    if($data['id_categorie'] == 1 && !($this->user->isModo() || $this->user->isAdmin()))
+
+    if($data['id_categorie'] == 1 && !($this->user->isModo() 
+      || $this->user->isAdmin())){
       redirect('forum/');
+    }
       
-    if(!$this->forum_model->iscrew_forum_topic($id_topic))
+    if(!$this->forum_model->iscrew_forum_topic($id_topic)){
       redirect('forum/');
+    }
     
     // Loading helper form and set title
     $this->load->helper('form');
@@ -125,8 +135,9 @@ class Forum extends MY_Controller {
     $data['title'] = 'Forum';
     
     //If topic close
-    if($this->forum_model->is_close($id_topic)[0]['is_block'])
+    if($this->forum_model->is_close($id_topic)[0]['is_block']){
       redirect('/forum/');
+    }
     
     //pagination
     $nbMess = $this->forum_model->countMess($id_topic);
@@ -139,11 +150,12 @@ class Forum extends MY_Controller {
     
     $config['last_tag_open'] = '<li class="arrow">';
     $config['last_tag_close'] = '</li>';
-      $config['last_link'] = '&raquo;';
+    $config['last_link'] = '&raquo;';
       
     $config['first_tag_open'] = '<li class="arrow">';
     $config['first_tag_close'] = '</li>';
-    $config['first_link'] = '&laquo;';    
+    $config['first_link'] = '&laquo;';   
+
     //Courant
     $config['cur_tag_open'] = '<li class="current">';
     $config['cur_tag_close'] = '</li>';   
@@ -151,11 +163,8 @@ class Forum extends MY_Controller {
     $config['num_tag_open'] = '<li>';
     $config['num_tag_close'] = '</li>';
     
-
     $config['next_tag_open'] = ' <li class="arrow">';
-     $config['next_tag_close'] = '</li>';
-    
-    
+    $config['next_tag_close'] = '</li>';
 
     $config['prev_tag_open'] = '<li class="arrow">';
     $config['prev_tag_close'] = '</liv>';
@@ -163,20 +172,18 @@ class Forum extends MY_Controller {
     $this->pagination->initialize($config);
     $page = $page*15;
     
-    if($page > 0)
-    {
-      if($page <= $nbMess)
+    if($page > 0){
+      if($page <= $nbMess){
         $page = intval($page);
-      else
+      } else {
         $page = 0;
-    }
-    else
+      }
+    } else {
       $page = 0;
-    
+    }
     
     $data['pagination'] = $this->pagination->create_links();
     
-
     // Loading of each topic (and all the information about the topic, 
     // these information will be stored in this array)
     $data['aria'] = $this->forum_model->get_aria_topic($id_topic)[0];
@@ -185,16 +192,25 @@ class Forum extends MY_Controller {
     // Get all topic's messages
     $data['messages'] = $this->forum_model->get_messages($id_topic, 30, $page);
     
-    if($data['id_categorie'] == $this->user->getAttribute('crewId') AND $this->crew->isCapitaine())
+    if($data['id_categorie'] == $this->user->getAttribute('crewId') 
+      AND $this->crew->isCapitaine()){
       $data['capitaineCrew'] = true;
-    else if ($data['id_categorie'] == $this->user->getAttribute('crewId') AND $this->crew->isAdmin())
+    }
+    
+    else if ($data['id_categorie'] == $this->user->getAttribute('crewId') 
+      AND $this->crew->isAdmin()){
       $data['adminCrew'] = true;
-    else if ($data['id_categorie'] == $this->user->getAttribute('crewId') AND $this->crew->isModo())
+    }
+
+    else if ($data['id_categorie'] == $this->user->getAttribute('crewId') 
+      AND $this->crew->isModo()){
       $data['modoCrew'] = true;
+    }
 
     // Construct this page
     $this->construct_page('forum/topics', $data);
-  }
+
+  } //-- function topics($id_topic, $page=0)
 
   /**
    * Display the form to write an answer for a topic
@@ -209,50 +225,72 @@ class Forum extends MY_Controller {
     // Construct this page
     $this->construct_page('forum/answer', $data);
     
-  }
+  } //-- function answer()
   
+  /**
+   * @todo Descript
+   * ----------------------------------------------------------------------- */
   public function quote($idTopic = 0, $idCitation = 0) {
-    if($idTopic == 0 || $idCitation == 0)
+
+    if($idTopic == 0 
+      || $idCitation == 0){
       redirect('forum/');
+    }
     
     // Verifiy user is not accessing secret topic
     $id_cat = $this->forum_model->get_id_categorie($idTopic)[0]['id_forums_categories'];
-    if($id_cat == 1 && !($this->user->isModo() || $this->user->isAdmin())) {
+    if($id_cat == 1 
+      && !($this->user->isModo() 
+      || $this->user->isAdmin())) {
       redirect('forum/');
     }
     
     // Verify user is not quoting message from another crew's forum
-    if(!$this->forum_model->iscrew_forum_topic($idTopic))
+    if(!$this->forum_model->iscrew_forum_topic($idTopic)){
       redirect('forum/');
+    }
     
     $this->load->helper('form');
     $citation = $this->forum_model->getQuote($idTopic, $idCitation);
-    if(empty($citation))
+
+    if(empty($citation)){
       redirect('forum/t/'.$idTopic);
+    }
+
     $citation = $citation[0];
+
     if(!empty($citation)) {
       $data['message_citation'] = '<blockquote><p><u><strong><em>Citation de '.$citation['pseudo'].'</em></strong></u></p><p>'.$citation['message'].'</blockquote></p>';
     }
+
     $data['idTopic'] = $idTopic;
+
     // Construct this page
     $data['title'] = 'Forum';
     $this->construct_page('forum/answer', $data);
-  }
+
+  } //-- function answer()
 
   /**
    * Create new topic
    * ----------------------------------------------------------------------- */
   public function create_topic() {
+
     // Loading helper form, set title and category id
     $this->load->helper('form');
     $data['title'] = 'Forum';
     $data['id_categorie'] = $this->input->post('id_categorie');
-    if($data['id_categorie'] == 1 && !($this->user->isModo() || $this->user->isAdmin()))
+
+    if($data['id_categorie'] == 1 
+      && !($this->user->isModo() 
+      || $this->user->isAdmin())){
       redirect('forum/');
+    }
     
     // Construct this page
     $this->construct_page('forum/create_topic', $data);
-  }
+
+  } //-- end function create_topic()
 
   // ========================================================================
   // ACTION FUNCTION
@@ -266,13 +304,20 @@ class Forum extends MY_Controller {
     // Set informations into variables - Format them
     $id_categorie = $this->input->post('id_categorie');
     $postit = $this->input->post('post-it');
+
     //If postit is true
-    if($postit)
+    if($postit){
       $etat = 4;
-    else
+    } else {
       $etat = 1;
-    if($id_categorie== 1 && !($this->user->isModo() || $this->user->isAdmin()))
+    }
+
+    if($id_categorie== 1 
+      && !($this->user->isModo() 
+      || $this->user->isAdmin())){
       redirect('forum/');
+    }
+
     $topic_name = $this->input->post('topic_name');
     $message = $this->input->post('message');
     $id_user = $this->user->getId();
@@ -283,7 +328,8 @@ class Forum extends MY_Controller {
     
     // Call send_message function to complete the process
     $this->send_message($message, $id_categorie, $date_message,$id_topic,$id_user);
-  }
+
+  } //-- end function send_topic()
 
   /**
    * Send a new message
@@ -323,6 +369,7 @@ class Forum extends MY_Controller {
    * @param $id_essage message's id
    * ----------------------------------------------------------------------- */
   public function delete_message($id_message) {
+
     // Topic's id is get in order to redirect the user to this topic 
     $id_topic = $this->forum_model->get_id_topic($id_message)[0]['id_forums_topics'];
 
@@ -330,35 +377,56 @@ class Forum extends MY_Controller {
     $success = $this->forum_model->delete_message($id_message, $id_topic);
     
     // redirect
-    if($success)
+    if($success){
       redirect('/forum/t/'.$id_topic);
-    else
+    } else {
       redirect('/forum');
-  }
+    }
+
+  } //-- end function delete_message($id_message)
   
   /**
    *  Delete a topic
    *  @param $id_topic id topic
    * ----------------------------------------------------------------- */
   public function delete_topic($id_topic = 0) {
-    if($id_topic == 0)
+
+    if($id_topic == 0) {
       redirect('/forum');
+    }
+
     $success = false;
     $categorie = $this->forum_model->get_id_categorie($id_topic)[0]['id_forums_categories'];
-    if($this->user->isAdmin() || $this->user->isModo() ||
-      ($this->user->getAttribute('crewId') == $categorie && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
+
+    if($this->user->isAdmin() 
+      || $this->user->isModo() 
+      || ($this->user->getAttribute('crewId') == $categorie 
+        && ($this->crew->isCapitaine() 
+        || $this->crew->isAdmin() 
+        || $this->crew->isModo())
+        )
+      ){
       $success = $this->forum_model->delete_topic($id_topic);
     }
-    if($success)
+
+    if($success){
       redirect('/forum/c/'.$categorie);
-    else
+    } else {
       redirect('/forum');
-  }
+    }
+
+  } //-- end function delete_topic($id_topic = 0)
   
+  /**
+   * @todo Descript
+   * ----------------------------------------------------------------------- */
   public function edit($id = 0) {
-    if($id == 0)
+
+    if($id == 0){
       redirect('/forum');
-      // Loading helper form, set title and id
+    }
+
+    // Loading helper form, set title and id
     $this->load->helper('form');
     $data['title'] = 'Forum : Edit message';
     $topicId = $this->forum_model->get_id_topic($id)[0]['id_forums_topics'];
@@ -367,26 +435,36 @@ class Forum extends MY_Controller {
     $data['id_message'] = $id;
     
     // Construct this page
-    if(!empty($data['message']))
+    if(!empty($data['message'])){
       $this->construct_page('forum/edit', $data);
-    else
+    } else {
       redirect('/forum');
-  }
+    }
+
+  } //-- end function edit($id = 0)
   
+  /**
+   * @todo Descript
+   * ----------------------------------------------------------------------- */
   public function send_edit() {
-    if($this->input->post('id_message') == 0)
+
+    if($this->input->post('id_message') == 0) {
       redirect('/forum');
+    }
+
     $message = $this->input->post('message').'<p></p><em><span style="font-size:8px">Édité par '.$this->user->getPseudo().' le '.date('d/m/Y à H\hi'). '</span></em></p>';
     $topicId = $this->forum_model->get_id_topic($this->input->post('id_message'))[0]['id_forums_topics'];
     $categorieId = $this->forum_model->get_id_categorie($topicId)[0]['id_forums_categories'];
     $success = $this->forum_model->edit($this->input->post('id_message'), $message, $categorieId);
+    
     if($success) {
       redirect('/forum/t/'.$topicId);
     } else {
       redirect('/forum');
     }
-  }
+
+  } //-- end function send_edit()
   
-}
+} //-- class Forum extends MY_Controller {
   
 ?>
