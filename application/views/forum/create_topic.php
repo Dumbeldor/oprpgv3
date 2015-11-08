@@ -13,7 +13,7 @@
 	<?php } ?>
 	
 	<script>
-            CKEDITOR.replace( 'forum_message' );
+            CKEDITOR.replace('forum_message');
         </script>
    
 	</form>

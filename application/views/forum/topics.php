@@ -32,12 +32,13 @@
 										<div class="panel" id="<?= $message->ranks;?>">												
 												<i> le <?php echo date('d/m/Y à H\hi',$message->date); ?> | <?php
 												if($message->userId == $this->user->getId() || $moderator || ($id_categorie == $this->user->getAttribute('crewId') && ($modoCrew || $adminCrew || $capitaineCrew))) {
-													?><a href="<?php echo base_url('forum/delete_message/'.$message->id); ?>">Supprimer</a>
+													?><a href="<?php echo base_url('forum/delete_message/'.$message->id); ?>"><img src="<?= base_url('assets/img/icone/delete.png')?>" title="Supprimer"></img></a>
 													|
-													<a href="<?php echo base_url('forum/edit/'.$message->id); ?>">Éditer</a>
+													<a href="<?php echo base_url('forum/edit/'.$message->id); ?>"><img src="<?= base_url('assets/img/icone/edit.png')?>" title="Edite message"></img></a>
 												<?php } ?>
 													|
-												<a href="<?php echo base_url('forum/quote/'.$id_topic.'/'.$message->id);?>">Citer</a> | <a href="#<?= $message->id?>">Ancre</a>
+												<a href="<?php echo base_url('forum/quote/'.$id_topic.'/'.$message->id);?>"><img src="<?= base_url('assets/img/icone/quote.png')?>" title="Citer message"></img></a> | 
+												<a href="#<?= $message->id?>"><img src="<?= base_url('assets/img/icone/ancre.png')?>" title="Url vers ce message"></img></a>
 												<br><br></i>
 																
 																	

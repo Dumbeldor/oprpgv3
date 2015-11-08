@@ -90,6 +90,7 @@ class News_model extends CI_Model
 			->from($this->table)
 			->join('users', 'news.id_users = users.id')
 			->join('users_types', 'users.id_users_types = users_types.id')
+			->where('news.id', $id)
 			->get()
 			->result_array()[0];
 	}

@@ -18,8 +18,18 @@
       href="<?php echo base_url('assets/img/icon-pack/miu-icons/flaticon.css');?>">
 
     <!-- ========== JAVASCRIPT ========== -->
-    <script 
-      src="<?php echo base_url('assets/ckeditor/ckeditor.js');?>"></script>
+    <?php if($moderator || $admin || $redactor) {
+      ?><script 
+      src="<?php echo base_url('assets/js/ckeditorStaff/ckeditor.js');?>"></script>
+      <?php
+    } else if($VIP) { 
+      ?>
+      <script 
+        src="<?php echo base_url('assets/js/ckeditorVIP/ckeditor.js');?>"></script>
+      <?php } else {?>
+      <script 
+        src="<?php echo base_url('assets/js/ckeditorUsers/ckeditor.js');?>"></script>
+      <?php } ?>
     <script 
       src="<?php echo base_url('assets/js/vendor/modernizr.js');?>"></script>
     

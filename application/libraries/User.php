@@ -67,6 +67,11 @@ class User
 	{
 		return ($this->CI->session->userdata('auth')) ? true : false;
 	}
+
+	public function isRedactor()
+	{
+		return ($this->CI->session->userdata('rank') == "Rédacteur" || $this->CI->session->userdata('rank') == "Rédactrice") ? true : false;
+	}
 	 
 	public function isAdmin()
 	{
@@ -91,6 +96,10 @@ class User
 		return $this->CI->session->userdata('pseudo');
 	}
 
+	public function getRank()
+	{
+		return $this->CI->session->userdata('rank');
+	}
 	 
 	public function getId()
 	{

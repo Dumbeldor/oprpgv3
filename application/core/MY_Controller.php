@@ -43,20 +43,26 @@
 			$data['modoCrew'] = 0;
 		}		
 		
+		 $data['moderator'] = 0;
+         $data['admin'] = 0;
+         $data['redactor'] = 0;
+         $data['VIP'] = 0;
         
 		if($this->user->isBan() || $this->user->isKick())
-		  $this->user->logout();
+		  	$this->user->logout();
 		else if($this->user->isAdmin()) {
-          $data['admin'] = TRUE;
-		  $data['moderator'] = TRUE;
+          	$data['admin'] = TRUE;
+		  	$data['moderator'] = TRUE;
 		}
         else if($this->user->isModo()) {
-		  $data['admin'] = 0;
-          $data['moderator'] = TRUE;
+		  	$data['admin'] = 0;
+          	$data['moderator'] = TRUE;
+		} 
+		else if($this->user->isRedactor()) {
+			$data['redactor'] = TRUE;
 		}
 		else {
-          $data['moderator'] = 0;
-          $data['admin'] = 0;
+			
 		}
       }else{
       	$data['connecte'] = 0;
