@@ -64,7 +64,7 @@ class Users_model extends CI_Model {
 	$query = $this->db->select('users.id, pseudo, users_types.name, users_types.id AS idRanks')
 			  ->from('users')
 			  ->join('users_types', 'users.id_users_types = users_types.id')
-			  ->where('users.id_users_types >', 1)
+			  ->where('users.id_users_types >', 15)
 			  ->order_by('users.id_users_types DESC')
 			  ->get();
 	return $query->result_array();
