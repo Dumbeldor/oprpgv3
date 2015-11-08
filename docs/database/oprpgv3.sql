@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.3.11
+-- version 4.4.14
 -- http://www.phpmyadmin.net
 --
--- Client :  127.0.0.1
--- Généré le :  Dim 08 Novembre 2015 à 15:08
--- Version du serveur :  5.6.24
--- Version de PHP :  5.6.8
+-- Client :  localhost
+-- Généré le :  Dim 08 Novembre 2015 à 22:59
+-- Version du serveur :  5.6.26
+-- Version de PHP :  5.6.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,11 +14,26 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de données :  `oprpgv3`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Avatar`
+--
+
+CREATE TABLE IF NOT EXISTS `Avatar` (
+  `id` int(11) NOT NULL,
+  `id_mouths` int(11) NOT NULL,
+  `id_hair` int(11) NOT NULL,
+  `id_nose` int(11) NOT NULL,
+  `id_eyes` int(11) NOT NULL,
+  `id_body` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -54,6 +69,18 @@ CREATE TABLE IF NOT EXISTS `bags_types` (
   `size` int(11) NOT NULL,
   `file` varchar(255) NOT NULL,
   `is_block` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `body`
+--
+
+CREATE TABLE IF NOT EXISTS `body` (
+  `id` int(11) NOT NULL,
+  `name` varchar(25) DEFAULT NULL,
+  `is_block` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -157,7 +184,8 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`id`, `idUser`, `ip_address`, `timestamp`, `data`) VALUES
-('19604aa814a395b3acc3209ea359ddf6ea022750', 1, '::1', 1446991706, 0x5f5f63695f6c6173745f726567656e65726174657c693a313434363939313432303b69647c733a313a2231223b62616e7c733a313a2230223b70736575646f7c733a393a2244756d62656c646f72223b656d61696c7c733a32333a2276696e63656e74676c697a6540686f746d61696c2e6672223b62697274686461797c733a31303a22303030302d30302d3030223b736578657c4e3b69735f6b69636b7c733a313a2230223b6c766c7c733a313a2230223b69645f6f626a656374737c733a313a2231223b69645f75736572735f74797065737c733a323a223234223b72616e6b7c733a31343a2241646d696e697374726174657572223b7c4e3b617574687c623a313b637265774e616d657c733a393a2253746166666f756c61223b6372657749647c733a323a223530223b6372657752616e6b7c733a393a22436170697461696e65223b637265777c733a393a2253746166666f756c61223b);
+('19604aa814a395b3acc3209ea359ddf6ea022750', 1, '::1', 1446991706, 0x5f5f63695f6c6173745f726567656e65726174657c693a313434363939313432303b69647c733a313a2231223b62616e7c733a313a2230223b70736575646f7c733a393a2244756d62656c646f72223b656d61696c7c733a32333a2276696e63656e74676c697a6540686f746d61696c2e6672223b62697274686461797c733a31303a22303030302d30302d3030223b736578657c4e3b69735f6b69636b7c733a313a2230223b6c766c7c733a313a2230223b69645f6f626a656374737c733a313a2231223b69645f75736572735f74797065737c733a323a223234223b72616e6b7c733a31343a2241646d696e697374726174657572223b7c4e3b617574687c623a313b637265774e616d657c733a393a2253746166666f756c61223b6372657749647c733a323a223530223b6372657752616e6b7c733a393a22436170697461696e65223b637265777c733a393a2253746166666f756c61223b),
+('c3e899187927bf4e29517f6f823edabf1471f76c', 0, '::1', 1447018369, 0x5f5f63695f6c6173745f726567656e65726174657c693a313434373031383131333b);
 
 -- --------------------------------------------------------
 
@@ -356,6 +384,20 @@ CREATE TABLE IF NOT EXISTS `ennemies` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `eyes`
+--
+
+CREATE TABLE IF NOT EXISTS `eyes` (
+  `id` int(11) NOT NULL,
+  `name` varchar(25) DEFAULT NULL,
+  `sexe` tinyint(1) NOT NULL,
+  `color` varchar(50) NOT NULL,
+  `is_block` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `forums_categories`
 --
 
@@ -494,6 +536,18 @@ INSERT INTO `forums_topics_types` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `hair`
+--
+
+CREATE TABLE IF NOT EXISTS `hair` (
+  `id` int(11) NOT NULL,
+  `name` varchar(25) DEFAULT NULL,
+  `is_block` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `islands`
 --
 
@@ -569,6 +623,33 @@ INSERT INTO `lost_pass` (`id`, `tooken`, `date_time`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `mouths`
+--
+
+CREATE TABLE IF NOT EXISTS `mouths` (
+  `id` int(11) NOT NULL,
+  `name` varchar(25) DEFAULT NULL,
+  `is_block` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `mouths`
+--
+
+INSERT INTO `mouths` (`id`, `name`, `is_block`) VALUES
+(1, '1', 0),
+(2, '2', 0),
+(3, '3', 0),
+(4, '4', 0),
+(5, '5', 0),
+(6, '6', 0),
+(7, '7', 0),
+(8, '8', 0),
+(9, '9', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `news`
 --
 
@@ -601,6 +682,18 @@ CREATE TABLE IF NOT EXISTS `news_comments` (
   `is_block` tinyint(1) NOT NULL,
   `id_users` int(11) NOT NULL,
   `id_news` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `nose`
+--
+
+CREATE TABLE IF NOT EXISTS `nose` (
+  `id` int(11) NOT NULL,
+  `name` varchar(25) DEFAULT NULL,
+  `is_block` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -905,16 +998,29 @@ INSERT INTO `users_types` (`id`, `name`, `is_block`) VALUES
 --
 
 --
+-- Index pour la table `Avatar`
+--
+ALTER TABLE `Avatar`
+  ADD PRIMARY KEY (`id`,`id_mouths`,`id_hair`,`id_nose`,`id_eyes`,`id_body`),
+  ADD KEY `FK_Avatar_id_mouths` (`id_mouths`),
+  ADD KEY `FK_Avatar_id_hair` (`id_hair`),
+  ADD KEY `FK_Avatar_id_nose` (`id_nose`),
+  ADD KEY `FK_Avatar_id_eyes` (`id_eyes`),
+  ADD KEY `FK_Avatar_id_body` (`id_body`);
+
+--
 -- Index pour la table `bags`
 --
 ALTER TABLE `bags`
-  ADD PRIMARY KEY (`id`), ADD KEY `FK_bags_id_bags_types` (`id_bags_types`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_bags_id_bags_types` (`id_bags_types`);
 
 --
 -- Index pour la table `bags_objects`
 --
 ALTER TABLE `bags_objects`
-  ADD PRIMARY KEY (`id`,`id_objects`), ADD KEY `FK_bags_objects_id_objects` (`id_objects`);
+  ADD PRIMARY KEY (`id`,`id_objects`),
+  ADD KEY `FK_bags_objects_id_objects` (`id_objects`);
 
 --
 -- Index pour la table `bags_types`
@@ -923,16 +1029,24 @@ ALTER TABLE `bags_types`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `body`
+--
+ALTER TABLE `body`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `cages`
 --
 ALTER TABLE `cages`
-  ADD PRIMARY KEY (`id`), ADD KEY `FK_cages_id_cages_types` (`id_cages_types`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_cages_id_cages_types` (`id_cages_types`);
 
 --
 -- Index pour la table `cages_pets`
 --
 ALTER TABLE `cages_pets`
-  ADD PRIMARY KEY (`id`,`id_pets`), ADD KEY `FK_cages_pets_id_pets` (`id_pets`);
+  ADD PRIMARY KEY (`id`,`id_pets`),
+  ADD KEY `FK_cages_pets_id_pets` (`id_pets`);
 
 --
 -- Index pour la table `cages_types`
@@ -944,19 +1058,22 @@ ALTER TABLE `cages_types`
 -- Index pour la table `cages_users`
 --
 ALTER TABLE `cages_users`
-  ADD PRIMARY KEY (`id`,`id_cages`), ADD KEY `FK_cages_users_id_cages` (`id_cages`);
+  ADD PRIMARY KEY (`id`,`id_cages`),
+  ADD KEY `FK_cages_users_id_cages` (`id_cages`);
 
 --
 -- Index pour la table `chests`
 --
 ALTER TABLE `chests`
-  ADD PRIMARY KEY (`id`), ADD KEY `FK_chests_id_chests_types` (`id_chests_types`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_chests_id_chests_types` (`id_chests_types`);
 
 --
 -- Index pour la table `chests_objects`
 --
 ALTER TABLE `chests_objects`
-  ADD PRIMARY KEY (`id`,`id_objects`), ADD KEY `FK_chests_objects_id_objects` (`id_objects`);
+  ADD PRIMARY KEY (`id`,`id_objects`),
+  ADD KEY `FK_chests_objects_id_objects` (`id_objects`);
 
 --
 -- Index pour la table `chests_types`
@@ -974,13 +1091,16 @@ ALTER TABLE `ci_sessions`
 -- Index pour la table `coffres_comptes`
 --
 ALTER TABLE `coffres_comptes`
-  ADD PRIMARY KEY (`id`,`id_chests`), ADD KEY `FK_coffres_comptes_id_chests` (`id_chests`);
+  ADD PRIMARY KEY (`id`,`id_chests`),
+  ADD KEY `FK_coffres_comptes_id_chests` (`id_chests`);
 
 --
 -- Index pour la table `crews`
 --
 ALTER TABLE `crews`
-  ADD PRIMARY KEY (`id`), ADD KEY `FK_crews_id_crews_types` (`id_crews_types`), ADD KEY `FK_crews_id_crews_banks` (`id_crews_banks`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_crews_id_crews_types` (`id_crews_types`),
+  ADD KEY `FK_crews_id_crews_banks` (`id_crews_banks`);
 
 --
 -- Index pour la table `crews_banks`
@@ -992,25 +1112,30 @@ ALTER TABLE `crews_banks`
 -- Index pour la table `crews_banks_objects`
 --
 ALTER TABLE `crews_banks_objects`
-  ADD PRIMARY KEY (`id`,`id_objects`), ADD KEY `FK_crews_banks_objects_id_objects` (`id_objects`);
+  ADD PRIMARY KEY (`id`,`id_objects`),
+  ADD KEY `FK_crews_banks_objects_id_objects` (`id_objects`);
 
 --
 -- Index pour la table `crews_boats`
 --
 ALTER TABLE `crews_boats`
-  ADD PRIMARY KEY (`id`,`id_crews`), ADD KEY `FK_crews_boats_id_crews` (`id_crews`);
+  ADD PRIMARY KEY (`id`,`id_crews`),
+  ADD KEY `FK_crews_boats_id_crews` (`id_crews`);
 
 --
 -- Index pour la table `crews_candidacy`
 --
 ALTER TABLE `crews_candidacy`
-  ADD PRIMARY KEY (`id`), ADD KEY `FK_crews_candidacy_id_users` (`id_users`), ADD KEY `FK_crews_candidacy_id_crews` (`id_crews`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_crews_candidacy_id_users` (`id_users`),
+  ADD KEY `FK_crews_candidacy_id_crews` (`id_crews`);
 
 --
 -- Index pour la table `crews_equipments`
 --
 ALTER TABLE `crews_equipments`
-  ADD PRIMARY KEY (`id`), ADD KEY `FK_crews_equipments_id_crews_equipments_types` (`id_crews_equipments_types`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_crews_equipments_id_crews_equipments_types` (`id_crews_equipments_types`);
 
 --
 -- Index pour la table `crews_equipments_types`
@@ -1034,12 +1159,20 @@ ALTER TABLE `crews_types`
 -- Index pour la table `crews_users`
 --
 ALTER TABLE `crews_users`
-  ADD PRIMARY KEY (`id`,`id_users`,`id_crews_grades`), ADD KEY `FK_crews_users_id_users` (`id_users`), ADD KEY `FK_crews_users_id_crews_grades` (`id_crews_grades`);
+  ADD PRIMARY KEY (`id`,`id_users`,`id_crews_grades`),
+  ADD KEY `FK_crews_users_id_users` (`id_users`),
+  ADD KEY `FK_crews_users_id_crews_grades` (`id_crews_grades`);
 
 --
 -- Index pour la table `ennemies`
 --
 ALTER TABLE `ennemies`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `eyes`
+--
+ALTER TABLE `eyes`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1052,18 +1185,28 @@ ALTER TABLE `forums_categories`
 -- Index pour la table `forums_topics`
 --
 ALTER TABLE `forums_topics`
-  ADD PRIMARY KEY (`id`), ADD KEY `FK_forums_topics_id_forums_categories` (`id_forums_categories`), ADD KEY `FK_forums_topics_id_forums_topics_types` (`id_forums_topics_types`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_forums_topics_id_forums_categories` (`id_forums_categories`),
+  ADD KEY `FK_forums_topics_id_forums_topics_types` (`id_forums_topics_types`);
 
 --
 -- Index pour la table `forums_topics_messages`
 --
 ALTER TABLE `forums_topics_messages`
-  ADD PRIMARY KEY (`id`,`id_forums_topics`,`id_users`), ADD KEY `FK_forums_topics_messages_id_forums_topics` (`id_forums_topics`), ADD KEY `FK_forums_topics_messages_id_users` (`id_users`);
+  ADD PRIMARY KEY (`id`,`id_forums_topics`,`id_users`),
+  ADD KEY `FK_forums_topics_messages_id_forums_topics` (`id_forums_topics`),
+  ADD KEY `FK_forums_topics_messages_id_users` (`id_users`);
 
 --
 -- Index pour la table `forums_topics_types`
 --
 ALTER TABLE `forums_topics_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `hair`
+--
+ALTER TABLE `hair`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1076,7 +1219,8 @@ ALTER TABLE `islands`
 -- Index pour la table `kick`
 --
 ALTER TABLE `kick`
-  ADD PRIMARY KEY (`id`,`id_users`), ADD KEY `FK_kick_id_users` (`id_users`);
+  ADD PRIMARY KEY (`id`,`id_users`),
+  ADD KEY `FK_kick_id_users` (`id_users`);
 
 --
 -- Index pour la table `levels`
@@ -1088,7 +1232,8 @@ ALTER TABLE `levels`
 -- Index pour la table `lieux_ennemis`
 --
 ALTER TABLE `lieux_ennemis`
-  ADD PRIMARY KEY (`id`,`id_ennemies`), ADD KEY `FK_lieux_ennemis_id_ennemies` (`id_ennemies`);
+  ADD PRIMARY KEY (`id`,`id_ennemies`),
+  ADD KEY `FK_lieux_ennemis_id_ennemies` (`id_ennemies`);
 
 --
 -- Index pour la table `lost_pass`
@@ -1097,22 +1242,38 @@ ALTER TABLE `lost_pass`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `mouths`
+--
+ALTER TABLE `mouths`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `news`
 --
 ALTER TABLE `news`
-  ADD PRIMARY KEY (`id`), ADD KEY `FK_news_id_users` (`id_users`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_news_id_users` (`id_users`);
 
 --
 -- Index pour la table `news_comments`
 --
 ALTER TABLE `news_comments`
-  ADD PRIMARY KEY (`id`), ADD KEY `FK_news_comments_id_users` (`id_users`), ADD KEY `FK_news_comments_id_news` (`id_news`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_news_comments_id_users` (`id_users`),
+  ADD KEY `FK_news_comments_id_news` (`id_news`);
+
+--
+-- Index pour la table `nose`
+--
+ALTER TABLE `nose`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `objects`
 --
 ALTER TABLE `objects`
-  ADD PRIMARY KEY (`id`), ADD KEY `FK_objects_id_objects_types` (`id_objects_types`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_objects_id_objects_types` (`id_objects_types`);
 
 --
 -- Index pour la table `objects_types`
@@ -1124,7 +1285,8 @@ ALTER TABLE `objects_types`
 -- Index pour la table `pets`
 --
 ALTER TABLE `pets`
-  ADD PRIMARY KEY (`id`), ADD KEY `FK_pets_id_pets_types` (`id_pets_types`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_pets_id_pets_types` (`id_pets_types`);
 
 --
 -- Index pour la table `pets_types`
@@ -1136,13 +1298,17 @@ ALTER TABLE `pets_types`
 -- Index pour la table `places`
 --
 ALTER TABLE `places`
-  ADD PRIMARY KEY (`id`), ADD KEY `FK_places_id_levels` (`id_levels`), ADD KEY `FK_places_id_islands` (`id_islands`), ADD KEY `FK_places_id_places_types` (`id_places_types`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_places_id_levels` (`id_levels`),
+  ADD KEY `FK_places_id_islands` (`id_islands`),
+  ADD KEY `FK_places_id_places_types` (`id_places_types`);
 
 --
 -- Index pour la table `places_quiz`
 --
 ALTER TABLE `places_quiz`
-  ADD PRIMARY KEY (`id`), ADD KEY `FK_places_quiz_id_places` (`id_places`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_places_quiz_id_places` (`id_places`);
 
 --
 -- Index pour la table `places_types`
@@ -1154,7 +1320,9 @@ ALTER TABLE `places_types`
 -- Index pour la table `privates_messages`
 --
 ALTER TABLE `privates_messages`
-  ADD PRIMARY KEY (`id`), ADD KEY `FK_privates_messages_id_users` (`id_author`), ADD KEY `FK_privates_messages_id_users_1` (`id_dest`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_privates_messages_id_users` (`id_author`),
+  ADD KEY `FK_privates_messages_id_users_1` (`id_dest`);
 
 --
 -- Index pour la table `privates_messages_appartenance`
@@ -1166,13 +1334,16 @@ ALTER TABLE `privates_messages_appartenance`
 -- Index pour la table `tchats`
 --
 ALTER TABLE `tchats`
-  ADD PRIMARY KEY (`id`), ADD KEY `FK_tchats_id_tchats_types` (`id_tchats_types`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_tchats_id_tchats_types` (`id_tchats_types`);
 
 --
 -- Index pour la table `tchats_messages`
 --
 ALTER TABLE `tchats_messages`
-  ADD PRIMARY KEY (`id`,`id_tchats`,`id_users`), ADD KEY `FK_tchats_messages_id_tchats` (`id_tchats`), ADD KEY `FK_tchats_messages_id_users` (`id_users`);
+  ADD PRIMARY KEY (`id`,`id_tchats`,`id_users`),
+  ADD KEY `FK_tchats_messages_id_tchats` (`id_tchats`),
+  ADD KEY `FK_tchats_messages_id_users` (`id_users`);
 
 --
 -- Index pour la table `tchats_types`
@@ -1184,7 +1355,9 @@ ALTER TABLE `tchats_types`
 -- Index pour la table `tickets_messages`
 --
 ALTER TABLE `tickets_messages`
-  ADD PRIMARY KEY (`id`), ADD KEY `FK_tickets_messages_id_users` (`id_users`), ADD KEY `FK_tickets_messages_id_tickets_sujets` (`id_tickets_sujets`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_tickets_messages_id_users` (`id_users`),
+  ADD KEY `FK_tickets_messages_id_tickets_sujets` (`id_tickets_sujets`);
 
 --
 -- Index pour la table `tickets_sujets`
@@ -1196,13 +1369,16 @@ ALTER TABLE `tickets_sujets`
 -- Index pour la table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`), ADD KEY `FK_users_id_objects` (`id_objects`), ADD KEY `FK_users_id_users_types` (`id_users_types`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_users_id_objects` (`id_objects`),
+  ADD KEY `FK_users_id_users_types` (`id_users_types`);
 
 --
 -- Index pour la table `users_bag`
 --
 ALTER TABLE `users_bag`
-  ADD PRIMARY KEY (`id`,`id_bags`), ADD KEY `FK_users_bag_id_bags` (`id_bags`);
+  ADD PRIMARY KEY (`id`,`id_bags`),
+  ADD KEY `FK_users_bag_id_bags` (`id_bags`);
 
 --
 -- Index pour la table `users_types`
@@ -1223,6 +1399,11 @@ ALTER TABLE `bags`
 -- AUTO_INCREMENT pour la table `bags_types`
 --
 ALTER TABLE `bags_types`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `body`
+--
+ALTER TABLE `body`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `cages`
@@ -1285,6 +1466,11 @@ ALTER TABLE `crews_types`
 ALTER TABLE `ennemies`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT pour la table `eyes`
+--
+ALTER TABLE `eyes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT pour la table `forums_categories`
 --
 ALTER TABLE `forums_categories`
@@ -1304,6 +1490,11 @@ ALTER TABLE `forums_topics_messages`
 --
 ALTER TABLE `forums_topics_types`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT pour la table `hair`
+--
+ALTER TABLE `hair`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `islands`
 --
@@ -1325,6 +1516,11 @@ ALTER TABLE `levels`
 ALTER TABLE `lost_pass`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT pour la table `mouths`
+--
+ALTER TABLE `mouths`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+--
 -- AUTO_INCREMENT pour la table `news`
 --
 ALTER TABLE `news`
@@ -1333,6 +1529,11 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT pour la table `news_comments`
 --
 ALTER TABLE `news_comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `nose`
+--
+ALTER TABLE `nose`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `objects`
@@ -1419,206 +1620,217 @@ ALTER TABLE `users_types`
 --
 
 --
+-- Contraintes pour la table `Avatar`
+--
+ALTER TABLE `Avatar`
+  ADD CONSTRAINT `FK_Avatar_id` FOREIGN KEY (`id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `FK_Avatar_id_body` FOREIGN KEY (`id_body`) REFERENCES `body` (`id`),
+  ADD CONSTRAINT `FK_Avatar_id_eyes` FOREIGN KEY (`id_eyes`) REFERENCES `eyes` (`id`),
+  ADD CONSTRAINT `FK_Avatar_id_hair` FOREIGN KEY (`id_hair`) REFERENCES `hair` (`id`),
+  ADD CONSTRAINT `FK_Avatar_id_mouths` FOREIGN KEY (`id_mouths`) REFERENCES `mouths` (`id`),
+  ADD CONSTRAINT `FK_Avatar_id_nose` FOREIGN KEY (`id_nose`) REFERENCES `nose` (`id`);
+
+--
 -- Contraintes pour la table `bags`
 --
 ALTER TABLE `bags`
-ADD CONSTRAINT `FK_bags_id_bags_types` FOREIGN KEY (`id_bags_types`) REFERENCES `bags_types` (`id`);
+  ADD CONSTRAINT `FK_bags_id_bags_types` FOREIGN KEY (`id_bags_types`) REFERENCES `bags_types` (`id`);
 
 --
 -- Contraintes pour la table `bags_objects`
 --
 ALTER TABLE `bags_objects`
-ADD CONSTRAINT `FK_bags_objects_id` FOREIGN KEY (`id`) REFERENCES `bags` (`id`),
-ADD CONSTRAINT `FK_bags_objects_id_objects` FOREIGN KEY (`id_objects`) REFERENCES `objects` (`id`);
+  ADD CONSTRAINT `FK_bags_objects_id` FOREIGN KEY (`id`) REFERENCES `bags` (`id`),
+  ADD CONSTRAINT `FK_bags_objects_id_objects` FOREIGN KEY (`id_objects`) REFERENCES `objects` (`id`);
 
 --
 -- Contraintes pour la table `cages`
 --
 ALTER TABLE `cages`
-ADD CONSTRAINT `FK_cages_id_cages_types` FOREIGN KEY (`id_cages_types`) REFERENCES `cages_types` (`id`);
+  ADD CONSTRAINT `FK_cages_id_cages_types` FOREIGN KEY (`id_cages_types`) REFERENCES `cages_types` (`id`);
 
 --
 -- Contraintes pour la table `cages_pets`
 --
 ALTER TABLE `cages_pets`
-ADD CONSTRAINT `FK_cages_pets_id` FOREIGN KEY (`id`) REFERENCES `cages` (`id`),
-ADD CONSTRAINT `FK_cages_pets_id_pets` FOREIGN KEY (`id_pets`) REFERENCES `pets` (`id`);
+  ADD CONSTRAINT `FK_cages_pets_id` FOREIGN KEY (`id`) REFERENCES `cages` (`id`),
+  ADD CONSTRAINT `FK_cages_pets_id_pets` FOREIGN KEY (`id_pets`) REFERENCES `pets` (`id`);
 
 --
 -- Contraintes pour la table `cages_users`
 --
 ALTER TABLE `cages_users`
-ADD CONSTRAINT `FK_cages_users_id` FOREIGN KEY (`id`) REFERENCES `users` (`id`),
-ADD CONSTRAINT `FK_cages_users_id_cages` FOREIGN KEY (`id_cages`) REFERENCES `cages` (`id`);
+  ADD CONSTRAINT `FK_cages_users_id` FOREIGN KEY (`id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `FK_cages_users_id_cages` FOREIGN KEY (`id_cages`) REFERENCES `cages` (`id`);
 
 --
 -- Contraintes pour la table `chests`
 --
 ALTER TABLE `chests`
-ADD CONSTRAINT `FK_chests_id_chests_types` FOREIGN KEY (`id_chests_types`) REFERENCES `chests_types` (`id`);
+  ADD CONSTRAINT `FK_chests_id_chests_types` FOREIGN KEY (`id_chests_types`) REFERENCES `chests_types` (`id`);
 
 --
 -- Contraintes pour la table `chests_objects`
 --
 ALTER TABLE `chests_objects`
-ADD CONSTRAINT `FK_chests_objects_id` FOREIGN KEY (`id`) REFERENCES `chests` (`id`),
-ADD CONSTRAINT `FK_chests_objects_id_objects` FOREIGN KEY (`id_objects`) REFERENCES `objects` (`id`);
+  ADD CONSTRAINT `FK_chests_objects_id` FOREIGN KEY (`id`) REFERENCES `chests` (`id`),
+  ADD CONSTRAINT `FK_chests_objects_id_objects` FOREIGN KEY (`id_objects`) REFERENCES `objects` (`id`);
 
 --
 -- Contraintes pour la table `coffres_comptes`
 --
 ALTER TABLE `coffres_comptes`
-ADD CONSTRAINT `FK_coffres_comptes_id` FOREIGN KEY (`id`) REFERENCES `users` (`id`),
-ADD CONSTRAINT `FK_coffres_comptes_id_chests` FOREIGN KEY (`id_chests`) REFERENCES `chests` (`id`);
+  ADD CONSTRAINT `FK_coffres_comptes_id` FOREIGN KEY (`id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `FK_coffres_comptes_id_chests` FOREIGN KEY (`id_chests`) REFERENCES `chests` (`id`);
 
 --
 -- Contraintes pour la table `crews`
 --
 ALTER TABLE `crews`
-ADD CONSTRAINT `FK_crews_id_crews_banks` FOREIGN KEY (`id_crews_banks`) REFERENCES `crews_banks` (`id`),
-ADD CONSTRAINT `FK_crews_id_crews_types` FOREIGN KEY (`id_crews_types`) REFERENCES `crews_types` (`id`);
+  ADD CONSTRAINT `FK_crews_id_crews_banks` FOREIGN KEY (`id_crews_banks`) REFERENCES `crews_banks` (`id`),
+  ADD CONSTRAINT `FK_crews_id_crews_types` FOREIGN KEY (`id_crews_types`) REFERENCES `crews_types` (`id`);
 
 --
 -- Contraintes pour la table `crews_banks_objects`
 --
 ALTER TABLE `crews_banks_objects`
-ADD CONSTRAINT `FK_crews_banks_objects_id` FOREIGN KEY (`id`) REFERENCES `crews_banks` (`id`),
-ADD CONSTRAINT `FK_crews_banks_objects_id_objects` FOREIGN KEY (`id_objects`) REFERENCES `objects` (`id`);
+  ADD CONSTRAINT `FK_crews_banks_objects_id` FOREIGN KEY (`id`) REFERENCES `crews_banks` (`id`),
+  ADD CONSTRAINT `FK_crews_banks_objects_id_objects` FOREIGN KEY (`id_objects`) REFERENCES `objects` (`id`);
 
 --
 -- Contraintes pour la table `crews_boats`
 --
 ALTER TABLE `crews_boats`
-ADD CONSTRAINT `FK_crews_boats_id` FOREIGN KEY (`id`) REFERENCES `crews_equipments` (`id`),
-ADD CONSTRAINT `FK_crews_boats_id_crews` FOREIGN KEY (`id_crews`) REFERENCES `crews` (`id`);
+  ADD CONSTRAINT `FK_crews_boats_id` FOREIGN KEY (`id`) REFERENCES `crews_equipments` (`id`),
+  ADD CONSTRAINT `FK_crews_boats_id_crews` FOREIGN KEY (`id_crews`) REFERENCES `crews` (`id`);
 
 --
 -- Contraintes pour la table `crews_candidacy`
 --
 ALTER TABLE `crews_candidacy`
-ADD CONSTRAINT `FK_crews_candidacy_id_crews` FOREIGN KEY (`id_crews`) REFERENCES `crews` (`id`),
-ADD CONSTRAINT `FK_crews_candidacy_id_users` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `FK_crews_candidacy_id_crews` FOREIGN KEY (`id_crews`) REFERENCES `crews` (`id`),
+  ADD CONSTRAINT `FK_crews_candidacy_id_users` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`);
 
 --
 -- Contraintes pour la table `crews_equipments`
 --
 ALTER TABLE `crews_equipments`
-ADD CONSTRAINT `FK_crews_equipments_id_crews_equipments_types` FOREIGN KEY (`id_crews_equipments_types`) REFERENCES `crews_equipments_types` (`id`);
+  ADD CONSTRAINT `FK_crews_equipments_id_crews_equipments_types` FOREIGN KEY (`id_crews_equipments_types`) REFERENCES `crews_equipments_types` (`id`);
 
 --
 -- Contraintes pour la table `crews_users`
 --
 ALTER TABLE `crews_users`
-ADD CONSTRAINT `FK_crews_users_id` FOREIGN KEY (`id`) REFERENCES `crews` (`id`),
-ADD CONSTRAINT `FK_crews_users_id_crews_grades` FOREIGN KEY (`id_crews_grades`) REFERENCES `crews_grades` (`id`),
-ADD CONSTRAINT `FK_crews_users_id_users` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `FK_crews_users_id` FOREIGN KEY (`id`) REFERENCES `crews` (`id`),
+  ADD CONSTRAINT `FK_crews_users_id_crews_grades` FOREIGN KEY (`id_crews_grades`) REFERENCES `crews_grades` (`id`),
+  ADD CONSTRAINT `FK_crews_users_id_users` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`);
 
 --
 -- Contraintes pour la table `forums_topics`
 --
 ALTER TABLE `forums_topics`
-ADD CONSTRAINT `FK_forums_topics_id_forums_categories` FOREIGN KEY (`id_forums_categories`) REFERENCES `forums_categories` (`id`),
-ADD CONSTRAINT `FK_forums_topics_id_forums_topics_types` FOREIGN KEY (`id_forums_topics_types`) REFERENCES `forums_topics_types` (`id`);
+  ADD CONSTRAINT `FK_forums_topics_id_forums_categories` FOREIGN KEY (`id_forums_categories`) REFERENCES `forums_categories` (`id`),
+  ADD CONSTRAINT `FK_forums_topics_id_forums_topics_types` FOREIGN KEY (`id_forums_topics_types`) REFERENCES `forums_topics_types` (`id`);
 
 --
 -- Contraintes pour la table `forums_topics_messages`
 --
 ALTER TABLE `forums_topics_messages`
-ADD CONSTRAINT `FK_forums_topics_messages_id_forums_topics` FOREIGN KEY (`id_forums_topics`) REFERENCES `forums_topics` (`id`),
-ADD CONSTRAINT `FK_forums_topics_messages_id_users` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `FK_forums_topics_messages_id_forums_topics` FOREIGN KEY (`id_forums_topics`) REFERENCES `forums_topics` (`id`),
+  ADD CONSTRAINT `FK_forums_topics_messages_id_users` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`);
 
 --
 -- Contraintes pour la table `kick`
 --
 ALTER TABLE `kick`
-ADD CONSTRAINT `FK_kick_id_users` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `FK_kick_id_users` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`);
 
 --
 -- Contraintes pour la table `lieux_ennemis`
 --
 ALTER TABLE `lieux_ennemis`
-ADD CONSTRAINT `FK_lieux_ennemis_id` FOREIGN KEY (`id`) REFERENCES `places` (`id`),
-ADD CONSTRAINT `FK_lieux_ennemis_id_ennemies` FOREIGN KEY (`id_ennemies`) REFERENCES `ennemies` (`id`);
+  ADD CONSTRAINT `FK_lieux_ennemis_id` FOREIGN KEY (`id`) REFERENCES `places` (`id`),
+  ADD CONSTRAINT `FK_lieux_ennemis_id_ennemies` FOREIGN KEY (`id_ennemies`) REFERENCES `ennemies` (`id`);
 
 --
 -- Contraintes pour la table `news`
 --
 ALTER TABLE `news`
-ADD CONSTRAINT `FK_news_id_users` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `FK_news_id_users` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`);
 
 --
 -- Contraintes pour la table `news_comments`
 --
 ALTER TABLE `news_comments`
-ADD CONSTRAINT `FK_news_comments_id_news` FOREIGN KEY (`id_news`) REFERENCES `news` (`id`),
-ADD CONSTRAINT `FK_news_comments_id_users` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `FK_news_comments_id_news` FOREIGN KEY (`id_news`) REFERENCES `news` (`id`),
+  ADD CONSTRAINT `FK_news_comments_id_users` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`);
 
 --
 -- Contraintes pour la table `objects`
 --
 ALTER TABLE `objects`
-ADD CONSTRAINT `FK_objects_id_objects_types` FOREIGN KEY (`id_objects_types`) REFERENCES `objects_types` (`id`);
+  ADD CONSTRAINT `FK_objects_id_objects_types` FOREIGN KEY (`id_objects_types`) REFERENCES `objects_types` (`id`);
 
 --
 -- Contraintes pour la table `pets`
 --
 ALTER TABLE `pets`
-ADD CONSTRAINT `FK_pets_id_pets_types` FOREIGN KEY (`id_pets_types`) REFERENCES `pets_types` (`id`);
+  ADD CONSTRAINT `FK_pets_id_pets_types` FOREIGN KEY (`id_pets_types`) REFERENCES `pets_types` (`id`);
 
 --
 -- Contraintes pour la table `places`
 --
 ALTER TABLE `places`
-ADD CONSTRAINT `FK_places_id_islands` FOREIGN KEY (`id_islands`) REFERENCES `islands` (`id`),
-ADD CONSTRAINT `FK_places_id_levels` FOREIGN KEY (`id_levels`) REFERENCES `levels` (`id`),
-ADD CONSTRAINT `FK_places_id_places_types` FOREIGN KEY (`id_places_types`) REFERENCES `places_types` (`id`);
+  ADD CONSTRAINT `FK_places_id_islands` FOREIGN KEY (`id_islands`) REFERENCES `islands` (`id`),
+  ADD CONSTRAINT `FK_places_id_levels` FOREIGN KEY (`id_levels`) REFERENCES `levels` (`id`),
+  ADD CONSTRAINT `FK_places_id_places_types` FOREIGN KEY (`id_places_types`) REFERENCES `places_types` (`id`);
 
 --
 -- Contraintes pour la table `places_quiz`
 --
 ALTER TABLE `places_quiz`
-ADD CONSTRAINT `FK_places_quiz_id_places` FOREIGN KEY (`id_places`) REFERENCES `places` (`id`);
+  ADD CONSTRAINT `FK_places_quiz_id_places` FOREIGN KEY (`id_places`) REFERENCES `places` (`id`);
 
 --
 -- Contraintes pour la table `privates_messages`
 --
 ALTER TABLE `privates_messages`
-ADD CONSTRAINT `FK_privates_messages_id_users` FOREIGN KEY (`id_author`) REFERENCES `users` (`id`),
-ADD CONSTRAINT `FK_privates_messages_id_users_1` FOREIGN KEY (`id_dest`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `FK_privates_messages_id_users` FOREIGN KEY (`id_author`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `FK_privates_messages_id_users_1` FOREIGN KEY (`id_dest`) REFERENCES `users` (`id`);
 
 --
 -- Contraintes pour la table `tchats`
 --
 ALTER TABLE `tchats`
-ADD CONSTRAINT `FK_tchats_id_tchats_types` FOREIGN KEY (`id_tchats_types`) REFERENCES `tchats_types` (`id`);
+  ADD CONSTRAINT `FK_tchats_id_tchats_types` FOREIGN KEY (`id_tchats_types`) REFERENCES `tchats_types` (`id`);
 
 --
 -- Contraintes pour la table `tchats_messages`
 --
 ALTER TABLE `tchats_messages`
-ADD CONSTRAINT `FK_tchats_messages_id_tchats` FOREIGN KEY (`id_tchats`) REFERENCES `tchats` (`id`),
-ADD CONSTRAINT `FK_tchats_messages_id_users` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `FK_tchats_messages_id_tchats` FOREIGN KEY (`id_tchats`) REFERENCES `tchats` (`id`),
+  ADD CONSTRAINT `FK_tchats_messages_id_users` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`);
 
 --
 -- Contraintes pour la table `tickets_messages`
 --
 ALTER TABLE `tickets_messages`
-ADD CONSTRAINT `FK_tickets_messages_id_tickets_sujets` FOREIGN KEY (`id_tickets_sujets`) REFERENCES `tickets_sujets` (`id`),
-ADD CONSTRAINT `FK_tickets_messages_id_users` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `FK_tickets_messages_id_tickets_sujets` FOREIGN KEY (`id_tickets_sujets`) REFERENCES `tickets_sujets` (`id`),
+  ADD CONSTRAINT `FK_tickets_messages_id_users` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`);
 
 --
 -- Contraintes pour la table `users`
 --
 ALTER TABLE `users`
-ADD CONSTRAINT `FK_users_id_objects` FOREIGN KEY (`id_objects`) REFERENCES `objects` (`id`),
-ADD CONSTRAINT `FK_users_id_users_types` FOREIGN KEY (`id_users_types`) REFERENCES `users_types` (`id`);
+  ADD CONSTRAINT `FK_users_id_objects` FOREIGN KEY (`id_objects`) REFERENCES `objects` (`id`),
+  ADD CONSTRAINT `FK_users_id_users_types` FOREIGN KEY (`id_users_types`) REFERENCES `users_types` (`id`);
 
 --
 -- Contraintes pour la table `users_bag`
 --
 ALTER TABLE `users_bag`
-ADD CONSTRAINT `FK_users_bag_id` FOREIGN KEY (`id`) REFERENCES `users` (`id`),
-ADD CONSTRAINT `FK_users_bag_id_bags` FOREIGN KEY (`id_bags`) REFERENCES `bags` (`id`);
+  ADD CONSTRAINT `FK_users_bag_id` FOREIGN KEY (`id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `FK_users_bag_id_bags` FOREIGN KEY (`id_bags`) REFERENCES `bags` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
