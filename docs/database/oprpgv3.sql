@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Dim 08 Novembre 2015 à 14:20
+-- Généré le :  Dim 08 Novembre 2015 à 15:08
 -- Version du serveur :  5.6.24
 -- Version de PHP :  5.6.8
 
@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`id`, `idUser`, `ip_address`, `timestamp`, `data`) VALUES
-('065189cbf3c9cf011b5362de26ad6f1de9e2adbe', 13, '::1', 1446988717, 0x5f5f63695f6c6173745f726567656e65726174657c693a313434363938383731373b69647c733a323a223133223b62616e7c733a313a2230223b70736575646f7c733a383a2250616e64616d616e223b656d61696c7c733a31323a226c656267406c6562672e6672223b62697274686461797c733a31303a22303030302d30302d3030223b736578657c4e3b69735f6b69636b7c733a313a2230223b6c766c7c733a313a2230223b69645f6f626a656374737c733a313a2231223b69645f75736572735f74797065737c733a313a2231223b72616e6b7c733a363a224d656d627265223b7c4e3b617574687c623a313b637265774e616d657c4e3b6372657749647c4e3b6372657752616e6b7c4e3b);
+('19604aa814a395b3acc3209ea359ddf6ea022750', 1, '::1', 1446991706, 0x5f5f63695f6c6173745f726567656e65726174657c693a313434363939313432303b69647c733a313a2231223b62616e7c733a313a2230223b70736575646f7c733a393a2244756d62656c646f72223b656d61696c7c733a32333a2276696e63656e74676c697a6540686f746d61696c2e6672223b62697274686461797c733a31303a22303030302d30302d3030223b736578657c4e3b69735f6b69636b7c733a313a2230223b6c766c7c733a313a2230223b69645f6f626a656374737c733a313a2231223b69645f75736572735f74797065737c733a323a223234223b72616e6b7c733a31343a2241646d696e697374726174657572223b7c4e3b617574687c623a313b637265774e616d657c733a393a2253746166666f756c61223b6372657749647c733a323a223530223b6372657752616e6b7c733a393a22436170697461696e65223b637265777c733a393a2253746166666f756c61223b);
 
 -- --------------------------------------------------------
 
@@ -186,7 +186,14 @@ CREATE TABLE IF NOT EXISTS `crews` (
   `is_block` tinyint(1) NOT NULL,
   `id_crews_types` int(11) NOT NULL,
   `id_crews_banks` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `crews`
+--
+
+INSERT INTO `crews` (`id`, `name`, `money`, `page`, `file`, `date_time`, `is_block`, `id_crews_types`, `id_crews_banks`) VALUES
+(50, 'Staffoula', 0, NULL, '', 1446991689, 0, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -196,7 +203,14 @@ CREATE TABLE IF NOT EXISTS `crews` (
 
 CREATE TABLE IF NOT EXISTS `crews_banks` (
   `id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `crews_banks`
+--
+
+INSERT INTO `crews_banks` (`id`) VALUES
+(4);
 
 -- --------------------------------------------------------
 
@@ -318,6 +332,13 @@ CREATE TABLE IF NOT EXISTS `crews_users` (
   `id_crews_grades` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `crews_users`
+--
+
+INSERT INTO `crews_users` (`id`, `id_users`, `id_crews_grades`) VALUES
+(50, 1, 5);
+
 -- --------------------------------------------------------
 
 --
@@ -346,7 +367,7 @@ CREATE TABLE IF NOT EXISTS `forums_categories` (
   `is_block` tinyint(1) NOT NULL,
   `sequence` int(4) NOT NULL,
   `is_crew` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `forums_categories`
@@ -366,7 +387,8 @@ INSERT INTO `forums_categories` (`id`, `name`, `descr`, `types`, `is_block`, `se
 (11, 'Tomes français', 'Exprimez-vous sur les épisodes sortis en France', NULL, 0, 11, 0),
 (12, 'Vos idées', 'Proposez vos idées, elles seront peut-être réalisées', NULL, 0, 12, 0),
 (13, 'Astuces & tactiques', 'Partagez vos astuces entre membres', NULL, 1, 13, 0),
-(14, 'Bugs', 'Vous avez rencontré un bug ou une faille? Signalez-le ici!', NULL, 0, 14, 0);
+(14, 'Bugs', 'Vous avez rencontré un bug ou une faille? Signalez-le ici!', NULL, 0, 14, 0),
+(50, 'Staffoula', 'Forum privé de l''équipage Staffoula', NULL, 0, 50, 1);
 
 -- --------------------------------------------------------
 
@@ -380,7 +402,7 @@ CREATE TABLE IF NOT EXISTS `forums_topics` (
   `is_block` tinyint(1) NOT NULL,
   `id_forums_categories` int(11) NOT NULL,
   `id_forums_topics_types` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `forums_topics`
@@ -399,7 +421,15 @@ INSERT INTO `forums_topics` (`id`, `name`, `is_block`, `id_forums_categories`, `
 (12, 'Premier Topic', 0, 11, 1),
 (13, 'Premier Topic', 0, 12, 1),
 (14, 'Premier Topic', 0, 13, 1),
-(15, 'Premier Topic', 0, 14, 1);
+(15, 'Premier Topic', 0, 14, 1),
+(16, 'Todo', 0, 1, 1),
+(17, 'Todo', 0, 1, 4),
+(18, 'sdfsf', 0, 5, 1),
+(19, 'sdfdsg', 0, 5, 1),
+(20, 'sdfsdgfdfgfdgfd', 0, 5, 1),
+(21, 'sdfsdfdsgfd', 1, 5, 1),
+(22, 'Todo', 0, 1, 1),
+(52, 'Bienvenue sur votre forum', 0, 50, 1);
 
 -- --------------------------------------------------------
 
@@ -414,7 +444,7 @@ CREATE TABLE IF NOT EXISTS `forums_topics_messages` (
   `is_block` tinyint(1) NOT NULL,
   `id_forums_topics` int(11) NOT NULL,
   `id_users` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `forums_topics_messages`
@@ -434,7 +464,11 @@ INSERT INTO `forums_topics_messages` (`id`, `message`, `date_time`, `is_block`, 
 (13, 'Premier message', 1446207986, 0, 13, 13),
 (14, 'Premier message', 1446207986, 0, 14, 13),
 (15, 'Premier message', 1446207986, 0, 15, 13),
-(39, '<p>test</p>\r\n', 1446941841, 0, 3, 13);
+(39, '<p>test</p>\r\n', 1446941841, 0, 3, 13),
+(40, '<p>test</p>\r\n', 1446989074, 0, 3, 1),
+(41, '<p>gdfgdfgdfgfdgfd</p>\r\n', 1446989554, 1, 21, 1),
+(42, '<p>TODO List (avant ouverture)<br />\r\n============================<br />\r\n<br />\r\nIndex : /home/accueil<br />\r\nNOK - Devrait &ecirc;tre juste le nom de domaine (/)<br />\r\nNOK - Manque du contenu dans dans le content<br />\r\nOK - boutons : &quot;connection&quot; &gt; &quot;connexion&quot; en fran&ccedil;ais<br />\r\nOK - Le debug est affich&eacute; (d&eacute;sactiv&eacute;)<br />\r\n<br />\r\nInscription : /users/create<br />\r\nOK - Div pseudo n&#39;est pas du bon style<br />\r\nNOK - Password : pas de test de faible/moyen/fort s&eacute;curis&eacute;<br />\r\nOK - Div email n&#39;est pas du bon style<br />\r\n<strong>NOK - Bug quand tu charges les cheveux (le corps disparais)</strong><br />\r\nNOK - Bug : on ne peut pas r&eacute;cup&eacute;rer les yeux par d&eacute;faut<br />\r\nOK - Il manque cruellement de diff&eacute;rence entre les styles<br />\r\nOK -&gt; Est-ce necessaire de cr&eacute;er son propre avatar ?<br />\r\nOK - Le debug est affich&eacute; (d&eacute;sactiv&eacute;)<br />\r\nNOK - Le bouton est moche<br />\r\n<br />\r\nOK Error &agrave; la validation du formulaire d&#39;inscription :<br />\r\nOK Fatal error: Call to undefined function imagecreatetruecolor() in /var/www/onepiece/application/models/Users_model.php on line 217<br />\r\n<br />\r\nConnexion : /users/connect<br />\r\nOK - Div pseudo n&#39;est pas du bon style<br />\r\nOK - Il manque le lien &quot;j&#39;ai oubli&eacute; mon mdp&quot;<br />\r\nOK - Le debug est affich&eacute; (d&eacute;sactiv&eacute;)<br />\r\nOK - Le bouton est moche<br />\r\n<br />\r\nNews : /<br />\r\nNOK - La sidebar est moche<br />\r\nOK - Dans la sidebar &quot;Accueil&quot; &gt; &quot;News&quot;<br />\r\nOK - Il faudrait nettoyer toute les news et commentaires<br />\r\nOK - La pagination manque d&#39;espace et de style<br />\r\nNOK - Les news devrait &ecirc;tre tronqu&eacute;es &agrave; 200 caract&egrave;res<br />\r\nNOK - Le nb comment doit &ecirc;tre affich&eacute; en fin de news<br />\r\nOK - Manque r&eacute;seaux sociaux en fin de news (avec nb partage)<br />\r\nOK - Il faudrait une bulle de notif sur des icones (comment, fb, twitter)<br />\r\nOK - Le debug est affich&eacute; (activ&eacute;)<br />\r\nOK - Le footer est vide<br />\r\n<br />\r\nSidebar :<br />\r\nOK - Fans/Fanart : pas de redirection<br />\r\nOK - Fans/Fanfics : pas de redirection<br />\r\nOK - Fans/Fanmovs : pas de redirection (n&eacute;cessaire?)<br />\r\nOK - Communaut&eacute;/Livre d&#39;or : pas de redirection<br />\r\nOK - Communaut&eacute;/Classement : pas de redirection<br />\r\nOK &gt; Faire une page de &quot;coming soon&quot;<br />\r\nNOK - MonCompte devrait avoir un dropdon avec messagerie/sac<br />\r\n<br />\r\nAnnuaire : /users<br />\r\nOK - Il y a trop d&#39;espace entre le titre et Le nombre de joueur inscrits<br />\r\nOK - Il manque les zones de filtres (coming soon?)<br />\r\nNOK - Les id n&#39;ont rien &agrave; faire ici<br />\r\nOK - Le d&eacute;bug est affich&eacute; (d&eacute;sactiv&eacute;)<br />\r\nOK - Le footer est vide<br />\r\n<br />\r\nProfils public : /users/view/10<br />\r\nOK - L&#39;avatar ne s&#39;affiche pas<br />\r\n<strong>NOK - Envoyer un message devrait &ecirc;tre un icon</strong><br />\r\nOK - Le debug est affich&eacute; (d&eacute;sactiv&eacute;)<br />\r\nOK - Le footer est vide<br />\r\n<br />\r\nListe connect&eacute;s : /users/liste<br />\r\nNOK - Faute de fran&ccedil;ais au lieu d&#39;anglais dans le nom<br />\r\nOK - Error : Table &#39;onepiecev3.sessions&#39; doesn&#39;t exist<br />\r\n<br />\r\nFAQ : /forum/t/21<br />\r\nNOK - Devrait &ecirc;tre une page ind&eacute;pendante et pas un topic<br />\r\nNOK &gt; Refaire<br />\r\n<br />\r\nStaff : /users/staff<br />\r\nOK - L&#39;affichage est d&eacute;gueulasse :p<br />\r\nOK - Le footer est vide<br />\r\nOK - Le debug est affich&eacute; (d&eacute;sactiv&eacute;)<br />\r\n<br />\r\nForum : /forum<br />\r\n- La mosa&iuml;que est inutile : les cat&eacute;gories doivent prendre la longueur<br />\r\n- Il y a trop de cat&eacute;gories :<br />\r\n&gt; Messages officiel : ok<br />\r\n&gt; G&eacute;n&eacute;ral : ok<br />\r\n&gt; Pr&eacute;sentation membre : &agrave; supprimer<br />\r\n&gt; Aides : pas sur de l&#39;utilit&eacute;<br />\r\n&gt; Rumeurs : &agrave; supprimer<br />\r\n&gt; Diplomatie inter-&eacute;quipage : inutile actuellement<br />\r\n&gt; Animation : pourquoi pas<br />\r\n&gt; Commerce : &agrave; supprimer<br />\r\n&gt; Discussions scan : &agrave; supprimer<br />\r\n&gt; Tomes fran&ccedil;ais : &agrave; supprimer<br />\r\n&gt; Vos id&eacute;es : -&gt; Boite &agrave; id&eacute;e<br />\r\n&gt; Astuces et tactiques : &agrave; supprimer<br />\r\n&gt; Bugs : &agrave; supprimer pour le support<br />\r\n&gt; Hello Worlds : &agrave; supprimer<br />\r\n- Par cat&eacute;gorie : revoir l&#39;affichage du dernier message<br />\r\n- Pas n&eacute;cessaire d&#39;afficher le dernier topics comment&eacute; dans les cat&eacute;gories (DUM : Pas d&#39;accord)<br />\r\n- Debug affich&eacute; (d&eacute;sactiv&eacute;)<br />\r\n- Footer vide<br />\r\n<br />\r\nTopics : /forum/c/5<br />\r\n- Route &agrave; revoir<br />\r\n- Le bouton de retour est inutile<br />\r\n- Le bouton de cr&eacute;ation de topic est d&eacute;gueulasse : faire un icon<br />\r\n<br />\r\nNouveau topic : /forum/create_topic<br />\r\n- Il y a trop d&#39;option de mise en forme pour le message<br />\r\n- Le bouton est moche<br />\r\n- debug affich&eacute; (d&eacute;sactiv&eacute;)<br />\r\n- Footer vide<br />\r\n<br />\r\nAffichage d&#39;un topic : /forum/t/27<br />\r\n- Le bouton &quot;nouveau topic dans cette cat&eacute;gorie&quot; : inutile<br />\r\n- Le bouton &quot;r&eacute;pondre&quot; devrait &ecirc;tre un icon<br />\r\n- Il n&#39;y a pas la possibilit&eacute; d&#39;avoir d&#39;ancre pour un message<br />\r\n- Footer vide<br />\r\n- debug affich&eacute; (d&eacute;sactiv&eacute;)<br />\r\n<br />\r\nR&eacute;ponse &agrave; un topic : /forum/answer<br />\r\n- On devrait pas pouvoir citer plus d&#39;une citation<br />\r\n<strong>- Les edit se cumulent, devraient &ecirc;tre ind&eacute;pendants du corps des messages</strong><br />\r\n- Footer vide<br />\r\n- debug affich&eacute; (d&eacute;sactiv&eacute;)<br />\r\n<br />\r\nTchat : /tchat<br />\r\n<strong>- Navigation entre les tchats par onglet c&#39;ets mieux</strong><br />\r\n- Tchat : Commerce &gt; &agrave; supprimer<br />\r\n- Description des tchats &agrave; faire<br />\r\n<strong>- Les avatars s&#39;&eacute;crasent en responsive</strong><br />\r\n- J&#39;ai horreur des smiley (mais c&#39;est personnel)<br />\r\n- Footer vide<br />\r\n- debug affich&eacute; (d&eacute;sactiv&eacute;)<br />\r\n<br />\r\nQuitter un &eacute;quipage : /crews/leave<br />\r\n- Probl&egrave;me d&#39;affichage de div<br />\r\n- Footer vide<br />\r\n- debug affich&eacute; (d&eacute;sactiv&eacute;)<br />\r\n<br />\r\nDissoudre un &eacute;quipage : /...<br />\r\n- Il faudrait une confirmation<br />\r\n<br />\r\nEquipage : /crews/index<br />\r\n- Pas n&eacute;cessaire de pointer sur &quot;index&quot; dans le route<br />\r\n- Le h1 est trop long<br />\r\n<strong>- Manque d&#39;ergonomie dans la page<br />\r\n- Peut-&ecirc;tre qu&#39;afficher ses candidatures en attente sur la page principale serait bien ?</strong><br />\r\n<br />\r\nEquipage Liste : /crews/liste<br />\r\n- Faute de fran&ccedil;ais dans la route<br />\r\n- Pr&eacute;voir une pagination !<br />\r\n<strong>- Afficher le nom de l&#39;&eacute;quipage, le drapeau et le d&eacute;but de sa description</strong><br />\r\n<br />\r\nEquipage Profil : /crews/view/54<br />\r\n- Les berry sont propres &agrave; l&#39;&eacute;quipage pas la peine de les montrer<br />\r\n- Rejoindre un &eacute;quipage devrait se faire par bouton icon<br />\r\n<br />\r\nEquipage candidature : /crews/c/54<br />\r\n- Tu devrais rapeller le nom de l&#39;&eacute;quipage ou tu postules en h1 (Candid: Starfoul)<br />\r\n- Bouton envoyer d&eacute;gueulasse<br />\r\n- Pas de confirmation lors de l&#39;envoi et on reste bloqu&eacute; sur la page<br />\r\n<br />\r\nEquipage Accueil du sien : /crews/index<br />\r\n- Liste des candid &gt; par bouton icon<br />\r\n- Modifier text &gt; par bouton icon<br />\r\n- G&eacute;rer rang membres &gt; par bouton icon<br />\r\n- &quot;Donner le lead&quot; &agrave; retirer<br />\r\n- Forum &gt; par bouton icon<br />\r\n- Quitter &eacute;quipage &gt; par bouton icon<br />\r\n<br />\r\nMonCompte : /account<br />\r\n- Navigation par icon + text serait mieux<br />\r\n<br />\r\nMessagerie : /messaging<br />\r\n- Re&ccedil;us/Envois pas au m&ecirc;me niveau que la page de mon compte<br />\r\n- Ergonomie &agrave; revoir<br />\r\n- Nouveau / Supprimer / R&eacute;pondre : par bouton icon<br />\r\n- Il faudrait que les messages avec la m&ecirc;me personne soit sur un m&ecirc;me &quot;flux&quot;<br />\r\n- Quand on veut &quot;tout supprimer&quot;, passer par une confirmation<br />\r\n<br />\r\nMessagerie r&eacute;ponse : /messaging/write/...<br />\r\n- On devrait pouvoir &eacute;crire par d&eacute;faut au dessus de la citation<br />\r\n- Bouton d&#39;envoi d&eacute;gueulasse<br />\r\n<br />\r\n<br />\r\nTODO Dev<br />\r\n============================<br />\r\n<br />\r\nRenommer /users/list -&gt; /users/connected<br />\r\nRenommer /users/index -&gt; /users/directory</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><em>&Eacute;dit&eacute; par Dumbeldor le 08/11/2015 &agrave; 00h43</em></p>\r\n', 1446989722, 0, 22, 1),
+(46, 'Votre forum privé vien d''être mis en ligne.\r\n					      Gardez un topic minimum ouvert pour que vos membres puissent le voir directement dans la partie "forum", dans le cas contraire ils pourront le consulter uniquement via au lien dans l''index de l''équipage !\r\n						  Bon jeu.', 1446991689, 0, 52, 13);
 
 -- --------------------------------------------------------
 
@@ -741,7 +775,7 @@ CREATE TABLE IF NOT EXISTS `tchats_messages` (
   `is_block` tinyint(1) NOT NULL,
   `id_tchats` int(11) NOT NULL,
   `id_users` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -820,7 +854,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `ban`, `pseudo`, `lvl`, `email`, `birthday`, `sexe`, `password`, `registration`, `last_connection`, `ip`, `is_kick`, `messNumber`, `id_objects`, `id_users_types`, `id_crews_candidacy`, `id_lost_pass`) VALUES
-(1, 0, 'Dumbeldor', 0, 'vincentglize@hotmail.fr', '0000-00-00', NULL, '$2y$10$IEa/yx86U2McxcjbOvFztO42KXsfCCySz75rnHc7.MbejHj6ZPOJ6', 1433827274, 1446978954, '', 0, 105, 1, 24, 0, 0),
+(1, 0, 'Dumbeldor', 0, 'vincentglize@hotmail.fr', '0000-00-00', NULL, '$2y$10$IEa/yx86U2McxcjbOvFztO42KXsfCCySz75rnHc7.MbejHj6ZPOJ6', 1433827274, 1446989056, '', 0, 107, 1, 24, 0, 0),
 (2, 0, 'Sumo', 0, 'sumo@sumo.fr', '0000-00-00', NULL, '$2y$10$bf6tS8IrhdG9AtfIsllc/OGROZK0Sj6NYdcP05Aos/Kk4eq/acp2m', 1446927274, 1446927274, '', 0, 0, 1, 21, 0, 0),
 (13, 0, 'Pandaman', 0, 'lebg@lebg.fr', '0000-00-00', NULL, '$2y$10$IEa/yx86U2McxcjbOvFztO42KXsfCCySz75rnHc7.MbejHj6ZPOJ6', 1433827274, 1446979447, '', 0, 0, 1, 1, 0, 0),
 (34, 0, 'Vincent', 0, 'omagad@gmail.fr', '0000-00-00', NULL, '$2y$10$IEa/yx86U2McxcjbOvFztO42KXsfCCySz75rnHc7.MbejHj6ZPOJ6', 1446927274, 1446927274, '', 0, 4, 1, 2, 0, 0);
@@ -846,7 +880,7 @@ CREATE TABLE IF NOT EXISTS `users_types` (
   `id` int(11) NOT NULL,
   `name` varchar(25) NOT NULL,
   `is_block` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `users_types`
@@ -1214,12 +1248,12 @@ ALTER TABLE `chests_types`
 -- AUTO_INCREMENT pour la table `crews`
 --
 ALTER TABLE `crews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=51;
 --
 -- AUTO_INCREMENT pour la table `crews_banks`
 --
 ALTER TABLE `crews_banks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pour la table `crews_candidacy`
 --
@@ -1254,17 +1288,17 @@ ALTER TABLE `ennemies`
 -- AUTO_INCREMENT pour la table `forums_categories`
 --
 ALTER TABLE `forums_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=51;
 --
 -- AUTO_INCREMENT pour la table `forums_topics`
 --
 ALTER TABLE `forums_topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=53;
 --
 -- AUTO_INCREMENT pour la table `forums_topics_messages`
 --
 ALTER TABLE `forums_topics_messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=47;
 --
 -- AUTO_INCREMENT pour la table `forums_topics_types`
 --
@@ -1354,7 +1388,7 @@ ALTER TABLE `tchats`
 -- AUTO_INCREMENT pour la table `tchats_messages`
 --
 ALTER TABLE `tchats_messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `tchats_types`
 --
@@ -1379,7 +1413,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `users_types`
 --
 ALTER TABLE `users_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
 --
 -- Contraintes pour les tables exportées
 --
