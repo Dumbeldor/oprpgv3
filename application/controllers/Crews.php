@@ -81,6 +81,7 @@ class Crews extends MY_Controller {
   
   /**
    * @todo Add comment...
+   * @param $page Descript
    * ----------------------------------------------------------------------- */
   public function liste($page = 0) {    
     $this->load->library('pagination');
@@ -116,6 +117,7 @@ class Crews extends MY_Controller {
   
   /**
    * @todo Add comment...
+   * @param $id Descript
    * ----------------------------------------------------------------------- */
   public function view($id=0) {
 
@@ -141,6 +143,7 @@ class Crews extends MY_Controller {
   
   /**
    * @todo Add comment...
+   * @param $id Descript
    * ----------------------------------------------------------------------- */
   public function candidacy($id=0) {
 
@@ -192,6 +195,7 @@ class Crews extends MY_Controller {
   
   /**
    * @todo Add comment...
+   * @param $id_user Descript CAMELCASE
    * ----------------------------------------------------------------------- */
   public function accept($idUser=0) {
 
@@ -213,6 +217,7 @@ class Crews extends MY_Controller {
   
   /**
    * @todo Add comment...
+   * @param $id_user Descript CAMELCASE
    * ----------------------------------------------------------------------- */
   public function refuse($idUser=0) {
 
@@ -288,6 +293,7 @@ class Crews extends MY_Controller {
   
   /**
    * @todo Add comment...
+   * @param $id Descript
    * ----------------------------------------------------------------------- */
   public function letlead($id=0) {
 
@@ -312,6 +318,7 @@ class Crews extends MY_Controller {
 
   /**
    * @todo Add comment...
+   * @param $id Descript
    * ----------------------------------------------------------------------- */
   public function changeRanks($id=0) {
 
@@ -360,6 +367,7 @@ class Crews extends MY_Controller {
   
   /**
    * @todo Add comment...
+   * @param $id Descript
    * ----------------------------------------------------------------------- */
   public function kick($id = 0) {
 
@@ -379,6 +387,7 @@ class Crews extends MY_Controller {
   
   /**
    * @todo Add comment...
+   * @param $id Descript
    * ----------------------------------------------------------------------- */
   public function leave() {
 
