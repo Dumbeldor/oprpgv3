@@ -274,11 +274,12 @@ class Forum extends MY_Controller {
 		$id_user = $this->user->getId();
 		$date_message = time();
 		
+		echo $this->input->post('id_categorie');
 		// Topic's id is get in a way to redirect the user to this topic
 		$id_topic = $this->forum_model->send_topic($id_categorie,$topic_name, $etat);
 		
 		// Call send_message function to complete the process
-		$this->send_message($message, $id_categorie, $date_message,$id_topic,$id_user);
+		$this->send_message($message, $date_message,$id_topic,$id_user);
 	}
 
 	/**
