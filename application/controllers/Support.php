@@ -36,20 +36,30 @@ class Support extends MY_Controller {
    * Default Page or Display each type of support
    * ----------------------------------------------------------------------- */
   public function index() {
+
     // Set title and loading support's type
     $data['title'] = 'Support';
     $data['ticket'] = $this->support_model->getTicket();
 
     // Construct this page
     $this->construct_page('ticket/index', $data);
-  }
 
+  } //-- end function index()
+
+  /**
+   * @todo Descript
+   * ----------------------------------------------------------------------- */
   public function read($id) {
-    if(empty($id))
+
+    if(empty($id)) {
       redirect('support/');
+    }
+
     $data['title'] = 'Support lecture ticket';
     $data['ticket'] = $this->support_model->getTicket($id)[0];
 
     $this->construct_page('ticket/read', $data);
-  }
-}
+
+  } //-- end function read($id)
+
+} //-- end class Support extends MY_Controller
