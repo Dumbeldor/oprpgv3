@@ -30,7 +30,7 @@ class Account extends MY_Controller {
   // ========================================================================
 
   /**
-   * Of the account index page
+   * If you're connected, this page retour your personnal "Mon Compte" page
    * ----------------------------------------------------------------------- */
   public function index()
   {
@@ -50,7 +50,8 @@ class Account extends MY_Controller {
     $data['title'] = "Mon compte"; 
     $data['user'] = $this->user->getArray();
     $this->construct_page('account/infoPrivate', $data);
-  }
+    
+  }//-- end function infoPrivate()
 
   /**
    * Change password
@@ -83,7 +84,7 @@ class Account extends MY_Controller {
         $this->construct_page('account/setPassword', $data);
       }
     }   
-  }
+  } //-- end function setPassword()
 
   /**
    * Change email
@@ -108,5 +109,7 @@ class Account extends MY_Controller {
       $this->user->setAttribute('email', $this->input->post('email'));
       redirect('account/');
     }
-  }
-}
+
+  } //-- end function setEmail()
+
+} //-- end class Account extends MY_Controller
