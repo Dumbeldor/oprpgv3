@@ -19,6 +19,10 @@
     * Permet de construire une page avec header, navbar, etc...
     */
     public function construct_page($page, $data = array()) {
+       $data['moderator'] = 0;
+       $data['admin'] = 0;
+       $data['redactor'] = 0;
+       $data['VIP'] = 0;
       if($this->user->isAuthenticated()) 
       {
         $data['connecte'] = TRUE;
@@ -41,13 +45,7 @@
 			$data['capitaineCrew'] = 0;
 			$data['adminCrew'] = 0;
 			$data['modoCrew'] = 0;
-		}		
-		
-		 $data['moderator'] = 0;
-         $data['admin'] = 0;
-         $data['redactor'] = 0;
-         $data['VIP'] = 0;
-        
+		}		        
 		if($this->user->isBan() || $this->user->isKick())
 		  	$this->user->logout();
 		else if($this->user->isAdmin()) {
