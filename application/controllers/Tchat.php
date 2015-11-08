@@ -1,5 +1,19 @@
 <?php
+/**
+ ******************************************************************************
+ * Description : 
+ * This page contains tchat
+ * @todo Finish this description
+ * @author Dumbeldor
+ * @version 1.0.0
+ ******************************************************************************
+ */
+
 class Tchat extends MY_Controller {
+
+  // ========================================================================
+  // CREATE PAGE
+  // ========================================================================
 
   // Default Constructor
   public function __construct() {
@@ -11,6 +25,10 @@ class Tchat extends MY_Controller {
     $this->load->helper('smiley');
   }
   
+  // ========================================================================
+  // METHODS
+  // ========================================================================
+
   public function index() {
 	$data['title'] = 'T\'chat';
 	$data['tchats'] = $this->tchat_model->listTchat();
