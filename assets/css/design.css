@@ -26,6 +26,10 @@ div#Membre, div.Membre{
     border-color:#9B9B9B;
     border-radius: 10px
 }
+div#VIP, div.VIP{
+    border-color:black;
+    border-radius: 10px
+}
 div#Rédacteur, div#Rédactrice, div.Rédacteur, div.Rédactrice{
     border-color:#1BFFC7;
     border-radius: 10px
