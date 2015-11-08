@@ -5,7 +5,7 @@ class Tchat_model extends CI_Model {
 	}
 	
 	public function listTchat() {
-		$query = $this->db->query("SELECT t.id, t.name, tt.descr FROM tchats t, tchats_types tt WHERE t.is_block = 0 and t.id_tchats_types = tt.id");
+		$query = $this->db->query("SELECT t.id, t.name, t.descr FROM tchats t, tchats_types tt WHERE t.is_block = 0 and t.id_tchats_types = tt.id");
 		return $query->result_array();
 	}
   

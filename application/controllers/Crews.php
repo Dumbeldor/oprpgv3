@@ -259,7 +259,14 @@ class Crews extends MY_Controller {
 		$data['title'] = "Quitter équipage";
 		$this->construct_page('crews/leave', $data);
 	}
-	
+
+	public function dissolveConfirm() {
+		if(!$this->crew->inCrew() || !$this->crew->isCapitaine())
+			redirect(base_url('/crews/index'));
+		$data['title'] = "Dissolution équipage";
+		$this->construct_page('crews/dissolve');
+	}
+
 	public function dissolve() {
 		if(!$this->crew->inCrew() || !$this->crew->isCapitaine())
 			redirect(base_url('/crews/index'));

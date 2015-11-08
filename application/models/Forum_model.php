@@ -157,11 +157,14 @@ class Forum_model extends CI_Model {
 		$date_message is the date when the message is sent
 		$user_id is the user's id who send the message
 	*/
-	public function send_message($id_topic,$message,$date_message,$user_id) {
+	public function send_message($id_topic, $id_cat, $message,$date_message,$user_id) {
 		$this->db->insert('forums_topics_messages', array('message'=>$message,'date_time'=>$date_message,'id_forums_topics'=>$id_topic,'id_users'=>$user_id));
-		$this->db->where('id', $user_id);
-		$this->db->set('messNumber', 'messNumber+1', FALSE);
-		$this->db->update('users');
+		//if post in forum crew not incremente message !
+		if($id_cat != $this->user->getAttribute('crewId')) {
+			$this->db->where('id', $user_id);
+			$this->db->set('messNumber', 'messNumber+1', FALSE);
+			$this->db->update('users');
+		}
 	}
 	
 	/* Return the id of a topic, in a way to load this topic when the user send a message */
@@ -187,17 +190,24 @@ class Forum_model extends CI_Model {
 		$idCategories = $query->result_array()[0]['id'];
 		if($this->user->isAdmin() || $this->user->isModo() ||
 			($this->user->getAttribute('crewId') == $idCategories && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
-			$this->db->where('id', 'SELECT id_users FROM forums_topics_messages WHERE id = ?', array($id_message));
-			$this->db->set('messNumber', 'messNumber-1', FALSE);
-			$this->db->update('users');		
+			if($idCategories != $this->user->getAttribute('crewId')) {
+				$this->db->where('id', 'SELECT id_users FROM forums_topics_messages WHERE id = ?', array($id_message));
+				$this->db->set('messNumber', 'messNumber-1', FALSE);
+				$this->db->update('users');	
+			}	
 			$this->db->query('UPDATE forums_topics_messages ftm
 							JOIN users u ON ftm.id_users = u.id SET ftm.is_block=1, u.messNumber=messNumber-1 WHERE ftm.id=?', array($id_message));
 		}
 		else{
 			$this->db->query('UPDATE forums_topics_messages ftm
-							 JOIN users u ON ftm.id_users = u.id SET ftm.is_block=1, u.messNumber=messNumber-1 WHERE ftm.id=? AND ftm.id_users=?', array($id_message, $this->user->getId()));
+							  SET ftm.is_block=1 WHERE ftm.id=? AND ftm.id_users=?', array($id_message, $this->user->getId()));
 			if($this->db->affected_rows() == 0)
 				return false;
+			if($idCategories != $this->user->getAttribute('crewId')) {
+				$this->db->where('id', $this->user->getId());
+				$this->db->set('messNumber', 'messNumber-1', FALSE);
+				$this->db->update('users');	
+			}
 		}
 		$query = $this->db->query("SELECT ftm.id_forums_topics FROM forums_topics_messages ftm
 									WHERE ftm.id_forums_topics = (SELECT ftm2.id_forums_topics FROM forums_topics_messages ftm2

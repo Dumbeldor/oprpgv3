@@ -1,7 +1,6 @@
 <div class="row pageNormale">
 <h1>Équipage <?php echo $crew['name'];?></h1>
 <br>
-Berry : <?php echo $crew['money'];?> <br>
 Équipage créé le :  <?php echo date('d/m/Y à H\hi',$crew['dateCrew']);?><br>
 <br>
 Membres : <br>

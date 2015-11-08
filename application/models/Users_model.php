@@ -5,7 +5,7 @@ class Users_model extends CI_Model {
   }
   
   public function updateSession() {	
-	$query = $this->db->query("SELECT ban, is_kick, id_levels, id_objects, id_users_types, users_types.name AS rank,
+	$query = $this->db->query("SELECT ban, is_kick, lvl, id_objects, id_users_types, users_types.name AS rank,
 							  crews.name AS crewName, crews.id AS crewId, crews_grades.name as crewRank
 							  FROM users
 							  JOIN users_types ON users_types.id = id_users_types
@@ -39,10 +39,9 @@ class Users_model extends CI_Model {
 	/* $id is the id of the selected member */
   public function view_user($id = 0) {
         //Selection of all useful information to display on the member's profile
-    $query = $this->db->query("SELECT users.pseudo, users.messNumber, users_types.name AS rank, levels.number AS lvl,
+    $query = $this->db->query("SELECT users.pseudo, users.messNumber, users_types.name AS rank, lvl,
     							crews.name AS crewName, crews_grades.name AS crewGrade, crews.id AS crewId, registration, last_connection
                                 FROM users
-                                JOIN levels ON levels.id = users.id_levels 
                                 JOIN users_types ON users_types.id = users.id_users_types
     							LEFT JOIN crews_users ON crews_users.id_users = users.id
     							LEFT JOIN crews ON crews.id = crews_users.id
@@ -83,11 +82,10 @@ class Users_model extends CI_Model {
     $password_hash = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
     $data = array(
         'pseudo' => $this->input->post('pseudo'),
+        'lvl' => 1,
         'password' => $password_hash,
         'registration' => time(),
         'email' => $this->input->post('email'),
-        'id_personnages' => 1,
-        'id_levels' => 1,
         'id_objects' => 1,
         'id_users_types' => 1,
     );
@@ -153,8 +151,8 @@ class Users_model extends CI_Model {
   }
   
   public function setup_connexion($pseudo) {
-      $query = $this->db->query("SELECT users.id, ban, pseudo, email, birthday, sexe, is_kick, id_personnages,
-							  id_levels, id_objects, id_users_types, users_types.name AS rank
+      $query = $this->db->query("SELECT users.id, ban, pseudo, email, birthday, sexe, is_kick,
+							  lvl, id_objects, id_users_types, users_types.name AS rank
 							  FROM users
 							  JOIN users_types ON users_types.id = id_users_types
 							  WHERE pseudo = ?", array($pseudo));
@@ -196,11 +194,10 @@ class Users_model extends CI_Model {
   	//If the player is inactive for one hour
   	$this->db->delete('ci_sessions', array('timestamp <' => time() - 3600));
   	
-  	return $this->db->select('ci_sessions.idUser, users.id, users.pseudo, levels.number AS lvl, timestamp, users_types.name')
+  	return $this->db->select('ci_sessions.idUser, users.id, users.pseudo, lvl, timestamp, users_types.name')
   	->from('ci_sessions')
   	->join('users', 'ci_sessions.idUser = users.id')
 	->join('users_types', 'users.id_users_types = users_types.id')
-  	->join('levels', 'levels.id = users.id_levels')
   	->order_by('timestamp', 'desc')
   	->get()
   	->result();

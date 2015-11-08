@@ -1,5 +1,5 @@
 <div class="row pageNormale">
-	<h1>Vous n'êtes pas encore dans aucun équipage !</h1>
+	<h1>Équipage</h1>
 	<br>
 	2 choix s'offrent à vous, soit rejoindre un équipage : <br>
 		<a href="<?php echo base_url('crews/liste') ?>">Liste des équipages pouvant vous prendre</a> <br>

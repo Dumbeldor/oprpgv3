@@ -37,7 +37,7 @@
 													<a href="<?php echo base_url('forum/edit/'.$message->id); ?>">Éditer</a>
 												<?php } ?>
 													|
-												<a href="<?php echo base_url('forum/quote/'.$id_topic.'/'.$message->id);?>">Citer</a>
+												<a href="<?php echo base_url('forum/quote/'.$id_topic.'/'.$message->id);?>">Citer</a> | <a href="#<?= $message->id?>">Ancre</a>
 												<br><br></i>
 																
 																	

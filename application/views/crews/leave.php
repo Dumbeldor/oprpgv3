@@ -8,4 +8,4 @@
      <a href="<?php echo base_url('crews/index');?>">Retour à l'index des équipages</a>
      <?php
 } ?>
-<div class="row pageNormale">
+</div>

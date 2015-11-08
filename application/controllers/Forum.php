@@ -278,7 +278,7 @@ class Forum extends MY_Controller {
 		$id_topic = $this->forum_model->send_topic($id_categorie,$topic_name, $etat);
 		
 		// Call send_message function to complete the process
-		$this->send_message($message,$date_message,$id_topic,$id_user);
+		$this->send_message($message, $id_categorie, $date_message,$id_topic,$id_user);
 	}
 
 	/**
@@ -308,7 +308,7 @@ class Forum extends MY_Controller {
 		}
 		
 		// Redirect to forum's model for action function
-		$this->forum_model->send_message($id_topic,$message,$date_message,$id_user);
+		$this->forum_model->send_message($id_topic, $id_cat, $message,$date_message,$id_user);
 		
 		// Loading previous topic after success
 		redirect('forum/t/'.$id_topic);

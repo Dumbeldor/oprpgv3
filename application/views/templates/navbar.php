@@ -66,7 +66,7 @@
               <li><a href="<?php echo base_url('/tchat') ?>">T'chat</a></li>
               <li class="divider"></li>
 
-                <li><a href="<?php echo base_url('/crews/index') ?>">Équipage</a></li>
+                <li><a href="<?php echo base_url('/crews') ?>">Équipage</a></li>
                 <li class="divider"></li>
                 <li><a href="<?php echo base_url('/account') ?>">Mon Compte
                   <?php if($amountMP > 0)

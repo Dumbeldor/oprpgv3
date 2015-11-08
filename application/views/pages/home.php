@@ -49,7 +49,7 @@
         echo '<h4>'.$new->title.'</h4>';
 
         // News Informations
-        echo '<small><a href="'.$new->idUser.'" class="'.$new->rank.'">'.$new->pseudo.'</a>';
+        echo '<small><a href="'.base_url('users/view/'.$new->idUser).'" class="'.$new->rank.'">'.$new->pseudo.'</a>';
         echo ' le '.date('d/m/Y à H\hi', $new->date_time).'</small><br><br>';
 
         // News Content

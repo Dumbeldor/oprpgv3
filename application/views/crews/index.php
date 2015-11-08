@@ -27,7 +27,7 @@
     } if($capitaine){
         ?>Capitaine équipage : <br>
         <a href="<?php echo base_url('crews/ll');?>">Donner le lead</a><br><br>
-        <a href="<?php echo base_url('crews/dissolve');?>">Dissoudre l'équipage</a><br>  
+        <a href="<?php echo base_url('crews/dissolveConfirm');?>">Dissoudre l'équipage</a><br>  
         <br>
         <?php
     }
