@@ -164,9 +164,18 @@
     var nb_cheveux_homme_bleu = <?= $nb_cheveux_homme_bleu ?>;
     var nb_cheveux_homme_blanc = <?= $nb_cheveux_homme_blanc ?>;
     var nb_cheveux_homme_rose = <?= $nb_cheveux_homme_rose ?>;
+    
+    var nb_cheveux_femme_noir = <?= $nb_cheveux_femme_noir ?>;
+    var nb_cheveux_femme_marron = <?= $nb_cheveux_femme_marron ?>;
+    var nb_cheveux_femme_rouge = <?= $nb_cheveux_femme_rouge ?>;
+    var nb_cheveux_femme_orange = <?= $nb_cheveux_femme_orange ?>;
+    var nb_cheveux_femme_jaune = <?= $nb_cheveux_femme_jaune ?>;
+    var nb_cheveux_femme_vert = <?= $nb_cheveux_femme_vert ?>;
+    var nb_cheveux_femme_bleu = <?= $nb_cheveux_femme_bleu ?>;
+    var nb_cheveux_femme_blanc = <?= $nb_cheveux_femme_blanc ?>;
+    var nb_cheveux_femme_rose = <?= $nb_cheveux_femme_rose ?>;
 
    
-    var nb_cheveux_femme=<?php echo $nb_cheveux_femme; ?>;
     var nb_corps_homme=<?php echo $nb_corps_homme; ?>;
     var nb_corps_femme=<?php echo $nb_corps_femme; ?>;
     var nb_yeux_homme=<?php echo $nb_yeux_homme; ?>;

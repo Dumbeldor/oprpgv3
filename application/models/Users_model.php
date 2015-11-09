@@ -224,22 +224,44 @@ class Users_model extends CI_Model {
   }
   
   public function create_avatar($id) {
+	
+//	$blabla = array('hair' => 'blabla.png');
+  //  $json = json_encode($blabla)
 	$sexe = $this->input->post('sexe');
 	$body = $this->input->post('body');
 	$hair = $this->input->post('hair');
 	$eyes = $this->input->post('eyes');
 	$mouth = $this->input->post('mouth');
-  $couleur = $this->input->post('couleur');
+	$couleur = $this->input->post('couleur');
+	$pseudo = $this->input->post('pseudo');
 	
 	if($sexe=='Homme') {
-		$this->merge_images('assets/img/avatars/man/body/' . $body . '.png', 'assets/img/avatars/man/eyes/' . $eyes . '.png',
-    'assets/img/avatars/mouths/' . $mouth . '.png', 'assets/img/avatars/man/hair/'.$couleur.'/'. $hair . '.png', 
-		'assets/img/avatarsJoueurs/' . $id . '.png');
+	  $urlBody = 'assets/img/avatars/man/body/' . $body . '.png';
+	  $urlEyes = 'assets/img/avatars/man/eyes/' . $eyes . '.png';
+	  $urlMouths = 'assets/img/avatars/mouths/' . $mouth . '.png';
+	  $urlHair = 'assets/img/avatars/man/hair/'.$couleur.'/'. $hair . '.png';
+		
 	} else {
-		$this->merge_images('assets/img/avatars/woman/body/' . $body . '.png', 'assets/img/avatars/woman/hair/' . $hair . '.png',
-		'assets/img/avatars/eyes/' . $eyes . '.png', 'assets/img/avatars/mouths/' . $mouth . '.png', 
-		'assets/img/avatarsJoueurs/' . $id . '.png');
+	  
+		$urlBody = 'assets/img/avatars/woman/body/' . $body . '.png';
+		$urlEyes = 'assets/img/avatars/woman/eyes/' . $eyes . '.png';
+		$urlMouths = 'assets/img/avatars/mouths/' . $mouth . '.png';
+		$urlHair = 'assets/img/avatars/woman/hair/'.$couleur.'/'. $hair . '.png';
 	}
+	
+	$avatar = array('sexe' => $sexe,
+					'body' => $urlBody,
+					'eyes' => $urlEyes,
+					'mouths' => $urlMouths,
+					'hair' => $urlHair
+					);	
+	$serializeAvatar = serialize($avatar);
+	$data = array('avatar'=>$serializeAvatar);
+	$this->db->where('pseudo', $pseudo)
+			  ->update('users', $data);
+			  
+	$this->merge_images($urlBody, $urlEyes, $urlMouths, $urlHair, 'assets/img/avatarsJoueurs/' . $id . '.png');
+	
   }
   
   function merge_images($filename_a, $filename_b, $filename_c, $filename_d, $filename_result) {

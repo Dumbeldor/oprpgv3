@@ -110,8 +110,14 @@ class Users extends MY_Controller {
 	$this->form_validation->set_rules('email', 'Email', 'required|min_length[3]|max_length[249]|valid_email');
 	$this->form_validation->set_rules('sexe', 'sexe', 'required');
 
-  $url = '/opt/lampp/htdocs/oprpg/assets/img/avatars';
+  $url = 'assets/img/avatars';
   $urlManHair = $url.'/man/hair';
+  $urlWomanHair = $url.'/woman/hair';
+  $urlBodyMan = $url.'/man/body';
+  $urlBodyWoman = $url.'/woman/body';
+  $urlEyeMan = $url.'/man/eyes';
+  $urlEyeWoman = $url.'/woman/eyes';
+  $urlMouth = $url.'/mouths';
 
   $data['nb_cheveux_homme_noir']=count(scandir($urlManHair.'/noir'))-2;
   $data['nb_cheveux_homme_marron']=count(scandir($urlManHair.'/marron'))-2;
@@ -122,12 +128,24 @@ class Users extends MY_Controller {
   $data['nb_cheveux_homme_bleu']=count(scandir($urlManHair.'/bleu'))-2;
   $data['nb_cheveux_homme_blanc']=count(scandir($urlManHair.'/blanc'))-2;
   $data['nb_cheveux_homme_rose']=count(scandir($urlManHair.'/rose'))-2;
-  $data['nb_cheveux_femme']=110;
-  $data['nb_corps_homme']=$this->users_model->countBody(0);
-  $data['nb_corps_femme']=$this->users_model->countBody(1);
-  $data['nb_yeux_homme']=$this->users_model->countEyes(0);
-  $data['nb_yeux_femme']=$this->users_model->countEyes(1);
-  $data['nb_bouches']=$this->users_model->countMouths();
+  
+  $data['nb_cheveux_femme']=count(scandir($urlWomanHair.'/noir'))-2;
+  
+  $data['nb_cheveux_femme_noir']=count(scandir($urlWomanHair.'/noir'))-2;
+  $data['nb_cheveux_femme_marron']=count(scandir($urlWomanHair.'/marron'))-2;
+  $data['nb_cheveux_femme_rouge']=count(scandir($urlWomanHair.'/rouge'))-2;
+  $data['nb_cheveux_femme_orange']=count(scandir($urlWomanHair.'/orange'))-2;
+  $data['nb_cheveux_femme_jaune']=count(scandir($urlWomanHair.'/jaune'))-2;
+  $data['nb_cheveux_femme_vert']=count(scandir($urlWomanHair.'/vert'))-2;
+  $data['nb_cheveux_femme_bleu']=count(scandir($urlWomanHair.'/bleu'))-2;
+  $data['nb_cheveux_femme_blanc']=count(scandir($urlWomanHair.'/blanc'))-2;
+  $data['nb_cheveux_femme_rose']=count(scandir($urlWomanHair.'/rose'))-2;
+  
+  $data['nb_corps_homme']=count(scandir($urlBodyMan))-2;
+  $data['nb_corps_femme']=count(scandir($urlBodyWoman))-2;
+  $data['nb_yeux_homme']=count(scandir($urlEyeMan))-2;
+  $data['nb_yeux_femme']=count(scandir($urlEyeWoman))-2;
+  $data['nb_bouches']=count(scandir($urlMouth))-2;
 	
 	if ($this->form_validation->run() === FALSE) {	  
 	     $data['scripts'][] = base_url('assets/js/users/create_avatar.js');

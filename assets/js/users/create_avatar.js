@@ -31,8 +31,9 @@ $("#etape_cheveux").click(function(){
 			$("#options_avatars div#options").append('<a><img class="option_avatar" id="hair-'+i+'" src="'+avat_dir+'/man/hair/'+color+'/'+i+'.png"></a> ');
 		}
 	} else {
-		for(var i=1;i<=nb_cheveux_femme;i++) {
-			$("#options_avatars div#options").append('<a><img class="option_avatar" id="hair-'+i+'" src="'+avat_dir+'/woman/hair/'+i+'.png"></a> ');
+		var nb_cheveux = 'nb_cheveux_femme_'+color;
+		for(var i=1;i<=window[nb_cheveux];i++) {
+			$("#options_avatars div#options").append('<a><img class="option_avatar" id="hair-'+i+'" src="'+avat_dir+'/woman/hair/'+color+'/'+i+'.png"></a> ');
 		}
 	}
 });
