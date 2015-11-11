@@ -22,7 +22,7 @@
       ?><script 
       src="<?php echo base_url('assets/js/ckeditorStaff/ckeditor.js');?>"></script>
       <?php
-    } else if($VIP) { 
+    } else if($VIP || $Animateur || $Animatrice) { 
       ?>
       <script 
         src="<?php echo base_url('assets/js/ckeditorVIP/ckeditor.js');?>"></script>

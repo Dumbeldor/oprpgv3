@@ -5,6 +5,10 @@ a.VIP{
 	color:black;
 	font-weight: bold;
 }
+a.Animateur a.Animatrice{
+    color: #010392;
+    font-weight: bold;
+}
 a.Rédacteur, a.Rédactrice{
     color:#1BFFC7;
 }
@@ -28,6 +32,10 @@ div#Membre, div.Membre{
 }
 div#VIP, div.VIP{
     border-color:black;
+    border-radius: 10px
+}
+div#VIP, div.VIP{
+    border-color:#010392;
     border-radius: 10px
 }
 div#Rédacteur, div#Rédactrice, div.Rédacteur, div.Rédactrice{
@@ -216,7 +224,7 @@ textarea {
 	font-style: italic;
 }
 
-.messageTchat #Membre, .messageTchat #Rédacteur, .messageTchat #Rédactrice,
+.messageTchat #Membre, .messageTchat #VIP, .messageTchat #Animateur, .messageTchat #Animatrice, .messageTchat #Rédacteur, .messageTchat #Rédactrice,
 .messageTchat #Designer, .messageTchat #Designeuse, .messageTchat #Modérateur,
 .messageTchat #Modératrice, .messageTchat #Co-Administrateur, .messageTchat #Co-Administratrice,
 .messageTchat #Administrateur, .messageTchat #Administratrice{
@@ -234,6 +242,18 @@ textarea {
 
 .avatarTchatMembre{
     border-color:#9B9B9B;
+    border-radius: 10px;
+	border-style: solid;
+    border-width: 3px;
+}
+.avatarTchatVIP{
+    border-color:black;
+    border-radius: 10px;
+	border-style: solid;
+    border-width: 3px;
+}
+.avatarTchatAnimateur .avatarTchatAnimatrice{
+    border-color:#010392;
     border-radius: 10px;
 	border-style: solid;
     border-width: 3px;

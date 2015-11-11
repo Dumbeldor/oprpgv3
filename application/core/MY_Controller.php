@@ -23,6 +23,8 @@
        $data['admin'] = 0;
        $data['redactor'] = 0;
        $data['VIP'] = 0;
+	   $data['Animateur'] = 0;
+	   $data['Animatrice'] = 0;
       if($this->user->isAuthenticated()) 
       {
         $data['connecte'] = TRUE;
