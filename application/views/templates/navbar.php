@@ -25,7 +25,20 @@
               <li><a href="<?php echo base_url('/home/index'); ?>">News</a></li>
               <li class="divider"></li>
 
-              <li class="has-dropdown">
+              <li class="divider"></li>
+              <li><a href="<?php echo base_url('/forum') ?>">Forum</a></li>
+              <li class="divider"></li>
+              <li><a href="<?php echo base_url('/tchat') ?>">T'chat</a></li>
+              <li class="divider"></li>
+
+                <li><a href="<?php echo base_url('/crews') ?>">Équipage</a></li>
+                <li class="divider"></li>
+                <li><a href="<?php echo base_url('/account') ?>">Mon Compte
+                  <?php if($amountMP > 0)
+                  echo '('.$amountMP.')'; ?>
+                </a></li>
+				
+				<li class="has-dropdown">
                 <a href="#">Autre</a>
 
                 <ul class="dropdown">
@@ -59,19 +72,8 @@
               
                 </ul> <!-- /<ul class="dropdown"> -->
               </li> <!-- /<li class="has-dropdown"> Autre -->
-
-              <li class="divider"></li>
-              <li><a href="<?php echo base_url('/forum') ?>">Forum</a></li>
-              <li class="divider"></li>
-              <li><a href="<?php echo base_url('/tchat') ?>">T'chat</a></li>
-              <li class="divider"></li>
-
-                <li><a href="<?php echo base_url('/crews') ?>">Équipage</a></li>
-                <li class="divider"></li>
-                <li><a href="<?php echo base_url('/account') ?>">Mon Compte
-                  <?php if($amountMP > 0)
-                  echo '('.$amountMP.')'; ?>
-                </a></li>
+				
+				
                 <li class="divider"></li>
                 <li><a href="<?php echo base_url('/users/disconnect') ?>">Deconnexion</a></li>
                 <li class="divider"></li>
