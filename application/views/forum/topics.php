@@ -31,7 +31,7 @@
 								</div>
 								<div class="columns small-9">
 										<div class="panel" id="<?= $message->ranks;?>">												
-												<i> le <?php echo date('d/m/Y à H\hi',$message->date); ?> | <?php
+												<i>Posté le <?php echo date('d/m/Y à H\hi',$message->date); ?> | <?php
 												if($message->userId == $this->user->getId() || $moderator || ($id_categorie == $this->user->getAttribute('crewId') && ($modoCrew || $adminCrew || $capitaineCrew))) {
 													?><a href="<?php echo base_url('forum/delete_message/'.$message->id); ?>"><img src="<?= base_url('assets/img/icone/delete.png')?>" title="Supprimer"></img></a>
 													|
