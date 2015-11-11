@@ -5,10 +5,11 @@ a.VIP{
 	color:black;
 	font-weight: bold;
 }
-a.Animateur a.Animatrice{
+a.Animateur, a.Animatrice{
     color: #010392;
     font-weight: bold;
 }
+
 a.Rédacteur, a.Rédactrice{
     color:#1BFFC7;
 }
@@ -34,7 +35,7 @@ div#VIP, div.VIP{
     border-color:black;
     border-radius: 10px
 }
-div#VIP, div.VIP{
+div#Animateur, div#Animatrice, div.Animateur, div.Animatrice{
     border-color:#010392;
     border-radius: 10px
 }
@@ -252,7 +253,7 @@ textarea {
 	border-style: solid;
     border-width: 3px;
 }
-.avatarTchatAnimateur .avatarTchatAnimatrice{
+.avatarTchatAnimateur, .avatarTchatAnimatrice{
     border-color:#010392;
     border-radius: 10px;
 	border-style: solid;
