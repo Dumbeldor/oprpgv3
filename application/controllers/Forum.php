@@ -87,7 +87,7 @@ class Forum extends MY_Controller {
 		// Set title and loading categories
 		$data['title'] = 'Forum';
 	    $data['topic'] = $this->forum_model->get_topics($id_categorie, 10, $page);
-		if(empty($data['topic']))
+		if(empty($data['topic']) && $id_categorie != $this->user->getAttribute('crewId'))
 		   redirect('forum/');
 		
 	
@@ -216,10 +216,6 @@ class Forum extends MY_Controller {
 			redirect('forum/');
 		}
 		
-		// Verify user is not quoting message from another crew's forum
-		if(!$this->forum_model->iscrew_forum_topic($idTopic))
-			redirect('forum/');
-		
 		$this->load->helper('form');
 		$citation = $this->forum_model->getQuote($idTopic, $idCitation);
 		if(empty($citation))
@@ -277,7 +273,8 @@ class Forum extends MY_Controller {
 		echo $this->input->post('id_categorie');
 		// Topic's id is get in a way to redirect the user to this topic
 		$id_topic = $this->forum_model->send_topic($id_categorie,$topic_name, $etat);
-		
+		if(!$id_topic)
+			redirect('forum/');
 		// Call send_message function to complete the process
 		$this->send_message($message, $date_message,$id_topic,$id_user);
 	}
@@ -289,7 +286,7 @@ class Forum extends MY_Controller {
 	 * @param $id_topic Topic's id
 	 * @param $id_user Sender's (user) id
 	 * ----------------------------------------------------------------------- */
-	public function send_message($message='', $date_message='', $id_topic, $id_user='') {
+	public function send_message($message='', $date_message='', $id_topic='', $id_user='') {
 		// Verifying params
 		if(empty($message) && empty($date_message) && empty($id_topic) && empty($id_user)){
 			// Set information into varibles - Format them
@@ -304,12 +301,13 @@ class Forum extends MY_Controller {
 		
 		// Verify user is not sending messages on unauthorized topics (secret category of other crew's category)
 		$id_cat = $this->forum_model->get_id_categorie($id_topic)[0]['id_forums_categories'];
-		if(($id_cat == 1 && !($this->user->isModo() || $this->user->isAdmin())) || !$this->forum_model->iscrew_forum_topic($id_topic)) {
+		if(($id_cat == 1 && !($this->user->isModo() || $this->user->isAdmin()))) {
 			redirect('forum/');
 		}
 		
 		// Redirect to forum's model for action function
-		$this->forum_model->send_message($id_topic, $id_cat, $message,$date_message,$id_user);
+		if(!$this->forum_model->send_message($id_topic, $id_cat, $message,$date_message,$id_user))
+			redirect('forum/');
 		
 		// Loading previous topic after success
 		redirect('forum/t/'.$id_topic);

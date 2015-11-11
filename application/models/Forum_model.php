@@ -136,6 +136,8 @@ class Forum_model extends CI_Model {
 		$user_id is the user's id who send the message
 	*/
 	public function send_message($id_topic, $id_cat, $message,$date_message,$user_id) {
+		if(!$this->lawPoste($id_cat))
+			return false;
 		$this->db->insert('forums_topics_messages', array('message'=>$message,'date_time'=>$date_message,'id_forums_topics'=>$id_topic,'id_users'=>$user_id));
 		//if post in forum crew not incremente message !
 		if($id_cat != $this->user->getAttribute('crewId')) {
@@ -143,6 +145,7 @@ class Forum_model extends CI_Model {
 			$this->db->set('messNumber', 'messNumber+1', FALSE);
 			$this->db->update('users');
 		}
+		return true;
 	}
 	
 	/* Return the id of a topic, in a way to load this topic when the user send a message */
@@ -166,6 +169,8 @@ class Forum_model extends CI_Model {
 						 JOIN forums_categories fc ON ft.id_forums_categories = fc.id
 						 WHERE ft.id = ?', array($id_topic));
 		$idCategories = $query->result_array()[0]['id'];
+		if(!$this->lawPoste($idCategories))
+			return false;
 		if($this->user->isAdmin() || $this->user->isModo() ||
 			($this->user->getAttribute('crewId') == $idCategories && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
 			if($idCategories != $this->user->getAttribute('crewId')) {
@@ -206,10 +211,25 @@ class Forum_model extends CI_Model {
 		$topic_name is the name of the topic
 	*/
 	public function send_topic($id_categorie,$topic_name, $type=1) {
+		if(!$this->lawPoste($id_categorie))
+			return false;
 		$this->db->insert('forums_topics', array('name'=>$topic_name,'id_forums_categories'=>$id_categorie, 'id_forums_topics_types' => $type));
 		return $this->db->insert_id(); 
 	}
-	
+	public function lawPoste($idCategorie) {
+		if($idCategorie == 1 AND !$this->user->isModo())
+			return false;
+		$nb = $this->db->where('id', $idCategorie)
+    					  ->where('(is_block', 0)
+						  ->or_where('(is_block', 1)
+						  ->where('is_crew', 0)
+						  ->where("name = '".$this->user->getAttribute('facName')."' ))", NULL, FALSE)
+						  ->where('(is_crew', 0)
+						  ->or_where('(is_crew', 1)
+						  ->where("id = '".$this->user->getAttribute('crewId')."' ))", NULL, FALSE)
+            ->count_all_results('forums_categories');
+		return ($nb == 1) ? true : false;
+	}
 	/*
 	 *Return true or false for topic open or close
 	 */
@@ -225,6 +245,8 @@ class Forum_model extends CI_Model {
 	 * Close topic
 	 */
 	public function close_topic($id_topic) {
+		if(!$this->lawPoste($idCategories))
+			return false;
 		$this->db->where('id', $resultat[0]['id_forums_topics']);
 		$this->db->set('is_block', 1);
 		$this->db->update('forums_topics');	
@@ -233,6 +255,8 @@ class Forum_model extends CI_Model {
 	 * Delete topic
 	 */
 	public function delete_topic($id_topic) {
+		if(!$this->lawPoste($idCategories))
+			return false;
 		$this->db->where('id_forums_topics', $id_topic);
 		$this->db->set('is_block', 1);
 		$this->db->update('forums_topics_messages');
@@ -256,6 +280,8 @@ class Forum_model extends CI_Model {
 	}
 	
 	public function getQuote($idTopic, $idCitation) {
+		if(!$this->lawPoste($idCategories))
+			return false;
 		$query = $this->db->query('SELECT message, pseudo
 								  FROM forums_topics_messages
 								  JOIN users ON forums_topics_messages.id_users = users.id
@@ -265,6 +291,8 @@ class Forum_model extends CI_Model {
 	}
 	
 	public function getMess($id, $categorieId) {
+		if(!$this->lawPoste($idCategories))
+			return false;
 		if($this->user->isAdmin() || $this->user->isModo() ||
 			($this->user->getAttribute('crewId') == $categorieId && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
 			$query = $this->db->query('SELECT message
@@ -282,6 +310,8 @@ class Forum_model extends CI_Model {
 	}
 	
 	public function edit($id, $message, $categorieId) {
+		if(!$this->lawPoste($idCategories))
+			return false;
 		if($this->user->isAdmin() || $this->user->isModo() ||
 			($this->user->getAttribute('crewId') == $categorieId && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
 			$this->db->query('UPDATE forums_topics_messages
@@ -294,7 +324,5 @@ class Forum_model extends CI_Model {
 		if($this->db->affected_rows() == 0)
 			return false;
 		return true;
-	}
-	
-	
+	}	
 }
