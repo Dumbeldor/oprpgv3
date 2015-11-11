@@ -106,6 +106,11 @@ class User
 		return $this->CI->session->userdata('id');
 	}
 	
+	public function getFaction()
+	{
+		return $this->CI->session->userdata('faction');
+	}
+	
 	
 	// Setters
 	public function setAttribute($attr, $value)
@@ -149,26 +154,5 @@ class User
 	public function setUserId($userId)
 	{
 		$this->CI->session->set_userdata('userId', $userId);
-	}
-	
-	public function getColor($id)
-	{
-		if((int)$id)
-		{
-			if($id == 1)
-				return "#AFAFAF";
-			if($id == 2 || $id == 7)
-				return "#1BFFC7";
-			if($id == 3 || $id == 8)
-				return "#1B2AFF";
-			if($id == 4 || $id == 9)
-				return "#1BFF1F";
-			if($id == 5 || $id == 10)
-				return "#FF911B";
-			if($id == 6 || $id == 11)
-				return "#D20000";			
-		}
-	}
-
-	 
+	}	 
 }

@@ -109,6 +109,8 @@ class Users extends MY_Controller {
 	$this->form_validation->set_rules('passconf', 'Mot de passe de confirmation', 'required');
 	$this->form_validation->set_rules('email', 'Email', 'required|min_length[3]|max_length[249]|valid_email');
 	$this->form_validation->set_rules('sexe', 'sexe', 'required');
+	$this->form_validation->set_rules('faction', 'faction', 'required');
+	
 
   $url = 'assets/img/avatars';
   $urlManHair = $url.'/man/hair';
@@ -149,16 +151,28 @@ class Users extends MY_Controller {
 	
 	if ($this->form_validation->run() === FALSE) {	  
 	     $data['scripts'][] = base_url('assets/js/users/create_avatar.js');
+		 $data['scripts'][] = base_url('assets/js/users/create.js');
        $this->construct_page('users/create', $data);
     }
+	else if($body = $this->input->post('body') == "0" ||
+			$body = $this->input->post('hair') == "0" ||
+			$body = $this->input->post('eyes') == "0" ||
+			$body = $this->input->post('mouth') == "0") {
+	  $data['error'] = "Vous devez choisir votre avatar";
+	  $data['scripts'][] = base_url('assets/js/users/create_avatar.js');
+	  $data['scripts'][] = base_url('assets/js/users/create.js');
+       $this->construct_page('users/create', $data);
+	}
     else {
       $id = $this->users_model->set_user();
       if($id == 0) {
           $data['scripts'][] = base_url('assets/js/users/create_avatar.js');
+		  $data['scripts'][] = base_url('assets/js/users/create.js');
           $data['error'] = "Pseudo déjà utilisé !";
           $this->construct_page('users/create', $data);
       } else if($id == -1) {
           $data['scripts'][] = base_url('assets/js/users/create_avatar.js');
+		  $data['scripts'][] = base_url('assets/js/users/create.js');
           $data['error'] = "Email déjà utilisé !";
           $this->construct_page('users/create', $data);
       }

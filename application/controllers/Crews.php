@@ -50,7 +50,7 @@ class Crews extends MY_Controller {
 		$data['title'] = 'Création de votre équipage';
 		$this->load->library('form_validation');
 		$this->load->helper('form');
-		$this->form_validation->set_rules('crewName', 'Nom équipage', 'required|min_length[3]|max_length[15]|is_unique[crews.name]');
+		$this->form_validation->set_rules('crewName', 'Nom équipage', 'required|min_length[3]|max_length[50]|is_unique[crews.name]');
 		  if ($this->form_validation->run() === FALSE) {
 			$this->construct_page('crews/create', $data);
 		}
@@ -110,7 +110,7 @@ class Crews extends MY_Controller {
 	}
 	
 	public function candidacy($id=0) {
-		if($id == 0 || $this->crew->inCrew() || $this->crews_model->pendingRequest($id))
+		if($id == 0 || $this->crew->inCrew() || $this->crews_model->inFaction($id) || $this->crews_model->pendingRequest($id))
 			redirect(base_url('/crews/index'));
 		$data['title'] = 'Candidature équipage';
 		$data['id'] = $id;

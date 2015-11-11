@@ -60,7 +60,7 @@
 			$data['redactor'] = TRUE;
 		}
 		else {
-			
+			$data[$this->user->getRank()] = TRUE;
 		}
       }else{
       	$data['connecte'] = 0;

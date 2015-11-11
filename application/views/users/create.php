@@ -73,6 +73,46 @@
         ?>
       </div>
     </div>
+    
+    
+     <!-- :::::::::: FACTION :::::::::: -->
+    
+    <div class="row collapse">
+      <div class="small-9 large-9 columns">
+        <?php echo form_error('faction'); ?>
+        <ul class="button-group radius toggle" data-toggle="buttons-radio">
+          <li>
+            <input type="radio" id="factionAleatoire" value="aleatoire" name="faction" data-toggle="button" onclick="afficher('descAlea')" checked>
+            <label class="button small secondary" for="factionAleatoire">Aléatoire</label>
+          </li>
+          <li>
+            <input type="radio" id="factionPirate" value="1" name="faction" data-toggle="button" onclick="afficher('descPirate')">
+            <label class="button small secondary" for="factionPirate">Pirate</label>
+          </li>
+          <li>
+            <input type="radio" id="factionMarine" value="2" name="faction" data-toggle="button" onclick="afficher('descMarine')">
+            <label class="button small secondary" for="factionMarine">Marine</label>
+          </li>
+          <li>
+            <input type="radio" id="factionRévolutionnaire" value="3" name="faction" data-toggle="button" onclick="afficher('descRevolu')">
+            <label class="button small secondary" for="factionRévolutionnaire">Révolutionnaire</label>
+          </li>
+        </ul>
+      </div>
+    </div> <br> <!-- /<div class="row collapse"> FACTION -->
+    
+    <div id="descAlea" style="display:block">Laissez le destin décider pour vous et gagner 1 000 berry en plus !</div>
+    <div id="descPirate" style="display:none">Suivez les traces du célèbre Monkey.D.Luffy et devenez un pirate.
+    Commettre des délits, chercher des trésors,  échapper à la marine ainsi qu'au gouvernement mondial et naviguer en mer sera votre quotidien.
+    Une forte dose d'aventure vous attends !</div>
+    <div id="descMarine" style="display:none;">Incarnez un fort et courageux marine afin de stopper ses horribles pirates qui s'en prennent à des gens innocents.
+    Défendre la population et éradiquer les pirates sera votre priorité.
+    Honneur, courage et loyauté vous seront alors indispensables dans votre quête.</div>
+    <div id="descRevolu" style="display:none">Incarnez un révolutionnaire et rétablissez la vraie justice.
+    Comme le célèbre Monkey.D.Dragon, chef des révolutionnaires, votre but sera de faire tomber le gouvernement mondial.
+    Pour cela, il va vous falloir agir en secret, la prudence et la discrétion vous sera indispensable afin de changer le monde !</div>
+    <br>
+    
 
     <!-- :::::::::: CHARACTER INFORMATIONS :::::::::: -->
 

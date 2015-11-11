@@ -32,7 +32,8 @@ class Crews_model extends CI_Model {
 		    'money' => 0,
 		    'date_time' => time(),
 		    'id_crews_types' => 1,
-		    'id_crews_banks' => $this->db->insert_id()
+		    'id_crews_banks' => $this->db->insert_id(),
+			'id_faction' => $this->user->getFaction()
 		);	
 		$this->db->insert('crews', $data);
 		
@@ -73,13 +74,15 @@ class Crews_model extends CI_Model {
 }
 
 	public function changeCrew($idCrew) {
-		$this->db->where('id_users', $this->user->getId());
-		$this->db->update('crews_users', array('id' => $idCrew));
+		$this->db->where('id_users', $this->user->getId())
+				->where('id_faction', $this->user->getFaction())
+				->update('crews_users', array('id' => $idCrew));
 	}
 
 	public function countCrews(){
 		return (int) $this->db
 			->where('is_block', 0)
+			->where('id_faction', $this->user->getFaction())
 			->count_all_results('crews');
 	}
 
@@ -87,10 +90,10 @@ class Crews_model extends CI_Model {
 		$query = $this->db->query('SELECT id, name, money,
 					page, date_time AS dateCrew
 					FROM crews
-					WHERE is_block = 0
+					WHERE is_block = 0 AND id_faction = ?
 					ORDER BY id
 					LIMIT '.$begin.', '.$nb.'
-					');
+					', array($this->user->getFaction()));
 		return $query->result_array();
 	}
 	
@@ -196,6 +199,7 @@ class Crews_model extends CI_Model {
 		$this->db->from('crews');
 		$this->db->like('name', $this->input->post('crewName'));
 		$this->db->where('is_block', 0);
+		$this->db->where('id_faction', $this->user->getFaction());
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -265,6 +269,14 @@ class Crews_model extends CI_Model {
 		$this->db->where('id', $idCrew);
 		$this->db->set('is_block', 1);
 		$this->db->update('crews');	
+	}
+	
+	public function inFaction($id) {
+		$nb = $this->db->where('id', $id)
+    					  ->where('id_faction', $this->user->getFaction())
+						  ->where('is_block', 0)
+            ->count_all_results('crews');
+		return($nb == 0) ? true : false;
 	}
 	
 }

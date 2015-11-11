@@ -40,12 +40,13 @@ class Users_model extends CI_Model {
   public function view_user($id = 0) {
         //Selection of all useful information to display on the member's profile
     $query = $this->db->query("SELECT users.pseudo, users.messNumber, users_types.name AS rank, lvl,
-    							crews.name AS crewName, crews_grades.name AS crewGrade, crews.id AS crewId, registration, last_connection
+    							crews.name AS crewName, crews_grades.name AS crewGrade, crews.id AS crewId, registration, last_connection, faction.name AS facName
                                 FROM users
                                 JOIN users_types ON users_types.id = users.id_users_types
     							LEFT JOIN crews_users ON crews_users.id_users = users.id
     							LEFT JOIN crews ON crews.id = crews_users.id
     							LEFT JOIN crews_grades ON crews_grades.id = crews_users.id_crews_grades
+								JOIN faction ON users.id_faction = faction.id
                                 WHERE users.id = ?", array($id));
     //Returns array with member information
     return $query->row_array();
@@ -79,15 +80,26 @@ class Users_model extends CI_Model {
     	return 0;
     if($nbEmail > 0)
     	return -1;
+	  
+	$berry = 100;
+	$faction = $this->input->post('faction');
+	if($this->input->post('faction') == "aleatoire") {
+	  $berry += 1000;
+	  //marine
+	  $faction = 2;
+	}
+	
     $password_hash = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
     $data = array(
         'pseudo' => $this->input->post('pseudo'),
-        'lvl' => 1,
         'password' => $password_hash,
         'registration' => time(),
         'email' => $this->input->post('email'),
+		'lvl' => 1,
+		'berry' => $berry,
         'id_objects' => 1,
         'id_users_types' => 1,
+		'id_faction' => $faction
     );
      $this->db->insert('users', $data);
 	 return $this->db->insert_id();
@@ -152,7 +164,7 @@ class Users_model extends CI_Model {
   
   public function setup_connexion($pseudo) {
       $query = $this->db->query("SELECT users.id, ban, pseudo, email, birthday, sexe, is_kick,
-							  lvl, id_objects, id_users_types, users_types.name AS rank
+							  lvl, id_objects, id_users_types, users_types.name AS rank, id_faction AS faction
 							  FROM users
 							  JOIN users_types ON users_types.id = id_users_types
 							  WHERE pseudo = ?", array($pseudo));
@@ -234,6 +246,9 @@ class Users_model extends CI_Model {
 	$mouth = $this->input->post('mouth');
 	$couleur = $this->input->post('couleur');
 	$pseudo = $this->input->post('pseudo');
+	
+	if($couleur == "0")
+	  $couleur = "noir";
 	
 	if($sexe=='Homme') {
 	  $urlBody = 'assets/img/avatars/man/body/' . $body . '.png';

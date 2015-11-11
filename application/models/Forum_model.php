@@ -74,10 +74,11 @@ class Forum_model extends CI_Model {
 				u.messNumber AS messNumber,
 				users_types.name AS ranks, u.id_users_types AS ranksId, f.message AS message, 
 				f.date_time AS date,
-				f.id AS id')
+				f.id AS id, faction.name AS facName')
 			->from('forums_topics_messages f')
 			->join('users u', 'f.id_users = u.id')
 			->join('users_types', 'u.id_users_types = users_types.id')
+			->join('faction', 'u.id_faction = faction.id')
 			->where('f.id_forums_topics', $id_topic)
 			->where('f.is_block', 0)
 			->limit($nb, $begin)
