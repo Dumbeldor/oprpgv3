@@ -52,9 +52,6 @@ class Forum extends MY_Controller {
 		
 		if($id_categorie == 1 && !($this->user->isModo() || $this->user->isAdmin()))
 			redirect('forum/');
-			
-		if(!$this->forum_model->iscrew_forum_categorie($id_categorie))
-			redirect('forum/');
 		
 		$this->load->helper('form');
 		$this->load->library('pagination');
@@ -90,6 +87,8 @@ class Forum extends MY_Controller {
 		// Set title and loading categories
 		$data['title'] = 'Forum';
 	    $data['topic'] = $this->forum_model->get_topics($id_categorie, 10, $page);
+		if(empty($data['topic']))
+		   redirect('forum/');
 		
 	
 		
@@ -110,8 +109,8 @@ class Forum extends MY_Controller {
 		if($data['id_categorie'] == 1 && !($this->user->isModo() || $this->user->isAdmin()))
 			redirect('forum/');
 			
-		if(!$this->forum_model->iscrew_forum_topic($id_topic))
-			redirect('forum/');
+		//if(!$this->forum_model->iscrew_forum_topic($id_topic))
+			//redirect('forum/');
 		
 		// Loading helper form and set title
 		$this->load->helper('form');
@@ -180,6 +179,8 @@ class Forum extends MY_Controller {
 		
 		// Get all topic's messages
 		$data['messages'] = $this->forum_model->get_messages($id_topic, 30, $page);
+		if(empty($data['messages']))
+			redirect('/forum');
 		
 		if($data['id_categorie'] == $this->user->getAttribute('crewId') AND $this->crew->isCapitaine())
 			$data['capitaineCrew'] = true;

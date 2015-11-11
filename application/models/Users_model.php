@@ -164,9 +164,10 @@ class Users_model extends CI_Model {
   
   public function setup_connexion($pseudo) {
       $query = $this->db->query("SELECT users.id, ban, pseudo, email, birthday, sexe, is_kick,
-							  lvl, id_objects, id_users_types, users_types.name AS rank, id_faction AS faction
+							  lvl, id_objects, id_users_types, users_types.name AS rank, id_faction AS faction, faction.name AS facName
 							  FROM users
 							  JOIN users_types ON users_types.id = id_users_types
+							  JOIN faction ON users.id_faction = faction.id
 							  WHERE pseudo = ?", array($pseudo));
       $user = $query->result_array();
 	     $query = $this->db->query("SELECT crews.name AS crewName, crews.id AS crewId, crews_grades.name as crewRank

@@ -31,10 +31,10 @@ class Forum_model extends CI_Model {
 					WHERE ft2.id_forums_categories = fc.id AND ftm2.is_block = 0 AND ft2.is_block = 0
 					GROUP BY fc.id
 				)
-				AND (ftm.is_block = 0 AND ft.is_block = 0 AND fc.is_block = 0 AND (fc.is_crew = 0 OR (fc.is_crew = 1 AND fc.id = ?)))				
+				AND (ftm.is_block = 0 AND ft.is_block = 0 AND (fc.is_block = 0 OR (fc.is_block = 1 AND fc.is_crew = 0 AND fc.name = ?)) AND (fc.is_crew = 0 OR (fc.is_crew = 1 AND fc.id = ?)))				
 
 				GROUP BY fc.id
-				ORDER BY fc.sequence', array($this->user->getAttribute('crewId')));
+				ORDER BY fc.sequence', array($this->user->getAttribute('facName'), $this->user->getAttribute('crewId')));
 
 		return $query->result_array();
 	}
@@ -58,18 +58,17 @@ class Forum_model extends CI_Model {
 					JOIN forums_topics ft2 ON ftm2.id_forums_topics = ft2.id
 					WHERE ft2.id = ft.id AND ftm2.is_block = 0 AND ft2.is_block = 0
 				)
-				AND ftm.is_block = 0 AND ft.is_block = 0 AND fc.is_block = 0 AND (fc.is_crew = 0
+				AND ftm.is_block = 0 AND ft.is_block = 0 AND (fc.is_block = 0 OR (fc.is_block = 1 AND fc.is_crew = 0 AND fc.name = ?)) AND (fc.is_crew = 0
 				OR (fc.is_crew = 1 AND fc.id = ?))
 				ORDER BY ftt.id DESC, ftm.date_time DESC
 				LIMIT '.$begin.', '.$nb.'
-  				', array($id_cate, $this->user->getAttribute('crewId')));
+  				', array($id_cate, $this->user->getAttribute('facName'), $this->user->getAttribute('crewId')));
 		return $query->result_array();
 	}
 	
 	/* Return each messages from a specific topic */
 	/* $id_topic is the chosen topic's id */
 	public function get_messages($id_topic, $nb=15, $begin=0) {
-		
 		return $this->db->select('u.pseudo AS pseudo, u.id AS userId,
 				u.messNumber AS messNumber,
 				users_types.name AS ranks, u.id_users_types AS ranksId, f.message AS message, 
@@ -79,8 +78,17 @@ class Forum_model extends CI_Model {
 			->join('users u', 'f.id_users = u.id')
 			->join('users_types', 'u.id_users_types = users_types.id')
 			->join('faction', 'u.id_faction = faction.id')
+			->join('forums_topics', 'f.id_forums_topics = forums_topics.id')
+			->join('forums_categories fc', 'forums_topics.id_forums_categories = fc.id')
 			->where('f.id_forums_topics', $id_topic)
 			->where('f.is_block', 0)
+			->where('(fc.is_block', 0)
+			->or_where('(fc.is_block', 1)
+			->where('fc.is_crew', 0)
+			->where("fc.name = '".$this->user->getAttribute('facName')."' ))", NULL, FALSE)
+			->where('(fc.is_crew', 0)
+			->or_where('(fc.is_crew', 1)
+			->where("fc.id = '".$this->user->getAttribute('crewId')."' ))", NULL, FALSE)
 			->limit($nb, $begin)
 			->order_by('f.id')
 			->get()
