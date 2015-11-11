@@ -183,7 +183,7 @@
 
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <input type="submit" name="submit" class="btn btn-default" value="S'inscire !" />
+        <input id="send_button" type="submit" name="submit" class="btn btn-default" value="S'inscire !" />
       </div>
     </div>
 
@@ -191,7 +191,7 @@
     <input id="input_hair" type="hidden" name="hair" value="0">
     <input id="input_eyes" type="hidden" name="eyes" value="0">
     <input id="input_mouth" type="hidden" name="mouth" value="0">
-     <input id="input_couleur" type="hidden" name="couleur" value="0">
+    <input id="input_couleur" type="hidden" name="couleur" value="0">
 
   <?php echo form_close(); ?>
 

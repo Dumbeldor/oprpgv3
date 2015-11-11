@@ -29,7 +29,7 @@
 
     <div class="row collapse">
       <div class="col-sm-offset-2 col-sm-10">
-        <input type="submit" name="submit" class="button small" value="Let's Go !" />
+        <input id="send_button" type="submit" name="submit" class="button small" value="Let's Go !" />
       </div>
     </div>
 

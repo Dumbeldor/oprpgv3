@@ -1,5 +1,3 @@
-var color = 'marron';
-
 // Fonctions qui gèrent les événements liés au choix du sexe
 $("#sexeHomme").click(function(){
 	$("#currentAvatar").attr("src", avat_dir + "/man/body/1.png");
