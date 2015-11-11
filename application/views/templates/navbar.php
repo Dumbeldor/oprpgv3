@@ -38,40 +38,35 @@
                   echo '('.$amountMP.')'; ?>
                 </a></li>
 				
+				
 				<li class="has-dropdown">
-                <a href="#">Autre</a>
-
-                <ul class="dropdown">
-
-                  <li class="has-dropdown">
-                    <a href="#">Fans</a>
-                    <ul class="dropdown">
-                      <li><a href="<?php echo base_url('/pages/coming_soon'); ?>">Fanarts</a></li>
+				  <a href="#">Fans</a>
+				  <ul class="dropdown">
+					<li><a href="<?php echo base_url('/pages/coming_soon'); ?>">Fanarts</a></li>
                       <li><a href="<?php echo base_url('/pages/coming_soon'); ?>">Fanmovs</a></li>
                       <li><a href="<?php echo base_url('/pages/coming_soon'); ?>">Fanfics</a></li>
-                    </ul>
-                  </li>
-              
-                  <li class="has-dropdown">
-                    <a href="#">Le site</a>
-                    <ul class="dropdown">
-                      <li><a href="<?php echo base_url('/users'); ?>">Annuaire</a></li>
+				  </ul>
+				</li>
+				<li class="has-dropdown">
+				  <a href="#">Le site</a>
+				  <ul class="dropdown">
+					<li><a href="<?php echo base_url('/users'); ?>">Annuaire</a></li>
                       <li><a href="<?php echo base_url('/users/liste'); ?>">Connectés</a></li>
                       <li><a href="<?= base_url('forum/t/21');?>">F.A.Q</a></li>
-                    </ul>
-                  </li>
-              
-                  <li class="has-dropdown">
-                    <a href="#">Communauté</a>
-                    <ul class="dropdown">
-                      <li><a href="<?php echo base_url('/pages/coming_soon'); ?>">Classement</a></li>
+				  </ul>
+				</li>
+				<li class="has-dropdown">
+				  <a href="#">Communauté</a>
+				  <ul class="dropdown">
+					<li><a href="<?php echo base_url('/pages/coming_soon'); ?>">Classement</a></li>
                       <li><a href="<?php echo base_url('/pages/coming_soon'); ?>">Livre d'or</a></li>
                       <li><a href="<?= base_url('users/staff/')?>">Le Staff</a></li>
-                    </ul>
-                  </li>
-              
-                </ul> <!-- /<ul class="dropdown"> -->
-              </li> <!-- /<li class="has-dropdown"> Autre -->
+				  </ul>
+				</li>
+				
+				
+				
+				
 				
 				
                 <li class="divider"></li>
