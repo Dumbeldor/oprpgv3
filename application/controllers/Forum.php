@@ -108,9 +108,6 @@ class Forum extends MY_Controller {
 		$data['id_categorie'] = $this->forum_model->get_id_categorie($id_topic)[0]['id_forums_categories'];
 		if($data['id_categorie'] == 1 && !($this->user->isModo() || $this->user->isAdmin()))
 			redirect('forum/');
-			
-		//if(!$this->forum_model->iscrew_forum_topic($id_topic))
-			//redirect('forum/');
 		
 		// Loading helper form and set title
 		$this->load->helper('form');
@@ -202,6 +199,7 @@ class Forum extends MY_Controller {
 		$this->load->helper('form');
 		$data['title'] = 'Forum';
 		$data['idTopic'] = $this->input->post('id_topic');
+		$data['aria'] = $this->forum_model->get_aria_topic($data['idTopic'])[0];
 		
 		// Construct this page
 		$this->construct_page('forum/answer', $data);
@@ -244,6 +242,7 @@ class Forum extends MY_Controller {
 		$this->load->helper('form');
 		$data['title'] = 'Forum';
 		$data['id_categorie'] = $this->input->post('id_categorie');
+		$data['aria'] = $this->forum_model->get_aria_categorie($data['id_categorie'])[0];
 		if($data['id_categorie'] == 1 && !($this->user->isModo() || $this->user->isAdmin()))
 			redirect('forum/');
 		

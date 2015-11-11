@@ -1,4 +1,9 @@
-<?php if($connecte):
+<div class="row pageNormale">
+<a href="<?php echo base_url('forum');?>"><i>Les forums</i></a>-><a href="<?php echo base_url('forum/c/'.$aria['id']); ?>"><i><strong><?php echo $aria['name'];?></strong></i></a>
+  <br>
+  <br>
+
+<?php 
 	echo form_open('forum/send_topic')
 ?>
 		<label for="topic_name" class="col-sm-2 control-label">Titre du topic :</label>
@@ -17,6 +22,4 @@
         </script>
    
 	</form>
-<?php
-endif;
-?>
+</div>

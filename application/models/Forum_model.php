@@ -106,37 +106,6 @@ class Forum_model extends CI_Model {
 		return $query->result_array();
 	}
 	
-	/* Return boolean */
-	/* if user in crew or not */
-	public function iscrew_forum_categorie($id_categories) {
-		$query = $this->db->query("SELECT id
-								  FROM forums_categories
-								  WHERE id = ? AND (is_crew = 0 OR
-								  (is_crew = 1 AND id = ?))								  
-								  ", array($id_categories, $this->user->getAttribute('crewId')));    
-        if($query->num_rows() == 1) {
-            return TRUE;
-        }
-        else {
-            return FALSE;
-        }
-	}
-	
-	public function iscrew_forum_topic($id_topic) {
-		$query = $this->db->query("SELECT ft.id
-								  FROM forums_topics ft
-								  JOIN forums_categories fc ON ft.id_forums_categories = fc.id
-								  WHERE ft.id = ? AND (fc.is_crew = 0 OR (fc.is_crew = 1 AND fc.id = ?))
-								  ", array($id_topic, $this->user->getAttribute('crewId')));    
-        if($query->num_rows() == 1) {
-            return TRUE;
-        }
-        else {
-            return FALSE;
-        }
-	}
-	
-	
 	/* Return fil aria */
 	/* $id_topic is the chosen topic's id */
 	public function get_aria_topic($id_topic) {
