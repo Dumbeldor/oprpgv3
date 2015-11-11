@@ -205,7 +205,7 @@ class Forum_model extends CI_Model {
 				$this->db->update('users');	
 			}	
 			$this->db->query('UPDATE forums_topics_messages ftm
-							JOIN users u ON ftm.id_users = u.id SET ftm.is_block=1, u.messNumber=messNumber-1 WHERE ftm.id=?', array($id_message));
+							JOIN users u ON ftm.id_users = u.id SET ftm.is_block=1 WHERE ftm.id=?', array($id_message));
 		}
 		else{
 			$this->db->query('UPDATE forums_topics_messages ftm
@@ -271,11 +271,14 @@ class Forum_model extends CI_Model {
 		$query = $this->db->query('SELECT id_users FROM forums_topics_messages
 						 WHERE id_forums_topics = ?', array($id_topic));
 		$idUsers = $query->result_array();
-		foreach($idUsers AS $idUser) {
-			$this->db->where('id', $idUser['id_users']);
-			$this->db->set('messNumber', 'messNumber-1', FALSE);
-			$this->db->update('users');
-		}		
+		
+		if($id_topic != $this->user->getAttribute('crewId')) {
+			foreach($idUsers AS $idUser) {
+				$this->db->where('id', $idUser['id_users']);
+				$this->db->set('messNumber', 'messNumber-1', FALSE);
+				$this->db->update('users');
+			}
+		}
 		
 		$this->db->where('id', $id_topic);
 		$this->db->set('is_block', 1);
