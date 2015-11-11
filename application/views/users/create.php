@@ -101,7 +101,7 @@
       </div>
     </div> <br> <!-- /<div class="row collapse"> FACTION -->
     
-    <div id="descAlea" style="display:block">Laissez le destin décider pour vous et gagner 1 000 berry en plus !</div>
+    <div id="descAlea" style="display:block">Laissez le destin décider pour vous et gagnez 1 000 berrys en plus !</div>
     <div id="descPirate" style="display:none">Suivez les traces du célèbre Monkey.D.Luffy et devenez un pirate.
     Commettre des délits, chercher des trésors,  échapper à la marine ainsi qu'au gouvernement mondial et naviguer en mer sera votre quotidien.
     Une forte dose d'aventure vous attends !</div>
@@ -139,33 +139,38 @@
           <div id="currentAvatarPanel">
             <img class="currentAvatar" src="<?php echo base_url('assets/img/corps.png'); ?>">
           </div>
-              Couleur cheveux:<br>
-
-              <a href="#noir" onclick="avatarCouleur('noir')">Noir</a><br>
-              <a href="#marron" onclick="avatarCouleur('marron')">Marron</a><br>
-              <a href="#rouge" onclick="avatarCouleur('rouge')">Rouge</a><br>
-              <a href="#orange" onclick="avatarCouleur('orange')">Orange</a><br>
-              <a href="#jaune" onclick="avatarCouleur('jaune')">Jaune</a><br>
-              <a href="#vert" onclick="avatarCouleur('vert')">Vert</a><br>
-              <a href="#bleu" onclick="avatarCouleur('bleu')">Bleu</a><br>
-              <a href="#blanc" onclick="avatarCouleur('blanc')">Blanc</a><br>
-              <a href="#rose" onclick="avatarCouleur('rose')">Rose</a><br>
-            
         </div>
       </div>
 
-      <div class="small-2 large-2 columns panel">
-        <div id="etapes_avatars" class="columns small-3">
+      <div class="small-2 large-2 large-offset-1 columns panel">
+        <div id="etapes_avatars" class="columns">
           <div id="etapesPanel" >
             <a id="etape_corps">1- Corps</a><br>
             <a id="etape_cheveux">2- Cheveux</a><br>
             <a id="etape_yeux">3- Yeux</a><br>
-            <a id="etape_bouche">4- Bouche</a>
+            <a id="etape_bouche">4- Bouche</a><br><br>
+			
+			 Couleur cheveux<br>
+			<div class="row">
+              <div id="couleurNoir" class="paletteCouleurs columns small-4"></div>
+              <div id="couleurMarron" class="paletteCouleurs columns small-4"></div>
+			  <div id="couleurRouge" class="paletteCouleurs columns small-4"></div>
+			</div>
+			<div class="row">
+              <div id="couleurOrange" class="paletteCouleurs columns small-4"></div>
+			  <div id="couleurJaune" class="paletteCouleurs columns small-4"></div>
+              <div id="couleurVert" class="paletteCouleurs columns small-4"></div>
+			</div>
+			<div class="row">
+			  <div id="couleurBleu" class="paletteCouleurs columns small-4"></div>
+              <div id="couleurBlanc" class="paletteCouleurs columns small-4"></div>
+			  <div id="couleurRose" class="paletteCouleurs columns small-4"></div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="small-8 large-8 columns panel">
+      <div class="small-8 large-6 columns panel">
         <div id="options_avatars">
           <div id="optionsPanel">
             <div id="options">

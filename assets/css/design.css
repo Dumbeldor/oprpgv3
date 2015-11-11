@@ -274,15 +274,56 @@ textarea {
 }
 
 div#currentAvatarPanel {
-	min-height: 12.2rem;
+	height: 12.2rem;
 }
 
 div#etapesPanel {
-	min-height: 12.2rem;
+	height: 12.2rem;
 }
 
 div#optionsPanel {
-	min-height: 12.2rem;
+	height: 12.2rem;
+	overflow-y: scroll;
+}
+
+div.paletteCouleurs {
+	height: 2rem;
+}
+
+div#couleurOrange {
+	background-color: orange;
+}
+
+div#couleurNoir {
+	background-color: black;
+}
+
+div#couleurBlanc {
+	background-color: white;
+}
+
+div#couleurRose {
+	background-color: pink;
+}
+
+div#couleurRouge {
+	background-color: red;
+}
+
+div#couleurMarron {
+	background-color: brown;
+}
+
+div#couleurBleu {
+	background-color: blue;
+}
+
+div#couleurVert {
+	background-color: green;
+}
+
+div#couleurJaune {
+	background-color: yellow;
 }
 
 /* Messaging */

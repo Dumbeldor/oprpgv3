@@ -1,3 +1,5 @@
+var color = 'marron';
+
 // Fonctions qui gèrent les événements liés au choix du sexe
 $("#sexeHomme").click(function(){
 	$("#currentAvatar").attr("src", avat_dir + "/man/body/1.png");
@@ -23,6 +25,10 @@ $("#etape_corps").click(function(){
 });
 
 $("#etape_cheveux").click(function(){
+	afficher_cheveux();
+});
+
+function afficher_cheveux() {
 	var sexe = $('input[name=sexe]:checked').val();
 	$("#options_avatars div#options").empty();
 	if(sexe == 'Homme') {
@@ -36,7 +42,7 @@ $("#etape_cheveux").click(function(){
 			$("#options_avatars div#options").append('<a><img class="option_avatar" id="hair-'+i+'" src="'+avat_dir+'/woman/hair/'+color+'/'+i+'.png"></a> ');
 		}
 	}
-});
+}
 
 $("#etape_yeux").click(function(){
 	var sexe = $('input[name=sexe]:checked').val();
@@ -75,6 +81,7 @@ $("div#options_avatars div#options").click(function(e){
 				
 			case 'hair':
 				$("input#input_hair").val(ind);
+				$("input#input_couleur").val(color);
 				break;
 				
 			case 'eyes':
@@ -93,10 +100,51 @@ $("div#options_avatars div#options").click(function(e){
 	}
 });
 
-function avatarCouleur(couleur) {
-	color = couleur;
-	$("input#input_couleur").val(couleur);
-}
+$("div.paletteCouleurs").click(function(){
+	var id = $(this).attr('id');
+	switch(id) {
+		case 'couleurNoir':
+			color = 'noir';
+			break;
+			
+		case 'couleurBlanc':
+			color = 'blanc';
+			break;
+			
+		case 'couleurRose':
+			color = 'rose';
+			break;
+			
+		case 'couleurBleu':
+			color = 'bleu';
+			break;
+
+		case 'couleurRouge':
+			color = 'rouge';
+			break;
+
+		case 'couleurVert':
+			color = 'vert';
+			break;
+
+		case 'couleurJaune':
+			color = 'jaune';
+			break;
+
+		case 'couleurOrange':
+			color = 'orange';
+			break;
+
+		case 'couleurMarron':
+			color = 'marron';
+			break;
+			
+		default:
+			color = 'marron';
+			break;
+	}
+	afficher_cheveux();
+});
 
 function avatar_construct() {
 	var body = $("input#input_body").val();
@@ -119,6 +167,7 @@ function avatar_construct() {
 
 	if(hair != "0") {
 		var sexe = $('input[name=sexe]:checked').val();
+		var color = $("input#input_couleur").val()
 		var folder = (sexe == 'Homme') ? 'man' : 'woman';
 		$("div#currentAvatarPanel").append('<img class="currentAvatar" src="'+avat_dir+'/'+folder+'/hair/'+color+'/'+hair+'.png">');
 	}
