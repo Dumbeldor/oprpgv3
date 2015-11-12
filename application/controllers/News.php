@@ -177,7 +177,7 @@ class news extends MY_Controller
 
   public function edit($id=0)
   {
-    if($id == 0 || $this->user->isModo())
+    if($id == 0 || !$this->user->isModo())
       redirect('/');
     $data['id'] = $id;
     $data['title'] = 'Edite d\'une news';
