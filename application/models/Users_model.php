@@ -117,7 +117,8 @@ class Users_model extends CI_Model {
   
   public function validate_connexion($pseudo, $password) {
 	//if player ban
-	$isBan = $this->db->where('ban', 1)
+	$isBan = $this->db->where('pseudo', $pseudo)
+				  ->where('ban', 1)
 				  ->count_all_results('users');
 	if($isBan == 1)
 	  return -2;	
@@ -137,12 +138,17 @@ class Users_model extends CI_Model {
 	  return -1;
 	}
 	
-	$query = $this->db->query("SELECT * FROM users WHERE pseudo = ?", array($pseudo));
+	$query = $this->db->query("SELECT password FROM users WHERE pseudo = ?", array($pseudo));
 					  
     if($query->num_rows() == 1) {
 	  $res = $query->result_array();
 	  if(password_verify($password, $res[0]['password']))
+	  {
+		$this->db->where('pseudo', $pseudo)
+				  ->set('ip', $_SERVER["REMOTE_ADDR"])
+				  ->update('users');
 		return 1;
+	  }
 	  else
 		return 0;
     }
