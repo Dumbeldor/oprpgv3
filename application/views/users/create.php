@@ -180,7 +180,23 @@
       </div>
 
     </div> <!-- /<div class="row collapse"> character-->
-
+	
+	<div class="row collapse">
+      <div class="small-12 large-3 columns">
+        <?php echo $captcha; ?>
+      </div>
+	</div><br>
+	<div class="row collapse">
+      <div class="small-12 large-3 columns">
+        <input type="text" placeholder="Veuillez taper ce code secret" name="captcha">
+        <?php 
+          if (!empty(form_error('captcha'))) {
+            echo '<small class="error">'.form_error('captcha').'</small>';
+          }
+        ?>
+      </div>
+    </div><br>
+	
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
         <input id="send_button" type="submit" name="submit" class="btn btn-default" value="S'inscire !" />
