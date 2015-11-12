@@ -342,7 +342,7 @@ class Forum extends MY_Controller {
 		$categorie = $this->forum_model->get_id_categorie($id_topic)[0]['id_forums_categories'];
 		if($this->user->isAdmin() || $this->user->isModo() ||
 			($this->user->getAttribute('crewId') == $categorie && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
-			$success = $this->forum_model->delete_topic($id_topic);
+			$success = $this->forum_model->delete_topic($id_topic, $categorie);
 		}
 		if($success)
 			redirect('/forum/c/'.$categorie);

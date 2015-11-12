@@ -174,9 +174,10 @@ class Forum_model extends CI_Model {
 		if($this->user->isAdmin() || $this->user->isModo() ||
 			($this->user->getAttribute('crewId') == $idCategories && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
 			if($idCategories != $this->user->getAttribute('crewId')) {
-				$this->db->where('id', 'SELECT id_users FROM forums_topics_messages WHERE id = ?', array($id_message));
-				$this->db->set('messNumber', 'messNumber-1', FALSE);
-				$this->db->update('users');	
+				//redirect('/');
+				$this->db->query('UPDATE users SET messNumber = messNumber-1
+								 WHERE id = (SELECT id_users FROM forums_topics_messages WHERE forums_topics_messages.id = ?)',
+								 array($id_message));
 			}	
 			$this->db->query('UPDATE forums_topics_messages ftm
 							JOIN users u ON ftm.id_users = u.id SET ftm.is_block=1 WHERE ftm.id=?', array($id_message));
@@ -217,8 +218,8 @@ class Forum_model extends CI_Model {
 		return $this->db->insert_id(); 
 	}
 	public function lawPoste($idCategorie) {
-		if($idCategorie == 1 AND !$this->user->isModo())
-			return false;
+		if($idCategorie == 1 AND $this->user->isModo())
+			return true;
 		$nb = $this->db->where('id', $idCategorie)
     					  ->where('(is_block', 0)
 						  ->or_where('(is_block', 1)
@@ -244,8 +245,8 @@ class Forum_model extends CI_Model {
 	/*
 	 * Close topic
 	 */
-	public function close_topic($id_topic) {
-		if(!$this->lawPoste($idCategories))
+	public function close_topic($id_topic, $idCategorie) {
+		if(!$this->lawPoste($idCategorie))
 			return false;
 		$this->db->where('id', $resultat[0]['id_forums_topics']);
 		$this->db->set('is_block', 1);
@@ -254,8 +255,8 @@ class Forum_model extends CI_Model {
 	/*
 	 * Delete topic
 	 */
-	public function delete_topic($id_topic) {
-		if(!$this->lawPoste($idCategories))
+	public function delete_topic($id_topic, $idCategorie) {
+		if(!$this->lawPoste($idCategorie))
 			return false;
 		$this->db->where('id_forums_topics', $id_topic);
 		$this->db->set('is_block', 1);
@@ -280,8 +281,6 @@ class Forum_model extends CI_Model {
 	}
 	
 	public function getQuote($idTopic, $idCitation) {
-		if(!$this->lawPoste($idCategories))
-			return false;
 		$query = $this->db->query('SELECT message, pseudo
 								  FROM forums_topics_messages
 								  JOIN users ON forums_topics_messages.id_users = users.id
@@ -291,7 +290,7 @@ class Forum_model extends CI_Model {
 	}
 	
 	public function getMess($id, $categorieId) {
-		if(!$this->lawPoste($idCategories))
+		if(!$this->lawPoste($categorieId))
 			return false;
 		if($this->user->isAdmin() || $this->user->isModo() ||
 			($this->user->getAttribute('crewId') == $categorieId && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
@@ -310,7 +309,7 @@ class Forum_model extends CI_Model {
 	}
 	
 	public function edit($id, $message, $categorieId) {
-		if(!$this->lawPoste($idCategories))
+		if(!$this->lawPoste($categorieId))
 			return false;
 		if($this->user->isAdmin() || $this->user->isModo() ||
 			($this->user->getAttribute('crewId') == $categorieId && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
