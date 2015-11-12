@@ -104,6 +104,7 @@
             <ul class="right">
 
                 <li class="divider"></li>
+				<li><a href="<?= base_url('/forum')?>">Forum</a></li>
                 <li><a href="<?php echo base_url('/users/connect') ?>">Connexion</a></li>
                 <li><a href="<?php echo base_url('/users/create') ?>">Inscription</a></li>
 

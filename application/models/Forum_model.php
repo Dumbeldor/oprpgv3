@@ -15,84 +15,159 @@ class Forum_model extends CI_Model {
 	/* Return each categories from a specific forum */
 	/* $id_type is the chosen forum's id */
 	public function get_categories() {
-		$query = $this->db->query('SELECT ftm.date_time AS date, ftm.id AS messId,
-				fc.id AS id, fc.name AS name, ut.name AS rank,
-				fc.descr AS descr, fc.types, ft.name AS topicName,
-				ft.id AS topicId, (SELECT COUNT(*) FROM forums_topics_messages WHERE is_block = 0 AND id_forums_topics = ft.id) AS countMsg,
-				users.pseudo AS pseudo, users.id AS userId FROM forums_categories fc
-				LEFT JOIN forums_topics ft ON ft.id_forums_categories = fc.id
-				LEFT JOIN forums_topics_messages ftm ON ftm.id_forums_topics = ft.id
-				LEFT JOIN users ON ftm.id_users = users.id
-				LEFT JOIN users_types ut ON users.id_users_types = ut.id
-				WHERE ftm.date_time = 
-				(
-					SELECT MAX(ftm2.date_time) FROM forums_topics_messages ftm2
-					JOIN forums_topics ft2 ON ftm2.id_forums_topics = ft2.id
-					WHERE ft2.id_forums_categories = fc.id AND ftm2.is_block = 0 AND ft2.is_block = 0
+		if($this->user->isAuthenticated()) {
+			$query = $this->db->query('SELECT ftm.date_time AS date, ftm.id AS messId,
+					fc.id AS id, fc.name AS name, ut.name AS rank,
+					fc.descr AS descr, fc.types, ft.name AS topicName,
+					ft.id AS topicId, (SELECT COUNT(*) FROM forums_topics_messages WHERE is_block = 0 AND id_forums_topics = ft.id) AS countMsg,
+					users.pseudo AS pseudo, users.id AS userId FROM forums_categories fc
+					LEFT JOIN forums_topics ft ON ft.id_forums_categories = fc.id
+					LEFT JOIN forums_topics_messages ftm ON ftm.id_forums_topics = ft.id
+					LEFT JOIN users ON ftm.id_users = users.id
+					LEFT JOIN users_types ut ON users.id_users_types = ut.id
+					WHERE ftm.date_time = 
+					(
+						SELECT MAX(ftm2.date_time) FROM forums_topics_messages ftm2
+						JOIN forums_topics ft2 ON ftm2.id_forums_topics = ft2.id
+						WHERE ft2.id_forums_categories = fc.id AND ftm2.is_block = 0 AND ft2.is_block = 0
+						GROUP BY fc.id
+					)
+					AND ((fc.is_block = 0 OR (fc.is_block = 1 AND fc.is_crew = 0 AND fc.name = ?))
+					AND (fc.is_crew = 0 OR (fc.is_crew = 1 AND fc.id = ?)) AND ft.is_block = 0 AND ftm.is_block = 0)	
 					GROUP BY fc.id
-				)
-				AND (ftm.is_block = 0 AND ft.is_block = 0 AND (fc.is_block = 0 OR (fc.is_block = 1 AND fc.is_crew = 0 AND fc.name = ?)) AND (fc.is_crew = 0 OR (fc.is_crew = 1 AND fc.id = ?)))				
-
-				GROUP BY fc.id
-				ORDER BY fc.sequence', array($this->user->getAttribute('facName'), $this->user->getAttribute('crewId')));
-
-		return $query->result_array();
+					ORDER BY fc.sequence', array($this->user->getAttribute('facName'), $this->user->getAttribute('crewId')));
+	
+			return $query->result_array();
+		}
+		else {
+			$query = $this->db->query('SELECT ftm.date_time AS date, ftm.id AS messId,
+					fc.id AS id, fc.name AS name, ut.name AS rank,
+					fc.descr AS descr, fc.types, ft.name AS topicName,
+					ft.id AS topicId, (SELECT COUNT(*) FROM forums_topics_messages WHERE is_block = 0 AND id_forums_topics = ft.id) AS countMsg,
+					users.pseudo AS pseudo, users.id AS userId FROM forums_categories fc
+					LEFT JOIN forums_topics ft ON ft.id_forums_categories = fc.id
+					LEFT JOIN forums_topics_messages ftm ON ftm.id_forums_topics = ft.id
+					LEFT JOIN users ON ftm.id_users = users.id
+					LEFT JOIN users_types ut ON users.id_users_types = ut.id
+					WHERE ftm.date_time = 
+					(
+						SELECT MAX(ftm2.date_time) FROM forums_topics_messages ftm2
+						JOIN forums_topics ft2 ON ftm2.id_forums_topics = ft2.id
+						WHERE ft2.id_forums_categories = fc.id AND ftm2.is_block = 0 AND ft2.is_block = 0
+						GROUP BY fc.id
+					)
+					AND fc.is_crew = 0 AND fc.is_block = 0
+					AND ft.is_block = 0 AND ftm.is_block = 0	
+					GROUP BY fc.id
+					ORDER BY fc.sequence');
+	
+			return $query->result_array();
+		}
 	}
 	
 	/* Return each topics from a specific categories */
 	/* $id_cate is the chosen cate's id */
 	public function get_topics($id_cate, $nb=15, $begin=0) {
-		$query = $this->db->query('SELECT ftm.date_time AS date, u.pseudo AS pseudo, ft.name AS name,
-				u.id AS userId,	ft.id AS id, ftt.name AS type, ftm.id AS msgId, ut.name AS rank,
-				(SELECT COUNT(*) FROM forums_topics_messages WHERE is_block = 0 AND id_forums_topics = ft.id) AS countMsg
-				FROM forums_topics_messages ftm
-				JOIN users u ON u.id = ftm.id_users
-				JOIN users_types ut ON u.id_users_types = ut.id
-				JOIN forums_topics ft ON ft.id = ftm.id_forums_topics
-				JOIN forums_topics_types ftt ON ft.id_forums_topics_types = ftt.id
-				JOIN forums_categories fc ON ft.id_forums_categories = fc.id
-				WHERE id_forums_categories = ? AND
-				ftm.date_time = 
-				(
-					SELECT MAX(ftm2.date_time) FROM forums_topics_messages ftm2
-					JOIN forums_topics ft2 ON ftm2.id_forums_topics = ft2.id
-					WHERE ft2.id = ft.id AND ftm2.is_block = 0 AND ft2.is_block = 0
-				)
-				AND ftm.is_block = 0 AND ft.is_block = 0 AND (fc.is_block = 0 OR (fc.is_block = 1 AND fc.is_crew = 0 AND fc.name = ?)) AND (fc.is_crew = 0
-				OR (fc.is_crew = 1 AND fc.id = ?))
-				ORDER BY ftt.id DESC, ftm.date_time DESC
-				LIMIT '.$begin.', '.$nb.'
-  				', array($id_cate, $this->user->getAttribute('facName'), $this->user->getAttribute('crewId')));
-		return $query->result_array();
+		if($this->user->isAuthenticated()) {
+			$query = $this->db->query('SELECT ftm.date_time AS date, u.pseudo AS pseudo, ft.name AS name,
+					u.id AS userId,	ft.id AS id, ftt.name AS type, ftm.id AS msgId, ut.name AS rank,
+					(SELECT COUNT(*) FROM forums_topics_messages WHERE is_block = 0 AND id_forums_topics = ft.id) AS countMsg
+					FROM forums_topics_messages ftm
+					JOIN users u ON u.id = ftm.id_users
+					JOIN users_types ut ON u.id_users_types = ut.id
+					JOIN forums_topics ft ON ft.id = ftm.id_forums_topics
+					JOIN forums_topics_types ftt ON ft.id_forums_topics_types = ftt.id
+					JOIN forums_categories fc ON ft.id_forums_categories = fc.id
+					WHERE id_forums_categories = ? AND
+					ftm.date_time = 
+					(
+						SELECT MAX(ftm2.date_time) FROM forums_topics_messages ftm2
+						JOIN forums_topics ft2 ON ftm2.id_forums_topics = ft2.id
+						WHERE ft2.id = ft.id AND ftm2.is_block = 0 AND ft2.is_block = 0
+					)
+					AND ((fc.is_block = 0 OR (fc.is_block = 1 AND fc.is_crew = 0 AND fc.name = ?)) AND (fc.is_crew = 0
+					OR (fc.is_crew = 1 AND fc.id = ?))
+					AND ftm.is_block = 0 AND ft.is_block = 0)
+					ORDER BY ftt.id DESC, ftm.date_time DESC
+					LIMIT '.$begin.', '.$nb.'
+					', array($id_cate, $this->user->getAttribute('facName'), $this->user->getAttribute('crewId')));
+			return $query->result_array();
+		} else {
+			$query = $this->db->query('SELECT ftm.date_time AS date, u.pseudo AS pseudo, ft.name AS name,
+					u.id AS userId,	ft.id AS id, ftt.name AS type, ftm.id AS msgId, ut.name AS rank,
+					(SELECT COUNT(*) FROM forums_topics_messages WHERE is_block = 0 AND id_forums_topics = ft.id) AS countMsg
+					FROM forums_topics_messages ftm
+					JOIN users u ON u.id = ftm.id_users
+					JOIN users_types ut ON u.id_users_types = ut.id
+					JOIN forums_topics ft ON ft.id = ftm.id_forums_topics
+					JOIN forums_topics_types ftt ON ft.id_forums_topics_types = ftt.id
+					JOIN forums_categories fc ON ft.id_forums_categories = fc.id
+					WHERE id_forums_categories = ? AND
+					ftm.date_time = 
+					(
+						SELECT MAX(ftm2.date_time) FROM forums_topics_messages ftm2
+						JOIN forums_topics ft2 ON ftm2.id_forums_topics = ft2.id
+						WHERE ft2.id = ft.id AND ftm2.is_block = 0 AND ft2.is_block = 0
+					)
+					AND fc.is_block = 0 AND fc.is_crew = 0 AND ftm.is_block = 0 AND ft.is_block = 0
+					ORDER BY ftt.id DESC, ftm.date_time DESC
+					LIMIT '.$begin.', '.$nb.'
+					', array($id_cate));
+			return $query->result_array();
+			
+		}
 	}
 	
 	/* Return each messages from a specific topic */
 	/* $id_topic is the chosen topic's id */
 	public function get_messages($id_topic, $nb=15, $begin=0) {
-		return $this->db->select('u.pseudo AS pseudo, u.id AS userId,
-				u.messNumber AS messNumber,
-				users_types.name AS ranks, u.id_users_types AS ranksId, f.message AS message, 
-				f.date_time AS date,
-				f.id AS id, faction.name AS facName')
-			->from('forums_topics_messages f')
-			->join('users u', 'f.id_users = u.id')
-			->join('users_types', 'u.id_users_types = users_types.id')
-			->join('faction', 'u.id_faction = faction.id')
-			->join('forums_topics', 'f.id_forums_topics = forums_topics.id')
-			->join('forums_categories fc', 'forums_topics.id_forums_categories = fc.id')
-			->where('f.id_forums_topics', $id_topic)
-			->where('f.is_block', 0)
-			->where('(fc.is_block', 0)
-			->or_where('(fc.is_block', 1)
-			->where('fc.is_crew', 0)
-			->where("fc.name = '".$this->user->getAttribute('facName')."' ))", NULL, FALSE)
-			->where('(fc.is_crew', 0)
-			->or_where('(fc.is_crew', 1)
-			->where("fc.id = '".$this->user->getAttribute('crewId')."' ))", NULL, FALSE)
-			->limit($nb, $begin)
-			->order_by('f.id')
-			->get()
-			->result();
+		if($this->user->isAuthenticated()) {
+			return $this->db->select('u.pseudo AS pseudo, u.id AS userId,
+					u.messNumber AS messNumber,
+					users_types.name AS ranks, u.id_users_types AS ranksId, f.message AS message, 
+					f.date_time AS date,
+					f.id AS id, faction.name AS facName')
+				->from('forums_topics_messages f')
+				->join('users u', 'f.id_users = u.id')
+				->join('users_types', 'u.id_users_types = users_types.id')
+				->join('faction', 'u.id_faction = faction.id')
+				->join('forums_topics', 'f.id_forums_topics = forums_topics.id')
+				->join('forums_categories fc', 'forums_topics.id_forums_categories = fc.id')
+				->where('f.id_forums_topics', $id_topic)
+				->where('f.is_block', 0)
+				->where('(fc.is_block', 0)
+				->or_where('(fc.is_block', 1)
+				->where('fc.is_crew', 0)
+				->where("fc.name = '".$this->user->getAttribute('facName')."' ))", NULL, FALSE)
+				->where('(fc.is_crew', 0)
+				->or_where('(fc.is_crew', 1)
+				->where("fc.id = '".$this->user->getAttribute('crewId')."' ))", NULL, FALSE)
+				->limit($nb, $begin)
+				->order_by('f.id')
+				->get()
+				->result();
+		}
+		else {
+			return $this->db->select('u.pseudo AS pseudo, u.id AS userId,
+					u.messNumber AS messNumber,
+					users_types.name AS ranks, u.id_users_types AS ranksId, f.message AS message, 
+					f.date_time AS date,
+					f.id AS id, faction.name AS facName')
+				->from('forums_topics_messages f')
+				->join('users u', 'f.id_users = u.id')
+				->join('users_types', 'u.id_users_types = users_types.id')
+				->join('faction', 'u.id_faction = faction.id')
+				->join('forums_topics', 'f.id_forums_topics = forums_topics.id')
+				->join('forums_categories fc', 'forums_topics.id_forums_categories = fc.id')
+				->where('f.id_forums_topics', $id_topic)
+				->where('fc.is_block', 0)
+				->where('fc.is_crew', 0)
+				->where('f.is_block', 0)
+				->limit($nb, $begin)
+				->order_by('f.id')
+				->get()
+				->result();
+		}
 	}
 	
 	

@@ -21,8 +21,6 @@ class Forum extends MY_Controller {
 	 * ----------------------------------------------------------------------- */
 	public function __construct() {
 		parent::__construct();
-		if(!$this->user->isAuthenticated())
-			redirect(base_url('/home/accueil'));
 		// Loading models
 		$this->load->model('forum_model');
 		$this->load->model('users_model');
@@ -194,7 +192,8 @@ class Forum extends MY_Controller {
 	 * Display the form to write an answer for a topic
 	 * ----------------------------------------------------------------------- */
 	public function answer() {
-
+		if(!$this->user->isAuthenticated())
+			redirect(base_url('/users/connect'));
 		// Loading helper form, set title and id
 		$this->load->helper('form');
 		$data['title'] = 'Forum';
@@ -207,6 +206,8 @@ class Forum extends MY_Controller {
 	}
 	
 	public function quote($idTopic = 0, $idCitation = 0) {
+		if(!$this->user->isAuthenticated())
+			redirect(base_url('/users/connect'));
 		if($idTopic == 0 || $idCitation == 0)
 			redirect('forum/');
 		
@@ -234,6 +235,8 @@ class Forum extends MY_Controller {
 	 * Create new topic
 	 * ----------------------------------------------------------------------- */
 	public function create_topic() {
+		if(!$this->user->isAuthenticated())
+			redirect(base_url('/users/connect'));
 		// Loading helper form, set title and category id
 		$this->load->helper('form');
 		$data['title'] = 'Forum';
@@ -254,6 +257,8 @@ class Forum extends MY_Controller {
 	 * Send a new topic
 	 * ----------------------------------------------------------------------- */
 	public function send_topic() {
+		if(!$this->user->isAuthenticated())
+			redirect(base_url('/users/connect'));
 		
 		// Set informations into variables - Format them
 		$id_categorie = $this->input->post('id_categorie');
@@ -287,6 +292,8 @@ class Forum extends MY_Controller {
 	 * @param $id_user Sender's (user) id
 	 * ----------------------------------------------------------------------- */
 	public function send_message($message='', $date_message='', $id_topic='', $id_user='') {
+		if(!$this->user->isAuthenticated())
+			redirect(base_url('/users/connect'));
 		// Verifying params
 		if(empty($message) && empty($date_message) && empty($id_topic) && empty($id_user)){
 			// Set information into varibles - Format them
@@ -318,6 +325,8 @@ class Forum extends MY_Controller {
 	 * @param $id_essage message's id
 	 * ----------------------------------------------------------------------- */
 	public function delete_message($id_message) {
+		if(!$this->user->isAuthenticated())
+			redirect(base_url('/users/connect'));
 		// Topic's id is get in order to redirect the user to this topic 
 		$id_topic = $this->forum_model->get_id_topic($id_message)[0]['id_forums_topics'];
 
@@ -336,6 +345,8 @@ class Forum extends MY_Controller {
 	 *	@param $id_topic id topic
 	 * ----------------------------------------------------------------- */
 	public function delete_topic($id_topic = 0) {
+		if(!$this->user->isAuthenticated())
+			redirect(base_url('/users/connect'));
 		if($id_topic == 0)
 			redirect('/forum');
 		$success = false;
@@ -351,6 +362,8 @@ class Forum extends MY_Controller {
 	}
 	
 	public function edit($id = 0) {
+		if(!$this->user->isAuthenticated())
+			redirect(base_url('/users/connect'));
 		if($id == 0)
 			redirect('/forum');
 			// Loading helper form, set title and id
@@ -369,6 +382,8 @@ class Forum extends MY_Controller {
 	}
 	
 	public function send_edit() {
+		if(!$this->user->isAuthenticated())
+			redirect(base_url('/users/connect'));
 		if($this->input->post('id_message') == 0)
 			redirect('/forum');
 		$message = $this->input->post('message').'<p></p><em><span style="font-size:8px">Édité par '.$this->user->getPseudo().' le '.date('d/m/Y à H\hi'). '</span></em></p>';
