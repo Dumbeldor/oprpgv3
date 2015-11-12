@@ -78,7 +78,7 @@ class Users_model extends CI_Model {
             	->count_all_results('users');
     if($nbUser > 0)
     	return 0;
-    if($nbEmail > 0)
+    else if($nbEmail > 0)
     	return -1;
 	  
 	$berry = 100;
@@ -116,6 +116,12 @@ class Users_model extends CI_Model {
   }
   
   public function validate_connexion($pseudo, $password) {
+	//if player ban
+	$isBan = $this->db->where('ban', 1)
+				  ->count_all_results('users');
+	if($isBan == 1)
+	  return -2;	
+	
 	//If the player is inactive for 10 mn
 	$this->db->query("DELETE ci_sessions FROM ci_sessions
 			JOIN users ON ci_sessions.idUser = users.id

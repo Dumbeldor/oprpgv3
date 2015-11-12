@@ -214,6 +214,8 @@ class Users extends MY_Controller {
       else {
 		if($valid_connexion == -1)
 		  $data['error'] = "Un joueur est déjà connecté sur ce compte.";
+		else if($valid_connexion == -2)
+		  $data['error'] = "<strong>Votre compte est banni !</strong>";
 		else
 		  $data['error'] = "La combinaison pseudo/mot de passe n'est pas bonne.";
         $this->construct_page('users/connect', $data);
