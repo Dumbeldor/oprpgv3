@@ -16,12 +16,15 @@ a.Animateur, a.Animatrice{
 
 a.Rédacteur, a.Rédactrice{
     color:#1BFFC7;
+    font-weight: bold;
 }
 a.Designer, a.Designeuse{
     color:#1B2AFF;
+    font-weight: bold;
 }
 a.Modérateur, a.Modératrice{
     color:#1BFF1F;
+    font-weight: bold;
 }
 a.Co-Administrateur, a.Co-Administratrice{
     color:#FF911B;
