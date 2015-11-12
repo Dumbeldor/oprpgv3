@@ -53,7 +53,7 @@
         echo ' le '.date('d/m/Y à H\hi', $new->date_time).'</small><br><br>';
 
         // News Content
-        echo substr($new->message,0,200).'...<br><a href="'.base_url('news/comment/'.$new->id).'">Lire la suite</a>';
+        echo substr(strip_tags($new->message), 0, 200).'...<br><a href="'.base_url('news/comment/'.$new->id).'">Lire la suite</a>';
 
         // News Socials Comments
         echo '<div class="row">';
