@@ -301,16 +301,12 @@ textarea {
 	position: absolute;
 }
 
-div#currentAvatarPanel {
-	height: 12.2rem;
-}
-
-div#etapesPanel {
-	height: 12.2rem;
+div#currentAvatarPanel, div#etapesPanel {
+	height: 16rem;
 }
 
 div#optionsPanel {
-	height: 12.2rem;
+	height: 16rem;
 	overflow-y: scroll;
 }
 

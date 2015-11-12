@@ -104,8 +104,8 @@
             <ul class="right">
 
                 <li class="divider"></li>
+				<li><a href="<?php echo base_url('/users/create') ?>">Inscription</a></li>
                 <li><a href="<?php echo base_url('/users/connect') ?>">Connexion</a></li>
-                <li><a href="<?php echo base_url('/users/create') ?>">Inscription</a></li>
 
             </ul>
           </section> <!-- /<section class="top-bar-section"> -->

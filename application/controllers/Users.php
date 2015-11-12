@@ -100,6 +100,7 @@ class Users extends MY_Controller {
     if($this->user->isAuthenticated())
       redirect(base_url('/home/accueil'));
     $this->load->helper('form');
+	$this->load->helper('captcha2');
     $this->load->library('form_validation');
     
     $data['title'] = 'Inscription';
@@ -110,6 +111,7 @@ class Users extends MY_Controller {
 	$this->form_validation->set_rules('email', 'Email', 'required|min_length[3]|max_length[249]|valid_email');
 	$this->form_validation->set_rules('sexe', 'sexe', 'required');
 	$this->form_validation->set_rules('faction', 'faction', 'required');
+	$this->form_validation->set_rules('captcha', 'captcha', 'required|callback_valid_captcha');
 	
 
   $url = 'assets/img/avatars';
@@ -148,6 +150,38 @@ class Users extends MY_Controller {
   $data['nb_yeux_homme']=count(scandir($urlEyeMan))-2;
   $data['nb_yeux_femme']=count(scandir($urlEyeWoman))-2;
   $data['nb_bouches']=count(scandir($urlMouth))-2;
+	
+	//Create captcha
+	$font_path = 'assets/fonts/orangejuice.ttf';
+	$img_path = 'assets/img/captcha/';
+	$img_url = base_url('assets/img/captcha/');
+	$values = array(
+		'img_path' => $img_path,
+		'img_url' => $img_url,
+		'img_width' => 270,
+		'img_height' => 60,
+		'font_path' => $font_path,
+		'font_size' => 30
+	);
+	
+	//Create captcha
+	$captcha = create_captcha();
+	
+	//Delete old captchas
+	$time = time();
+	$this->db->query("DELETE FROM captcha WHERE time + 600 < ?", array($time));
+	
+	//Write captcha code in database
+	$session_id = session_id();
+	$insert_data = array(
+		'code' => $captcha['code'],
+		'session_id' => $session_id,
+		'time' => time()
+	);
+	$query = $this->db->insert_string('captcha', $insert_data);
+	$this->db->query($query);
+	
+	$data['captcha'] = $captcha['image'];
 	
 	if ($this->form_validation->run() === FALSE) {	  
 	     $data['scripts'][] = base_url('assets/js/users/create_avatar.js');
@@ -283,4 +317,19 @@ class Users extends MY_Controller {
 	else
 	  redirect('/users');
   }
+
+
+	public function valid_captcha() {
+		$captcha = $this->input->post('captcha');
+		$session_id = session_id();
+		$query = $this->db->query("SELECT id FROM captcha WHERE code = ? AND session_id = ?", array($captcha, $session_id));
+		
+		if($query->num_rows() > 0) {
+			$this->db->query("DELETE FROM captcha WHERE session_id=?", array($session_id));
+			return TRUE;
+		} else {
+			$this->form_validation->set_message('valid_captcha', 'Mauvais code secret');
+			return FALSE;
+		}
+	}
 }
