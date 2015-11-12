@@ -82,6 +82,10 @@ $route['private_messages/delete_message/(:num)'] = 'private_messages/delete_mess
 /* Annuaire */
 $route['users/annuaire/(:num)'] = 'users/annuaire/$1';
 
+/* Action modération */
+$route['users/ban/(:num)'] = 'users/ban/$1';
+$route['users/unban/(:num)'] = 'users/unban/$1';
+
 
 $route['default_controller'] = "home/index";
 //$route['(:any)'] = 'pages/view/$1';

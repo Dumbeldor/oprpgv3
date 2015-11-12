@@ -1,6 +1,10 @@
 a.Membre{
     color:#9B9B9B;
 }
+a.Ban{
+    color:#9B9B9B;
+    text-decoration: line-through;
+}
 a.VIP{
 	color:black;
 	font-weight: bold;

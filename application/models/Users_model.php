@@ -39,7 +39,7 @@ class Users_model extends CI_Model {
 	/* $id is the id of the selected member */
   public function view_user($id = 0) {
         //Selection of all useful information to display on the member's profile
-    $query = $this->db->query("SELECT users.pseudo, users.messNumber, users_types.name AS rank, lvl,
+    $query = $this->db->query("SELECT users.pseudo, users.ban, users.messNumber, users_types.name AS rank, lvl,
     							crews.name AS crewName, crews_grades.name AS crewGrade, crews.id AS crewId, registration, last_connection, faction.name AS facName
                                 FROM users
                                 JOIN users_types ON users_types.id = users.id_users_types
@@ -329,18 +329,29 @@ class Users_model extends CI_Model {
   	
   }
   
-  public function countBody($sexe = 0){
-	return $this->db->where('sexe', $sexe)
-				  ->count_all_results('body');
-  }
+ public function ban($id=0)
+ {
+	if($id == 0 || !$this->user->isModo())
+	  return false;
   
-  public function countEyes($sexe=0) {
-	return $this->db->where('sexe', $sexe)
-				  ->count_all_results('eyes');
-  }
+	$this->db->where('id', $id)
+		->set('ban', 1)
+		->set('id_users_types', 0)
+		->update('users');
+	
+	return true;
+ }
+ public function unban($id=0)
+ {
+	if($id == 0 || !$this->user->isModo())
+	  return false;
   
-  public function countMouths() {
-	return $this->db->count_all_results('mouths');
-  }
+	$this->db->where('id', $id)
+		->set('ban', 0)
+		->set('id_users_types', 1)
+		->update('users');
+	
+	return true;
+ }
 
 }

@@ -83,7 +83,7 @@ class User
 	
 	public function isModo()
 	{
-		return ($this->CI->session->userdata('rank') == "Modérateur" OR $this->CI->session->userdata('rank') == "Modératrice") ? true : false;
+		return ($this->CI->session->userdata('rank') == "Modérateur" OR $this->CI->session->userdata('rank') == "Modératrice" OR $this->isAdmin()) ? true : false;
 	}
 	
 	public function inCrew()

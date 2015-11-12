@@ -259,4 +259,26 @@ class Users extends MY_Controller {
     $data['title'] = 'Home';
     redirect('');
   }
+  
+  public function ban($id=0) {
+	if(!$this->user->isModo() || $id == 0)
+	  redirect('/users');
+	
+	$success = $this->users_model->ban($id);
+	if($success)
+	  redirect('/users/view/'.$id);
+	else
+	  redirect('/users');
+  }
+  
+  public function unban($id=0) {
+	if(!$this->user->isModo() || $id == 0)
+	  redirect('/users');
+	
+	$success = $this->users_model->unban($id);
+	if($success)
+	  redirect('/users/view/'.$id);
+	else
+	  redirect('/users');
+  }
 }

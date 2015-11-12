@@ -12,4 +12,14 @@
     Dernière connexion : <?= date('d/m/Y à H\hi',$users['last_connection'])?><br>
     <br>
     <a href="<?php echo base_url('/messaging/write/'.$users['pseudo']);?>"><img src="<?= base_url('assets/img/icone/mp.jpg') ?>"></img></a><br />
+    <?php if($moderator) { ?>
+        <br>
+        <strong>Modération :</strong><br>
+        <?php if($users['ban'])
+        { ?>
+            <a href="<?= base_url('users/unban/'.$id);?>">De-Bannir <?= $users['pseudo']?> !</a>
+        <?php } else { ?>
+            <a href="<?= base_url('users/ban/'.$id);?>">Bannir <?= $users['pseudo']?> !</a>
+        <?php }
+    } ?>
 </div>
