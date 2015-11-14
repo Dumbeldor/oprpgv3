@@ -299,10 +299,7 @@ class Crews_model extends CI_Model {
 	
 	public function dissolve($idCrew) {
 		$this->db->delete('crews_users', array('id' => $idCrew));	
-			
-		$this->db->where('id', $idCrew);
-		$this->db->set('is_block', 1);
-		$this->db->update('crews');	
+		$this->db->delete('crews', array('id' => $idCrew));
 	}
 	
 	public function inFaction($id) {
