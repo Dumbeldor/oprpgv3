@@ -23,6 +23,7 @@ class Users extends MY_Controller {
   		redirect(base_url('/home/accueil'));
 	$data['users'] = $this->users_model->annuaire(20, 10);
     $data['title'] = 'Annuaire';
+	$data['scripts'][] = base_url('assets/js/users/index.js');
     
     $this->load->library('pagination');
 	
@@ -71,7 +72,7 @@ class Users extends MY_Controller {
   /**
    * View the profile of a user
    * ----------------------------------------------------------------------- */
-  public function view($id) {
+  public function view($id=1) {
   	if(!$this->user->isAuthenticated())
   		redirect(base_url('/home/accueil'));
 	$data['users'] = $this->users_model->view_user($id);
@@ -333,5 +334,12 @@ class Users extends MY_Controller {
 			$this->form_validation->set_message('valid_captcha', 'Mauvais code secret');
 			return FALSE;
 		}
+	}
+	
+	// Return results of search in users list
+	public function search() {
+		$search = $this->input->post('search_input');
+		$result = $this->users_model->search_user($search);
+		echo json_encode($result);
 	}
 }

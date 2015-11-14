@@ -370,5 +370,16 @@ class Users_model extends CI_Model {
 	
 	return true;
  }
+ 
+	//Search for users that verify pattern
+	public function search_user($pattern) {
+		$query = $this->db->select('users.id, users.pseudo, users.registration, users_types.name AS rank')
+			  ->from('users')
+			  ->join('users_types', 'users.id_users_types = users_types.id')
+			  ->where('users.pseudo REGEXP', '^'.$pattern)
+			  ->order_by('users.id ASC')
+			  ->get();
+		return $query->result_array();
+	}
 
 }

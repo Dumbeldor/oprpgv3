@@ -81,6 +81,7 @@ $route['private_messages/delete_message/(:num)'] = 'private_messages/delete_mess
 
 /* Annuaire */
 $route['users/annuaire/(:num)'] = 'users/annuaire/$1';
+$route['users/search'] = 'users/search';
 
 /* Action modération */
 $route['users/ban/(:num)'] = 'users/ban/$1';

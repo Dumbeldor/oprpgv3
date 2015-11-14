@@ -12,7 +12,7 @@
             <span class="prefix">Chercher</span>
           </div>
           <div class="small-9 large-10 columns">
-            <input type="text" placeholder="Un pseudo..." name="pseudo" >
+            <input id="user_search" type="text" placeholder="Un pseudo..." name="pseudo" >
           </div>
         </div>
 
@@ -22,7 +22,7 @@
         ?>
         
         <!-- ========== LIST ========== -->
-        <div class="row collapse">
+        <div id="liste_users" class="row collapse">
           <table class="table">  
             <thead>
               <tr>
@@ -48,5 +48,21 @@
             </tbody> 
           </table>
         </div>
-
+		
+		<!-- ========== LIST SEARCH ========== -->
+		<div id="liste_users_search" class="row collapse">
+          <table id="search_table" class="table">  
+            <thead>
+              <tr>
+                <th>Pseudo</th>
+                <th>Date d'inscription</th>
+              </tr>
+            </thead>
+            <tbody></tbody> 
+          </table>
+        </div>
+		
     </div> <!-- /<div class="row pageNormale"> -->
+<script>
+var base_url = '<?php echo base_url('users/view'); ?>';
+</script>
