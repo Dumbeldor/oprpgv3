@@ -10,7 +10,7 @@ if($categories['id'] != 1 || ($moderator || $admin)):
 ?>
 	<li>
             <div class="panel">
-	<a href="<?php echo base_url('forum/c/'.$categories['id']); ?>"> <?php echo $categories['name'];?></a><br>
+	<a href="<?php echo base_url('forum/c/'.$categories['id']); ?>"> <?php echo htmlentities($categories['name']);?></a><br>
 	<i><?php echo $categories['descr'];?></i><br/>
 	<?php if (!empty($categories['topicId'])):?>
 		<strong>Dernier message</strong><br />

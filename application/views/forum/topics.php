@@ -1,17 +1,16 @@
 <div class="row">
-		<div class="pagination-centered">
-			<ul class="pagination">
-				<?php echo $pagination; ?>
-			</ul>
-		</div>
-		<br /> <br />
+		<br /> 
 			<a href="<?php echo base_url('forum');?>"><i>Les forums</i></a>-><a href="<?php echo base_url('forum/c/'.$aria['categorieId']); ?>"><i><?php echo $aria['categorieName'];?></i></a>-><a href="<?php echo base_url('forum/t/'.$aria['topicId']); ?>"><strong><?php echo htmlspecialchars($aria['topicName']);?></strong></a><br /><br />
 		<?php echo form_open('forum/answer');
 		?>
 				<input type="hidden" name="id_topic" value="<?php echo $id_topic; ?>">
 				<input type="submit" value="Répondre" id="send_button">
 			</form>
-			<br />
+			<div class="pagination-centered">
+			<ul class="pagination">
+				<?php echo $pagination; ?>
+			</ul>
+		</div>
 			<br />
 		
 			<?php 
