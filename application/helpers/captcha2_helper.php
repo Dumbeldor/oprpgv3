@@ -15,7 +15,7 @@ function create_captcha() {
 	imagecolorallocate($image, 55, 23, 50));
 
 	$fonts = glob('assets/fonts/orangejuice.ttf');
-	$char = '2345689abcdefghjkmnprsuvwyzABCDEFGHIJKLMNPQRSTUVWXYZ';
+	$char = '123456789';
 	$code = '';
 	for($i=0; $i<7; $i++) {
 		$lettre = $char[rand()%strlen($char)];
