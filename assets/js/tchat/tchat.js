@@ -3,8 +3,10 @@ var current_salle = url_params[url_params.length - 1];
 $(function() {
   $('#form_tchat').submit(function(e){
     var msg = $('#msg').val();
-	$.post("postMessage",{message: msg, id_tchat: current_salle}, function() { $('#msg').val('');update_tchat(); });
-    e.preventDefault();
+	if(msg.length > 0) {
+		$.post("postMessage",{message: msg, id_tchat: current_salle}, function() { $('#msg').val('');update_tchat(); });
+	}
+	e.preventDefault();
   });
 });
 
