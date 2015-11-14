@@ -2,7 +2,7 @@
     <br />
     <img src="<?php echo base_url('assets/img/avatarsJoueurs/'.$id.'.png');?>"></img><br>	<br />
     Pseudo : <a href="#" class="<?= $users['rank']?>"><?php echo $users['pseudo']; ?></a> <br />
-    Faction : <?= mysql_real_escape_string($users['facName']); ?><br>
+    Faction : <?= htmlentities($users['facName']); ?><br>
     Lvl : <?php echo $users['lvl'];?> <br />
     Rang : <?php echo $users['rank']; ?> <br />
     Nombre message forum : <?php echo $users['messNumber']; ?> <br />

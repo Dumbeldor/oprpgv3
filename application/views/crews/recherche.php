@@ -2,7 +2,7 @@
 <?php if(!empty($listes))
 {
     foreach($listes as $liste){
-        ?><a href="<?php echo base_url('crews/view/'.$liste['id']);?>"><?php echo $liste['name']; ?></a>
+        ?><a href="<?php echo base_url('crews/view/'.$liste['id']);?>"><?php echo htmlentities($liste['name']); ?></a>
         <?php echo date('d/m/Y à H\hi',$liste['date']);  ?>
         <br> <br><?php
     }

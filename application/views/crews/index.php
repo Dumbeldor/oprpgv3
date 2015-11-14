@@ -1,5 +1,5 @@
 <div class="row pageNormale">
-    <h1>Équipage <?php echo mysql_real_escape_string($crew['name']);?></h1>
+    <h1>Équipage <?php echo htmlentities($crew['name']);?></h1>
     <br>
     Berry : <?php echo $crew['money'];?> <br>
     Équipage créé le :  <?php echo date('d/m/Y à H\hi',$crew['dateCrew']);?><br>
