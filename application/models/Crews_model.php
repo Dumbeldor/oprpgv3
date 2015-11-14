@@ -160,30 +160,64 @@ class Crews_model extends CI_Model {
 			'id_crews_grades' => 2
 		);
 		$this->db->insert('crews_users', $data);
+
+
 		$data = array(
 			'content' => 'Bienvenue dans l\'équipe '.$this->user->getAttribute('crewName').'
 						  Vous avez été accepté par '.$this->user->getPseudo().' qui est '.$this->user->getAttribute('crewRank'). '
 						  Vous pouvez dès à présent profiter de votre nouvelle équipe, soyez fier !',
 			'date_time' => time(),
-			'id_users' => 13,
-			'id_users_1' => $id
+			'id_author' => 13,
+			'id_dest' => $id,        
 		);
 		$this->db->insert('privates_messages', $data);
+		$msg_id = $this->db->insert_id();
+		
+		$data = array(
+			'id_msg' => $msg_id,
+			'id_user' => 13,
+			'is_read' => 1
+		);
+		$this->db->insert('privates_messages_appartenance', $data);
+		
+		$data = array(
+			'id_msg' => $msg_id,
+			'id_user' => $id,
+			'is_read' => 0
+		);
+		$this->db->insert('privates_messages_appartenance', $data);
+
 		return true;
 	}
 	
 	public function refuse($id){
 		$this->db->delete('crews_candidacy', array('id_users' => $id, 'id_crews' => $this->user->getAttribute('crewId')));
+
 		$data = array(
 			'content' => 'Bonjour, l\'équipe '.$this->user->getAttribute('crewName').' ne vous a pas accepté.'.'
 						  Candidature traité par '.$this->user->getPseudo().' qui est '.$this->user->getAttribute('crewRank'). '
 						  Vous pouvez dès à présent dès à présent chercher un autre équipage !..
 						  Bonne chance !',
 			'date_time' => time(),
-			'id_users' => 13,
-			'id_users_1' => $id
+			'id_author' => 13,
+			'id_dest' => $id,        
 		);
 		$this->db->insert('privates_messages', $data);
+		$msg_id = $this->db->insert_id();
+		
+		$data = array(
+			'id_msg' => $msg_id,
+			'id_user' => 13,
+			'is_read' => 1
+		);
+		$this->db->insert('privates_messages_appartenance', $data);
+		
+		$data = array(
+			'id_msg' => $msg_id,
+			'id_user' => $id,
+			'is_read' => 0
+		);
+		$this->db->insert('privates_messages_appartenance', $data);
 	}
 	
 	public function changeTexte(){
