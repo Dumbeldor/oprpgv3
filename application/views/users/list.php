@@ -3,7 +3,7 @@
       <!-- ========== DESCRIPTION ========== -->
 
       <h1>Connectés</h1>
-      <p>Il y a <?php echo count($list);?> joueurs connectés ! </p>
+      <p>Il y a en tout <?= $total?> utilisateurs en ligne : <?= count($list)?> enregistrés, <?= $listVisitor?> visiteurs.</p>
 
       <!-- ========== LIST ========== -->
 

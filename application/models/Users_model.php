@@ -227,6 +227,11 @@ class Users_model extends CI_Model {
   	->get()
   	->result();
   }
+
+  public function listVisitor() {
+  	return $this->db->where('idUser', 0)
+            ->count_all_results('ci_sessions');
+  }
   
   public function countUsers() {
 	$query = $this->db->query('SELECT COUNT(*) AS nb

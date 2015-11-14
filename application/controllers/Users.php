@@ -89,6 +89,8 @@ class Users extends MY_Controller {
   		redirect(base_url('/home/accueil'));
   	$data['title'] = 'Liste des connectés';
   	$data['list'] = $this->users_model->listCo();
+    $data['listVisitor'] = $this->users_model->listVisitor();
+    $data['total'] = count($data['list']) + $data['listVisitor'];
   	$this->construct_page('users/list', $data);
   }
   
