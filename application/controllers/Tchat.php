@@ -17,7 +17,7 @@ class Tchat extends MY_Controller {
 	$this->construct_page('tchat/index', $data);
   }
   
-  public function salle($id_tchat) {
+  public function salle($id_tchat=1) {
 	$this->load->helper('form');
   
     $data['title'] = 'T\'chat';
@@ -37,7 +37,7 @@ class Tchat extends MY_Controller {
 	$this->salle($id_tchat);
   }
 
-  public function getMessages($idTchat) {
+  public function getMessages($idTchat=1) {
 	$messages = $this->tchat_model->get_messages($idTchat);
     echo json_encode($messages);
   }
