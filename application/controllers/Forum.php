@@ -65,7 +65,7 @@ class Forum extends MY_Controller {
 		$config['first_link'] = 'Première';
 		
 		$this->pagination->initialize($config);
-		$page = $page * 10;
+		$page = ($page-1) * 20;
 		
 		if($page > 0)
 		{
@@ -151,7 +151,7 @@ class Forum extends MY_Controller {
 		$config['prev_tag_close'] = '</liv>';
 		
 		$this->pagination->initialize($config);
-		$page = $page*15;
+		$page = ($page-1)*30;
 		
 		if($page > 0)
 		{
