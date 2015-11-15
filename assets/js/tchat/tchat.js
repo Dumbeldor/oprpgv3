@@ -52,7 +52,7 @@ function update_tchat() {
 $("#tchat_container").click(function(e){
 	if(e.target.nodeName == "IMG") {
 		var attr = e.target.attributes;
-		var pseudo = attr[2];
+		var pseudo = attr[0];
 		pseudo = pseudo.nodeValue;
 		$("#msg").val($("#msg").val() + pseudo + " > ");
 	}
