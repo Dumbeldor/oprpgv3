@@ -259,6 +259,22 @@ class Forum extends MY_Controller {
 	public function send_topic() {
 		if(!$this->user->isAuthenticated())
 			redirect(base_url('/users/connect'));
+
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('topic_name', 'nom du topic', 'required|min_length[3]|max_length[50]', 
+											array('required' => 'Vous devez mettre un nom de topic',
+												  'min_length' => 'Vous devez mettre un nom de topic d\'au moins 3 caractères !',
+												  'max_lenght' => 'Vous ne pouvez pas mettre un nom de topic plus grand que 50 caractères !'));
+		$this->form_validation->set_rules('message', 'message', 'required|min_length[3]',
+											array('required' => 'Vous devez ajouter du contenu',
+												  'min_lenght' => 'Vous devez ajouter minimum 3 caractères à votre message de topic...'));
+		if ($this->form_validation->run() == FALSE) {
+			$data['title'] = 'Forum';
+			$data['id_categorie'] = $this->input->post('id_categorie');
+			$data['aria'] = $this->forum_model->get_aria_categorie($data['id_categorie'])[0];
+			$this->construct_page('forum/create_topic', $data);
+			return false;
+		}
 		
 		// Set informations into variables - Format them
 		$id_categorie = $this->input->post('id_categorie');

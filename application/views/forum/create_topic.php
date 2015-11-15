@@ -6,8 +6,18 @@
 <?php 
 	echo form_open('forum/send_topic')
 ?>
+		<?php 
+          if (!empty(form_error('topic_name'))) {
+            echo '<small class="error">'.form_error('topic_name').'</small>';
+          }
+        ?>
 		<label for="topic_name" class="col-sm-2 control-label">Titre du topic :</label>
 		<input type="text" name="topic_name"><br>
+		<?php 
+          if (!empty(form_error('message'))) {
+            echo '<small class="error">'.form_error('message').'</small>';
+          }
+        ?>
 	    <label for="forum_message" class="col-sm-2 control-label">Message :</label>
 		<textarea id="forum_message" name="message" ></textarea><br>
 		<input type="hidden" name="id_categorie" value="<?php echo $id_categorie; ?>">

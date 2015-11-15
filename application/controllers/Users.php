@@ -108,13 +108,28 @@ class Users extends MY_Controller {
     
     $data['title'] = 'Inscription';
     
-    $this->form_validation->set_rules('pseudo', 'Pseudonyme', 'required|min_length[3]|max_length[50]');
-	$this->form_validation->set_rules('password', 'Mot de passe', 'required|min_length[6]|max_length[249]|matches[passconf]');
-	$this->form_validation->set_rules('passconf', 'Mot de passe de confirmation', 'required');
-	$this->form_validation->set_rules('email', 'Email', 'required|min_length[3]|max_length[249]|valid_email');
-	$this->form_validation->set_rules('sexe', 'sexe', 'required');
-	$this->form_validation->set_rules('faction', 'faction', 'required');
-	$this->form_validation->set_rules('captcha', 'captcha', 'required|callback_valid_captcha');
+    $this->form_validation->set_rules('pseudo', 'Pseudonyme', 'required|min_length[3]|max_length[50]',
+                                      array('required' => 'Vous devez choisir un pseudo',
+                                            'min_length' => 'Votre pseudo doit contenir au moiins 3 caractères',
+                                            'max_lenght' => 'Votre pseudo ne peut pas contenir plus de 50 caractères !'));
+	$this->form_validation->set_rules('password', 'Mot de passe', 'required|min_length[6]|max_length[249]|matches[passconf]',
+                                      array('required' => 'Vous devez saisir un mot de passe !',
+                                            'min_length' => 'Votre mot de passe doit contenir au minimum 6 caractères !',
+                                            'max_lenght' => 'Votre mot de passe doit contenir au maximum 249 caractères',
+                                            'matches' => 'Votre mot de passe doit être le même que celui de confirmation'));
+	$this->form_validation->set_rules('passconf', 'Mot de passe de confirmation', 'required',
+                                    array('required' => 'Vous devez saisir un mot de passe de confirmation'));
+	$this->form_validation->set_rules('email', 'Email', 'required|min_length[3]|max_length[249]|valid_email',
+                                    array('required' => 'Vous devez saisir un email',
+                                          'min_length' => 'Votre email doit faire minimum 3 caractères...',
+                                          'max_lenght' => 'Votre email doit faire maximum 249 caractères',
+                                          'valid_email' => 'Votre email doit être valide'));
+	$this->form_validation->set_rules('sexe', 'sexe', 'required',
+                                    array('required' => 'Vous devez choisir un sexe'));
+	$this->form_validation->set_rules('faction', 'faction', 'required',
+                                    array('required' => 'Vous devez choisir une faction'));
+	$this->form_validation->set_rules('captcha', 'captcha', 'required|callback_valid_captcha',
+                                    array('required' => 'Vous devez saisir le code secret de sécurité'));
 	
 
   $url = 'assets/img/avatars';
