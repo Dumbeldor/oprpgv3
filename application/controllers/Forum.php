@@ -328,12 +328,20 @@ class Forum extends MY_Controller {
 			redirect('forum/');
 		}
 		
+		$success = $this->forum_model->send_message($id_topic, $id_cat, $message,$date_message,$id_user);
 		// Redirect to forum's model for action function
-		if(!$this->forum_model->send_message($id_topic, $id_cat, $message,$date_message,$id_user))
+		if($success == 0){
 			redirect('forum/');
-		
-		// Loading previous topic after success
-		redirect('forum/t/'.$id_topic);
+		}
+		else if($success != 1) {
+			$data['error'] = "Vous devez attendre 1 heure pour reposter sur un topic avec la dernière réponse de votre part.";
+			$data['url'] = base_url('forum/t/'.$id_topic);
+			$this->construct_page('errors/errorsForum', $data);
+		}
+		else {
+			// Loading previous topic after success
+			redirect('forum/t/'.$id_topic);
+		}
 	}
 	
 	/**

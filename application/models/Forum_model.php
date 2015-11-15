@@ -215,6 +215,16 @@ class Forum_model extends CI_Model {
 		$user_id is the user's id who send the message
 	*/
 	public function send_message($id_topic, $id_cat, $message,$date_message,$user_id) {
+		$query = $this->db->query('SELECT id_users, date_time
+								FROM forums_topics_messages
+								WHERE id_forums_topics = ? AND is_block = 0 AND id = (SELECT MAX(f2.id) FROM forums_topics_messages f2 WHERE f2.id_forums_topics = id_forums_topics AND is_block = 0)
+								',
+								array($id_topic));
+		$date = $query->result_array()[0];
+		if($date['id_users'] == $user_id && $date['date_time'] > time()-3600)
+		{
+			return -2;	
+		}
 		if(!$this->lawPoste($id_cat))
 			return false;
 		$this->db->insert('forums_topics_messages', array('message'=>$message,'date_time'=>$date_message,'id_forums_topics'=>$id_topic,'id_users'=>$user_id));
