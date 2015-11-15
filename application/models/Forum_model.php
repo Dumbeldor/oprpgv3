@@ -28,15 +28,15 @@ class Forum_model extends CI_Model {
 					WHERE 
 					((fc.is_block = 0 OR (fc.is_block = 1 AND fc.is_crew = 0 AND fc.name = ?))
 					AND (fc.is_crew = 0 OR (fc.is_crew = 1 AND fc.id = ?)) AND ft.is_block = 0 AND ftm.is_block = 0)	
-					AND ftm.date_time = 
+					AND ftm.id = 
 					(
-						SELECT MAX(ftm2.date_time) FROM forums_topics_messages ftm2
+						SELECT MAX(ftm2.id) FROM forums_topics_messages ftm2
 						JOIN forums_topics ft2 ON ftm2.id_forums_topics = ft2.id
 						WHERE ft2.id_forums_categories = fc.id AND ftm2.is_block = 0 AND ft2.is_block = 0
 						GROUP BY fc.id
 					)
 					
-					GROUP BY fc.id
+					GROUP BY fc.id, ft.id
 					ORDER BY fc.sequence', array($this->user->getAttribute('facName'), $this->user->getAttribute('crewId')));
 	
 			return $query->result_array();
