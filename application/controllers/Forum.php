@@ -124,8 +124,8 @@ class Forum extends MY_Controller {
 		$config['total_rows'] = $nbMess;
 		$config['uri_segment'] = 4;
 		$config['use_page_numbers'] = TRUE;
-		$config['per_page'] = 30;
-		$config['num_links'] = 10;
+		$config['per_page'] = 1;
+		//$config['num_links'] = 10;
 		
 		$config['last_tag_open'] = '<li class="arrow">';
 		$config['last_tag_close'] = '</li>';
