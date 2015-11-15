@@ -32,8 +32,8 @@ class Forum_model extends CI_Model {
 					(
 						SELECT MAX(ftm2.id) FROM forums_topics_messages ftm2
 						JOIN forums_topics ft2 ON ftm2.id_forums_topics = ft2.id
-						WHERE ft2.id_forums_categories = fc.id AND ftm2.is_block = 0 AND ft2.is_block = 0
-						GROUP BY fc.id
+						WHERE ft2.id_forums_categories = fc.id AND ft2.is_block = 0 AND ftm2.is_block = 0
+						GROUP BY fc.id, ft.id
 					)
 					
 					GROUP BY fc.id, ft.id
@@ -51,16 +51,16 @@ class Forum_model extends CI_Model {
 					LEFT JOIN forums_topics_messages ftm ON ftm.id_forums_topics = ft.id
 					LEFT JOIN users ON ftm.id_users = users.id
 					LEFT JOIN users_types ut ON users.id_users_types = ut.id
-					WHERE ftm.date_time = 
-					(
-						SELECT MAX(ftm2.date_time) FROM forums_topics_messages ftm2
-						JOIN forums_topics ft2 ON ftm2.id_forums_topics = ft2.id
-						WHERE ft2.id_forums_categories = fc.id AND ftm2.is_block = 0 AND ft2.is_block = 0
-						GROUP BY fc.id
-					)
-					AND fc.is_crew = 0 AND fc.is_block = 0
+					WHERE fc.is_crew = 0 AND fc.is_block = 0
 					AND ft.is_block = 0 AND ftm.is_block = 0	
-					GROUP BY fc.id
+					AND ftm.id = 
+					(
+						SELECT MAX(ftm2.id) FROM forums_topics_messages ftm2
+						JOIN forums_topics ft2 ON ftm2.id_forums_topics = ft2.id
+						WHERE ft2.id_forums_categories = fc.id AND ft2.is_block = 0 AND ftm2.is_block = 0
+						GROUP BY fc.id, ft.id
+					)
+					GROUP BY fc.id, ft.id
 					ORDER BY fc.sequence');
 	
 			return $query->result_array();
@@ -81,15 +81,16 @@ class Forum_model extends CI_Model {
 					JOIN forums_topics_types ftt ON ft.id_forums_topics_types = ftt.id
 					JOIN forums_categories fc ON ft.id_forums_categories = fc.id
 					WHERE id_forums_categories = ? AND
-					ftm.date_time = 
-					(
-						SELECT MAX(ftm2.date_time) FROM forums_topics_messages ftm2
-						JOIN forums_topics ft2 ON ftm2.id_forums_topics = ft2.id
-						WHERE ft2.id = ft.id AND ftm2.is_block = 0 AND ft2.is_block = 0
-					)
-					AND ((fc.is_block = 0 OR (fc.is_block = 1 AND fc.is_crew = 0 AND fc.name = ?)) AND (fc.is_crew = 0
+					 ((fc.is_block = 0 OR (fc.is_block = 1 AND fc.is_crew = 0 AND fc.name = ?)) AND (fc.is_crew = 0
 					OR (fc.is_crew = 1 AND fc.id = ?))
 					AND ftm.is_block = 0 AND ft.is_block = 0)
+					AND ftm.id = 
+					(
+						SELECT MAX(ftm2.id) FROM forums_topics_messages ftm2
+						JOIN forums_topics ft2 ON ftm2.id_forums_topics = ft2.id
+						WHERE ft2.id = ft.id AND ft2.is_block = 0 AND ftm2.is_block = 0
+						GROUP BY fc.id, ft.id
+					)
 					ORDER BY ftt.id DESC, ftm.date_time DESC
 					LIMIT '.$begin.', '.$nb.'
 					', array($id_cate, $this->user->getAttribute('facName'), $this->user->getAttribute('crewId')));
@@ -104,14 +105,15 @@ class Forum_model extends CI_Model {
 					JOIN forums_topics ft ON ft.id = ftm.id_forums_topics
 					JOIN forums_topics_types ftt ON ft.id_forums_topics_types = ftt.id
 					JOIN forums_categories fc ON ft.id_forums_categories = fc.id
-					WHERE id_forums_categories = ? AND
-					ftm.date_time = 
+					WHERE id_forums_categories = ?
+					AND fc.is_block = 0 AND fc.is_crew = 0 AND ftm.is_block = 0 AND ft.is_block = 0
+					AND ftm.id = 
 					(
-						SELECT MAX(ftm2.date_time) FROM forums_topics_messages ftm2
+						SELECT MAX(ftm2.id) FROM forums_topics_messages ftm2
 						JOIN forums_topics ft2 ON ftm2.id_forums_topics = ft2.id
 						WHERE ft2.id = ft.id AND ftm2.is_block = 0 AND ft2.is_block = 0
+						GROUP BY fc.id, ft.id
 					)
-					AND fc.is_block = 0 AND fc.is_crew = 0 AND ftm.is_block = 0 AND ft.is_block = 0
 					ORDER BY ftt.id DESC, ftm.date_time DESC
 					LIMIT '.$begin.', '.$nb.'
 					', array($id_cate));
