@@ -228,6 +228,9 @@ class Forum_model extends CI_Model {
 		if(!$this->lawPoste($id_cat))
 			return false;
 		$this->db->insert('forums_topics_messages', array('message'=>$message,'date_time'=>$date_message,'id_forums_topics'=>$id_topic,'id_users'=>$user_id));
+		$this->db->where('id', $id_topic)
+				->set('last_message', $this->db->insert_id())
+				->update('forums_topics');
 		//if post in forum crew not incremente message !
 		if($id_cat != $this->user->getAttribute('crewId')) {
 			$this->db->where('id', $user_id);
