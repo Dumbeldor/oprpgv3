@@ -26,7 +26,7 @@
   <?php
 	if($this->user->isAdmin() || $this->user->isModo() ||
   		($this->user->getAttribute('crewId') == $id_categorie && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
-  	?></br><a href="<?php echo base_url('/forum/delete_topic/'.$topics['id']);?>">Supprimer topic</a><?php
+  	?> | <a href="<?php echo base_url('forum/delete_topic/'.$topics['id']); ?>"><img src="<?= base_url('assets/img/icone/delete.png')?>" title="Supprimer"></img></a><?php
   }
   ?>
 	<br>
