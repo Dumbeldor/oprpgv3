@@ -24,6 +24,7 @@ class Tchat extends MY_Controller {
     $data['messages'] = $this->tchat_model->get_messages($id_tchat);
 	$data['id_tchat'] = $id_tchat;
     $data['scripts'][] = base_url('assets/js/tchat/tchat.js');
+	$data['pseudo'] = $this->user->getPseudo();
     $this->construct_page('tchat/salle', $data);
   }
 

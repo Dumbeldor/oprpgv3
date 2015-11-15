@@ -16,6 +16,9 @@ function update_tchat() {
   $.get("getMessages/" + current_salle, function(data) {
 	var html = '';
 	var supp = '';
+	var classCss = '';
+	var pseudo = myPseudo.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+	var regex = new RegExp(pseudo);
 	data = $.parseJSON(data);
 	$.each(data, function(ind, message) {
 	  if(modo == true) {
@@ -23,10 +26,17 @@ function update_tchat() {
 	  } else {
 	    supp = '';
 	  }
+	  
+	  if(message.message.match(regex) != null) {
+		classCss = 'messageTchatMoi';
+	  } else {
+		classCss = '';
+	  }
+	  
        html += '<div class="tchat_message"><div class="columns small-12"><div class="row"><div class="columns medium-2 small-3">'
 	  + '<div><strong><a href="'+url_user+'/'+message.userId+'" class="'+message.ranks+'">' +message.pseudo
 	  + '</a></strong></div><div class="message_tchat_milieu"><img data-pseudo="' + message.pseudo + '" class="avatarTchat avatarTchat'+message.ranks+'" src="'+img_url+'/avatarsJoueurs/'+message.userId+'.png"></img></div>'
-	  + '</div><div class="panel columns medium-10 small-9 messageTchat" id="'+message.ranks+'"><div class="message_tchat_haut" id="'+message.ranks+'"">'
+	  + '</div><div class="panel columns medium-10 small-9 messageTchat ' + classCss + '" id="'+message.ranks+'"><div class="message_tchat_haut" id="'+message.ranks+'"">'
 	  +'Posté le '
 	  + message.date_time
 	  + supp

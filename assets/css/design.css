@@ -243,6 +243,10 @@ textarea {
 	margin-top: 0.6rem;
 }
 
+.tchat_message .messageTchatMoi {
+	background-color: #D4CFD5;
+}
+
 .avatarTchat {
 	height: 74px;
 	width: 60px;

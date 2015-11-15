@@ -22,7 +22,13 @@
 					<img data-pseudo="<?php echo $message->pseudo; ?>" class="avatarTchat avatarTchat<?= $message->ranks;?>" src="<?php echo base_url('assets/img/avatarsJoueurs/'.$message->userId.'.png');?>"></img>
 				</div>
 			</div>
-		    <div class="panel columns medium-10 small-9 messageTchat" id="<?= $message->ranks;?>">
+			<?php
+			$class = '';
+			if(preg_match("#" . preg_quote($pseudo) . "#", $message->message)) {
+				$class = 'messageTchatMoi';
+			}
+			?>
+		    <div class="panel columns medium-10 small-9 messageTchat <?php echo $class; ?>" id="<?= $message->ranks;?>">
 		        <div class="message_tchat_haut" id="<?= $message->ranks;?>">
 					Posté le <?php echo $message->date_time; ?>
 					<?php if($moderator) { ?>
@@ -44,7 +50,8 @@
 
 <script>
 var modo = <?php echo $moderator; ?>;
-var url_user = '<?= base_url('users/view'); ?>'
-var base_url = '<?php echo base_url('tchat/delete_message'); ?>'
-var img_url = '<?= base_url('assets/img/'); ?>'
+var url_user = '<?= base_url('users/view'); ?>';
+var base_url = '<?php echo base_url('tchat/delete_message'); ?>';
+var img_url = '<?= base_url('assets/img/'); ?>';
+var myPseudo = '<?php echo $pseudo; ?>';
 </script>
