@@ -52,8 +52,13 @@ function update_tchat() {
 $("#tchat_container").click(function(e){
 	if(e.target.nodeName == "IMG") {
 		var attr = e.target.attributes;
-		var pseudo = attr[0];
-		pseudo = pseudo.nodeValue;
+		var pseudo = '';
+		$(attr).each(function(ind, value) {
+			if(value.name == "data-pseudo") {
+				pseudo = value.nodeValue;
+			}
+		});
+		
 		$("#msg").val($("#msg").val() + pseudo + " > ");
 	}
 });
