@@ -317,7 +317,7 @@ class Users_model extends CI_Model {
 	 imagecopy($image, $image_a, 0, 0, 0, 0, $width, $height);
 	 imagecopy($image, $image_b, 0, 0, 0, 0, $width, $height);
 	 imagecopy($image, $image_c, 0, 0, 0, 0, $width, $height);
-	 imagecopy($image, $image_d, 0, 0, 0, 0, $width, $height);
+	 imagecopymerge($image, $image_d, 0, 0, 0, 0, $width, $height, 100);
 
 	 // Save the resulting image to disk (as PNG)
 
