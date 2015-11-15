@@ -293,11 +293,59 @@ class Users_model extends CI_Model {
 	$this->db->where('pseudo', $pseudo)
 			  ->update('users', $data);
 			  
-	$this->merge_images($urlBody, $urlEyes, $urlMouths, $urlHair, 'assets/img/avatarsJoueurs/' . $id . '.png');
+	
+	switch($couleur) {
+		case 'blanc':
+			$cheveux_bugs = array(5, 7, 19, 28, 30, 36);
+			break;
+				
+		case 'bleu':
+			$cheveux_bugs = array(10, 14, 25, 26, 32, 34);
+			break;
+					
+		case 'jaune':
+			$cheveux_bugs = array(1, 8, 12, 21, 29, 36);
+			break;
+				
+		case 'marron':
+			$cheveux_bugs = array(12, 15, 23, 25, 34, 36);
+			break;
+					
+		case 'noir':
+			$cheveux_bugs = array(6, 7, 8, 21, 34, 35);
+			break;
+					
+		case 'orange':
+			$cheveux_bugs = array(6, 14, 19, 21, 29);
+			break;
+					
+		case 'rose':
+			$cheveux_bugs = array(1, 6, 14, 22, 25, 34);
+			break;
+					
+		case 'rouge':
+			$cheveux_bugs = array(11, 18, 19, 24, 27);
+			break;
+					
+		case 'vert':
+			$cheveux_bugs = array(5, 8, 15 ,19, 30, 31);
+			break;
+					
+		default:
+			$cheveux_bugs = array(6, 7, 8, 21, 34, 35);
+			break;
+	}
+	
+	$methode = 1;
+	if(in_array($hair, $cheveux_bugs)) {
+		$methode = 2;
+	}
+			  
+	$this->merge_images($urlBody, $urlEyes, $urlMouths, $urlHair, 'assets/img/avatarsJoueurs/' . $id . '.png', $methode);
 	
   }
   
-  function merge_images($filename_a, $filename_b, $filename_c, $filename_d, $filename_result) {
+  function merge_images($filename_a, $filename_b, $filename_c, $filename_d, $filename_result, $methode) {
 	// Get dimensions for specified images
 
 	 list($width, $height) = getimagesize($filename_a);
@@ -317,8 +365,14 @@ class Users_model extends CI_Model {
 	 imagecopy($image, $image_a, 0, 0, 0, 0, $width, $height);
 	 imagecopy($image, $image_b, 0, 0, 0, 0, $width, $height);
 	 imagecopy($image, $image_c, 0, 0, 0, 0, $width, $height);
-	 imagecopymerge($image, $image_d, 0, 0, 0, 0, $width, $height, 100);
-
+	 
+	 if($methode == 1) {
+		imagecopy($image, $image_d, 0, 0, 0, 0, $width, $height);
+	 } else if($methode == 2) {
+		imagecopymerge($image, $image_d, 0, 0, 0, 0, $width, $height, 100);
+	 }
+	 
+	 
 	 // Save the resulting image to disk (as PNG)
 
 	 imagepng($image, $filename_result);
