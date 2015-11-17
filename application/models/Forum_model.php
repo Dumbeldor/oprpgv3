@@ -23,19 +23,13 @@ class Forum_model extends CI_Model {
 					fc.descr AS descr, fc.types, ft.name AS topicName,
 					ft.id AS topicId, (SELECT COUNT(*) FROM forums_topics_messages WHERE is_block = 0 AND id_forums_topics = ft.id) AS countMsg,
 					users.pseudo AS pseudo, users.id AS userId FROM forums_categories fc
-					LEFT JOIN forums_topics ft ON ft.id_forums_categories = fc.id
-					LEFT JOIN forums_topics_messages ftm ON ftm.id_forums_topics = ft.id
+					LEFT JOIN forums_topics ft ON ft.id = fc.last_topic
+					LEFT JOIN forums_topics_messages ftm ON ftm.id = ft.last_message
 					LEFT JOIN users ON ftm.id_users = users.id
 					LEFT JOIN users_types ut ON users.id_users_types = ut.id
-					WHERE 
+					WHERE
 					((fc.is_block = 0 OR (fc.is_block = 1 AND fc.is_crew = 0 AND fc.name = ?))
-					AND (fc.is_crew = 0 OR (fc.is_crew = 1 AND fc.id = ?)) AND ft.is_block = 0 AND ftm.is_block = 0)	
-					AND ftm.id = 
-					(
-						SELECT MAX(ft2.last_message) FROM forums_topics ft2						
-						WHERE ft2.id_forums_categories = fc.id AND ft2.is_block = 0 
-						GROUP BY fc.id, ft.id
-					)					
+					AND (fc.is_crew = 0 OR (fc.is_crew = 1 AND fc.id = ?)) AND ft.is_block = 0 AND ftm.is_block = 0)				
 					GROUP BY fc.id, ft.id
 					ORDER BY fc.sequence', array($this->user->getAttribute('facName'), $this->user->getAttribute('crewId')));
 	
@@ -47,8 +41,8 @@ class Forum_model extends CI_Model {
 					fc.descr AS descr, fc.types, ft.name AS topicName,
 					ft.id AS topicId, (SELECT COUNT(*) FROM forums_topics_messages WHERE is_block = 0 AND id_forums_topics = ft.id) AS countMsg,
 					users.pseudo AS pseudo, users.id AS userId FROM forums_categories fc
-					LEFT JOIN forums_topics ft ON ft.id_forums_categories = fc.id
-					LEFT JOIN forums_topics_messages ftm ON ftm.id_forums_topics = ft.id
+					LEFT JOIN forums_topics ft ON ft.id = fc.last_topic
+					LEFT JOIN forums_topics_messages ftm ON ftm.id = ft.last_message
 					LEFT JOIN users ON ftm.id_users = users.id
 					LEFT JOIN users_types ut ON users.id_users_types = ut.id
 					WHERE fc.is_crew = 0 AND fc.is_block = 0
@@ -73,22 +67,16 @@ class Forum_model extends CI_Model {
 			$query = $this->db->query('SELECT ftm.date_time AS date, u.pseudo AS pseudo, ft.name AS name,
 					u.id AS userId,	ft.id AS id, ftt.name AS type, ftm.id AS msgId, ut.name AS rank,
 					(SELECT COUNT(*) FROM forums_topics_messages WHERE is_block = 0 AND id_forums_topics = ft.id) AS countMsg
-					FROM forums_topics_messages ftm
+					FROM forums_categories fc
+					LEFT JOIN forums_topics ft ON ft.id_forums_categories = fc.id
+					JOIN forums_topics_types ftt ON ft.id_forums_topics_types = ftt.id
+					JOIN forums_topics_messages ftm ON ft.last_message = ftm.id
 					JOIN users u ON u.id = ftm.id_users
 					JOIN users_types ut ON u.id_users_types = ut.id
-					JOIN forums_topics ft ON ft.id = ftm.id_forums_topics
-					JOIN forums_topics_types ftt ON ft.id_forums_topics_types = ftt.id
-					JOIN forums_categories fc ON ft.id_forums_categories = fc.id
 					WHERE id_forums_categories = ? AND
 					 ((fc.is_block = 0 OR (fc.is_block = 1 AND fc.is_crew = 0 AND fc.name = ?)) AND (fc.is_crew = 0
 					OR (fc.is_crew = 1 AND fc.id = ?))
 					AND ftm.is_block = 0 AND ft.is_block = 0)
-					AND ftm.id = 
-					(
-						SELECT MAX(ft2.last_message) FROM forums_topics ft2
-						WHERE ft2.id_forums_categories = fc.id AND ft2.id = ft.id AND ft2.is_block = 0
-						GROUP BY fc.id, ft.id
-					)
 					ORDER BY ftt.id DESC, ftm.date_time DESC
 					LIMIT '.$begin.', '.$nb.'
 					', array($id_cate, $this->user->getAttribute('facName'), $this->user->getAttribute('crewId')));
@@ -97,20 +85,14 @@ class Forum_model extends CI_Model {
 			$query = $this->db->query('SELECT ftm.date_time AS date, u.pseudo AS pseudo, ft.name AS name,
 					u.id AS userId,	ft.id AS id, ftt.name AS type, ftm.id AS msgId, ut.name AS rank,
 					(SELECT COUNT(*) FROM forums_topics_messages WHERE is_block = 0 AND id_forums_topics = ft.id) AS countMsg
-					FROM forums_topics_messages ftm
+					FROM forums_categories fc
+					LEFT JOIN forums_topics ft ON ft.id_forums_categories = fc.id
+					JOIN forums_topics_types ftt ON ft.id_forums_topics_types = ftt.id
+					JOIN forums_topics_messages ftm ON ft.last_message = ftm.id
 					JOIN users u ON u.id = ftm.id_users
 					JOIN users_types ut ON u.id_users_types = ut.id
-					JOIN forums_topics ft ON ft.id = ftm.id_forums_topics
-					JOIN forums_topics_types ftt ON ft.id_forums_topics_types = ftt.id
-					JOIN forums_categories fc ON ft.id_forums_categories = fc.id
 					WHERE id_forums_categories = ?
 					AND fc.is_block = 0 AND fc.is_crew = 0 AND ftm.is_block = 0 AND ft.is_block = 0
-					AND ftm.id = 
-					(
-						SELECT MAX(ft2.last_message) FROM forums_topics ft2
-						WHERE ft2.id_forums_categories = fc.id AND ft2.id = ft.id AND ft2.is_block = 0
-						GROUP BY fc.id, ft.id
-					)
 					ORDER BY ftt.id DESC, ftm.date_time DESC
 					LIMIT '.$begin.', '.$nb.'
 					', array($id_cate));
@@ -228,6 +210,11 @@ class Forum_model extends CI_Model {
 		$this->db->where('id', $id_topic)
 				->set('last_message', $this->db->insert_id())
 				->update('forums_topics');
+				
+		$this->db->where('id', $id_cat)
+					->set('last_topic', $id_topic)
+					->update('forums_categories');
+					
 		//if post in forum crew not incremente message !
 		if($id_cat != $this->user->getAttribute('crewId')) {
 			$this->db->where('id', $user_id);
