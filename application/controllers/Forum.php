@@ -60,12 +60,12 @@ class Forum extends MY_Controller {
 		$config['total_rows'] = $nbMess;
 		$config['use_page_numbers'] = TRUE;
 		$config['uri_segment'] = 4;
-		$config['per_page'] = 20;
+		$config['per_page'] = 10;
 		$config['last_link'] = 'Dernière';
 		$config['first_link'] = 'Première';
 		
 		$this->pagination->initialize($config);
-		$page = ($page-1) * 20;
+		$page = ($page-1) * 10;
 		
 		if($page > 0)
 		{

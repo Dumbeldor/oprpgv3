@@ -183,6 +183,8 @@ class Forum_model extends CI_Model {
 	
 	public function countCategories($id_categorie) {
 		return (int) $this->db->where('id_forums_categories', $id_categorie)
+			->where('is_block', 0)
+			->where('last_message>', 0)
 		->count_all_results('forums_topics');
 	}
 	
