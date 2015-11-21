@@ -62,6 +62,7 @@ $route['crews/changeRanks/(:num)'] = 'crews/changeRanks/$1';
 
 /* Forum */
 $route['forum/c/(:num)'] = 'forum/categories/$1';
+$route['forum/c/(:num)/(:num)'] = 'forum/categories/$1/$2';
 $route['forum/t/(:num)'] = 'forum/topics/$1';
 $route['forum/t/(:num)/(:num)'] = 'forum/topics/$1/$2';
 $route['forum/messages/(:num)'] = 'forum/messages/$1';
