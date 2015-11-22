@@ -12,6 +12,9 @@
 
 class Forum extends MY_Controller {
 
+	private $_nbMess = 30,
+			$_nbTopic = 10;
+
 	// ========================================================================
 	// CREATE PAGE
 	// ========================================================================
@@ -60,12 +63,12 @@ class Forum extends MY_Controller {
 		$config['total_rows'] = $nbMess;
 		$config['use_page_numbers'] = TRUE;
 		$config['uri_segment'] = 4;
-		$config['per_page'] = 10;
+		$config['per_page'] = $this->_nbTopic;
 		$config['last_link'] = 'Dernière';
 		$config['first_link'] = 'Première';
 		
 		$this->pagination->initialize($config);
-		$page = ($page-1) * 10;
+		$page = ($page-1) * $this->_nbTopic;
 		
 		if($page > 0)
 		{
@@ -84,7 +87,7 @@ class Forum extends MY_Controller {
 		
 		// Set title and loading categories
 		$data['title'] = 'Forum';
-	    $data['topic'] = $this->forum_model->get_topics($id_categorie, 10, $page);
+	    $data['topic'] = $this->forum_model->get_topics($id_categorie, $this->_nbTopic, $page);
 		if(empty($data['topic']) && $id_categorie != $this->user->getAttribute('crewId'))
 		   redirect('forum/');
 		
@@ -124,7 +127,7 @@ class Forum extends MY_Controller {
 		$config['total_rows'] = $nbMess;
 		$config['uri_segment'] = 4;
 		$config['use_page_numbers'] = TRUE;
-		$config['per_page'] = 30;
+		$config['per_page'] = $this->_nbMess;
 		//$config['num_links'] = 10;
 		
 		$config['last_tag_open'] = '<li class="arrow">';
@@ -151,7 +154,7 @@ class Forum extends MY_Controller {
 		$config['prev_tag_close'] = '</liv>';
 		
 		$this->pagination->initialize($config);
-		$page = ($page-1)*30;
+		$page = ($page-1)*$this->_nbMess;
 		
 		if($page > 0)
 		{
@@ -173,7 +176,7 @@ class Forum extends MY_Controller {
 		$data['id_topic'] = $id_topic;
 		
 		// Get all topic's messages
-		$data['messages'] = $this->forum_model->get_messages($id_topic, 30, $page);
+		$data['messages'] = $this->forum_model->get_messages($id_topic, $this->_nbMess, $page);
 		if(empty($data['messages']))
 			redirect('/forum');
 		
@@ -333,14 +336,16 @@ class Forum extends MY_Controller {
 		if($success == 0){
 			redirect('forum/');
 		}
-		else if($success != 1) {
+		else if($success == -1) {
 			$data['error'] = "Vous devez attendre 1 heure pour reposter sur un topic avec la dernière réponse de votre part.";
 			$data['url'] = base_url('forum/t/'.$id_topic);
 			$this->construct_page('errors/errorsForum', $data);
 		}
 		else {
 			// Loading previous topic after success
-			redirect('forum/t/'.$id_topic);
+			$nbMess = $this->forum_model->countMess($id_topic);
+			$page = ceil($nbMess / $this->_nbMess);
+			redirect('forum/t/'.$id_topic.'/'.$page.'#'.$success);
 		}
 	}
 	
@@ -415,7 +420,9 @@ class Forum extends MY_Controller {
 		$categorieId = $this->forum_model->get_id_categorie($topicId)[0]['id_forums_categories'];
 		$success = $this->forum_model->edit($this->input->post('id_message'), $message, $categorieId);
 		if($success) {
-			redirect('/forum/t/'.$topicId);
+			$nbMess = $this->forum_model->countMess($topicId);
+			$page = ceil($nbMess / $this->_nbMess);
+			redirect('/forum/t/'.$topicId.'/'.$page.'#'.$this->input->post('id_message'));
 		} else {
 			redirect('/forum');
 		}
