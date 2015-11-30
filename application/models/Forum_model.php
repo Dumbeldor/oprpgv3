@@ -204,13 +204,14 @@ class Forum_model extends CI_Model {
 		$date = $query->result_array()[0];
 		if($date['id_users'] == $user_id && $date['date_time'] > time()-3600)
 		{
-			return -2;	
+			return -1;	
 		}
 		if(!$this->lawPoste($id_cat))
-			return false;
+			return 0;
 		$this->db->insert('forums_topics_messages', array('message'=>$message,'date_time'=>$date_message,'id_forums_topics'=>$id_topic,'id_users'=>$user_id));
+		$idMsg = $this->db->insert_id();
 		$this->db->where('id', $id_topic)
-				->set('last_message', $this->db->insert_id())
+				->set('last_message', $idMsg)
 				->update('forums_topics');
 				
 		$this->db->where('id', $id_cat)
@@ -223,7 +224,7 @@ class Forum_model extends CI_Model {
 			$this->db->set('messNumber', 'messNumber+1', FALSE);
 			$this->db->update('users');
 		}
-		return true;
+		return $idMsg;
 	}
 	
 	/* Return the id of a topic, in a way to load this topic when the user send a message */

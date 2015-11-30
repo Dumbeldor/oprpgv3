@@ -31,7 +31,7 @@
   ?>
 	<br>
   <?php
-	$page = floor($topics['countMsg'] / 30)+1;
+	$page = ceil($topics['countMsg'] / 30);
   if($page == 1 OR $page == 0) { ?>
   	<a href="<?php echo base_url('forum/t/'. $topics['id'].'#'.$topics['msgId']);?>">Dernier message</a></i>
   		<?php } else { ?>

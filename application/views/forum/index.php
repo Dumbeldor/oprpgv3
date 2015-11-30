@@ -15,7 +15,7 @@ if($categories['id'] != 1 || ($moderator || $admin)):
 	<?php if (!empty($categories['topicId'])):?>
 		<strong>Dernier message</strong><br />
 		<i>De <a href="<?php echo base_url('users/view/'.$categories['userId']);?>" class="<?= $categories['rank'] ?>"></i><?php echo $categories['pseudo'];?><i></a> dans <?php
-        $page = floor($categories['countMsg'] / 30)+1;
+        $page = ceil($categories['countMsg'] / 30);
         if($page == 1 OR $page == 0) { ?>
             <a href="<?php echo base_url('forum/t/'. $categories['topicId'].'#'.$categories['messId']);?>"><?php echo htmlspecialchars($categories['topicName']);?></a></i>
         <?php } else { ?>

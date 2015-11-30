@@ -85,4 +85,5 @@
 				<?php echo $pagination; ?>
 			</ul>
 		</div>
+		<a href="<?php echo base_url('forum');?>"><i>Les forums</i></a>-><a href="<?php echo base_url('forum/c/'.$aria['categorieId']); ?>"><i><?php echo $aria['categorieName'];?></i></a>-><a href="<?php echo base_url('forum/t/'.$aria['topicId']); ?>"><strong><?php echo htmlspecialchars($aria['topicName']);?></strong></a><br /><br />
 </div>
