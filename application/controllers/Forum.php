@@ -112,7 +112,10 @@ class Forum extends MY_Controller {
 		$this->load->helper('url');
 		$this->load->library('pagination');
 		$this->load->library('crew');
+		$this->load->library('editor'); 
 		$data['title'] = 'Forum';
+		
+		$data['headerScripts'][] = $this->editor->getEditorBase();
 		
 		//If topic close
 		if($this->forum_model->is_close($id_topic)[0]['is_block'])
@@ -196,9 +199,12 @@ class Forum extends MY_Controller {
 			redirect(base_url('/users/connect'));
 		// Loading helper form, set title and id
 		$this->load->helper('form');
+		$this->load->library('Editor');
 		$data['title'] = 'Forum';
 		$data['idTopic'] = $this->input->post('id_topic');
 		$data['aria'] = $this->forum_model->get_aria_topic($data['idTopic'])[0];
+		
+		$data['headerScripts'][] = $this->editor->getEditor();
 		
 		// Construct this page
 		$this->construct_page('forum/answer', $data);
@@ -218,6 +224,10 @@ class Forum extends MY_Controller {
 		}
 		
 		$this->load->helper('form');
+		$this->load->library('Editor');
+		
+		$data['headerScripts'][] = $this->editor->getEditor();
+		
 		$citation = $this->forum_model->getQuote($idTopic, $idCitation);
 		if(empty($citation))
 			redirect('forum/t/'.$idTopic);
@@ -239,6 +249,10 @@ class Forum extends MY_Controller {
 			redirect(base_url('/users/connect'));
 		// Loading helper form, set title and category id
 		$this->load->helper('form');
+		$this->load->library('Editor');
+		
+		$data['headerScripts'][] = $this->editor->getEditor();
+		
 		$data['title'] = 'Forum';
 		$data['id_categorie'] = $this->input->post('id_categorie');
 		$data['aria'] = $this->forum_model->get_aria_categorie($data['id_categorie'])[0];
@@ -392,6 +406,10 @@ class Forum extends MY_Controller {
 			redirect('/forum');
 			// Loading helper form, set title and id
 		$this->load->helper('form');
+		$this->load->library('Editor');
+		
+		$this->editor->getEditor();
+		
 		$data['title'] = 'Forum : Edit message';
 		$topicId = $this->forum_model->get_id_topic($id)[0]['id_forums_topics'];
 		$categorieId = $this->forum_model->get_id_categorie($topicId)[0]['id_forums_categories'];

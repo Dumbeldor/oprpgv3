@@ -68,6 +68,9 @@ class Messaging extends MY_Controller {
 
 		$this->load->helper('form');
 		$this->load->library('form_validation');
+		$this->load->library('Editor');
+		
+		$data['headerScripts'][] = $this->editor->getEditor();
 		$data['title'] = "MP";
 		$data['receptor'] = $receptor;
 		if(!empty($receptor) && $receptor > 0)

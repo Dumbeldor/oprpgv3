@@ -47,17 +47,39 @@
 								</div>
 						</div>
 				</div>							
-		</div>
+		</div>		
+		<?php endforeach; 
 		
-		<?php endforeach; ?>
-		<?php if($connecte):
-			echo form_open('forum/answer');
+		if($connecte): ?>
+		<div class="columns small-12">
+				<div class="row">
+						<div class="columns small-3">
+								<br>
+								<strong>Réponse rapide :</strong>
+						</div>
+						<div class="columns small-9">
+								<br>
+								<?php echo form_open('forum/send_message'); ?>
+										<textarea id="forum_message" name="message"></textarea>
+										<input type="hidden" name="id_topic" value="<?php echo $id_topic; ?>">
+										<br>
+										<input type="submit" value="Envoyer">
+										<script>
+												CKEDITOR.replace( 'forum_message' );
+										</script>
+								</form>
+						</div>
+				</div>
+		</div>
+		<?php endif; ?>
+		
+		<?php echo "<br>";
+		echo form_open('forum/answer');
 		?>
 		<br /> <br />
 				<input type="hidden" name="id_topic" value="<?php echo $id_topic; ?>">
-				<input type="submit" value="Répondre" id="send_button">
+				<input type="submit" value="Éditeur complet" id="send_button">
 			</form><br />
-		<?php endif; ?>
 		<div class="pagination-centered">
 			<ul class="pagination">
 				<?php echo $pagination; ?>

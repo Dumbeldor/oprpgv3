@@ -19,18 +19,13 @@
       href="<?php echo base_url('assets/img/icon-pack/miu-icons/flaticon.css');?>">
 
     <!-- ========== JAVASCRIPT ========== -->
-    <?php if($moderator || $admin || $redactor) {
-      ?><script 
-      src="<?php echo base_url('assets/js/ckeditorStaff/ckeditor.js');?>"></script>
-      <?php
-    } else if($VIP || $Animateur || $Animatrice) { 
-      ?>
-      <script 
-        src="<?php echo base_url('assets/js/ckeditorVIP/ckeditor.js');?>"></script>
-      <?php } else {?>
-      <script 
-        src="<?php echo base_url('assets/js/ckeditorUsers/ckeditor.js');?>"></script>
-      <?php } ?>
+    <?php if(isset($headerScripts)): ?>  
+      <?php foreach($headerScripts as $script): ?>
+      <script type="text/javascript" src="<?php echo $script; ?>"></script>
+      <?php endforeach; ?>
+    <?php endif; ?>
+    
+  
     <script 
       src="<?php echo base_url('assets/js/vendor/modernizr.js');?>"></script>
     

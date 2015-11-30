@@ -98,6 +98,9 @@ class news extends MY_Controller
 			redirect('index');
 		$this->load->helper('form');
     	$this->load->library('form_validation');
+		$this->load->library('Editor');
+		
+		$data['headerScripts'][] = $this->editor->getEditor();
     
     	$data['title'] = 'Ajouter News';
     	$data['add'] = false;
@@ -140,10 +143,14 @@ class news extends MY_Controller
 	{
 		if($id < 0)
 			redirect('index');
+			
+		$this->load->library('Editor');
+		
+		$data['headerScripts'][] = $this->editor->getEditor();
 		$data['title'] = "Les commentaires";
 		$data['new'] = $this->news_model->getNew($id);
 		$data['comments'] = $this->news_model->listComments($id);
-    $data['nbComments'] = count($data['comments']);
+		$data['nbComments'] = count($data['comments']);
 		$data['id'] = $id;
 		$this->construct_page('pages/comments', $data);		
 	}
@@ -179,6 +186,10 @@ class news extends MY_Controller
   {
     if($id == 0 || !$this->user->isModo())
       redirect('/');
+	  
+	$this->load->library('Editor');
+		
+	$data['headerScripts'][] = $this->editor->getEditor();
     $data['id'] = $id;
     $data['title'] = 'Edite d\'une news';
     $this->load->library('form_validation');

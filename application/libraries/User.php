@@ -67,7 +67,12 @@ class User
 	{
 		return ($this->CI->session->userdata('auth')) ? true : false;
 	}
-
+	
+	public function isVIP()
+	{
+		return ($this->CI->session->userdata('rank') == "VIP" || $this->CI->session->userdata('rank') == "Animateur" || $this->CI->session->userdata('rank') == "Animatrice") ? true : false; 
+	}
+	
 	public function isRedactor()
 	{
 		return ($this->CI->session->userdata('rank') == "Rédacteur" || $this->CI->session->userdata('rank') == "Rédactrice") ? true : false;

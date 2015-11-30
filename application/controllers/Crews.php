@@ -169,6 +169,10 @@ class Crews extends MY_Controller {
 		}
 		$data['title'] = 'Équipe: Modifier texte';
 		$this->load->library('form_validation');
+		$this->load->library('Editor');
+		
+		$data['headerScripts'][] = $this->editor->getEditor();
+		
 		$this->load->helper('form');
 		$this->form_validation->set_rules('content', 'Contenu du texte de l\'équipage', 'required|min_length[10]');
 		  if ($this->form_validation->run() === FALSE) {
