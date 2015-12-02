@@ -165,6 +165,9 @@ class news extends MY_Controller
 			redirect('news/comment/'.$id);
 		$this->load->helper('form');
     	$this->load->library('form_validation');
+		$this->load->library('Editor');
+		
+		$data['headerScripts'][] = $this->editor->getEditor();
     
     	$data['title'] = 'Ajouter commentaire';
     	$data['add'] = false;
