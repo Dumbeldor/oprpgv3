@@ -423,7 +423,7 @@ class Forum extends MY_Controller {
 		$data['id_message'] = $id;
 		
 		// Construct this page
-		if(!empty($data['message']))
+		if(isset($data['message']))
 			$this->construct_page('forum/edit', $data);
 		else
 			redirect('/forum');
