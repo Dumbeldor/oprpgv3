@@ -239,6 +239,7 @@ class Forum extends MY_Controller {
 			$data['message_citation'] = '<blockquote><p><u><strong><em>Citation de '.$citation['pseudo'].'</em></strong></u></p><p>'.$citation['message'].'</blockquote></p>';
 		}
 		$data['idTopic'] = $idTopic;
+		$data['aria'] = $this->forum_model->get_aria_topic($idTopic)[0];
 		// Construct this page
 		$data['title'] = 'Forum';
 		$this->construct_page('forum/answer', $data);
@@ -413,7 +414,7 @@ class Forum extends MY_Controller {
 		$this->load->helper('form');
 		$this->load->library('Editor');
 		
-		$this->editor->getEditor();
+		$data['headerScripts'][] = $this->editor->getEditor();
 		
 		$data['title'] = 'Forum : Edit message';
 		$topicId = $this->forum_model->get_id_topic($id)[0]['id_forums_topics'];

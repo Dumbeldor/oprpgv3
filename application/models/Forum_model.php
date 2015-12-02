@@ -380,7 +380,7 @@ class Forum_model extends CI_Model {
 		if($this->user->isAdmin() || $this->user->isModo() ||
 			($this->user->getAttribute('crewId') == $categorieId && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
 			$query = $this->db->query('SELECT message
-								  FROM forums_topics_messagesifDeleteLastTopicMe
+								  FROM forums_topics_messages
 								  WHERE id = ?',
 					array($id));
 		}
