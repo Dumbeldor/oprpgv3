@@ -396,7 +396,7 @@ class Users_model extends CI_Model {
 
   //Send url for reset mdp
   public function sendTookenLostPass() {
-  	//bin2hex(random_bytes(150));
+  	bin2hex(random_bytes(150));
   	
   }
   
