@@ -15,8 +15,6 @@ class Forum_model extends CI_Model {
 	/* Return each categories from a specific forum */
 	/* $id_type is the chosen forum's id */
 	public function get_categories() {
-		$this->db->query('UPDATE forums_topics ft SET ft.last_message = (SELECT MAX(ftm2.id) FROM forums_topics_messages ftm2 WHERE ftm2.id_forums_topics = ft.id AND ftm2.is_block = 0)
-							');
 		if($this->user->isAuthenticated()) {
 			$query = $this->db->query('SELECT ftm.date_time AS date, ftm.id AS messId,
 					fc.id AS id, fc.name AS name, ut.name AS rank,
@@ -282,6 +280,10 @@ class Forum_model extends CI_Model {
 			$this->db->update('forums_topics');
 			return false;
         }
+		
+		$this->ifDeleteLastTopicMessage($id_topic, $id_message);
+		$this->ifDeleteLastTopic($id_topic, $idCategories);
+		
 		return true;
 	}
 	
@@ -329,7 +331,9 @@ class Forum_model extends CI_Model {
 			return false;
 		$this->db->where('id', $resultat[0]['id_forums_topics']);
 		$this->db->set('is_block', 1);
-		$this->db->update('forums_topics');	
+		$this->db->update('forums_topics');
+		
+		$this->ifDeleteLastTopic($id_topic, $idCategorie);
 	}
 	/*
 	 * Delete topic
@@ -351,11 +355,13 @@ class Forum_model extends CI_Model {
 				$this->db->set('messNumber', 'messNumber-1', FALSE);
 				$this->db->update('users');
 			}
-		}
-		
+		}	
 		$this->db->where('id', $id_topic);
 		$this->db->set('is_block', 1);
 		$this->db->update('forums_topics');
+		
+		$this->ifDeleteLastTopic($id_topic, $idCategorie);
+		
 		return true;
 	}
 	
@@ -374,7 +380,7 @@ class Forum_model extends CI_Model {
 		if($this->user->isAdmin() || $this->user->isModo() ||
 			($this->user->getAttribute('crewId') == $categorieId && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
 			$query = $this->db->query('SELECT message
-								  FROM forums_topics_messages
+								  FROM forums_topics_messagesifDeleteLastTopicMe
 								  WHERE id = ?',
 					array($id));
 		}
@@ -402,5 +408,40 @@ class Forum_model extends CI_Model {
 		if($this->db->affected_rows() == 0)
 			return false;
 		return true;
-	}	
+	}
+	
+	public function ifDeleteLastTopic($idTopic, $idCategorie) {		
+		$this->db->where('id', $idCategorie)
+					->set('last_topic', '
+						  (
+							SELECT id FROM forums_topics WHERE id_forums_categories = '.$idCategorie.'
+							AND is_block = 0
+							AND last_message =
+							(
+								SELECT MAX(last_message) FROM forums_topics WHERE id_forums_categories = '.$idCategorie. ' AND is_block = 0
+							)
+						  )', FALSE)
+					->update('forums_categories');		
+	}
+	
+	public function ifDeleteLastTopicMessage($idTopic, $idMessage) {
+		$query = $this->db->query('SELECT last_message FROM forums_topics
+								  WHERE id = ?', array($idTopic));
+		$last_message = $query->result_array()[0]['last_message'];
+		
+		if($idMessage == $last_message)
+		{
+			$this->db->where('id', $idTopic)
+						->set('last_message', '
+							  (
+								SELECT id FROM forums_topics_messages WHERE id_forums_topics = '.$idTopic.'
+								AND is_block = 0
+								AND id =
+								(
+									SELECT MAX(id) FROM forums_topics_messages WHERE id_forums_topics = '.$idTopic. ' AND is_block = 0
+								)
+							  )', FALSE)
+						->update('forums_topics');
+		}
+	}
 }
