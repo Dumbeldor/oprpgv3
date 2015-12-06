@@ -58,7 +58,7 @@ class webSocketServer {
 		socket_close($sock);
 	}
 	
-	function process() {
+	function process($changed) {
 		
 	}
 	
