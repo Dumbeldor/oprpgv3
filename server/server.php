@@ -1,8 +1,10 @@
 <?php
+
+include "database.php";
+
 $host = 'localhost'; //host
 $port = '9000'; //port
 $null = NULL; //null var
-
 //Create TCP/IP sream socket
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 //reuseable port
@@ -68,6 +70,7 @@ while (true) {
 				//prepare data to be sent to client
 				$response_text = mask(json_encode(array('type'=>'usermsg', 'name'=>$user_name, 'message'=>$user_message, 'rank'=>$user_rank, 'id'=>$user_id, 'dateTime'=>$date_time)));
 				send_message($response_text); //send data
+				addInBdd($user_id, $user_message, $date_time, 1, $dbh);
 			}
 			break 2; //exist this loop
 		}
@@ -163,3 +166,13 @@ function perform_handshaking($receved_header,$client_conn, $host, $port)
 	"Sec-WebSocket-Accept:$secAccept\r\n\r\n";
 	socket_write($client_conn,$upgrade,strlen($upgrade));
 }
+
+function addInBdd($id, $message, $date_time, $salon, $dbh) {
+	$stmt = $dbh->prepare("INSERT INTO tchats_messages (message, date_time, id_tchats, id_users) VALUES (:message, :date_time, :id_tchats, :id_users)");
+	$stmt->bindParam(':message', $message);
+	$stmt->bindParam(':date_time', $date_time);
+	$stmt->bindParam(':id_tchats', $salon);
+	$stmt->bindParam(':id_users', $id);
+	$stmt->execute();
+}
+$dbh = null;
