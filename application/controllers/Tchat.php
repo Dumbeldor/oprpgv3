@@ -25,6 +25,8 @@ class Tchat extends MY_Controller {
 	$data['id_tchat'] = $id_tchat;
     $data['scripts'][] = base_url('assets/js/tchat/tchat.js');
 	$data['pseudo'] = $this->user->getPseudo();
+    $data['rank'] = $this->user->getRank();
+    $data['userId'] = $this->user->getId();
     $this->construct_page('tchat/salle', $data);
   }
 

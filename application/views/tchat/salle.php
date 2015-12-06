@@ -1,17 +1,21 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<audio id="notif">
+  <source src="<?php echo base_url('assets/sound/tchat/notif.mp3');?>" type="audio/mp3">
+</audio>
 <div id="tchat_body" class="row">
   <?php if($connecte): ?>
-	<form id="form_tchat" method="POST">
+
 	  <textarea id="msg" name="message"></textarea>
 	  <input type="hidden" name="id_tchat" value="<?php echo $id_tchat; ?>">
-	  <input type="submit" id="send_button" value="Poster">  
-	</form>
+	  <button id="send_button" value="Poster">Poster</button>  
+	
   <?php endif; ?>
   <div id="tchat_container">
 	<?php if(count($messages) == 0): ?>
 	  <em>Aucun message recent</em>
 	<?php else: ?>
 	  <?php foreach($messages as $message): ?>
-		<div class="tchat_message">
+		<div class="tchat_message" id="msgT">
 		  <div class="columns small-12">
 		  <div class="row">
 			<div class="columns medium-2 small-3">
@@ -47,11 +51,14 @@
 	<?php endif; ?>
   </div>
 </div>
-
+<?php $user_color = '007AF'; ?>
 <script>
+var d = new Date();
+var userId = <?= $userId?>;
 var modo = <?php echo $moderator; ?>;
+var ranks = '<?= $rank;?>';
 var url_user = '<?= base_url('users/view'); ?>';
 var base_url = '<?php echo base_url('tchat/delete_message'); ?>';
 var img_url = '<?= base_url('assets/img/'); ?>';
-var myPseudo = '<?php echo $pseudo; ?>';
+var myname = '<?php echo $pseudo; ?>';
 </script>
