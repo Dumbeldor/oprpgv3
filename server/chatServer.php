@@ -14,6 +14,7 @@ class chatServer extends webSocketServer {
 	}
 	
 	function process($changed) {
+		$buf = null;
 		//loop through all connected sockets
 		foreach ($changed as $changed_socket) {	
 			
