@@ -22,7 +22,6 @@ $(document).ready(function(){
 			alert("Entrer un message !");
 			return;
 		}
-		var date = '<?php echo time()?>';
 
 		//prepare json data
 		var msg = {
@@ -40,7 +39,6 @@ $(document).ready(function(){
 	
 	//#### Message received from server?
 	websocket.onmessage = function(ev) {
-		$('#notif')[0].play();
 
 		var msg = JSON.parse(ev.data); //PHP sends Json data
 		var type = msg.type; //message type
@@ -55,8 +53,9 @@ $(document).ready(function(){
 		var minutes = date.getMinutes();
 		// Seconds part from the timestamp
 		var seconds = date.getSeconds();
-		if(type == 'usermsg') 
+		if(type == 'usermsg' && umsg != null) 
 		{
+			$('#notif')[0].play();
 			var uname = msg.name; //user name
 			var urank = msg.rank; //color
 			var uId = msg.id; //id user
@@ -83,7 +82,7 @@ $(document).ready(function(){
 			  + date.toLocaleString()
 			  + supp
 			  + '</div><div class="message_tchat_milieu">'
-			  + umsg
+			  + 'umsg'
 			  + '</div><div class="message_tchat_bas"></div></div></div></div>';
 
 

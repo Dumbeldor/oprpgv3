@@ -45,8 +45,7 @@ while (true) {
 	}
 	
 	//loop through all connected sockets
-	foreach ($changed as $changed_socket) {	
-		
+	foreach ($changed as $changed_socket) {		
 		//check for any incomming data
 		while(socket_recv($changed_socket, $buf, 1024, 0) >= 1)
 		{
