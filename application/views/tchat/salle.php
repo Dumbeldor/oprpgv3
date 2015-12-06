@@ -61,4 +61,31 @@ var url_user = '<?= base_url('users/view'); ?>';
 var base_url = '<?php echo base_url('tchat/delete_message'); ?>';
 var img_url = '<?= base_url('assets/img/'); ?>';
 var myname = '<?php echo $pseudo; ?>';
+
+$('#send_button').click(function(){ //use clicks message send button	
+		var mymessage = $('#msg').val(); //get message text
+		
+		if(myname == ""){ //empty name?
+			alert("Vous n'êtes pas connecté...");
+			return;
+		}
+		if(mymessage == ""){ //emtpy message?
+			alert("Entrer un message !");
+			return;
+		}
+
+		//prepare json data
+		var msg = {
+		type: 2,
+		message: mymessage,
+		name: '<?php echo $pseudo; ?>',
+		rank : '<?= $rank;?>',
+		userId : <?= $userId?>,
+		};
+
+		$('#msg').val(''); //reset text
+		//convert and send data to server
+		websocket.send(JSON.stringify(msg));
+	});
+
 </script>

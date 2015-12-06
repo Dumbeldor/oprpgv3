@@ -1,5 +1,5 @@
 <?php
-require_once('./webSocketServer.php');
+require_once('webSocketServer.php');
 include('database.php');
 
 class chatServer extends webSocketServer {

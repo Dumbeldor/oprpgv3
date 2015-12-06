@@ -10,32 +10,7 @@ $(document).ready(function(){
 	}
 
 
-	$('#send_button').click(function(){ //use clicks message send button	
-		var mymessage = $('#msg').val(); //get message text
-		//var myname = 'Dumbeldor'; //get user name
-		
-		if(myname == ""){ //empty name?
-			alert("Vous n'êtes pas connecté...");
-			return;
-		}
-		if(mymessage == ""){ //emtpy message?
-			alert("Entrer un message !");
-			return;
-		}
-
-		//prepare json data
-		var msg = {
-		type: 2,
-		message: mymessage,
-		name: myname,
-		rank : ranks,
-		userId : userId,
-		};
-
-		$('#msg').val(''); //reset text
-		//convert and send data to server
-		websocket.send(JSON.stringify(msg));
-	});
+	
 	
 	//#### Message received from server?
 	websocket.onmessage = function(ev) {
