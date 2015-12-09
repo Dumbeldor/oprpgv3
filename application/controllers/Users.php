@@ -13,6 +13,7 @@ class Users extends MY_Controller {
     parent::__construct();
     $this->load->model('users_model');
     $this->load->model('personnages_model');
+	$this->load->library('crew');
   }
     
   /**
@@ -90,8 +91,8 @@ class Users extends MY_Controller {
   		redirect(base_url('/home/accueil'));
   	$data['title'] = 'Liste des connectés';
   	$data['list'] = $this->users_model->listCo();
-    $data['listVisitor'] = $this->users_model->listVisitor();
-    $data['total'] = count($data['list']) + $data['listVisitor'];
+    //$data['listVisitor'] = $this->users_model->listVisitor();
+    $data['total'] = count($data['list']) + 0;
   	$this->construct_page('users/list', $data);
   }
   

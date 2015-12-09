@@ -29,7 +29,7 @@ class Forum_model extends CI_Model {
 					((fc.is_block = 0 OR (fc.is_block = 1 AND fc.is_crew = 0 AND fc.name = ?))
 					AND (fc.is_crew = 0 OR (fc.is_crew = 1 AND fc.id = ?)) AND ft.is_block = 0 AND ftm.is_block = 0)				
 					GROUP BY fc.id, ft.id
-					ORDER BY fc.sequence', array($this->user->getAttribute('facName'), $this->user->getAttribute('crewId')));
+					ORDER BY fc.sequence', array($this->crew->getName(), $this->crew->getId()));
 	
 			return $query->result_array();
 		}
@@ -77,7 +77,7 @@ class Forum_model extends CI_Model {
 					AND ftm.is_block = 0 AND ft.is_block = 0)
 					ORDER BY ftt.id DESC, ftm.date_time DESC
 					LIMIT '.$begin.', '.$nb.'
-					', array($id_cate, $this->user->getAttribute('facName'), $this->user->getAttribute('crewId')));
+					', array($id_cate, $this->crew->getName(), $this->crew->getId()));
 			return $query->result_array();
 		} else {
 			$query = $this->db->query('SELECT ftm.date_time AS date, u.pseudo AS pseudo, ft.name AS name,
@@ -119,10 +119,10 @@ class Forum_model extends CI_Model {
 				->where('(fc.is_block', 0)
 				->or_where('(fc.is_block', 1)
 				->where('fc.is_crew', 0)
-				->where("fc.name = '".$this->user->getAttribute('facName')."' ))", NULL, FALSE)
+				->where("fc.name = '".$this->crew->getName()."' ))", NULL, FALSE)
 				->where('(fc.is_crew', 0)
 				->or_where('(fc.is_crew', 1)
-				->where("fc.id = '".$this->user->getAttribute('crewId')."' ))", NULL, FALSE)
+				->where("fc.id = '".$this->crew->getId()."' ))", NULL, FALSE)
 				->limit($nb, $begin)
 				->order_by('f.id')
 				->get()
@@ -217,7 +217,7 @@ class Forum_model extends CI_Model {
 					->update('forums_categories');
 					
 		//if post in forum crew not incremente message !
-		if($id_cat != $this->user->getAttribute('crewId')) {
+		if($id_cat != $this->crew->getId()) {
 			$this->db->where('id', $user_id);
 			$this->db->set('messNumber', 'messNumber+1', FALSE);
 			$this->db->update('users');
@@ -249,8 +249,8 @@ class Forum_model extends CI_Model {
 		if(!$this->lawPoste($idCategories))
 			return false;
 		if($this->user->isAdmin() || $this->user->isModo() ||
-			($this->user->getAttribute('crewId') == $idCategories && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
-			if($idCategories != $this->user->getAttribute('crewId')) {
+			($this->crew->getId() == $idCategories && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
+			if($idCategories != $this->crew->getId()) {
 				//redirect('/');
 				$this->db->query('UPDATE users SET messNumber = messNumber-1
 								 WHERE id = (SELECT id_users FROM forums_topics_messages WHERE forums_topics_messages.id = ?)',
@@ -264,7 +264,7 @@ class Forum_model extends CI_Model {
 							  SET ftm.is_block=1 WHERE ftm.id=? AND ftm.id_users=?', array($id_message, $this->user->getId()));
 			if($this->db->affected_rows() == 0)
 				return false;
-			if($idCategories != $this->user->getAttribute('crewId')) {
+			if($idCategories != $this->crew->getId()) {
 				$this->db->where('id', $this->user->getId());
 				$this->db->set('messNumber', 'messNumber-1', FALSE);
 				$this->db->update('users');	
@@ -308,7 +308,7 @@ class Forum_model extends CI_Model {
 						  ->where("name = '".$this->user->getAttribute('facName')."' ))", NULL, FALSE)
 						  ->where('(is_crew', 0)
 						  ->or_where('(is_crew', 1)
-						  ->where("id = '".$this->user->getAttribute('crewId')."' ))", NULL, FALSE)
+						  ->where("id = '".$this->crew->getId()."' ))", NULL, FALSE)
             ->count_all_results('forums_categories');
 		return ($nb == 1) ? true : false;
 	}
@@ -349,7 +349,7 @@ class Forum_model extends CI_Model {
 						 WHERE id_forums_topics = ?', array($id_topic));
 		$idUsers = $query->result_array();
 		
-		if($id_topic != $this->user->getAttribute('crewId')) {
+		if($id_topic != $this->crew->getId()) {
 			foreach($idUsers AS $idUser) {
 				$this->db->where('id', $idUser['id_users']);
 				$this->db->set('messNumber', 'messNumber-1', FALSE);
@@ -378,7 +378,7 @@ class Forum_model extends CI_Model {
 		if(!$this->lawPoste($categorieId))
 			return false;
 		if($this->user->isAdmin() || $this->user->isModo() ||
-			($this->user->getAttribute('crewId') == $categorieId && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
+			($this->crew->getId() == $categorieId && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
 			$query = $this->db->query('SELECT message
 								  FROM forums_topics_messages
 								  WHERE id = ?',
@@ -397,7 +397,7 @@ class Forum_model extends CI_Model {
 		if(!$this->lawPoste($categorieId))
 			return false;
 		if($this->user->isAdmin() || $this->user->isModo() ||
-			($this->user->getAttribute('crewId') == $categorieId && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
+			($this->crew->getId() == $categorieId && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
 			$this->db->query('UPDATE forums_topics_messages
 						SET message = ? WHERE id = ?', array($message, $id));
 		}

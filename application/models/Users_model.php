@@ -5,7 +5,7 @@ class Users_model extends CI_Model {
   }
   
   public function updateSession() {	
-	$query = $this->db->query("SELECT ban, is_kick, lvl, id_objects, id_users_types, users_types.name AS rank,
+	$query = $this->db->query("SELECT pseudo, ban, is_kick, lvl, id_objects, id_users_types, users_types.name AS rank,
 							  crews.name AS crewName, crews.id AS crewId, crews_grades.name as crewRank
 							  FROM users
 							  JOIN users_types ON users_types.id = id_users_types
@@ -15,16 +15,19 @@ class Users_model extends CI_Model {
 							  WHERE users.id = ?", array($this->user->getId()));
     $user = $query->result_array();
 	
-	if(!$user[0]['ban'] && !$user[0]['is_kick']){
-	  $this->user->hydrate($user[0]);
-	  $this->user->setAuthenticated(true);
-	}
-	else{ //If player is ban or kick
-	  $this->user->logout();
-	  redirect('home/accueil');
-	}
+	$this->user->hydrate($user[0]);
+	$this->user->setAuthenticated(true);
+	
+	//Update last action
+	$this->db->where('id', $this->user->getId())
+				  ->set('last_action', time())
+				  ->update('users');
   }
   
+  public function getEmail() {
+	$query = $this->db->query("SELECT email FROM users WHERE id = ?", array($this->user->getId()));
+	return $query->result_array()[0]['email'];
+  }
   
   /*public function get_users($id = 0) {
     if($id === 0) {
@@ -175,29 +178,29 @@ class Users_model extends CI_Model {
   }
   
   public function setup_connexion($pseudo) {
-      $query = $this->db->query("SELECT users.id, ban, pseudo, email, birthday, sexe, is_kick,
-							  lvl, id_objects, id_users_types, users_types.name AS rank, id_faction AS faction, faction.name AS facName
+      $query = $this->db->query("SELECT users.id, ban, pseudo, email, sexe, is_kick AS isKick,
+							  lvl, id_objects, id_users_types AS idUsersTypes, users_types.name AS rank, id_faction AS faction, faction.name AS facName
 							  FROM users
 							  JOIN users_types ON users_types.id = id_users_types
 							  JOIN faction ON users.id_faction = faction.id
 							  WHERE pseudo = ?", array($pseudo));
       $user = $query->result_array();
-	     $query = $this->db->query("SELECT crews.name AS crewName, crews.id AS crewId, crews_grades.name as crewRank
+	     $query = $this->db->query("SELECT crews.name AS name, crews.id AS id, crews_grades.name as rank
 							  FROM crews_users
 							  JOIN users ON crews_users.id_users = users.id
 							  JOIN crews ON crews_users.id = crews.id
 							  JOIN crews_grades ON crews_users.id_crews_grades = crews_grades.id
 							  WHERE users.id = ?", array($user[0]['id']));
 	   $crew = $query->result_array();
-	   if(!$user[0]['ban'] && !$user[0]['is_kick']){
+	   if(!$user[0]['ban'] && !$user[0]['isKick']){
 	     $this->user->hydrate($user[0]);
-	     $this->user->hydrate($crew[0]);
+	     $this->crew->hydrate($crew[0]);
 	     //$this->user->hydrate($user[1]);
 	     $this->user->setAuthenticated(true);
 	   }
 
       $data = array(
-        'last_connection' => time()
+        'last_action' => time()
       );
       $this->db->where('pseudo', $pseudo)
          ->update('users', $data);
@@ -219,11 +222,11 @@ class Users_model extends CI_Model {
   	//If the player is inactive for one hour
   	$this->db->delete('ci_sessions', array('timestamp <' => time() - 3600));
   	
-  	return $this->db->select('ci_sessions.idUser, users.id, users.pseudo, lvl, timestamp, users_types.name')
-  	->from('ci_sessions')
-  	->join('users', 'ci_sessions.idUser = users.id')
+  	return $this->db->select('users.id, pseudo, lvl, last_action, users_types.name')
+  	->from('users')
 	->join('users_types', 'users.id_users_types = users_types.id')
-  	->order_by('timestamp', 'desc')
+	->where('last_action >', time() - 3600)
+  	->order_by('last_action', 'desc')
   	->get()
   	->result();
   }

@@ -29,8 +29,7 @@ class chatServer extends webSocketServer {
 					$user_rank = $tst_msg->rank; //color
 					$response_text = $this->mask(json_encode(array('type'=>'system', 'message'=>$user_name.' vien de se connecter au tchat !', 'rank'=>$user_rank,
 						'dateTime' => time())));
-					send_message($response_text);
-					break 2;
+					$this->send_message($response_text);
 				}
 				else {
 					$user_name = $tst_msg->name; //sender name
@@ -55,7 +54,7 @@ class chatServer extends webSocketServer {
 				echo "Deconnexion \n";
 				
 				//notify all users about disconnected connection
-				$response = $this->mask(json_encode(array('type'=>'system', 'message'=>$ip.' disconnected')));
+				$response = $this->mask(json_encode(array('type'=>'system', 'message'=>$ip.' disconnected', 'dateTime' => time())));
 				$this->send_message($response);
 			}
 		}

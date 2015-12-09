@@ -110,7 +110,7 @@ class Crews_model extends CI_Model {
 					money, page, file, date_time as dateCrew
 					FROM crews
 					WHERE is_block = 0 AND id = ?
-					', array($this->user->getAttribute('crewId')));
+					', array($this->crew->getId()));
 		return $query->result_array();
 	}
 	
@@ -144,7 +144,7 @@ class Crews_model extends CI_Model {
 								  FROM crews_candidacy cc
 								  JOIN users u ON cc.id_users = u.id
 								  JOIN users_types ON u.id_users_types = users_types.id
-								  WHERE cc.id_crews = ?', array($this->user->getAttribute('crewId')));
+								  WHERE cc.id_crews = ?', array($this->crew->getId()));
 		return $query->result_array();
 	}
 	
@@ -155,7 +155,7 @@ class Crews_model extends CI_Model {
 			return false;
 		$this->db->delete('crews_users', array('id_users' => $id));
 		$data = array(
-			'id' => $this->user->getAttribute('crewId'),
+			'id' => $this->crew->getId(),
 		    'id_users' => $id,
 			'id_crews_grades' => 2
 		);
@@ -163,8 +163,8 @@ class Crews_model extends CI_Model {
 
 
 		$data = array(
-			'content' => 'Bienvenue dans l\'équipe '.$this->user->getAttribute('crewName').'
-						  Vous avez été accepté par '.$this->user->getPseudo().' qui est '.$this->user->getAttribute('crewRank'). '
+			'content' => 'Bienvenue dans l\'équipe '.$this->crew->getName().'
+						  Vous avez été accepté par '.$this->user->getPseudo().' qui est '.$this->crew->getRank(). '
 						  Vous pouvez dès à présent profiter de votre nouvelle équipe, soyez fier !',
 			'date_time' => time(),
 			'id_author' => 13,
@@ -191,11 +191,11 @@ class Crews_model extends CI_Model {
 	}
 	
 	public function refuse($id){
-		$this->db->delete('crews_candidacy', array('id_users' => $id, 'id_crews' => $this->user->getAttribute('crewId')));
+		$this->db->delete('crews_candidacy', array('id_users' => $id, 'id_crews' => $this->crew->getId()));
 
 		$data = array(
-			'content' => 'Bonjour, l\'équipe '.$this->user->getAttribute('crewName').' ne vous a pas accepté.'.'
-						  Candidature traité par '.$this->user->getPseudo().' qui est '.$this->user->getAttribute('crewRank'). '
+			'content' => 'Bonjour, l\'équipe '.$this->crew->getName().' ne vous a pas accepté.'.'
+						  Candidature traité par '.$this->user->getPseudo().' qui est '.$this->crew->getRank(). '
 						  Vous pouvez dès à présent dès à présent chercher un autre équipage !..
 						  Bonne chance !',
 			'date_time' => time(),
@@ -224,7 +224,7 @@ class Crews_model extends CI_Model {
 		$data = array(
 			'page' => $this->input->post('content')
 		);
-		$this->db->where('id', $this->user->getAttribute('crewId'));
+		$this->db->where('id', $this->crew->getId());
 		$this->db->update('crews', $data);
 	}
 	
@@ -249,7 +249,7 @@ class Crews_model extends CI_Model {
 	}
 	
 	public function letLead($id) {
-		$this->db->where('id_users', $id, 'id', $this->user->getAttribute('crewId'));
+		$this->db->where('id_users', $id, 'id', $this->crew->getId());
 		$this->db->update('crews_users', array('id_crews_grades' => 5));
 		
 		//if user not in crew
@@ -263,7 +263,7 @@ class Crews_model extends CI_Model {
 	}
 	
 	public function kick($id) {
-		$this->db->delete('crews_users', array('id_users' => $id, 'id' => $this->user->getAttribute('crewId')));
+		$this->db->delete('crews_users', array('id_users' => $id, 'id' => $this->crew->getId()));
 		if($this->db->affected_rows() == 0)
 			return false;
 		return true;
@@ -279,7 +279,7 @@ class Crews_model extends CI_Model {
 		$data = array(
 			'id_crews_grades' => $this->input->post('userGrade')
 		);
-		$this->db->where(array('id_users' => $id, 'id' => $this->user->getAttribute('crewId')));
+		$this->db->where(array('id_users' => $id, 'id' => $this->crew->getId()));
 		$this->db->update('crews_users', $data);
 		if($this->db->affected_rows() == 0)
 			return false;
@@ -289,12 +289,12 @@ class Crews_model extends CI_Model {
 	public function getText() {
 		$query = $this->db->query('SELECT page
 					FROM crews
-					WHERE id = ?', array($this->user->getAttribute('crewId')));
+					WHERE id = ?', array($this->crew->getId()));
 		return $query->result_array();
 	}
 	
 	public function leave() {
-		$this->db->delete('crews_users', array('id_users' => $this->user->getId(), 'id' => $this->user->getAttribute('crewId')));
+		$this->db->delete('crews_users', array('id_users' => $this->user->getId(), 'id' => $this->crew->getId()));
 	}
 	
 	public function dissolve($idCrew) {

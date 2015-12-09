@@ -62,7 +62,7 @@ var base_url = '<?php echo base_url('tchat/delete_message'); ?>';
 var img_url = '<?= base_url('assets/img/'); ?>';
 var myname = '<?php echo $pseudo; ?>';
 
-$('#send_button').click(function(){ //use clicks message send button	
+$('#send_button').click(function(){ //use clicks message send button
 		var mymessage = $('#msg').val(); //get message text
 		
 		if(myname == ""){ //empty name?
@@ -87,5 +87,4 @@ $('#send_button').click(function(){ //use clicks message send button
 		//convert and send data to server
 		websocket.send(JSON.stringify(msg));
 	});
-
 </script>

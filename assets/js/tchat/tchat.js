@@ -5,16 +5,28 @@ $(document).ready(function(){
 
 
 	
-	websocket.onopen = function(ev) { // connection is open 
-		$('#message_box').append("<div class=\"system_msg\">Connected!</div>"); //notify user
+	websocket.onopen = function(ev) { // connection is open
+		//alert('test');
+		var date = new Date();
+		var content = '<div class="tchat_message" id="msgT"> <div class="columns small-12"><div class="row"><div class="columns medium-2 small-3">'
+			  + '<div><strong><a href="'+url_user+'/13" class="VIP">Pandaman'
+			  + '</a></strong></div><div class="message_tchat_milieu"><img data-pseudo="Pandaman" class="avatarTchat avatarTchat VIP" src="'+img_url+'/avatarsJoueurs/13.png"></img></div>'
+			  + '</div><div class="panel columns medium-10 small-9 messageTchat " id="VIP"><div class="message_tchat_haut" id="VIP"">'
+			  +'Posté à '
+			  + date.toLocaleString()
+			  + '</div><div class="message_tchat_milieu">'
+			  + 'Vous êtes connecté sur le tchat ! Merci de respecter les règles de bonne conduite...<br>Passez un bon moment !'
+			  + '</div><div class="message_tchat_bas"></div></div></div></div>';
+
+
+			$('#msgT').prepend(content);
 	}
 
 
 	
 	
 	//#### Message received from server?
-	websocket.onmessage = function(ev) {
-
+	websocket.onmessage = function(ev) {		
 		var msg = JSON.parse(ev.data); //PHP sends Json data
 		var type = msg.type; //message type
 		var umsg = msg.message; //message text
@@ -57,16 +69,16 @@ $(document).ready(function(){
 			  + date.toLocaleString()
 			  + supp
 			  + '</div><div class="message_tchat_milieu">'
-			  + 'umsg'
+			  + umsg
 			  + '</div><div class="message_tchat_bas"></div></div></div></div>';
 
 
-			$('#msgT').append("<div class=\"system_msg\">"+umsg+"</div>");
+			$('#msgT').prepend(content);
 		}
 	};
 	
 	websocket.onerror	= function(ev){$('#message_box').append("<div class=\"system_error\">Error Occurred - "+ev.data+"</div>");}; 
-	websocket.onclose 	= function(ev){$('#message_box').append("<div class=\"system_msg\">Connection Closed</div>");}; 
+	websocket.onclose 	= function(ev){$('#msgT').prepend("<div class=\"system_msg\">Connection Closed</div>");}; 
 
 
 	function notifSound(s)
@@ -75,4 +87,5 @@ $(document).ready(function(){
 		e.setAttribute('src',s);
 		e.play();
 	}
+	
 });

@@ -7,12 +7,17 @@
       setlocale (LC_TIME, 'fr_FR.utf8','fra');
 	  date_default_timezone_set('Europe/Paris');
       $this->load->model('users_model');
-      $this->load->library('user');
 	   $this->load->driver('session');
+      $this->load->library('user');
 	  $this->load->library('crew');
       $this->load->helper('url');
-	  if($this->user->isAuthenticated())
+	  if($this->user->isAuthenticated()){
 		$this->users_model->updateSession();
+		if($this->user->isBan() OR $this->user->isKick()){
+		  $this->user->logout();
+		  redirect('home/accueil');
+		}
+	  }
     }
     
     /*

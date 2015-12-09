@@ -14,45 +14,76 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Crew
 {
+	protected $id,
+			  $name,
+			  $rank;
 	
 	public function __construct(){
 		$this->CI =& get_instance();
+		$this->id = $this->getId();
 	}
 	 
-
-	public function isCapitaine()
+	 public function hydrate(array $donnees)
 	{
-		return ($this->CI->session->userdata('crewRank') == "Capitaine") ? true : false;
+		foreach($donnees as $key => $value)
+		{
+			$method = 'set'.ucfirst($key);
+			if(method_exists($this, $method))
+			{
+				$this->$method($value);
+			}
+		}
 	}
-    public function isAdmin()
-	{
-		return ($this->CI->session->userdata('crewRank') == "Capitaine") ? true : false;
-	}
+	 
 	
-	public function isModo()
-	{
-		return $this->CI->session->userdata('crewRank') == "Bras droit" ? true : false;
-	}
-     
-	/*
-	 * Setter
-	 */
-
 	public function inCrew()
 	{
-		return ($this->CI->session->userdata('crewId')) ? true : false;
+		return ($this->id) ? true : false;
 	}
 	
 	public function getId()
 	{
-		return $this->CI->session->userdata('idCrew');
+		return $this->CI->session->userdata('crewId');
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function getRank()
+	{
+		return $this->rank;
+	}
+	
+	 
+     
+	/*
+	 * Setter
+	 */
+	
+	public function setId($Id)
+	{
+		$this->CI->session->set_userdata('crewId', $Id);
+	}
+	public function setName($name){
+		$this->name = $name;
+	}
+	public function setRank($rank){
+		$this->rank = $rank;
 	}
 	
 	
-	// Setters
-	public function setId($Id)
+	public function isCapitaine()
 	{
-		$this->CI->session->set_userdata('idCrew', $Id);
+		return ($this->rank == "Capitaine") ? true : false;
+	}
+    public function isAdmin()
+	{
+		return ($this->rank == "Capitaine") ? true : false;
+	}
+	
+	public function isModo()
+	{
+		return $this->rank == "Bras droit" ? true : false;
 	}
 
 	 

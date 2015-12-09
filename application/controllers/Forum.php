@@ -88,7 +88,7 @@ class Forum extends MY_Controller {
 		// Set title and loading categories
 		$data['title'] = 'Forum';
 	    $data['topic'] = $this->forum_model->get_topics($id_categorie, $this->_nbTopic, $page);
-		if(empty($data['topic']) && $id_categorie != $this->user->getAttribute('crewId'))
+		if(empty($data['topic']) && $id_categorie != $this->crew->getId())
 		   redirect('forum/');
 		
 	
@@ -114,7 +114,6 @@ class Forum extends MY_Controller {
 		$this->load->helper('form');
 		$this->load->helper('url');
 		$this->load->library('pagination');
-		$this->load->library('crew');
 		$this->load->library('editor'); 
 		$data['title'] = 'Forum';
 		
@@ -183,11 +182,11 @@ class Forum extends MY_Controller {
 		if(empty($data['messages']))
 			redirect('/forum');
 		
-		if($data['id_categorie'] == $this->user->getAttribute('crewId') AND $this->crew->isCapitaine())
+		if($data['id_categorie'] == $this->crew->getId() AND $this->crew->isCapitaine())
 			$data['capitaineCrew'] = true;
-		else if ($data['id_categorie'] == $this->user->getAttribute('crewId') AND $this->crew->isAdmin())
+		else if ($data['id_categorie'] == $this->crew->getId() AND $this->crew->isAdmin())
 			$data['adminCrew'] = true;
-		else if ($data['id_categorie'] == $this->user->getAttribute('crewId') AND $this->crew->isModo())
+		else if ($data['id_categorie'] == $this->crew->getId() AND $this->crew->isModo())
 			$data['modoCrew'] = true;
 
 		// Construct this page
@@ -396,7 +395,7 @@ class Forum extends MY_Controller {
 		$success = false;
 		$categorie = $this->forum_model->get_id_categorie($id_topic)[0]['id_forums_categories'];
 		if($this->user->isAdmin() || $this->user->isModo() ||
-			($this->user->getAttribute('crewId') == $categorie && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
+			($this->crew->getId() == $categorie && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
 			$success = $this->forum_model->delete_topic($id_topic, $categorie);
 		}
 		if($success)

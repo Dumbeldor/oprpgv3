@@ -33,6 +33,6 @@
     }
     ?>
     <br>
-    <a href="<?php echo base_url('forum/c/'.$this->user->getAttribute('crewId'));?>">Forum</a><br><br>
+    <a href="<?php echo base_url('forum/c/'.$this->crew->getId());?>">Forum</a><br><br>
     <a href="<?php echo base_url('crews/leave');?>">Quitter équipage</a>
 </div>

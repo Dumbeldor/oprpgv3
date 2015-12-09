@@ -26,6 +26,8 @@
       $(document).foundation();
       $(document).foundation('accordion', 'reflow');
     </script>
+    
+    <?php var_dump($_SESSION); ?>
 
     <!-- ========== OWN JAVASCRIPT ========== -->
     <?php if(isset($scripts)): ?>  

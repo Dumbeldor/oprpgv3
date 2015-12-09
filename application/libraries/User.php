@@ -14,9 +14,23 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class User
 {
+	protected $id,
+			  $pseudo,
+			  $ban,
+			  $isKick,
+			  $email,
+			  $sexe,
+			  $lvl,
+			  $idUsersTypes,
+			  $rank,
+			  $faction,
+			  $facName,
+			  $id_objects;
 	
 	public function __construct(){
 		$this->CI =& get_instance();
+		$this->id = $this->getId(); // Update id (Id in session)
+		//var_dump($this->CI->session->all_userdata());
 	}
 	 
 	public function logout()
@@ -26,17 +40,23 @@ class User
 	
 	public function hydrate(array $donnees)
 	{
-		$this->CI->session->set_userdata($donnees);
+		foreach($donnees as $key => $value)
+		{
+			$method = 'set'.ucfirst($key);
+			if(method_exists($this, $method))
+			{
+				$this->$method($value);
+			}
+		}
 	}
 	
-
 	/*
-	 * Setter
+	 *Getter
 	 */
 
 	public function getAttribute($attr)
 	{
-		return $this->CI->session->userdata($attr) ? $this->CI->session->userdata($attr) : null;
+		return $this->$attr;
 	}
 	
 	public function getArray()
@@ -56,54 +76,58 @@ class User
 	
 	public function isBan()
 	{
-		return $this->CI->session->userdata('ban');
+		return $this->ban;
 	}
 	public function isKick()
 	{
-		return $this->CI->session->userdata('is_kick');
+		return $this->isKick;
 	}
 
 	public function isAuthenticated()
 	{
-		return ($this->CI->session->userdata('auth')) ? true : false;
+		return !empty($this->id);
 	}
 	
 	public function isVIP()
 	{
-		return ($this->CI->session->userdata('rank') == "VIP" || $this->CI->session->userdata('rank') == "Animateur" || $this->CI->session->userdata('rank') == "Animatrice") ? true : false; 
+		return ($this->rank == "VIP" || $this->rank == "Animateur" || $this->rank == "Animatrice") ? true : false; 
 	}
 	
 	public function isRedactor()
 	{
-		return ($this->CI->session->userdata('rank') == "Rédacteur" || $this->CI->session->userdata('rank') == "Rédactrice") ? true : false;
+		return ($this->rank == "Rédacteur" || $this->rank == "Rédactrice") ? true : false;
 	}
 	 
 	public function isAdmin()
 	{
-		return ($this->CI->session->userdata('rank') == "Administrateur" OR
-				$this->CI->session->userdata('rank') == "Administratrice" OR
-				$this->CI->session->userdata('rank') == "Co-Administrateur" OR
-				$this->CI->session->userdata('rank') == "Co-Administratrice")  ? true : false;
+		return ($this->rank == "Administrateur" OR
+				$this->rank == "Administratrice" OR
+				$this->rank == "Co-Administrateur" OR
+				$this->rank == "Co-Administratrice")  ? true : false;
 	}
 	
 	public function isModo()
 	{
-		return ($this->CI->session->userdata('rank') == "Modérateur" OR $this->CI->session->userdata('rank') == "Modératrice" OR $this->isAdmin()) ? true : false;
+		return ($this->rank == "Modérateur" OR $this->rank == "Modératrice" OR $this->isAdmin()) ? true : false;
 	}
 	
 	public function inCrew()
 	{
-		return ($this->CI->session->userdata('crew')) ? true : false;
+		return ($this->crew) ? true : false;
 	}
 	
 	public function getPseudo()
 	{
-		return $this->CI->session->userdata('pseudo');
+		return $this->pseudo;
+	}
+	public function getEmail()
+	{
+		return $this->CI->users_model->getEmail();
 	}
 
 	public function getRank()
 	{
-		return $this->CI->session->userdata('rank');
+		return $this->rank;
 	}
 	 
 	public function getId()
@@ -113,16 +137,19 @@ class User
 	
 	public function getFaction()
 	{
-		return $this->CI->session->userdata('faction');
+		return $this->faction;
 	}
 	
 	
 	// Setters
 	public function setAttribute($attr, $value)
 	{
-		$this->CI->session->set_userdata($attr, $value);
+		$this->$attr = $value;
 	}
-	 
+	
+	public function setId($id){
+		$this->CI->session->set_userdata('id', $id);
+	}
 	public function setAuthenticated($authenticated = true)
 	{
 		if(!is_bool($authenticated))
@@ -148,9 +175,41 @@ class User
 	 
 	public function setPseudo($pseudo)
 	{
-		$this->CI->session->set_userdata('pseudo', $pseudo);
+		$this->pseudo = $pseudo;
 	}
-	 
+	public function setBan($ban) {
+		$this->ban = $ban;
+	}
+	public function setIsKick($isKick){
+		$this->isKick = $isKick;
+	}
+	public function setEmail($email){
+		$this->email = $email;
+	}
+	public function setSexe($sexe){
+		$this->sexe = $sexe;
+	}
+	public function setLvl($lvl){
+		//Lvl max
+		if($lvl < 200)
+			$this->lvl = $lvl;
+	}
+	public function setIdUsersTypes($idTypes){
+		$this->idUsersTypes = $idTypes;
+	}
+	public function setRank($rank){
+		$this->rank = $rank;
+	}
+	public function setFaction($fac){
+		$this->faction = $fac;
+	}
+	public function setFacName($facName) {
+		$this->facName = $facName;
+	}
+	public function setIdObjects($idObjects){
+		$this->idObjects = $idObjects;
+	}
+	
 	public function setPrivs($privs)
 	{
 		$_SESSION['privs'] = $privs;

@@ -30,7 +30,7 @@ class Crews extends MY_Controller {
 		$data['title'] = 'Équipage';
 		if($this->crew->inCrew()) {
 			$data['crew'] = $this->crews_model->viewMyCrew()[0];
-			$data['users'] = $this->crews_model->listUsers($this->user->getAttribute('crewId'));
+			$data['users'] = $this->crews_model->listUsers($this->crew->getId());
 			$data['capitaine'] = $this->crew->isCapitaine();
 			$data['adminCrew'] = $this->crew->isAdmin();
 			$data['modoCrew'] = $this->crew->isModo();
@@ -208,7 +208,7 @@ class Crews extends MY_Controller {
 		}
 		$data['title'] = 'Donner le lead';
 		if($id==0) {
-			$data['users'] = $this->crews_model->listUsers($this->user->getAttribute('crewId'));
+			$data['users'] = $this->crews_model->listUsers($this->crew->getId());
 			$this->construct_page('crews/letlead', $data);
 		} else {
 			$data['success'] = $this->crews_model->letLead($id);
@@ -236,7 +236,7 @@ class Crews extends MY_Controller {
 			redirect(base_url('/crews/index'));
 		$this->load->helper('form');
 		$data['title'] = 'Gérer membre équipage';
-		$data['users'] = $this->crews_model->listUsers($this->user->getAttribute('crewId'));
+		$data['users'] = $this->crews_model->listUsers($this->crew->getId());
 		$data['grades'] = $this->crews_model->listGrade();
 		$data['error'] = 'Erreur lors de la gestion du joueur';
 		$this->construct_page('crews/manageUser', $data);
@@ -275,7 +275,7 @@ class Crews extends MY_Controller {
 		if(!$this->crew->inCrew() || !$this->crew->isCapitaine())
 			redirect(base_url('/crews/index'));
 		$data['title'] = "Équipage dissou";
-		$this->crews_model->dissolve($this->user->getAttribute('crewId'));
+		$this->crews_model->dissolve($this->crew->getId());
 		redirect(base_url('/crews/index'));
 	}
 }
