@@ -40,8 +40,6 @@ class Forum extends MY_Controller {
 		// Set title and loading forum's type
 		$data['title'] = 'Forum';
 	    $data['categorie'] = $this->forum_model->get_categories();
-		$this->load->library('charactere');
-		echo $this->charactere->getPseudo();
 	    
 	    // Construct this page
 	    $this->construct_page('forum/index', $data);

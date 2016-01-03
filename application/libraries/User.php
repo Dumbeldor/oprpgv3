@@ -30,7 +30,6 @@ class User
 	public function __construct(){
 		$this->CI =& get_instance();
 		$this->id = $this->getId(); // Update id (Id in session)
-		//var_dump($this->CI->session->all_userdata());
 	}
 	 
 	public function logout()
