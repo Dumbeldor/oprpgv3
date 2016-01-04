@@ -34,7 +34,7 @@
 			?>
 		    <div class="panel columns medium-10 small-9 messageTchat <?php echo $class; ?>" id="<?= $message->ranks;?>">
 		        <div class="message_tchat_haut" id="<?= $message->ranks;?>">
-					Posté le <?php echo $message->date_time; ?>
+					Posté le <?php echo date('d/m/Y à H\hi',$message->date_time); ?>
 					<?php if($moderator) { ?>
 					 |<a href="<?= base_url('tchat/delete_message/'.$message->id); ?>">Supprimer</a>
 					<?php } ?>
@@ -57,6 +57,7 @@ var d = new Date();
 var userId = <?= $userId?>;
 var modo = <?php echo $moderator; ?>;
 var ranks = '<?= $rank;?>';
+var salle = <?= $id_tchat?>;
 var url_user = '<?= base_url('users/view'); ?>';
 var base_url = '<?php echo base_url('tchat/delete_message'); ?>';
 var img_url = '<?= base_url('assets/img/'); ?>';
@@ -81,6 +82,7 @@ $('#send_button').click(function(){ //use clicks message send button
 		name: '<?php echo $pseudo; ?>',
 		rank : '<?= $rank;?>',
 		userId : <?= $userId?>,
+		salle: <?= $id_tchat?>,
 		};
 
 		$('#msg').val(''); //reset text

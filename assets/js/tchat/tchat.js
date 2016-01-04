@@ -20,6 +20,22 @@ $(document).ready(function(){
 
 
 			$('#msgT').prepend(content);
+			
+		
+		var mymessage = myname + ' vient de se connecter sur le tchat !';
+		//prepare json data
+		var msg = {
+			type: 1,
+			message: mymessage,
+			name: myname,
+			rank : ranks,
+			userId : userId,
+			salle: salle
+		};
+
+		$('#msg').val(''); //reset text
+		//convert and send data to server
+		websocket.send(JSON.stringify(msg));
 	}
 
 
@@ -77,8 +93,8 @@ $(document).ready(function(){
 		}
 	};
 	
-	websocket.onerror	= function(ev){$('#message_box').append("<div class=\"system_error\">Error Occurred - "+ev.data+"</div>");}; 
-	websocket.onclose 	= function(ev){$('#msgT').prepend("<div class=\"system_msg\">Connection Closed</div>");}; 
+	websocket.onerror	= function(ev){$('#message_box').append("<div class=\"system_error\">Erreur - "+ev.data+"</div>");}; 
+	websocket.onclose 	= function(ev){$('#msgT').prepend("<div class=\"system_msg\">Connexion avec le serveur interrompu</div>");}; 
 
 
 	function notifSound(s)

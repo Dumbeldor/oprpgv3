@@ -1,4 +1,5 @@
 <?php
+require_once('User.php');
 
 class webSocketServer {
 	protected $dbh;
@@ -20,8 +21,8 @@ class webSocketServer {
 		socket_listen($this->socket);
 		
 		//create & add listning socket to the list
-		$this->clients = array($this->socket);
-		
+		$User = new User($this->socket);
+		$this->clients = array($User);
 		$this->dbh = $dbh;
 	}
 	
@@ -29,29 +30,36 @@ class webSocketServer {
 		//start endless loop, so that our script doesn't stop
 		while (true) {
 			//manage multipal connections
-			$changed = $this->clients;
+			//$changed = $this->clients;
+			
+			//echo "<br>TEST :O<br>";
+			
+			$changed = null;
+			foreach($this->clients AS $client) {
+				if($client != null)
+					$changed[] = $client->getSocket();
+			}
 			//returns the socket resources in $changed array
 			socket_select($changed, $null, $null, 0, 10);
 			
 			//check for new socket
 			if (in_array($this->socket, $changed)) {
 				$socket_new = socket_accept($this->socket); //accpet new socket
-				$this->clients[] = $socket_new; //add socket to client array
+				$User = new User($socket_new);
+				$this->clients[count($this->clients)] = $User; //add socket to client array
 				
 				$header = socket_read($socket_new, 1024); //read data sent by the socket
 				$this->perform_handshaking($header, $socket_new, $this->host, $this->port); //perform websocket handshake
 				
 				socket_getpeername($socket_new, $ip); //get ip address of connected socket
-				$response = $this->mask(json_encode(array('type'=>'system', 'message'=>$ip.' connected',
-												'date_time'=>time()))); //prepare json data
-				$this->send_message($response); //notify all users about new connection
-				
+								
 				//make room for new socket
 				$found_socket = array_search($this->socket, $changed);
 				unset($changed[$found_socket]);
 			}
 			
 			$this->process($changed);
+			array_filter($this->clients);
 		}
 		
 		// close the listening socket
@@ -66,7 +74,7 @@ class webSocketServer {
 	{
 		foreach($this->clients as $changed_socket)
 		{
-			@socket_write($changed_socket,$msg,strlen($msg));
+			@socket_write($changed_socket->socket,$msg,strlen($msg));
 		}
 		return true;
 	}
