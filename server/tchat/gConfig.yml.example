@@ -1,0 +1,10 @@
+# Postgresql configuration
+# This will match to your website configuration
+postgres:
+  host:     localhost
+  username: symfony
+  password: symfony
+  dbname:   symfony
+
+# Number of lasts messages history
+nb_last_mess: 10

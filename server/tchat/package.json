@@ -1,0 +1,18 @@
+{
+
+    "name": "njs-chat",
+
+    "version": "0.1.0",
+
+    "dependencies": {
+        "express": "~3.3.4",
+        "socket.io": "~1.2.1",
+        "ent": "~0.1.0",
+        "yamljs": "0.2.4"
+    },
+
+    "author": "Salbei <david@chalvia.fr> & Dumbeldor <vincent.glize@live.fr>",
+
+    "description": "Tchat minegame en temps réel"
+
+}

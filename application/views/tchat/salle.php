@@ -1,4 +1,5 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
 <audio id="notif">
   <source src="<?php echo base_url('assets/sound/tchat/notif.mp3');?>" type="audio/mp3">
 </audio>
@@ -62,31 +63,6 @@ var url_user = '<?= base_url('users/view'); ?>';
 var base_url = '<?php echo base_url('tchat/delete_message'); ?>';
 var img_url = '<?= base_url('assets/img/'); ?>';
 var myname = '<?php echo $pseudo; ?>';
+var token = "g23zd4oudxk4kg8kkgs8gckoo8wo0o0";
 
-$('#send_button').click(function(){ //use clicks message send button
-		var mymessage = $('#msg').val(); //get message text
-		
-		if(myname == ""){ //empty name?
-			alert("Vous n'êtes pas connecté...");
-			return;
-		}
-		if(mymessage == ""){ //emtpy message?
-			alert("Entrer un message !");
-			return;
-		}
-
-		//prepare json data
-		var msg = {
-		type: 2,
-		message: mymessage,
-		name: '<?php echo $pseudo; ?>',
-		rank : '<?= $rank;?>',
-		userId : <?= $userId?>,
-		salle: <?= $id_tchat?>,
-		};
-
-		$('#msg').val(''); //reset text
-		//convert and send data to server
-		websocket.send(JSON.stringify(msg));
-	});
 </script>
