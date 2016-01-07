@@ -1,19 +1,17 @@
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
-<audio id="notif">
-  <source src="<?php echo base_url('assets/sound/tchat/notif.mp3');?>" type="audio/mp3">
-</audio>
 <div id="tchat_body" class="row">
   <?php if($connecte): ?>
-
+	<div id="form_tchat">
 	  <textarea id="msg" name="message"></textarea>
 	  <input type="hidden" name="id_tchat" value="<?php echo $id_tchat; ?>">
-	  <button id="send_button" value="Poster">Poster</button>  
+	  <button id="send_button" value="Poster">Poster</button>
+	  </div>
 	
   <?php endif; ?>
   <div id="tchat_container">
 	<?php if(count($messages) == 0): ?>
+	<div class="tchat_message" id="msgT">
 	  <em>Aucun message recent</em>
+	</div>
 	<?php else: ?>
 	  <?php foreach($messages as $message): ?>
 		<div class="tchat_message" id="msgT">
@@ -53,6 +51,11 @@
   </div>
 </div>
 <?php $user_color = '007AF'; ?>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
+<audio id="notif">
+  <source src="<?php echo base_url('assets/sound/tchat/notif.mp3');?>" type="audio/mp3">
+</audio>
 <script>
 var d = new Date();
 var userId = <?= $userId?>;

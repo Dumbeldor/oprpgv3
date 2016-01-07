@@ -18,16 +18,23 @@ class Tchat extends MY_Controller {
   }
   
   public function salle($id_tchat=1) {
-	$this->load->helper('form');
+	if($id_tchat == 1 OR $id_tchat == 2 OR $id_tchat == 3 OR $id_tchat == $this->crew->getId())
+	{
+	  $this->load->helper('form');
+	  $data['scripts'][] = base_url('assets/js/tchat/tchat.js');
   
-    $data['title'] = 'T\'chat';
-    $data['messages'] = $this->tchat_model->get_messages($id_tchat);
-	$data['id_tchat'] = $id_tchat;
-    $data['scripts'][] = base_url('assets/js/tchat/tchat.js');
-	$data['pseudo'] = $this->user->getPseudo();
-    $data['rank'] = $this->user->getRank();
-    $data['userId'] = $this->user->getId();
-    $this->construct_page('tchat/salle', $data);
+	  $data['messages'] = $this->tchat_model->get_messages($id_tchat);
+	  
+	  $data['title'] = 'T\'chat';	
+	  $data['id_tchat'] = $id_tchat;
+	  $data['pseudo'] = $this->user->getPseudo();
+	  $data['rank'] = $this->user->getRank();
+	  $data['userId'] = $this->user->getId();
+	  $this->tchat_model->deleteOldMess($id_tchat);
+	  $this->construct_page('tchat/salle', $data);
+	} else {
+	  redirect('tchat/');
+	}
   }
 
   public function post() {
@@ -41,8 +48,8 @@ class Tchat extends MY_Controller {
   }
 
   public function getMessages($idTchat=1) {
-	$messages = $this->tchat_model->get_messages($idTchat);
-    echo json_encode($messages);
+	//$messages = $this->tchat_model->get_messages($idTchat);
+    //echo json_encode($messages);
   }
   
   public function delete_message($id_message = 0) {

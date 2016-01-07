@@ -23,9 +23,6 @@ var nbLastMess = 0;
 
 var spamtime = gConfig.spam * 1000;
 function isSpam(old, last){
-    if (socket.rank == "Administrateur" || socket.rank == "Administratrice") {
-        return false;
-    }
     if ((old + spamtime) > last) {
         return true;
    }
@@ -33,15 +30,27 @@ function isSpam(old, last){
 
 function insertLastMess(id, pseudo, rank, message, id_tchat)
 {
-   var post = {
-    message: message,
-    date_time : Math.round(new Date().getTime() / 1000),
-    is_block: 0,
-    id_tchats: id_tchat,
-    id_users: id
-   }
-   var query = connection.query('INSERT INTO tchats_messages SET ?', post, function(err, resultat) {
-   });
+  if (id_tchat > 0 && id_tchat < 4) {
+    var post = {
+     message: message,
+     date_time : Math.round(new Date().getTime() / 1000),
+     is_block: 0,
+     id_tchats: id_tchat,
+     id_users: id
+    }
+    var query = connection.query('INSERT INTO tchats_messages SET ?', post, function(err, resultat) {
+    });
+  }
+  else {
+    var post = {
+     message: message,
+     date_time : Math.round(new Date().getTime() / 1000),
+     id_faction: id_tchat,
+     id_users: id
+    }
+    var query = connection.query('INSERT INTO tchats_messages_faction SET ?', post, function(err, resultat) {
+    });
+  }
 }
 function checkAuthToken(pseudo, token, callback)
 {
@@ -89,16 +98,13 @@ socket.auth = false;
                 //    console.log("Erreur callback ckeckAuthToken: "+err);
                 //}else {
                   //  if(result){
-                        console.log("Authenticated socket ", socket.id);
-                        console.log("Connexion from: "+clientIp+" by "+data.pseudo);
                         socket.join(data.tchat_id);
                         socket.auth = true;
                         socket.pseudo = data.pseudo;
                         socket.rank = data.rank;
                         socket.myId = data.id;
                         socket.tchat_id = data.tchat_id;
-                        socket.spamprotect = Date.now();
-                        console.log("Tchat : " + socket.tchat_id + " MyId: "+socket.myId+" rank : " + socket.rank);
+                        console.log("Connection au tchat de :" + data.pseudo);
                         online_web.push(data.pseudo);
                         socket.emit('init_mess', lastsMess);
                         socket.emit('online_web', online_web);
@@ -131,11 +137,11 @@ socket.auth = false;
                 if (isSpam(socket.spamprotect, date)) {
                     socket.emit('spam', {spam: true})
                 }else{
-                    insertLastMess(socket.myId, socket.pseudo, socket.rank, ent.encode(message), socket.tchat_id);
-                    console.log("Message reçu de : " + socket.pseudo + " id : " + socket.myId + " rank : " + socket.rank);
-                    socket.spamprotect = date;
+                    console.log(socket.pseudo + " <" + socket.tchat_id + "> : " + message);
+                    //socket.spamprotect = date;
                     //socket.broadcast.to('1').emit('message', {id: socket.id, pseudo: socket.pseudo, rank: socket.rank, message: ent.encode(message)});
                     socket.broadcast.to(socket.tchat_id).emit('message', {id: socket.myId, pseudo: socket.pseudo, rank: socket.rank, message: ent.encode(message)})
+                    insertLastMess(socket.myId, socket.pseudo, socket.rank, ent.encode(message), socket.tchat_id);
                 }
             }
         }else{  

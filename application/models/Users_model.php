@@ -18,6 +18,9 @@ class Users_model extends CI_Model {
 	$this->user->hydrate($user[0]);
 	$this->user->setAuthenticated(true);
 	
+	$this->crew->setName($user[0]['crewName']);
+	$this->crew->setRank($user[0]['crewRank']);
+	
 	//Update last action
 	$this->db->where('id', $this->user->getId())
 				  ->set('last_action', time())

@@ -24,7 +24,7 @@ class User
 			  $idUsersTypes,
 			  $rank,
 			  $faction,
-			  $facName,
+			  $crewName,
 			  $id_objects;
 	
 	public function __construct(){
@@ -139,6 +139,11 @@ class User
 		return $this->faction;
 	}
 	
+	public function getCrewName()
+	{
+		return $this->crewName;
+	}
+	
 	
 	// Setters
 	public function setAttribute($attr, $value)
@@ -202,8 +207,8 @@ class User
 	public function setFaction($fac){
 		$this->faction = $fac;
 	}
-	public function setFacName($facName) {
-		$this->facName = $facName;
+	public function setCrewName($crew) {
+		$this->crewName = $crew;
 	}
 	public function setIdObjects($idObjects){
 		$this->idObjects = $idObjects;

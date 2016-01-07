@@ -11,9 +11,10 @@ $(document).ready(function(){
         function addMessage(uId, uname, urank, umsg){
                 supp = "";
                 classCss = "";
-                var regex = new RegExp(uname);
-                if(uname.match(regex) != null) {
+                var regex = new RegExp(myname);
+                if(umsg.match(regex) != null) {
                     classCss = 'messageTchatMoi';
+                    $('#notif')[0].play();
                 }
                 //dateTime = time();
                 var date = new Date();
@@ -66,7 +67,6 @@ $(document).ready(function(){
             // Quand on reçoit un message, on l'insère dans la page
         socket.on('message', function(data) {
             addMessage(data.id, data.pseudo, data.rank, data.message);
-                        $('#notif')[0].play();
         }); 
 
             // Quand un nouveau client se connecte, on affiche l'information (va disparraitre)

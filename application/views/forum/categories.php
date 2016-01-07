@@ -25,7 +25,7 @@
   <a href="<?php echo base_url('forum/t/'.$topics['id']); ?>"> <?php echo htmlspecialchars($topics['name']);?></a>
   <?php
 	if($this->user->isAdmin() || $this->user->isModo() ||
-  		($this->user->getAttribute('crewId') == $id_categorie && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
+  		($this->crew->getId() == $id_categorie && ($this->crew->isCapitaine() || $this->crew->isAdmin() || $this->crew->isModo()) )){
   	?> | <a href="<?php echo base_url('forum/delete_topic/'.$topics['id']); ?>"><img src="<?= base_url('assets/img/icone/delete.png')?>" title="Supprimer"></img></a><?php
   }
   ?>
