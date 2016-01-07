@@ -63,6 +63,6 @@ var url_user = '<?= base_url('users/view'); ?>';
 var base_url = '<?php echo base_url('tchat/delete_message'); ?>';
 var img_url = '<?= base_url('assets/img/'); ?>';
 var myname = '<?php echo $pseudo; ?>';
-var token = "g23zd4oudxk4kg8kkgs8gckoo8wo0o0";
+var token = 'dsfsdfds';
 
 </script>

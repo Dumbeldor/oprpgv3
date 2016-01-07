@@ -7,21 +7,21 @@ class Account_model extends CI_Model {
   
   public function checkPassword()
   {
-    $password_hash = hash('sha512', SALT . $this->input->post('passwordConfirm'));
-    $query = $this->db->query("SELECT * FROM users WHERE id = ? AND password = ?", array($this->user->getId(), $password_hash));
+    $password_hash = password_hash($this->input->post('passwordConfirm'), PASSWORD_BCRYPT);
+    $query = $this->db->query("SELECT password FROM users WHERE id = ?", array($this->user->getId()));
+    $res = $query->result_array();
+	  if(password_verify($this->input->post('passwordConfirm'), $res[0]['password']))
+        return true;
+      
+      return false;
     
-    if($query->num_rows() == 1) {
-      return TRUE;
-    }
-    else {
-      return FALSE;
-    }
   }
 
   public function setPassword()
   {
+    $password_hash = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
     $this->db->where('id', $this->user->getId());
-    $this->db->update('users', array('password' => hash('sha512', SALT . $this->input->post('password'))));
+    $this->db->update('users', array('password' => $password_hash));
   }
   public function setEmail()
   {

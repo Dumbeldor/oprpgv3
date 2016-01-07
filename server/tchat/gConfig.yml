@@ -8,3 +8,4 @@ postgres:
 
 # Number of lasts messages history
 nb_last_mess: 10
+spam: 5

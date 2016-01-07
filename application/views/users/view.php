@@ -9,7 +9,7 @@
     Équipage : <a href="<?php echo base_url('crews/view/'.$users['crewId']);?>"><?php echo htmlentities($users['crewName']);?></a><br />
     Rang dans l'équipage : <?php echo $users['crewGrade'];?><br><br>
     Inscription : <?= date('d/m/Y à H\hi',$users['registration'])?><br>
-    Dernière connexion : <?= date('d/m/Y à H\hi',$users['last_connection'])?><br>
+    Dernière action : <?= date('d/m/Y à H\hi',$users['last_action'])?><br>
     <br>
     <a href="<?php echo base_url('/messaging/write/'.$users['pseudo']);?>"><img src="<?= base_url('assets/img/icone/mp.jpg') ?>"></img></a><br />
     <?php if($moderator) { ?>

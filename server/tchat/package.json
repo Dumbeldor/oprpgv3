@@ -8,7 +8,8 @@
         "express": "~3.3.4",
         "socket.io": "~1.2.1",
         "ent": "~0.1.0",
-        "yamljs": "0.2.4"
+        "yamljs": "0.2.4",
+        "mysql": "~2.10.0"
     },
 
     "author": "Salbei <david@chalvia.fr> & Dumbeldor <vincent.glize@live.fr>",
