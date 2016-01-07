@@ -29,8 +29,6 @@ class User
 	
 	public function __construct(){
 		$this->CI =& get_instance();
-		if($this->getId() == 1)
-			$this->setId(195);
 		$this->id = $this->getId(); // Update id (Id in session)
 	}
 	 

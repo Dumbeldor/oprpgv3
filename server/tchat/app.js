@@ -23,6 +23,9 @@ var nbLastMess = 0;
 
 var spamtime = gConfig.spam * 1000;
 function isSpam(old, last){
+    if (socket.rank == "Administrateur" || socket.rank == "Administratrice") {
+        return false;
+    }
     if ((old + spamtime) > last) {
         return true;
    }

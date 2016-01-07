@@ -11,6 +11,10 @@ $(document).ready(function(){
         function addMessage(uId, uname, urank, umsg){
                 supp = "";
                 classCss = "";
+                var regex = new RegExp(uname);
+                if(uname.match(regex) != null) {
+                    classCss = 'messageTchatMoi';
+                }
                 //dateTime = time();
                 var date = new Date();
                 var content = '<div class="tchat_message" id="msgT"> <div class="columns small-12"><div class="row"><div class="columns medium-2 small-3">'
@@ -35,9 +39,23 @@ $(document).ready(function(){
 
                         // Supprime un connecté
         function deleteUser(pseudo) {
-            var message = pseudo+' a rquitté le tchat !';
+            var message = pseudo+' a quitté le tchat !';
                         addMessage(13, 'Pandaman', 'VIP', message);
         }
+        
+        //Ajout pseudo quand lors du clic sur un avatar
+    $("#tchat_container").click(function(e){
+        if(e.target.nodeName == "IMG") {
+            var attr = e.target.attributes;
+            var pseudo = '';
+            $(attr).each(function(ind, value) {
+                if(value.name == "data-pseudo") {
+                    pseudo = value.nodeValue;
+                }
+            });		
+            $("#msg").val($("#msg").val() + pseudo + " > ");
+        }
+    });
 
          // Socket io
         var socket = io.connect('localhost:8081');
