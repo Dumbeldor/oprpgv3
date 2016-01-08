@@ -32,17 +32,6 @@ $(document).ready(function(){
                         $('#msgT').prepend(content);
     }
 
-    // Ajoute un connecté
-   function insertUser(pseudo) {
-            var message = pseudo+' a rejoins le tchat !';
-            addMessage(13, 'Pandaman', 'VIP', message);
-   }
-
-                   // Supprime un connecté
-   function deleteUser(pseudo) {
-    var message = pseudo+' a quitté le tchat !';
-                addMessage(13, 'Pandaman', 'VIP', message);
-   }
 
         //Ajout pseudo quand lors du clic sur un avatar
     $("#tchat_container").click(function(e){
@@ -69,10 +58,6 @@ $(document).ready(function(){
             addMessage(data.id, data.pseudo, data.rank, data.message);
         });
 
-            // Quand un nouveau client se connecte, on affiche l'information (va disparraitre)
-        socket.on('nouveau_client', function(pseudo){
-            insertUser(pseudo);
-        });
 
         socket.on('online_web', function(data){
                         
@@ -87,9 +72,6 @@ $(document).ready(function(){
              //addInitMess(initMess);
         });
 
-        socket.on('leave', function(pseudo){
-             deleteUser(pseudo);
-        });
 
          socket.on('erreur', function(data){
                 // On redirige (non defini et inutile actuellement)

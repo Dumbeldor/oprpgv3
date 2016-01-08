@@ -114,8 +114,6 @@ socket.auth = false;
                         socket.myId = data.id;
                         socket.tchat_id = data.tchat_id;
                         console.log("Connection au tchat de :" + data.pseudo);
-                        
-                        socket.broadcast.to(socket.tchat_id).emit('nouveau_client', socket.pseudo);
                         var online = listCo(socket.tchat_id);
                         socket.emit('online_web', online);
                         socket.broadcast.to(socket.tchat_id).emit('online_web', online);
@@ -162,7 +160,6 @@ socket.auth = false;
         var online = listCo(socket.tchat_id);
         delete online[socket.pseudo];
         socket.broadcast.to(socket.tchat_id).emit('online_web', online);
-        socket.broadcast.to(socket.tchat_id).emit('leave', socket.pseudo);
     });
 
 });
