@@ -28,6 +28,15 @@ function isSpam(old, last){
    }
 }
 
+function listCo(id_tchat) {
+    var namespace = '/';
+    var pseudo = [];
+    for (var socketId in io.nsps[namespace].adapter.rooms[id_tchat]) {
+      pseudo.push(io.sockets.connected[socketId].pseudo);
+    }
+    return pseudo;
+}
+
 function insertLastMess(id, pseudo, rank, message, id_tchat)
 {
   if (id_tchat > 0 && id_tchat < 4) {
@@ -45,10 +54,10 @@ function insertLastMess(id, pseudo, rank, message, id_tchat)
     var post = {
      message: message,
      date_time : Math.round(new Date().getTime() / 1000),
-     id_faction: id_tchat,
+     id_crews: id_tchat,
      id_users: id
     }
-    var query = connection.query('INSERT INTO tchats_messages_faction SET ?', post, function(err, resultat) {
+    var query = connection.query('INSERT INTO tchats_messages_crew SET ?', post, function(err, resultat) {
     });
   }
 }
@@ -105,12 +114,11 @@ socket.auth = false;
                         socket.myId = data.id;
                         socket.tchat_id = data.tchat_id;
                         console.log("Connection au tchat de :" + data.pseudo);
-                        online_web.push(data.pseudo);
-                        socket.emit('init_mess', lastsMess);
-                        socket.emit('online_web', online_web);
-                        //socket.broadcast.to('1').emit('nouveau_client', socket.pseudo);
+                        
                         socket.broadcast.to(socket.tchat_id).emit('nouveau_client', socket.pseudo);
-                        socket.broadcast.to(socket.tchat_id).emit('online_web', online_web);
+                        var online = listCo(socket.tchat_id);
+                        socket.emit('online_web', online);
+                        socket.broadcast.to(socket.tchat_id).emit('online_web', online);
                     
                     //}
                 //}
@@ -151,8 +159,9 @@ socket.auth = false;
 
     socket.on('disconnect', function () {
         console.log(socket.pseudo+" c'est déconnecté.");
-        online_web.splice(online_web.indexOf(socket.pseudo), 1);
-        socket.broadcast.to(socket.tchat_id).emit('online_web', online_web);
+        var online = listCo(socket.tchat_id);
+        delete online[socket.pseudo];
+        socket.broadcast.to(socket.tchat_id).emit('online_web', online);
         socket.broadcast.to(socket.tchat_id).emit('leave', socket.pseudo);
     });
 

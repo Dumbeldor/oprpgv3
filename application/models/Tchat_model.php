@@ -18,10 +18,10 @@ class Tchat_model extends CI_Model {
 									  ", array($id_tchat));
 			return $query->result();
 		} else {
-			$query = $this->db->query("SELECT t.message, t.id, t.date_time, u.pseudo, ut.name AS ranks, u.id AS userId FROM tchats_messages_faction t
+			$query = $this->db->query("SELECT t.message, t.id, t.date_time, u.pseudo, ut.name AS ranks, u.id AS userId FROM tchats_messages_crew t
 									  JOIN users u ON t.id_users = u.id
 									  JOIN users_types ut ON u.id_users_types = ut.id
-									  WHERE t.id_faction = ? ORDER BY id DESC LIMIT 40
+									  WHERE t.id_crews = ? ORDER BY id DESC LIMIT 40
 									  ", array($id_tchat));
 			return $query->result();
 		}
@@ -55,12 +55,12 @@ class Tchat_model extends CI_Model {
 			}
 		}
 		else {
-			$query = $this->db->query("SELECT COUNT(*) AS nbMess FROM tchats_messages_faction WHERE id_faction = ?", array($id_tchat));
+			$query = $this->db->query("SELECT COUNT(*) AS nbMess FROM tchats_messages_crew WHERE id_crews = ?", array($id_tchat));
 			$nbMess = $query->result_array()[0]['nbMess'];
 			if($nbMess > 30){				
 				$this->db->order_by('id');
 				$this->db->limit(1);
-				$this->db->delete('tchats_messages_faction', array('id_faction' => $id_tchat));
+				$this->db->delete('tchats_messages_crew', array('id_crews' => $id_tchat));
 			}
 		}
 	}
