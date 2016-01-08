@@ -62,8 +62,12 @@ $(document).ready(function(){
         socket.on('online_web', function(data){
                         
              $("#online_web").find(".online").remove();
+             var areOnline =[];
             $.each(data, function(key, value){
-                $('#online_web').append('<li class="online">'+value +'</li>');
+                if (areOnline.indexOf(value) === -1) {
+                    $('#online_web').append('<li class="online">'+value +'</li>');
+                    areOnline.push(value);
+                }
             });
             
         });
