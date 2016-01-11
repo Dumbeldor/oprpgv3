@@ -305,7 +305,7 @@ class Forum_model extends CI_Model {
     					  ->where('(is_block', 0)
 						  ->or_where('(is_block', 1)
 						  ->where('is_crew', 0)
-						  ->where("name = '".$this->user->getAttribute('facName')."' ))", NULL, FALSE)
+						  ->where("name = '".$this->crew->getName()."' ))", NULL, FALSE)
 						  ->where('(is_crew', 0)
 						  ->or_where('(is_crew', 1)
 						  ->where("id = '".$this->crew->getId()."' ))", NULL, FALSE)
