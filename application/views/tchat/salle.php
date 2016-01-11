@@ -1,5 +1,5 @@
 <div id="tchat_body" class="row">
-  Liste des connectés (Design provisoire...) : <br>
+  Liste des connectés sur le salon <?= $id_tchat?> : <br>
   <div id="online_web"></div>
   <?php if($connecte): ?>
 	<div id="form_tchat">

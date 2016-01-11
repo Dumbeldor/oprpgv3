@@ -23,6 +23,7 @@ class Crews extends MY_Controller {
 		// Loading models
 		$this->load->model('crews_model');
 		$this->load->model('users_model');
+		$this->crews_model->hydrate();
 	}
     
     public function index() {

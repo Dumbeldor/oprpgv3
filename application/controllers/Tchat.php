@@ -12,13 +12,15 @@ class Tchat extends MY_Controller {
   }
   
   public function index() {
+	$this->crew->hydrateCrew();
 	$data['title'] = 'T\'chat';
 	$data['tchats'] = $this->tchat_model->listTchat();
 	$this->construct_page('tchat/index', $data);
   }
   
   public function salle($id_tchat=1) {
-	if($id_tchat == 1 OR $id_tchat == 2 OR $id_tchat == 3 OR $id_tchat == $this->crew->getId())
+	$this->crew->hydrateCrew();
+	if($id_tchat == 1 OR $id_tchat == 2 OR $id_tchat == 3 OR $id_tchat == $this->crew->getId() OR $this->user->isAdmin())
 	{
 	  $this->load->helper('form');
 	  $data['scripts'][] = base_url('assets/js/tchat/tchat.js');

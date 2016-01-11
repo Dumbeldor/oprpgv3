@@ -18,9 +18,6 @@ class Users_model extends CI_Model {
 	$this->user->hydrate($user[0]);
 	$this->user->setAuthenticated(true);
 	
-	$this->crew->setName($user[0]['crewName']);
-	$this->crew->setRank($user[0]['crewRank']);
-	
 	//Update last action
 	$this->db->where('id', $this->user->getId())
 				  ->set('last_action', time())
@@ -182,7 +179,7 @@ class Users_model extends CI_Model {
   
   public function setup_connexion($pseudo) {
       $query = $this->db->query("SELECT users.id, ban, pseudo, email, sexe, is_kick AS isKick,
-							  lvl, id_objects, id_users_types AS idUsersTypes, users_types.name AS rank, id_faction AS faction, faction.name AS facName
+							  lvl, id_objects, id_users_types AS idUsersTypes, users_types.name AS rank, id_faction AS faction, faction.name AS factionName
 							  FROM users
 							  JOIN users_types ON users_types.id = id_users_types
 							  JOIN faction ON users.id_faction = faction.id

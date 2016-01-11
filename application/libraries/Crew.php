@@ -23,7 +23,7 @@ class Crew
 		$this->id = $this->getId();
 	}
 	 
-	 public function hydrate(array $donnees)
+	public function hydrate(array $donnees)
 	{
 		foreach($donnees as $key => $value)
 		{
@@ -34,7 +34,11 @@ class Crew
 			}
 		}
 	}
-	 
+	
+	public function hydrateCrew(){
+		 $this->CI->load->model('crews_model');
+		$this->CI->crews_model->hydrate();	 
+	}
 	
 	public function inCrew()
 	{
@@ -47,7 +51,7 @@ class Crew
 	}
 	public function getName()
 	{
-		return $this->name;
+		return $this->CI->session->userdata('crewName');
 	}
 	public function getRank()
 	{
@@ -63,8 +67,10 @@ class Crew
 	public function setId($Id)
 	{
 		$this->CI->session->set_userdata('crewId', $Id);
+		$this->id = $Id;
 	}
 	public function setName($name){
+		$this->CI->session->set_userdata('crewName', $name);
 		$this->name = $name;
 	}
 	public function setRank($rank){

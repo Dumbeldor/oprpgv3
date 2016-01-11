@@ -1,9 +1,7 @@
 $(document).ready(function(){
 
          // Fermeture de page.
-    $(window).bind('beforeunload', function(){
-            return 'Etes vous sur de vouloir fermer la fenêtre?';
-        });
+   
     $(window).unload(function(){
             socket.disconnect();
         });

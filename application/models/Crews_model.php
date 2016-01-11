@@ -6,6 +6,21 @@ class Crews_model extends CI_Model {
 		$this->load->database();
 	}
     
+	public function hydrate(){
+		 $query = $this->db->query("SELECT crews.name AS name, crews.id AS id, crews_grades.name as rank
+							  FROM crews_users
+							  JOIN users ON crews_users.id_users = users.id
+							  JOIN crews ON crews_users.id = crews.id
+							  JOIN crews_grades ON crews_users.id_crews_grades = crews_grades.id
+							  WHERE users.id = ?", $this->user->getId());
+	   $crew = $query->result_array();
+	   if($crew == NULL) {
+			$this->crew->setId(NULL);
+	   } else {
+		$this->crew->hydrate($crew[0]);
+	   }
+	}
+	
     /* Return true if user in crew */
     public function inCrew() {
         $query = $this->db->query("SELECT users.id FROM crews_users
@@ -36,6 +51,10 @@ class Crews_model extends CI_Model {
 			'id_faction' => $this->user->getFaction()
 		);	
 		$this->db->insert('crews', $data);
+		
+		$this->crew->setId($this->db->insert_id());
+		$this->crew->setName($this->input->post('crewName'));
+		$this->crew->setRank("Capitaine");
 		
 		$data = array(
 			'id' => $this->db->insert_id(),

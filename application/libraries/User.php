@@ -24,6 +24,7 @@ class User
 			  $idUsersTypes,
 			  $rank,
 			  $faction,
+			  $factionName,
 			  $crewName,
 			  $id_objects;
 	
@@ -136,7 +137,13 @@ class User
 	
 	public function getFaction()
 	{
+		return $this->CI->session->userdata('faction');
 		return $this->faction;
+	}
+	
+	public function getFactionName() {
+		return $this->CI->session->userdata('factionName');
+		return $this->factionName;
 	}
 	
 	public function getCrewName()
@@ -204,7 +211,12 @@ class User
 	public function setRank($rank){
 		$this->rank = $rank;
 	}
+	public function setFactionName($fac){
+		$this->CI->session->set_userdata('factionName', $fac);
+		$this->factionName = $fac;
+	}
 	public function setFaction($fac){
+		$this->CI->session->set_userdata('faction', $fac);
 		$this->faction = $fac;
 	}
 	public function setCrewName($crew) {

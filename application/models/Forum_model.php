@@ -29,7 +29,7 @@ class Forum_model extends CI_Model {
 					((fc.is_block = 0 OR (fc.is_block = 1 AND fc.is_crew = 0 AND fc.name = ?))
 					AND (fc.is_crew = 0 OR (fc.is_crew = 1 AND fc.id = ?)) AND ft.is_block = 0 AND ftm.is_block = 0)				
 					GROUP BY fc.id, ft.id
-					ORDER BY fc.sequence', array($this->crew->getName(), $this->crew->getId()));
+					ORDER BY fc.sequence', array($this->user->getFactionName(), $this->crew->getId()));
 	
 			return $query->result_array();
 		}
@@ -117,12 +117,12 @@ class Forum_model extends CI_Model {
 				->where('f.id_forums_topics', $id_topic)
 				->where('f.is_block', 0)
 				->where('(fc.is_block', 0)
-				->or_where('(fc.is_block', 1)
+				/*->or_where('(fc.is_block', 1)
 				->where('fc.is_crew', 0)
-				->where("fc.name = '".$this->crew->getName()."' ))", NULL, FALSE)
+				->where("fc.name = '".$this->crew->getName()."' ))", NULL, FALSE)*/
 				->where('(fc.is_crew', 0)
 				->or_where('(fc.is_crew', 1)
-				->where("fc.id = '".$this->crew->getId()."' ))", NULL, FALSE)
+				->where("fc.id = '".$this->crew->getId()."' )))", NULL, FALSE)
 				->limit($nb, $begin)
 				->order_by('f.id')
 				->get()
