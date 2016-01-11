@@ -77,7 +77,7 @@ class Forum_model extends CI_Model {
 					AND ftm.is_block = 0 AND ft.is_block = 0)
 					ORDER BY ftt.id DESC, ftm.date_time DESC
 					LIMIT '.$begin.', '.$nb.'
-					', array($id_cate, $this->crew->getName(), $this->crew->getId()));
+					', array($id_cate, $this->user->getFactionName(), $this->crew->getId()));
 			return $query->result_array();
 		} else {
 			$query = $this->db->query('SELECT ftm.date_time AS date, u.pseudo AS pseudo, ft.name AS name,
@@ -117,12 +117,12 @@ class Forum_model extends CI_Model {
 				->where('f.id_forums_topics', $id_topic)
 				->where('f.is_block', 0)
 				->where('(fc.is_block', 0)
-				/*->or_where('(fc.is_block', 1)
+				->or_where('(fc.is_block', 1)
 				->where('fc.is_crew', 0)
-				->where("fc.name = '".$this->crew->getName()."' ))", NULL, FALSE)*/
+				->where("fc.name = '".$this->user->getFactionName()."' ))", NULL, FALSE)
 				->where('(fc.is_crew', 0)
 				->or_where('(fc.is_crew', 1)
-				->where("fc.id = '".$this->crew->getId()."' )))", NULL, FALSE)
+				->where("fc.id = '".$this->crew->getId()."' ))", NULL, FALSE)
 				->limit($nb, $begin)
 				->order_by('f.id')
 				->get()
