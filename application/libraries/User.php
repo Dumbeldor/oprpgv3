@@ -20,13 +20,10 @@ class User
 			  $isKick,
 			  $email,
 			  $sexe,
-			  $lvl,
 			  $idUsersTypes,
 			  $rank,
 			  $faction,
-			  $factionName,
-			  $crewName,
-			  $id_objects;
+			  $factionName;
 	
 	public function __construct(){
 		$this->CI =& get_instance();

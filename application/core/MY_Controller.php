@@ -11,6 +11,7 @@
 	   $this->load->driver('session');
       $this->load->library('user');
 	  $this->load->library('crew');
+	  $this->load->library('character');
 	  if($this->user->isAuthenticated()){
 		$this->users_model->updateSession();
 		if($this->user->isBan() OR $this->user->isKick()){

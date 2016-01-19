@@ -5,19 +5,22 @@ class Users_model extends CI_Model {
   }
   
   public function updateSession() {	
-	$query = $this->db->query("SELECT ban, is_kick, lvl, id_objects, id_users_types, users_types.name AS rank,
-							  crews.name AS crewName, crews.id AS crewId, crews_grades.name as crewRank
+	$query = $this->db->query("SELECT ban, is_kick, lvl, id_users_types, users_types.name AS rank
 							  FROM users
 							  JOIN users_types ON users_types.id = id_users_types
 							  JOIN charactere ON users.id_charactere = charactere.id
-							  LEFT JOIN crews_users ON users.id = crews_users.id_users
-							  LEFT JOIN crews ON crews_users.id = crews.id
-							  LEFT JOIN crews_grades ON crews_users.id_crews_grades = crews_grades.id
 							  WHERE users.id = ?", array($this->user->getId()));
     $user = $query->result_array();
 	
 	$this->user->hydrate($user[0]);
 	$this->user->setAuthenticated(true);
+	
+	$query = $this->db->query("SELECT position_city AS positionCity, in_city AS inCity, lvl, berry, id_objects, x, y
+							  FROM charactere
+							  JOIN users ON users.id_charactere = charactere.id
+							  WHERE users.id = ?", array($this->user->getId()));
+	$character = $query->result_array()[0];
+	$this->character->hydrate($character);
 	
 	//Update last action
 	$this->db->where('id', $this->user->getId())
@@ -105,6 +108,10 @@ class Users_model extends CI_Model {
 	$this->db->insert('charactere', $data);
 	
 	$idCharactere = $this->db->insert_id();
+	
+	//$data = array(
+	  
+	//)
 	
     $password_hash = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
     $data = array(
@@ -197,6 +204,13 @@ class Users_model extends CI_Model {
 	     //$this->user->hydrate($user[1]);
 	     $this->user->setAuthenticated(true);
 	   }
+	   
+	   $query = $this->db->query("SELECT charactere.id, position_city AS positionCity, in_city AS inCity, lvl, berry,avatar, id_objects, x, y
+							  FROM charactere
+							  JOIN users ON users.id_charactere = charactere.id
+							  WHERE users.id = ?", array($this->user->getId()));
+	  $character = $query->result_array()[0];
+	  $this->character->hydrate($character);
 
       $data = array(
         'last_action' => time()
