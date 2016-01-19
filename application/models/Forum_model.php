@@ -26,8 +26,10 @@ class Forum_model extends CI_Model {
 					LEFT JOIN users ON ftm.id_users = users.id
 					LEFT JOIN users_types ut ON users.id_users_types = ut.id
 					WHERE
-					((fc.is_block = 0 OR (fc.is_block = 1 AND fc.is_crew = 0 AND fc.name = ?))
-					AND (fc.is_crew = 0 OR (fc.is_crew = 1 AND fc.id = ?)) AND ft.is_block = 0 AND ftm.is_block = 0)				
+					fc.is_block = 0 AND fc.is_crew = 0
+					OR (fc.is_block = 1 AND fc.is_crew = 0 AND fc.name = ?)
+                    OR (fc.is_crew = 1 AND fc.is_block = 0 AND fc.id = ?)
+			
 					GROUP BY fc.id, ft.id
 					ORDER BY fc.sequence', array($this->user->getFactionName(), $this->crew->getId()));
 	
@@ -71,10 +73,10 @@ class Forum_model extends CI_Model {
 					JOIN forums_topics_messages ftm ON ft.last_message = ftm.id
 					JOIN users u ON u.id = ftm.id_users
 					JOIN users_types ut ON u.id_users_types = ut.id
-					WHERE id_forums_categories = ? AND
-					 ((fc.is_block = 0 OR (fc.is_block = 1 AND fc.is_crew = 0 AND fc.name = ?)) AND (fc.is_crew = 0
-					OR (fc.is_crew = 1 AND fc.id = ?))
-					AND ftm.is_block = 0 AND ft.is_block = 0)
+					WHERE id_forums_categories = ? AND (fc.is_block = 0 AND fc.is_crew = 0
+					AND ft.is_block = 0 AND ftm.is_block = 0
+					OR (fc.is_block = 1 AND fc.is_crew = 0 AND fc.name = ?)
+                    OR (fc.is_crew = 1 AND fc.is_block = 0 AND id_forums_categories = ?))
 					ORDER BY ftt.id DESC, ftm.date_time DESC
 					LIMIT '.$begin.', '.$nb.'
 					', array($id_cate, $this->user->getFactionName(), $this->crew->getId()));

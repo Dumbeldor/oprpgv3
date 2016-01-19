@@ -89,6 +89,11 @@ $route['users/ban/(:num)'] = 'users/ban/$1';
 $route['users/unban/(:num)'] = 'users/unban/$1';
 
 
+/* GAME */
+/* Bag */
+$route['bag/'] = 'game/bag';
+
+
 $route['default_controller'] = "home/index";
 //$route['(:any)'] = 'pages/view/$1';
 $route['404_override'] = 'home';

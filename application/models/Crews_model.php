@@ -42,29 +42,33 @@ class Crews_model extends CI_Model {
 		);
 		$this->db->insert('crews_banks', $data);
 		
+		$idBanks = $this->db->insert_id();
+		
 		$data = array(
 		    'name' => $this->input->post('crewName'),
 		    'money' => 0,
 		    'date_time' => time(),
 		    'id_crews_types' => 1,
-		    'id_crews_banks' => $this->db->insert_id(),
+		    'id_crews_banks' => $idBanks,
 			'id_faction' => $this->user->getFaction()
 		);	
 		$this->db->insert('crews', $data);
 		
-		$this->crew->setId($this->db->insert_id());
+		$idCrew = $this->db->insert_id();
+		
+		$this->crew->setId($idCrew);
 		$this->crew->setName($this->input->post('crewName'));
 		$this->crew->setRank("Capitaine");
 		
 		$data = array(
-			'id' => $this->db->insert_id(),
+			'id' => $idCrew,
 			'id_users' => $this->user->getId(),
 			'id_crews_grades' => 5
 		);
 		$this->db->insert('crews_users', $data);
 		
 		$data = array(
-			'id' => $this->db->insert_id(),
+			'id' => $idCrew,
 			'name' => $this->input->post('crewName'),
 			'descr' => 'Forum privé de l\'équipage '.$this->input->post('crewName'),
 			'sequence' => 50,
@@ -74,7 +78,7 @@ class Crews_model extends CI_Model {
 		
 		$data = array(
 			'name' => 'Bienvenue sur votre forum',
-			'id_forums_categories' => $this->db->insert_id(),
+			'id_forums_categories' => $idCrew,
 			'id_forums_topics_types' => 1
 		);
 		$this->db->insert('forums_topics', $data);
@@ -317,7 +321,11 @@ class Crews_model extends CI_Model {
 	}
 	
 	public function dissolve($idCrew) {
-		$this->db->delete('crews_users', array('id' => $idCrew));	
+		$this->db->delete('crews_users', array('id' => $idCrew));
+		$this->db->delete('tchats_messages_crew', array('id_crews' => $idCrew));
+		$this->db->delete('forums_topics', array('id_forums_categories' => $idCrew));
+		$this->db->delete('forums_categories', array('id' => $idCrew));
+		$this->db->delete('crews_users', array('id', $idCrew));
 		$this->db->delete('crews', array('id' => $idCrew));
 	}
 	

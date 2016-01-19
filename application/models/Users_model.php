@@ -5,10 +5,11 @@ class Users_model extends CI_Model {
   }
   
   public function updateSession() {	
-	$query = $this->db->query("SELECT pseudo, ban, is_kick, lvl, id_objects, id_users_types, users_types.name AS rank,
+	$query = $this->db->query("SELECT ban, is_kick, lvl, id_objects, id_users_types, users_types.name AS rank,
 							  crews.name AS crewName, crews.id AS crewId, crews_grades.name as crewRank
 							  FROM users
 							  JOIN users_types ON users_types.id = id_users_types
+							  JOIN charactere ON users.id_charactere = charactere.id
 							  LEFT JOIN crews_users ON users.id = crews_users.id_users
 							  LEFT JOIN crews ON crews_users.id = crews.id
 							  LEFT JOIN crews_grades ON crews_users.id_crews_grades = crews_grades.id
@@ -92,20 +93,31 @@ class Users_model extends CI_Model {
 	  $faction = 2;
 	}
 	
+	$data = array(
+	  'position_city' => 1,
+	  'in_city' => 1,
+	  'lvl' => 1,
+	  'berry' => $berry,
+	  'id_objects' => 1,
+	  'x' => 1,
+	  'y' => 1
+	);
+	$this->db->insert('charactere', $data);
+	
+	$idCharactere = $this->db->insert_id();
+	
     $password_hash = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
     $data = array(
         'pseudo' => $this->input->post('pseudo'),
         'password' => $password_hash,
         'registration' => time(),
         'email' => $this->input->post('email'),
-		'lvl' => 1,
-		'berry' => $berry,
-        'id_objects' => 1,
         'id_users_types' => 1,
+		'id_charactere' => $idCharactere,
 		'id_faction' => $faction
     );
      $this->db->insert('users', $data);
-	 return $this->db->insert_id();
+	 return $idCharactere;
   }
   
     /**
@@ -125,21 +137,7 @@ class Users_model extends CI_Model {
 				  ->count_all_results('users');
 	if($isBan == 1)
 	  return -2;	
-	
-	//If the player is inactive for 10 mn
-	$this->db->query("DELETE ci_sessions FROM ci_sessions
-			JOIN users ON ci_sessions.idUser = users.id
-			WHERE timestamp < ".time()."-600
-			AND pseudo = ?", array($pseudo));
 
-					  
-	$nbCo = $this->db->join('users', 'ci_sessions.idUser = users.id')
-						  ->where('pseudo', $pseudo)
-						  ->count_all_results('ci_sessions');	
-	if($nbCo > 0) {
-	  $userAlreadyCo = true;
-	  return -1;
-	}
 	
 	$query = $this->db->query("SELECT password FROM users WHERE pseudo = ?", array($pseudo));
 					  
@@ -181,6 +179,7 @@ class Users_model extends CI_Model {
       $query = $this->db->query("SELECT users.id, ban, pseudo, email, sexe, is_kick AS isKick,
 							  lvl, id_objects, id_users_types AS idUsersTypes, users_types.name AS rank, id_faction AS faction, faction.name AS factionName
 							  FROM users
+							  JOIN charactere ON users.id_charactere = charactere.id
 							  JOIN users_types ON users_types.id = id_users_types
 							  JOIN faction ON users.id_faction = faction.id
 							  WHERE pseudo = ?", array($pseudo));
@@ -293,8 +292,8 @@ class Users_model extends CI_Model {
 					);	
 	$serializeAvatar = serialize($avatar);
 	$data = array('avatar'=>$serializeAvatar);
-	$this->db->where('pseudo', $pseudo)
-			  ->update('users', $data);
+	$this->db->where('id', $id)
+			  ->update('charactere', $data);
 			  
 	
 	switch($couleur) {

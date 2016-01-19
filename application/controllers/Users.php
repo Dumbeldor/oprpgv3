@@ -129,8 +129,8 @@ class Users extends MY_Controller {
                                     array('required' => 'Vous devez choisir un sexe'));
 	$this->form_validation->set_rules('faction', 'faction', 'required',
                                     array('required' => 'Vous devez choisir une faction'));
-	$this->form_validation->set_rules('captcha', 'captcha', 'required|callback_valid_captcha',
-                                    array('required' => 'Vous devez saisir le code secret de sécurité'));
+	//$this->form_validation->set_rules('captcha', 'captcha', 'required|callback_valid_captcha',
+      //                              array('required' => 'Vous devez saisir le code secret de sécurité'));
 	
 
   $url = 'assets/img/avatars';

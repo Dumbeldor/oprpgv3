@@ -118,7 +118,7 @@ class User
 	
 	public function getPseudo()
 	{
-		return $this->pseudo;
+		return $this->CI->session->userdata('pseudo');
 	}
 	public function getEmail()
 	{
@@ -186,6 +186,7 @@ class User
 	 
 	public function setPseudo($pseudo)
 	{
+		$this->CI->session->set_userdata('pseudo', $pseudo);
 		$this->pseudo = $pseudo;
 	}
 	public function setBan($ban) {

@@ -17,7 +17,7 @@ class Bag extends MY_Controller {
   {
     $data['title'] = 'Mon sac';
     $this->load->model('bag_model');
-    $data['bags'] = $this->bag_model->getBag();
+    $data['bags'] = $this->bag_model->getObjects();
     $this->construct_page('game/bag/index.php', $data);
   }
 }

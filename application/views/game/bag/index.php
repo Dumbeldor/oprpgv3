@@ -2,7 +2,7 @@
     Mon sac
     <?php
     foreach($bags AS $bag) {
-      echo $bag;  
+      echo $bag['name'];  
     }
     ?>
 </div>
