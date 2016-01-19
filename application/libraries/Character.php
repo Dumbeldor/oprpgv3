@@ -21,7 +21,8 @@ class Character extends User
               $lvl,
               $berry,
               $avatar,
-              $idObjects,
+              $weapon,
+			  $armor,
               $x,
               $y;
               
@@ -69,9 +70,12 @@ class Character extends User
     public function getAvatar() {
         return $this->avatar;
     }
-    public function getIdObjects() {
-        return $this->idObjects;
+    public function getWeapon() {
+        return $this->weapon;
     }
+	public function getArmor() {
+		return $this->armor;
+	}
     public function getX() {
         return $x;
     }
@@ -98,9 +102,12 @@ class Character extends User
     public function setAvatar($avatar){
         $this->avatar = $avatar;
     }
-    public function setIdObjects($id){
-        $this->idObjects = $id;
+    public function setWeapon($id){
+        $this->weapon = $id;
     }
+	public function setArmor($armor){
+		$this->armor = $armor;
+	}
     public function setX($x){
         $this->x = $x;
     }

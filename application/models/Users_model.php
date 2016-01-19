@@ -15,7 +15,7 @@ class Users_model extends CI_Model {
 	$this->user->hydrate($user[0]);
 	$this->user->setAuthenticated(true);
 	
-	$query = $this->db->query("SELECT position_city AS positionCity, in_city AS inCity, lvl, berry, id_objects, x, y
+	$query = $this->db->query("SELECT position_city AS positionCity, in_city AS inCity, lvl, berry, id_objects AS weapon, x, y, id_objects_1 AS armor
 							  FROM charactere
 							  JOIN users ON users.id_charactere = charactere.id
 							  WHERE users.id = ?", array($this->user->getId()));
@@ -101,9 +101,10 @@ class Users_model extends CI_Model {
 	  'in_city' => 1,
 	  'lvl' => 1,
 	  'berry' => $berry,
-	  'id_objects' => 1,
+	  'id_objects' => NULL,
 	  'x' => 1,
-	  'y' => 1
+	  'y' => 1,
+	  'id_objects_1' => NULL
 	);
 	$this->db->insert('charactere', $data);
 	
@@ -205,7 +206,7 @@ class Users_model extends CI_Model {
 	     $this->user->setAuthenticated(true);
 	   }
 	   
-	   $query = $this->db->query("SELECT charactere.id, position_city AS positionCity, in_city AS inCity, lvl, berry,avatar, id_objects, x, y
+	   $query = $this->db->query("SELECT charactere.id, position_city AS positionCity, in_city AS inCity, lvl, berry,avatar, id_objects AS weapon, x, y, id_objects_1 AS armor
 							  FROM charactere
 							  JOIN users ON users.id_charactere = charactere.id
 							  WHERE users.id = ?", array($this->user->getId()));
