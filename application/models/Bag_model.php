@@ -17,7 +17,7 @@ class Bag_model extends CI_Model {
   }
   
   public function inventory($id) {
-    $query = $this->db->query("SELECT o.id, o.name, o.description, o.file, o.price, o.attack, o.defense, o.addLife, o.addHaki, o.rarity, ot.name AS type
+    $query = $this->db->query("SELECT o.id, o.name, o.description, o.file, o.price, o.attack, o.speed, o.defense, o.addLife, o.addHaki, o.rarity, ot.name AS type
 							  FROM charactere_bags cb
 							  JOIN bags b ON cb.id = b.id
 							  JOIN bags_objects bo ON bo.id = b.id

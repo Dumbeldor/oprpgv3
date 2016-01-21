@@ -24,7 +24,8 @@ class Character extends User
               $weapon,
 			  $armor,
               $x,
-              $y;
+              $y,
+			  $vision = 5;
               
     public function __construct(){
 		$this->CI =& get_instance();
@@ -41,6 +42,19 @@ class Character extends User
 				$this->$method($value);
 			}
 		}
+	}
+	
+	public function getXMin() {
+		return $this->x - $this->vision;
+	}
+	public function getXMax() {
+		return $this->x + $this->vision;
+	}
+	public function getYMin() {
+		return $this->y - $this->vision;
+	}
+	public function getYMax(){
+		return $this->y + $this->vision;
 	}
 	
 	/*
@@ -77,11 +91,14 @@ class Character extends User
 		return $this->armor;
 	}
     public function getX() {
-        return $x;
+        return $this->x;
     }
     public function getY(){
-        return $y;
+        return $this->y;
     }
+	public function getVision(){
+		return $this->vision;
+	}
     
     
     public function setId($id){

@@ -7,6 +7,7 @@
         
         if($item['type'] == "weapon" OR $item['type'] == "armor"){
               echo "Attaque : ".$item['attack'].'<br>';
+              echo "Vitesse d'attaque : ".$item['speed'].'<br>';
               echo "Défense : ".$item['defense'].'<br>';
               ?><a href="<?= base_url('object/equip/'.$item['id'])?>">S'équiper</a>
             <?php
