@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mar 19 Janvier 2016 à 21:10
+-- Généré le :  Ven 22 Janvier 2016 à 13:40
 -- Version du serveur :  5.6.26
 -- Version de PHP :  5.6.12
 
@@ -29,7 +29,14 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `bags` (
   `id` int(11) NOT NULL,
   `id_bags_types` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `bags`
+--
+
+INSERT INTO `bags` (`id`, `id_bags_types`) VALUES
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -41,6 +48,15 @@ CREATE TABLE IF NOT EXISTS `bags_objects` (
   `id` int(11) NOT NULL,
   `id_objects` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `bags_objects`
+--
+
+INSERT INTO `bags_objects` (`id`, `id_objects`) VALUES
+(1, 1),
+(1, 2),
+(1, 3);
 
 -- --------------------------------------------------------
 
@@ -54,7 +70,14 @@ CREATE TABLE IF NOT EXISTS `bags_types` (
   `size` int(11) NOT NULL,
   `file` varchar(255) NOT NULL,
   `is_block` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `bags_types`
+--
+
+INSERT INTO `bags_types` (`id`, `name`, `size`, `file`, `is_block`) VALUES
+(1, 'Sac en paille', 20, 'test', 0);
 
 -- --------------------------------------------------------
 
@@ -159,26 +182,34 @@ CREATE TABLE IF NOT EXISTS `charactere` (
   `avatar` text,
   `id_objects` int(11) NOT NULL,
   `x` int(11) DEFAULT NULL,
-  `y` int(11) DEFAULT NULL
+  `y` int(11) DEFAULT NULL,
+  `id_objects_1` int(11) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `charactere`
 --
 
-INSERT INTO `charactere` (`id`, `position_city`, `in_city`, `lvl`, `berry`, `avatar`, `id_objects`, `x`, `y`) VALUES
-(11, 1, 1, 1, 1100, 'a:5:{s:4:"sexe";s:5:"Homme";s:4:"body";s:33:"assets/img/avatars/man/body/2.png";s:4:"eyes";s:34:"assets/img/avatars/man/eyes/11.png";s:6:"mouths";s:31:"assets/img/avatars/mouths/5.png";s:4:"hair";s:40:"assets/img/avatars/man/hair/blanc/27.png";}', 1, 1, 1);
+INSERT INTO `charactere` (`id`, `position_city`, `in_city`, `lvl`, `berry`, `avatar`, `id_objects`, `x`, `y`, `id_objects_1`) VALUES
+(11, 1, 0, 1, 1100, 'a:5:{s:4:"sexe";s:5:"Homme";s:4:"body";s:33:"assets/img/avatars/man/body/2.png";s:4:"eyes";s:34:"assets/img/avatars/man/eyes/11.png";s:6:"mouths";s:31:"assets/img/avatars/mouths/5.png";s:4:"hair";s:40:"assets/img/avatars/man/hair/blanc/27.png";}', 1, 1, 1, 2);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `charactere_bag`
+-- Structure de la table `charactere_bags`
 --
 
-CREATE TABLE IF NOT EXISTS `charactere_bag` (
+CREATE TABLE IF NOT EXISTS `charactere_bags` (
   `id` int(11) NOT NULL,
   `id_charactere` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `charactere_bags`
+--
+
+INSERT INTO `charactere_bags` (`id`, `id_charactere`) VALUES
+(1, 11);
 
 -- --------------------------------------------------------
 
@@ -684,18 +715,21 @@ CREATE TABLE IF NOT EXISTS `maps` (
 --
 
 INSERT INTO `maps` (`x`, `y`, `id`, `id_island`, `id_city`) VALUES
-(1, 1, 1, NULL, 1);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `maps_monster`
---
-
-CREATE TABLE IF NOT EXISTS `maps_monster` (
-  `id` int(11) NOT NULL,
-  `id_maps_types` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+(1, 1, 1, NULL, NULL),
+(1, 2, 1, NULL, NULL),
+(1, 3, 1, NULL, NULL),
+(2, 1, 1, NULL, NULL),
+(2, 2, 1, NULL, NULL),
+(2, 3, 1, NULL, NULL),
+(3, 1, 1, NULL, NULL),
+(3, 2, 1, NULL, NULL),
+(3, 3, 1, NULL, NULL),
+(4, 1, 1, NULL, NULL),
+(4, 2, 1, NULL, NULL),
+(4, 3, 1, NULL, NULL),
+(5, 1, 1, NULL, NULL),
+(5, 2, 1, NULL, NULL),
+(5, 3, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -708,22 +742,35 @@ CREATE TABLE IF NOT EXISTS `maps_types` (
   `name` varchar(25) DEFAULT NULL,
   `image` varchar(25) DEFAULT NULL,
   `lvl` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `maps_types`
 --
 
 INSERT INTO `maps_types` (`id`, `name`, `image`, `lvl`) VALUES
-(1, 'plaine', NULL, 1);
+(1, 'plaine', NULL, 1),
+(2, 'city', NULL, 1),
+(3, 'island', NULL, 0);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `maps_types_objetcs`
+-- Structure de la table `maps_types_monster`
 --
 
-CREATE TABLE IF NOT EXISTS `maps_types_objetcs` (
+CREATE TABLE IF NOT EXISTS `maps_types_monster` (
+  `id` int(11) NOT NULL,
+  `id_maps_types` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `maps_types_objects`
+--
+
+CREATE TABLE IF NOT EXISTS `maps_types_objects` (
   `id` int(11) NOT NULL,
   `id_objects` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -742,7 +789,8 @@ CREATE TABLE IF NOT EXISTS `monster` (
   `attack` int(11) DEFAULT NULL,
   `defense` int(11) DEFAULT NULL,
   `speed` int(11) DEFAULT NULL,
-  `escape` int(11) DEFAULT NULL
+  `escape` int(11) DEFAULT NULL,
+  `is_block` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -824,20 +872,23 @@ CREATE TABLE IF NOT EXISTS `objects` (
   `file` varchar(255) NOT NULL,
   `price` int(11) DEFAULT NULL,
   `attack` int(11) DEFAULT NULL,
+  `speed` int(11) DEFAULT NULL,
   `defense` int(11) DEFAULT NULL,
   `addLife` int(11) DEFAULT NULL,
   `addHaki` int(11) DEFAULT NULL,
   `rarity` int(11) DEFAULT NULL,
   `is_block` tinyint(1) NOT NULL,
   `id_objects_types` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `objects`
 --
 
-INSERT INTO `objects` (`id`, `name`, `description`, `file`, `price`, `attack`, `defense`, `addLife`, `addHaki`, `rarity`, `is_block`, `id_objects_types`) VALUES
-(1, 'Épée en bois', 'Une simple épée en bois', '', 10, 5, 1, NULL, NULL, 0, 0, 1);
+INSERT INTO `objects` (`id`, `name`, `description`, `file`, `price`, `attack`, `speed`, `defense`, `addLife`, `addHaki`, `rarity`, `is_block`, `id_objects_types`) VALUES
+(1, 'Épée en bois', 'Une simple épée en bois', '', 10, 5, 4, 1, NULL, NULL, 1, 0, 1),
+(2, 'Armure en cuir', 'Une simple armure en cuir qui ne protège pas très bien...', '', 10, 0, -2, 5, NULL, NULL, 1, 0, 2),
+(3, 'Potion de vie basique', 'Une potion de vie basique, utilisez la pour regagner un peu de vie.', '', 5, NULL, NULL, NULL, 10, NULL, 1, 0, 3);
 
 -- --------------------------------------------------------
 
@@ -849,14 +900,16 @@ CREATE TABLE IF NOT EXISTS `objects_types` (
   `id` int(11) NOT NULL,
   `name` varchar(25) NOT NULL,
   `is_block` tinyint(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `objects_types`
 --
 
 INSERT INTO `objects_types` (`id`, `name`, `is_block`) VALUES
-(1, 'weapon', 0);
+(1, 'weapon', 0),
+(2, 'armor', 0),
+(3, 'potion', 0);
 
 -- --------------------------------------------------------
 
@@ -1095,7 +1148,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `ban`, `pseudo`, `email`, `birthday`, `sexe`, `password`, `registration`, `last_action`, `ip`, `is_kick`, `messNumber`, `popularity`, `id_users_types`, `id_lost_pass`, `id_charactere`, `id_crews_candidacy`, `id_faction`) VALUES
-(5, 0, 'Dumbeldor', 'vincent.glize@live.fr', '0000-00-00', NULL, '$2y$10$YndPoTqiK4lEPrGHIpsdze.tlJ4LLAOQJCSgBLv7eJpu93p3IbiOm', 1453225764, 1453233724, '::1', 0, NULL, NULL, 24, NULL, 11, NULL, 2),
+(5, 0, 'Dumbeldor', 'vincent.glize@live.fr', '0000-00-00', NULL, '$2y$10$YndPoTqiK4lEPrGHIpsdze.tlJ4LLAOQJCSgBLv7eJpu93p3IbiOm', 1453225764, 1453408740, '::1', 0, NULL, NULL, 24, NULL, 11, NULL, 2),
 (13, 0, 'Pandaman', 'pandaman@pandaman.panda', '2016-01-06', 0, '$2y$10$YndPoTqiK4lEPrGHIpsdze.tlJ4LLAOQJCSgBLv7eJpu93p3IbiOm', 1453225764, 1453225764, '0000000000', 0, 0, 0, 2, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
@@ -1108,7 +1161,7 @@ CREATE TABLE IF NOT EXISTS `users_types` (
   `id` int(11) NOT NULL,
   `name` varchar(25) NOT NULL,
   `is_block` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `users_types`
@@ -1200,12 +1253,13 @@ ALTER TABLE `captcha`
 ALTER TABLE `charactere`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_charactere_id_objects` (`id_objects`),
-  ADD KEY `FK_charactere_x` (`x`);
+  ADD KEY `FK_charactere_x` (`x`),
+  ADD KEY `FK_charactere_id_objects_1` (`id_objects_1`);
 
 --
--- Index pour la table `charactere_bag`
+-- Index pour la table `charactere_bags`
 --
-ALTER TABLE `charactere_bag`
+ALTER TABLE `charactere_bags`
   ADD PRIMARY KEY (`id`,`id_charactere`),
   ADD KEY `FK_users_bag_id_charactere` (`id_charactere`);
 
@@ -1391,16 +1445,9 @@ ALTER TABLE `lost_pass`
 --
 ALTER TABLE `maps`
   ADD PRIMARY KEY (`x`,`y`),
-  ADD KEY `FK_maps_id` (`id`),
   ADD KEY `FK_maps_id_island` (`id_island`),
-  ADD KEY `FK_maps_id_city` (`id_city`);
-
---
--- Index pour la table `maps_monster`
---
-ALTER TABLE `maps_monster`
-  ADD PRIMARY KEY (`id`,`id_maps_types`),
-  ADD KEY `FK_maps_monster_id_maps_types` (`id_maps_types`);
+  ADD KEY `FK_maps_id_city` (`id_city`),
+  ADD KEY `FK_maps_id` (`id`);
 
 --
 -- Index pour la table `maps_types`
@@ -1409,9 +1456,16 @@ ALTER TABLE `maps_types`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `maps_types_objetcs`
+-- Index pour la table `maps_types_monster`
 --
-ALTER TABLE `maps_types_objetcs`
+ALTER TABLE `maps_types_monster`
+  ADD PRIMARY KEY (`id`,`id_maps_types`),
+  ADD KEY `FK_maps_types_monster_id_maps_types` (`id_maps_types`);
+
+--
+-- Index pour la table `maps_types_objects`
+--
+ALTER TABLE `maps_types_objects`
   ADD PRIMARY KEY (`id`,`id_objects`),
   ADD KEY `FK_maps_types_objetcs_id_objects` (`id_objects`);
 
@@ -1586,12 +1640,12 @@ ALTER TABLE `users_types`
 -- AUTO_INCREMENT pour la table `bags`
 --
 ALTER TABLE `bags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `bags_types`
 --
 ALTER TABLE `bags_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `building`
 --
@@ -1713,6 +1767,11 @@ ALTER TABLE `kick`
 ALTER TABLE `lost_pass`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT pour la table `maps_types`
+--
+ALTER TABLE `maps_types`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT pour la table `monster`
 --
 ALTER TABLE `monster`
@@ -1731,12 +1790,12 @@ ALTER TABLE `news_comments`
 -- AUTO_INCREMENT pour la table `objects`
 --
 ALTER TABLE `objects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `objects_types`
 --
 ALTER TABLE `objects_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `pets`
 --
@@ -1806,7 +1865,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `users_types`
 --
 ALTER TABLE `users_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
 --
 -- Contraintes pour les tables exportées
 --
@@ -1849,12 +1908,13 @@ ALTER TABLE `cages_pets`
 --
 ALTER TABLE `charactere`
   ADD CONSTRAINT `FK_charactere_id_objects` FOREIGN KEY (`id_objects`) REFERENCES `objects` (`id`),
+  ADD CONSTRAINT `FK_charactere_id_objects_1` FOREIGN KEY (`id_objects_1`) REFERENCES `objects` (`id`),
   ADD CONSTRAINT `FK_charactere_x` FOREIGN KEY (`x`) REFERENCES `maps` (`x`);
 
 --
--- Contraintes pour la table `charactere_bag`
+-- Contraintes pour la table `charactere_bags`
 --
-ALTER TABLE `charactere_bag`
+ALTER TABLE `charactere_bags`
   ADD CONSTRAINT `FK_users_bag_id` FOREIGN KEY (`id`) REFERENCES `bags` (`id`),
   ADD CONSTRAINT `FK_users_bag_id_charactere` FOREIGN KEY (`id_charactere`) REFERENCES `charactere` (`id`);
 
@@ -1965,17 +2025,17 @@ ALTER TABLE `maps`
   ADD CONSTRAINT `FK_maps_id_island` FOREIGN KEY (`id_island`) REFERENCES `island` (`id`);
 
 --
--- Contraintes pour la table `maps_monster`
+-- Contraintes pour la table `maps_types_monster`
 --
-ALTER TABLE `maps_monster`
+ALTER TABLE `maps_types_monster`
   ADD CONSTRAINT `FK_maps_monster_id` FOREIGN KEY (`id`) REFERENCES `monster` (`id`),
-  ADD CONSTRAINT `FK_maps_monster_id_maps_types` FOREIGN KEY (`id_maps_types`) REFERENCES `maps_types` (`id`);
+  ADD CONSTRAINT `FK_maps_types_monster_id_maps_types` FOREIGN KEY (`id_maps_types`) REFERENCES `maps_types` (`id`);
 
 --
--- Contraintes pour la table `maps_types_objetcs`
+-- Contraintes pour la table `maps_types_objects`
 --
-ALTER TABLE `maps_types_objetcs`
-  ADD CONSTRAINT `FK_maps_types_objetcs_id` FOREIGN KEY (`id`) REFERENCES `maps_types` (`id`),
+ALTER TABLE `maps_types_objects`
+  ADD CONSTRAINT `FK_maps_types_objects_id` FOREIGN KEY (`id`) REFERENCES `maps_types` (`id`),
   ADD CONSTRAINT `FK_maps_types_objetcs_id_objects` FOREIGN KEY (`id_objects`) REFERENCES `objects` (`id`);
 
 --
