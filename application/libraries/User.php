@@ -107,12 +107,7 @@ class User
 	{
 		return ($this->rank == "Modérateur" OR $this->rank == "Modératrice" OR $this->isAdmin()) ? true : false;
 	}
-	
-	public function inCrew()
-	{
-		return ($this->crew) ? true : false;
-	}
-	
+
 	public function getPseudo()
 	{
 		return $this->CI->session->userdata('pseudo');
@@ -135,19 +130,12 @@ class User
 	public function getFaction()
 	{
 		return $this->CI->session->userdata('faction');
-		return $this->faction;
 	}
 	
 	public function getFactionName() {
 		return $this->CI->session->userdata('factionName');
-		return $this->factionName;
 	}
-	
-	public function getCrewName()
-	{
-		return $this->crewName;
-	}
-	
+
 	
 	// Setters
 	public function setAttribute($attr, $value)
@@ -176,7 +164,7 @@ class User
 		$this->CI->session->set_userdata('admin', $admin);
 	}
 	 
-	public function setFlash($value)
+	public function setFlash($flash)
 	{
 		$this->CI->session->set_flashdata('flash', $flash);
 	}
@@ -216,9 +204,6 @@ class User
 	public function setFaction($fac){
 		$this->CI->session->set_userdata('faction', $fac);
 		$this->faction = $fac;
-	}
-	public function setCrewName($crew) {
-		$this->crewName = $crew;
 	}
 	public function setIdObjects($idObjects){
 		$this->idObjects = $idObjects;

@@ -26,8 +26,8 @@ class Map extends MY_Controller {
         $data['title'] = 'Map';
         $data['map'] = $this->map_model->getMap();
 		$data['maps'] = $this->map_model->getMaps();
-        $data['x'] = $this->character->getX();
-        $data['y'] = $this->character->getY();
+        $data['uX'] = $this->character->getX();
+        $data['uY'] = $this->character->getY();
         
         $this->construct_page('game/map/index.php', $data);
     }
@@ -42,11 +42,24 @@ class Map extends MY_Controller {
     }
     
     public function search(){
-        
             
         $data['title'] = 'Fouille';
         $data['result'] = $this->map_model->search();
         
         $this->construct_page('game/map/search.php', $data);    
+    }
+
+    public function deplace($x, $y){
+        $uX = $this->character->getX();
+        $uY = $this->character->getY();
+        $moveCase = $this->character->getMoveCase();
+        $diffX = abs($x - $uX);
+        $diffY = abs($y - $uY);
+
+        if($diffX+$diffY > $moveCase OR $this->character->inCity())
+            redirect('map/');
+
+        $this->map_model->deplace($x, $y);
+        redirect('map/');
     }
 }

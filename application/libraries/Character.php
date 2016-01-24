@@ -13,7 +13,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
  */
 
 
-class Character extends User
+class Character
 {
     protected $id,
               $positionCity,
@@ -25,6 +25,7 @@ class Character extends User
 			  $armor,
               $x,
               $y,
+              $moveCase = 1, //Prévu pour plus tard ;)
 			  $vision = 5;
               
     public function __construct(){
@@ -96,9 +97,12 @@ class Character extends User
     public function getY(){
         return $this->y;
     }
-	public function getVision(){
-		return $this->vision;
-	}
+    public function getMoveCase(){
+        return $this->moveCase;
+    }
+	public function getVision() {
+        return $this->vision;
+    }
     
     
     public function setId($id){

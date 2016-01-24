@@ -85,6 +85,7 @@ $route['users/annuaire/(:num)'] = 'users/annuaire/$1';
 $route['users/search'] = 'users/search';
 
 /* Action modération */
+$route['modo'] = 'modo/modo';
 $route['users/ban/(:num)'] = 'users/ban/$1';
 $route['users/unban/(:num)'] = 'users/unban/$1';
 

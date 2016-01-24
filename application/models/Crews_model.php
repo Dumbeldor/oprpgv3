@@ -34,7 +34,7 @@ class Crews_model extends CI_Model {
             return FALSE;
         }
     }
-    
+
 	public function createCrew() {
 		
 		$data = array(
