@@ -16,7 +16,7 @@
 
     echo "<strong>Monstres associé :</strong> <br>";
     foreach($monsters AS $monster){
-        echo $monster['name'].' '.$monster['lvl'].' '.form_checkbox(array('name' => 'objects[]', 'value' => $monster['id']))."<br>";
+        echo $monster['name'].' lvl '.$monster['lvl'].' '.form_checkbox(array('name' => 'objects[]', 'value' => $monster['id']))."<br>";
     }
     ?>
     <br>

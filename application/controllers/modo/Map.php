@@ -19,7 +19,7 @@ class Map extends MY_Controller {
         if(!$this->user->isAuthenticated() OR !$this->user->isModo())
             redirect(base_url('/home/accueil'));
         // Loading models
-        $this->load->model('map_model');
+        $this->load->model('modo/map_model');
     }
 
     public function index() {
@@ -38,9 +38,8 @@ class Map extends MY_Controller {
         $this->form_validation->set_rules('name', 'Nom du type de la map', 'required|max_length[100]|is_unique[maps_types.name]');
         $this->form_validation->set_rules('lvl', 'Lvl du type de la map', 'required');
 
-        echo empty($_FILES['userfile']);
-
-        if($this->form_validation->run() == FALSE OR isset($_FILES['userfile']) OR isset($_FILES['image2'])) {
+        if($this->form_validation->run() == FALSE) {
+            echo "test";
             $data['objects'] = $this->map_model->listObjects();
             $data['monsters'] = $this->map_model->listMonsters();
             $this->construct_page('modo/map/createType.php', $data);
@@ -76,27 +75,45 @@ class Map extends MY_Controller {
             $objects = $this->input->post('objects');
             $monsters = $this->input->post('monsters');
 
-            //$this->map_model->addType($name, $lvl, $objects, $monsters);
+            print_r($objects);
+            echo "test";
+            $this->map_model->addType($name, $lvl, $objects, $monsters);
             $data['title'] = 'Ajout map type réussis';
             $this->construct_page('modo/map/reussis.php', $data);
         }
     }
+    public function map($x=0, $y=0){
+        $data['title'] = "Modo: Affichage map";
+        $data['maps'] = $this->map_model->getMaps($x, $y);
+        $data['x'] = $x;
+        $data['y'] = $y;
 
-    public function modifyMap(){
-        $data['title'] = 'Modo: Création map';
+        //print_r($data['maps']);
+
+        $this->construct_page('modo/map/map.php', $data);
+    }
+    public function modify(){
+        $data['title'] = 'Modo: Ajouter map';
 
         $this->load->helper('form');
         $this->load->library('form_validation');
 
-        $this->form_validation->set_rules('name', 'Nom du type de la map', 'required|max_length[100]|is_unique[maps_types.name]');
-        $this->form_validation->set_rules('lvl', 'Lvl du type de la map', 'required');
+        $this->form_validation->set_rules('x', 'X', 'required');
+        $this->form_validation->set_rules('y', 'Y', 'required');
+        $this->form_validation->set_rules('type', 'type', 'required');
 
-        if($this->form_validation->run() == FALSE) {
-            $data['maps'] = $this->map_model->getMaps(50,50);
-            $this->construct_page('')
+        $x = $this->input->post('x');
+        $y = $this->input->post('y');
+        $type = $this->input->post('type');
+
+        if($this->form_validation->run() == FALSE OR $this->map_model->exist($x, $y)) {
+            echo $x, $y;
+            $data['types'] = $this->map_model->getTypes();
+            $this->construct_page('modo/map/modify.php', $data);
         }
         else {
-
+            $this->map_model->addMap($x, $y, $type);
+            $this->construct_page('modo/map/reussis.php', $data);
         }
     }
 }

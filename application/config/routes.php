@@ -88,6 +88,7 @@ $route['users/search'] = 'users/search';
 $route['modo'] = 'modo/modo';
 $route['users/ban/(:num)'] = 'users/ban/$1';
 $route['users/unban/(:num)'] = 'users/unban/$1';
+$route['modo/map/map/(:num)/(:num)'] = 'modo/map/map/$1/$2';
 
 
 /* GAME */

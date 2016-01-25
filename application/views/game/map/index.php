@@ -3,7 +3,7 @@
     <?php
     echo "Vous êtes actuellement en : " . $uX . ":" . $uY . " Map " . $map['name'] . "<br>";
     ?>
-    <img src="<?= base_url('assets/img/maps/' . $map['id'] . '.png'); ?>"></img>
+    <img src="<?= base_url('assets/img/maps/' . $map['id'] . '.png'); ?>" alt="aa" title="test"></img>
     <br><br>
     <a href="<?= base_url('map/fight/') ?>">Combattre</a><br>
     <a href="<?= base_url('map/search/') ?>">Fouiller</a><br>
@@ -19,31 +19,43 @@
         $v = $this->character->getVision();
 
         foreach ($maps AS $m) {
-            if ($x < $v) {
-                if ((($m['x'] == $uX+1 OR $m['x'] == $uX-1) AND $m['y'] == $uY) OR (($m['y'] == $uY+1 OR $m['y'] == $uY-1) AND $m['x'] == $uX)) {
-                    ?> <a href="<?= base_url('map/deplace/'.$m['x'].'/'.$m['y'])?>">
-                    <div class="case" style="float:left;"><img
+            if ($x == $m['x'] AND $y == $m['y']) {
+                if ($x < $v) {
+                    if ((($m['x'] == $uX + 1 OR $m['x'] == $uX - 1) AND $m['y'] == $uY) OR (($m['y'] == $uY + 1 OR $m['y'] == $uY - 1) AND $m['x'] == $uX)) {
+                        ?> <a href="<?= base_url('map/deplace/' . $m['x'] . '/' . $m['y']) ?>">
+                        <div class="case" style="float:left;"><img
+                                src="<?= base_url('assets/img/maps/mini/' . $m['id'] . '.png'); ?>" height="100"
+                                width="100"></img></div></a><?php
+                    } else if($m['x'] == $uX AND $m['y'] == $uY){
+                        ?>
+                        <div class="case" style="float:left;"><i style="position:absolute;">Vous êtes ici</i><img
+                                src="<?= base_url('assets/img/maps/mini/' . $m['id'] . '.png'); ?>" height="100"
+                                width="100"></img></div><?php
+                    }
+                    else {
+                        ?>
+                        <div class="case" style="float:left;"><img
                             src="<?= base_url('assets/img/maps/mini/' . $m['id'] . '.png'); ?>" height="100"
-                            width="100"></img></div></a><?php
-                } else {
-                    ?>
-                    <div class="case" style="float:left;"><img
-                        src="<?= base_url('assets/img/maps/mini/' . $m['id'] . '.png'); ?>" height="100" width="100"></img>
-                    </div><?php
+                            width="100"></img>
+                        </div><?php
+                    }
+                    $x++;
+                } else if ($x == $v) {
+                    if ((($m['x'] == $uX + 1 OR $m['x'] == $uX - 1) AND $m['y'] == $uY) OR (($m['y'] == $uY + 1 OR $m['y'] == $uY - 1) AND $m['x'] == $uX)) {
+                        ?>
+                    <a href="<?= base_url('map/deplace/' . $m['x'] . '/' . $m['y']) ?>">
+                        <div class="case"><img src="<?= base_url('assets/img/maps/mini/' . $m['id'] . '.png'); ?>"
+                                               height="100"
+                                               width="100"></img></div></a><?php
+                    } else {
+                        ?>
+                        <div class="case"><img src="<?= base_url('assets/img/maps/mini/' . $m['id'] . '.png'); ?>"
+                                               height="100"
+                                               width="100"></img></div><?php
+                    }
+                    $x = 1;
+                    $y++;
                 }
-                $x++;
-            } else if ($x == $v) {
-                if ((($m['x'] == $uX+1 OR $m['x'] == $uX-1) AND $m['y'] == $uY) OR (($m['y'] == $uY+1 OR $m['y'] == $uY-1) AND $m['x'] == $uX)) {
-                    ?>
-                    <a href="<?= base_url('map/deplace/'.$m['x'].'/'.$m['y'])?>">
-                    <div class="case"><img src="<?= base_url('assets/img/maps/mini/' . $m['id'] . '.png'); ?>" height="100"
-                                           width="100"></img></div></a><?php
-                } else {
-                    ?>
-                    <div class="case"><img src="<?= base_url('assets/img/maps/mini/' . $m['id'] . '.png'); ?>" height="100"
-                                           width="100"></img></div><?php
-                }
-                $x = 1;
             }
         }
 
