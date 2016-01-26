@@ -10,7 +10,7 @@
         margin-top:0px;
     }
     div#carte {
-        position:center;
+        position:absolute;
         padding-bottom:40em;
     }
 </style>
@@ -19,6 +19,8 @@
 
     <a href="<?= base_url('modo/map/modify') ?>">Modifier la map</a> (Ouvrir dans un autre onglet pour continuer à avoir
     la map sous l'oeil)<br><br>
+
+    <div id="zoneMap" style="position: relative">
     <?php
 
     $width = 80; // Largeur de l'image des terrains qui permettra de décaler les images
@@ -33,19 +35,22 @@
         $x++;
 
 // Calcul pour savoir si on décale ou pas les cases d'une ligne
+        /*
         if (($y % 2) == 1) { // Pair
             $iX = ($x * 80) - 40;
         } else {
             $iX = ($x * 80) + ($width / 2) - 40;
         }
-        $iY = ($y * 60) - 80;
+        */
+        $iX = ($x * 80) + ($width / 2) - 40;
+        $iY = ($y * 80) + ($width / 2) - 40;
 
         $var_carte .= '<div class="case" style="top:' . $iY . 'px;left:' . $iX . 'px;';
         $var_carte .= "background-image: url('". base_url('assets/img/maps/mini/' . $carte['id'] . '.png')."');\">";
-
+        echo "<br>";
 
 // <!-- POUR LE DEBUGGAGE AFFICHAGE DES x/y DANS LES CASES
-//  $var_carte .= "<br />$x_pos/$y_pos";
+  $var_carte .= "<br />".$carte['x']."/".$carte['y'];
 //  FIN DEBUGGAGE -->
 
         if (isset($joueur[$carte['x']][$carte['y']])) {
@@ -56,11 +61,14 @@
         $var_carte .= '</div>';
 
     } // fin While
-    echo $var_carte;
+
     ?>
+
     <div id=“carte”>
         <!– On génére la carte hexa –>
+        <?php echo $var_carte;?>
     </div>
+        </div>
     <?php
 
 

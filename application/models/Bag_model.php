@@ -26,5 +26,11 @@ class Bag_model extends CI_Model {
                               WHERE id_charactere = ? AND b.id = ? AND ot.is_block = 0 AND o.is_block = 0", array($this->character->getId(), $id));	
 	return $query->result_array();
   }
+
+    public function addObject($id){
+
+        $this->db->insert('bags_objects', array('id' => 1,
+                                                'id_objects' => $id));
+    }
   
 }

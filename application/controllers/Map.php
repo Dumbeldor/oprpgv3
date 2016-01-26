@@ -42,9 +42,11 @@ class Map extends MY_Controller {
     }
     
     public function search(){
-            
+        $this->load->model('bag_model');
         $data['title'] = 'Fouille';
-        $data['result'] = $this->map_model->search();
+        $data['object'] = $this->map_model->search();
+        $this->bag_model->addObject($data['object']['id']);
+
         
         $this->construct_page('game/map/search.php', $data);    
     }

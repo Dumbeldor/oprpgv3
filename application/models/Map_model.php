@@ -50,7 +50,13 @@ class Map_model extends CI_Model {
     
     
     public function search(){
-        //$query = $this->db->query("SELECT ")
+        $rand = mt_rand(0, 100);
+        if($rand > 15) {
+            $query = $this->db->query("SELECT RAND()*rarity as rate, id, name, description, file FROM objects WHERE is_block = 0
+                                       ORDER BY rarity ASC LIMIT 1");
+            return $query->result_array()[0];
+        }
+        return null;
     }
 
     public function deplace($x, $y){
