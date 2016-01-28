@@ -39,9 +39,10 @@ class Map extends MY_Controller {
         $this->form_validation->set_rules('lvl', 'Lvl du type de la map', 'required');
 
         if($this->form_validation->run() == FALSE) {
-            echo "test";
-            $data['objects'] = $this->map_model->listObjects();
-            $data['monsters'] = $this->map_model->listMonsters();
+            $this->load->model('modo/object_model');
+            $this->load->model('modo/monster_model');
+            $data['objects'] = $this->object_model->getObjectsIdName();
+            $data['monsters'] = $this->monster_model->getMonstersIdNameLvl();
             $this->construct_page('modo/map/createType.php', $data);
         }
         else {

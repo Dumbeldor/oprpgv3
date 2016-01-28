@@ -3,21 +3,6 @@ class Map_model extends CI_Model {
     public function __construct() {
         $this->load->database();
     }
-    
-    public function listObjects(){
-        $query = $this->db->query("SELECT id, name
-                                  FROM objects
-                                  WHERE is_block = 0");
-	
-        return $query->result_array();
-    }
-    
-    public function listMonsters() {
-        $query = $this->db->query("SELECT id, name, lvl
-                                  FROM monster
-                                  WHERE is_block = 0");
-        return $query->result_array();
-    }
 	
 	public function addType($name, $lvl, $objects, $monsters) {
 		$this->db->insert('maps_types', array(
