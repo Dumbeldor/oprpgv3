@@ -45,7 +45,13 @@ class Map extends MY_Controller {
         $this->load->model('bag_model');
         $data['title'] = 'Fouille';
         $data['object'] = $this->map_model->search();
-        $this->bag_model->addObject($data['object']['id']);
+        $reussis = false;
+        if(isset($data['object']))
+            $reussis = $this->bag_model->addObject($data['object']['id']);
+        else
+            $data['error'] = 'Rien trouvé';
+        if(!$reussis)
+            $data['error'] = 'Votre sac est plein';
 
         
         $this->construct_page('game/map/search.php', $data);    

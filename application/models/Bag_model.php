@@ -28,9 +28,24 @@ class Bag_model extends CI_Model {
   }
 
     public function addObject($id){
+        if(!isset($id))
+            return false;
 
-        $this->db->insert('bags_objects', array('id' => 1,
+        $query = $this->db->query("SELECT b.id
+                                   FROM charactere_bags cb
+                                   JOIN bags b ON cb.id = b.id_bags_types
+                                   JOIN bags_types bt ON b.id_bags_types = bt.id
+                                   WHERE bt.size >  (SELECT count(*) FROM bags_objects bo2 WHERE bo2.id_bags = b.id)
+                                   LIMIT 1");
+        $query = $query->result_array();
+        if(!isset($query[0]))
+            return false;
+
+        $idBag = $query[0]['id'];
+
+        $this->db->insert('bags_objects', array('id_bags' => $idBag,
                                                 'id_objects' => $id));
+        return true;
     }
   
 }
