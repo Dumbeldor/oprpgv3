@@ -101,10 +101,10 @@ class Users_model extends CI_Model {
 	  'in_city' => 1,
 	  'lvl' => 1,
 	  'berry' => $berry,
-	  'id_objects' => NULL,
+	  'id_objects' => 1,
 	  'x' => 1,
 	  'y' => 1,
-	  'id_objects_1' => NULL
+	  'id_objects_1' => 2
 	);
 	$this->db->insert('charactere', $data);
 	
@@ -113,13 +113,13 @@ class Users_model extends CI_Model {
 	  $this->db->insert('bags', array('id_bags_types' => 1));
 	  $idBag = $this->db->insert_id();
 
-	  $this->db->insert('bags_objects', array('id_bags' => $idBag, 'id_objects' => 1));
+	  $this->db->insert('bags_objects', array('id_bags' => $idBag, 'id_objects' => 3));
 
 	  $data = array(
 		  'id' => $idBag,
 		  'id_charactere' => $idCharactere
 	  );
-	  $this->db->insert('charactere_bag', $data);
+	  $this->db->insert('charactere_bags', $data);
 	
 	//$data = array(
 	  

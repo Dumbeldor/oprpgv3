@@ -64,7 +64,7 @@ class Map extends MY_Controller {
         $diffX = abs($x - $uX);
         $diffY = abs($y - $uY);
 
-        if($diffX+$diffY > $moveCase OR $this->character->inCity())
+        if($diffX+$diffY > $moveCase)
             redirect('map/');
 
         $this->map_model->deplace($x, $y);
