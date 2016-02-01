@@ -109,6 +109,17 @@ class Users_model extends CI_Model {
 	$this->db->insert('charactere', $data);
 	
 	$idCharactere = $this->db->insert_id();
+
+	  $this->db->insert('bags', array('id_bags_types' => 1));
+	  $idBag = $this->db->insert_id();
+
+	  $this->db->insert('bags_objects', array('id_bags' => $idBag, 'id_objects' => 1));
+
+	  $data = array(
+		  'id' => $idBag,
+		  'id_charactere' => $idCharactere
+	  );
+	  $this->db->insert('charactere_bag', $data);
 	
 	//$data = array(
 	  

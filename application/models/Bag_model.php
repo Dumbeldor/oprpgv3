@@ -18,12 +18,11 @@ class Bag_model extends CI_Model {
   
   public function inventory($id) {
     $query = $this->db->query("SELECT o.id, o.name, o.description, o.file, o.price, o.attack, o.speed, o.defense, o.addLife, o.addHaki, o.rarity, ot.name AS type
-							  FROM charactere_bags cb
-							  JOIN bags b ON cb.id = b.id
-							  JOIN bags_objects bo ON bo.id = b.id
+							  FROM bags_objects bo
 							  JOIN objects o ON bo.id_objects = o.id
-							  JOIN objects_types ot ON o.id_objects_types = ot.id                              
-                              WHERE id_charactere = ? AND b.id = ? AND ot.is_block = 0 AND o.is_block = 0", array($this->character->getId(), $id));	
+							  JOIN objects_types ot ON o.id_objects_types = ot.id
+							  INNER JOIN charactere_bags cb ON cb.id_charactere = ?
+                              WHERE bo.id_bags = ? AND ot.is_block = 0 AND o.is_block = 0", array($this->character->getId(), $id));
 	return $query->result_array();
   }
 
