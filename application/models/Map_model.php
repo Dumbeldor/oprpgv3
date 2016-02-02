@@ -5,26 +5,28 @@ class Map_model extends CI_Model {
     }
     
     public function getMap(){
-        $query = $this->db->query("SELECT mt.name
+       /* $query = $this->db->query("SELECT mt.in_island
                                   FROM maps m
                                   JOIN maps_types mt ON m.id = mt.id
                                   WHERE x = ? AND y = ?", array($this->character->getX(), $this->character->getY()));
-        $name = $query->result_array()[0];
+        $island = $query->result_array()[0]['in_island'];
 
-        if($name == "city") {
+
+        if($island == 1) {
             //$query = $this->db->query("")
         }
-        else if($name == "island") {
+        else if($island == 2) { //Si sur map océan sur case ILE
             //
+            echo "OOO";
         }
-        else {
-            $query = $this->db->query("SELECT mt.id, mt.name, mt.image, mt.lvl
+        else {*/
+            $query = $this->db->query("SELECT mt.id, mt.name, mt.image, mt.lvl, mt.in_island
                                       FROM maps m
                                       JOIN maps_types mt ON m.id = mt.id
                                       WHERE m.x = ? AND m.y = ?", array($this->character->getX(), $this->character->getY()));
 
             return $query->result_array()[0];
-        }
+        //}
     }
     
     public function getMaps($x=null, $y=null){

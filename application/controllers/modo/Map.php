@@ -46,7 +46,6 @@ class Map extends MY_Controller {
             $this->construct_page('modo/map/createType.php', $data);
         }
         else {
-
             //IMAGE1
             $config['upload_path'] = './assets/img/maps/';
             $config['allowed_types'] = 'png';
@@ -75,15 +74,23 @@ class Map extends MY_Controller {
             $lvl = $this->input->post('lvl');
             $objects = $this->input->post('objects');
             $monsters = $this->input->post('monsters');
+            $inIsland = $this->input->post('island');
 
-            print_r($objects);
-            echo "test";
-            $this->map_model->addType($name, $lvl, $objects, $monsters);
+            if(empty($inIsland))
+               $inIsland = 0;
+
+            $this->map_model->addType($name, $lvl, $objects, $monsters, $inIsland);
             $data['title'] = 'Ajout map type réussis';
             $this->construct_page('modo/map/reussis.php', $data);
         }
     }
-    public function map($x=0, $y=0){
+
+    public function map(){
+        $data['title'] = "Choix map";
+        $this->construct_page('modo/map/choice.php', $data);
+    }
+
+    public function ocean($x=0, $y=0){
         $data['title'] = "Modo: Affichage map";
         $data['maps'] = $this->map_model->getMaps($x, $y);
         $data['x'] = $x;
@@ -109,7 +116,7 @@ class Map extends MY_Controller {
 
         if($this->form_validation->run() == FALSE OR $this->map_model->exist($x, $y)) {
             echo $x, $y;
-            $data['types'] = $this->map_model->getTypes();
+            $data['types'] = $this->map_model->getTypesOcean();
             $this->construct_page('modo/map/modify.php', $data);
         }
         else {

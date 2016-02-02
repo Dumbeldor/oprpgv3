@@ -4,15 +4,16 @@ class Map_model extends CI_Model {
         $this->load->database();
     }
 	
-	public function addType($name, $lvl, $objects, $monsters) {
+	public function addType($name, $lvl, $objects, $monsters, $inIsland) {
 		$this->db->insert('maps_types', array(
 			'name' => $name,
-			'lvl' => $lvl
+			'lvl' => $lvl,
+			'in_island' => $inIsland
 		));
 		
 		$id = $this->db->insert_id();
 		
-		if(!empty($objects)){
+		if(!empty($island_modelobjects)){
 			foreach($objects AS $object) {
 				echo $object.'<br>';
 				$this->db->insert('maps_types_objects', array(
@@ -37,10 +38,15 @@ class Map_model extends CI_Model {
 		return $query->result_array()[0]['nb'];
 	}
 
-	public function getTypes(){
-		$query = $this->db->query("SELECT id, name FROM maps_types");
+	public function getTypesOcean(){
+		$query = $this->db->query("SELECT id, name FROM maps_types WHERE in_island = 0 OR in_island = 2");
 		return $query->result_array();
 	}
+
+    public function getTypesInIsland(){
+        $query = $this->db->query("SELECT id, name FROM maps_types WHERE in_island = 1");
+        return $query->result_array();
+    }
 
 	public function getMaps($x, $y) {
 		$query = $this->db->query("SELECT mt.id, mt.name, mt.lvl, m.x, m.y

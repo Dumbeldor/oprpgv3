@@ -18,6 +18,13 @@
     foreach($monsters AS $monster){
         echo $monster['name'].' lvl '.$monster['lvl'].' '.form_checkbox(array('name' => 'objects[]', 'value' => $monster['id']))."<br>";
     }
+
+    echo "<strong>Emplacement map</strong><br>";
+    echo '<select name="island">';
+        echo '<option value="0">Map océan</option>
+               <option value="1">Sur une map d\'ile</option>
+               <option value="2">Sur map océan mais pour indiquer que c\'est une ile</option>';
+    echo '</select>';
     ?>
     <br>
     <input id="send_button" type="submit" name="submit" class="btn btn-default" value="Ajouter" />
