@@ -19,6 +19,7 @@ class Object extends MY_Controller {
   
   public function equip($idBag, $idItem=0){
     if($idItem == 0)
-        redirect('/bag/'):
+        redirect('/bag/');
     
   }
+}
