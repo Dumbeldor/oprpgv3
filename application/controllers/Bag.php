@@ -18,6 +18,7 @@ class Bag extends MY_Controller {
   {
     $data['title'] = 'Mon sac';
     $data['bags'] = $this->bag_model->getBags();
+    var_dump($data['bags']);
     $this->construct_page('game/bag/index.php', $data);
   }
   public function inventory($id=0)
@@ -29,6 +30,8 @@ class Bag extends MY_Controller {
     
     $data['title'] = 'Inventaire';
     $data['items'] = $this->bag_model->inventory($id);
+    if(!$data['items'])
+      redirect('bag');
     $this->construct_page('game/bag/inventory.php', $data);
   }
 }

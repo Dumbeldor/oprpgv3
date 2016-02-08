@@ -3,8 +3,8 @@
     <?php
     foreach($bags AS $bag) {
       ?>
-      <img src="<?= base_url('assets/img/bags/'.$bag['idBag'].'.png');?>"></img>
-      <a href="<?= base_url('bag/inventory/'.$bag['idBag']);?>"><?=$bag['name'];?></a>
+      <img src="<?= base_url('assets/img/bags/'.$bag['idType'].'.png');?>"></img>
+      <a href="<?= base_url('bag/inventory/'.$bag['id']);?>"><?=$bag['name'];?></a>
       
       <?php
     }

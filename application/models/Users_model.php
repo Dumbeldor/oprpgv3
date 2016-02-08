@@ -4,7 +4,7 @@ class Users_model extends CI_Model {
     $this->load->database();
   }
   
-  public function updateSession() {	
+  public function updateSession() {
 	$query = $this->db->query("SELECT ban, is_kick, lvl, id_users_types, users_types.name AS rank
 							  FROM users
 							  JOIN users_types ON users_types.id = id_users_types
@@ -218,7 +218,8 @@ class Users_model extends CI_Model {
 	     $this->user->setAuthenticated(true);
 	   }
 	   
-	   $query = $this->db->query("SELECT charactere.id, position_city AS positionCity, in_city AS inCity, lvl, berry,avatar, id_objects AS weapon, x, y, id_objects_1 AS armor
+	   $query = $this->db->query("SELECT charactere.id AS id, position_city AS positionCity, in_island AS inIsland, lvl, berry,avatar, id_objects AS weapon, x, y, id_objects_1 AS armor,
+									x_maps_island AS xMapsIsland, y_maps_island AS yMapsIsland, id_maps_island AS idIsland
 							  FROM charactere
 							  JOIN users ON users.id_charactere = charactere.id
 							  WHERE users.id = ?", array($this->user->getId()));
