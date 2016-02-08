@@ -15,9 +15,12 @@
     }
 </style>
 <div class="row pageNormale">
-    <h2>Edit Map</h2><br><br>
+    <h2><?= $title ?></h2><br><br>
 
-    <a href="<?= base_url('modo/map/modify') ?>">Modifier la map</a> (Ouvrir dans un autre onglet pour continuer à avoir
+    <?php if(empty($id)) {
+        $id = "";
+    } ?>
+    <a href="<?= base_url('modo/map/modify/'.$id) ?>">Modifier la map</a> (Ouvrir dans un autre onglet pour continuer à avoir
     la map sous l'oeil)<br><br>
 
     <div id="zoneMap" style="position: relative">

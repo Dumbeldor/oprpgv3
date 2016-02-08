@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Jeu 28 Janvier 2016 à 19:26
+-- Généré le :  Dim 07 Février 2016 à 23:25
 -- Version du serveur :  5.6.26
 -- Version de PHP :  5.6.12
 
@@ -29,14 +29,16 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `bags` (
   `id` int(11) NOT NULL,
   `id_bags_types` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `bags`
 --
 
 INSERT INTO `bags` (`id`, `id_bags_types`) VALUES
-(1, 1);
+(1, 1),
+(2, 1),
+(3, 1);
 
 -- --------------------------------------------------------
 
@@ -48,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `bags_objects` (
   `id` int(11) NOT NULL,
   `id_bags` int(11) NOT NULL,
   `id_objects` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `bags_objects`
@@ -66,7 +68,9 @@ INSERT INTO `bags_objects` (`id`, `id_bags`, `id_objects`) VALUES
 (9, 1, 1),
 (10, 1, 2),
 (11, 1, 1),
-(12, 1, 1);
+(12, 1, 1),
+(13, 2, 3),
+(14, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -168,14 +172,18 @@ CREATE TABLE IF NOT EXISTS `captcha` (
   `code` varchar(10) NOT NULL,
   `session_id` varchar(50) NOT NULL,
   `time` bigint(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=1649 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1654 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `captcha`
 --
 
 INSERT INTO `captcha` (`id`, `code`, `session_id`, `time`) VALUES
-(1648, '8479324', 'e768674ad2610c3d0381eb22d421b92010b7cb63', 1453226648);
+(1649, '4393522', '825f066ae72830c2ae567c40176719c5af55230c', 1454370715),
+(1650, '4867718', '825f066ae72830c2ae567c40176719c5af55230c', 1454370792),
+(1651, '8698673', '825f066ae72830c2ae567c40176719c5af55230c', 1454370849),
+(1652, '3663854', '825f066ae72830c2ae567c40176719c5af55230c', 1454370869),
+(1653, '7372228', '343886bfb8ee54ceffcedb8dcdd560ecd40498d6', 1454370950);
 
 -- --------------------------------------------------------
 
@@ -186,22 +194,27 @@ INSERT INTO `captcha` (`id`, `code`, `session_id`, `time`) VALUES
 CREATE TABLE IF NOT EXISTS `charactere` (
   `id` int(11) NOT NULL,
   `position_city` int(11) DEFAULT NULL,
-  `in_city` tinyint(1) NOT NULL DEFAULT '1',
+  `in_island` tinyint(1) NOT NULL DEFAULT '1',
   `lvl` int(11) DEFAULT NULL,
   `berry` int(11) DEFAULT NULL,
   `avatar` text,
   `id_objects` int(11) NOT NULL,
   `x` int(11) DEFAULT NULL,
   `y` int(11) DEFAULT NULL,
-  `id_objects_1` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+  `id_objects_1` int(11) NOT NULL,
+  `id_maps_island` int(11) DEFAULT NULL,
+  `x_maps_island` int(11) DEFAULT NULL,
+  `y_maps_island` int(11) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `charactere`
 --
 
-INSERT INTO `charactere` (`id`, `position_city`, `in_city`, `lvl`, `berry`, `avatar`, `id_objects`, `x`, `y`, `id_objects_1`) VALUES
-(11, 1, 0, 1, 1100, 'a:5:{s:4:"sexe";s:5:"Homme";s:4:"body";s:33:"assets/img/avatars/man/body/2.png";s:4:"eyes";s:34:"assets/img/avatars/man/eyes/11.png";s:6:"mouths";s:31:"assets/img/avatars/mouths/5.png";s:4:"hair";s:40:"assets/img/avatars/man/hair/blanc/27.png";}', 1, 2, 1, 2);
+INSERT INTO `charactere` (`id`, `position_city`, `in_island`, `lvl`, `berry`, `avatar`, `id_objects`, `x`, `y`, `id_objects_1`, `id_maps_island`, `x_maps_island`, `y_maps_island`) VALUES
+(11, 1, 1, 1, 1100, 'a:5:{s:4:"sexe";s:5:"Homme";s:4:"body";s:33:"assets/img/avatars/man/body/2.png";s:4:"eyes";s:34:"assets/img/avatars/man/eyes/11.png";s:6:"mouths";s:31:"assets/img/avatars/mouths/5.png";s:4:"hair";s:40:"assets/img/avatars/man/hair/blanc/27.png";}', 1, 4, 2, 2, 2, 1, 1),
+(12, 1, 1, 1, 1100, NULL, 1, 1, 1, 2, NULL, NULL, NULL),
+(13, 1, 1, 1, 1100, 'a:5:{s:4:"sexe";s:5:"Homme";s:4:"body";s:33:"assets/img/avatars/man/body/2.png";s:4:"eyes";s:33:"assets/img/avatars/man/eyes/1.png";s:6:"mouths";s:31:"assets/img/avatars/mouths/2.png";s:4:"hair";s:38:"assets/img/avatars/man/hair/noir/1.png";}', 1, 1, 1, 2, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -219,7 +232,8 @@ CREATE TABLE IF NOT EXISTS `charactere_bags` (
 --
 
 INSERT INTO `charactere_bags` (`id`, `id_charactere`) VALUES
-(1, 11);
+(1, 11),
+(3, 13);
 
 -- --------------------------------------------------------
 
@@ -267,48 +281,6 @@ CREATE TABLE IF NOT EXISTS `chests_types` (
   `file` varchar(255) NOT NULL,
   `is_block` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `city`
---
-
-CREATE TABLE IF NOT EXISTS `city` (
-  `id` int(11) NOT NULL,
-  `name` varchar(150) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `city`
---
-
-INSERT INTO `city` (`id`, `name`) VALUES
-(1, 'marines'),
-(2, 'pirate'),
-(3, 'révolutionnaire');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `city_building`
---
-
-CREATE TABLE IF NOT EXISTS `city_building` (
-  `id` int(11) NOT NULL,
-  `id_building` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `city_building`
---
-
-INSERT INTO `city_building` (`id`, `id_building`) VALUES
-(1, 1),
-(1, 2),
-(1, 3),
-(1, 4),
-(1, 5);
 
 -- --------------------------------------------------------
 
@@ -665,8 +637,20 @@ INSERT INTO `forums_topics_types` (`id`, `name`) VALUES
 
 CREATE TABLE IF NOT EXISTS `island` (
   `id` int(11) NOT NULL,
-  `name` varchar(25) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `name` varchar(50) DEFAULT NULL,
+  `lvl` int(11) NOT NULL,
+  `id_faction` int(11) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `island`
+--
+
+INSERT INTO `island` (`id`, `name`, `lvl`, `id_faction`) VALUES
+(1, 'Camp Formation pirate', 1, 1),
+(2, 'Camp Formation marine', 1, 2),
+(3, 'Camp Formation revolutionnaire', 1, 3),
+(4, 'whiskey peak', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -716,53 +700,109 @@ CREATE TABLE IF NOT EXISTS `maps` (
   `x` int(11) NOT NULL,
   `y` int(11) NOT NULL,
   `id` int(11) DEFAULT NULL,
-  `id_island` int(11) DEFAULT NULL,
-  `id_city` int(11) DEFAULT NULL
+  `id_island` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `maps`
 --
 
-INSERT INTO `maps` (`x`, `y`, `id`, `id_island`, `id_city`) VALUES
-(0, 0, 1, NULL, NULL),
-(0, 1, 1, NULL, NULL),
-(0, 2, 1, NULL, NULL),
-(0, 3, 3, NULL, NULL),
-(0, 4, 4, NULL, NULL),
-(0, 5, 4, NULL, NULL),
-(1, 0, 1, NULL, NULL),
-(1, 1, 1, NULL, NULL),
-(1, 2, 1, NULL, NULL),
-(1, 3, 3, NULL, NULL),
-(1, 4, 4, NULL, NULL),
-(1, 5, 4, NULL, NULL),
-(2, 0, 1, NULL, NULL),
-(2, 1, 1, NULL, NULL),
-(2, 2, 1, NULL, NULL),
-(2, 3, 3, NULL, NULL),
-(2, 4, 4, NULL, NULL),
-(2, 5, 4, NULL, NULL),
-(3, 0, 1, NULL, NULL),
-(3, 1, 2, NULL, NULL),
-(3, 2, 2, NULL, NULL),
-(3, 3, 3, NULL, NULL),
-(3, 4, 4, NULL, NULL),
-(3, 5, 4, NULL, NULL),
-(4, 0, 1, NULL, NULL),
-(4, 1, 2, NULL, NULL),
-(4, 2, 2, NULL, NULL),
-(4, 3, 3, NULL, NULL),
-(4, 4, 3, NULL, NULL),
-(4, 5, 3, NULL, NULL),
-(5, 0, 1, NULL, NULL),
-(5, 1, 1, NULL, NULL),
-(5, 2, 2, NULL, NULL),
-(5, 3, 2, NULL, NULL),
-(5, 4, 3, NULL, NULL),
-(5, 5, 3, NULL, NULL),
-(6, 0, 1, NULL, NULL),
-(6, 2, 1, NULL, NULL);
+INSERT INTO `maps` (`x`, `y`, `id`, `id_island`) VALUES
+(0, 0, 5, NULL),
+(0, 1, 5, NULL),
+(0, 2, 5, NULL),
+(0, 3, 5, NULL),
+(0, 4, 5, NULL),
+(0, 5, 5, NULL),
+(1, 0, 5, NULL),
+(1, 1, 5, NULL),
+(1, 2, 5, NULL),
+(1, 3, 5, NULL),
+(1, 4, 5, NULL),
+(1, 5, 5, NULL),
+(2, 0, 5, NULL),
+(2, 1, 5, NULL),
+(2, 2, 5, NULL),
+(2, 3, 5, NULL),
+(2, 4, 5, NULL),
+(2, 5, 5, NULL),
+(3, 0, 5, NULL),
+(3, 1, 5, NULL),
+(3, 2, 6, NULL),
+(3, 3, 5, NULL),
+(3, 4, 5, NULL),
+(3, 5, 5, NULL),
+(4, 0, 5, NULL),
+(4, 1, 5, NULL),
+(4, 2, 5, NULL),
+(4, 3, 5, NULL),
+(4, 4, 5, NULL),
+(4, 5, 5, NULL),
+(5, 0, 5, NULL),
+(5, 1, 5, NULL),
+(5, 2, 5, NULL),
+(5, 3, 5, NULL),
+(5, 4, 5, NULL),
+(5, 5, 5, NULL),
+(6, 0, 5, NULL),
+(6, 2, 5, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `maps_island`
+--
+
+CREATE TABLE IF NOT EXISTS `maps_island` (
+  `x` int(11) NOT NULL,
+  `y` int(11) NOT NULL,
+  `id` int(11) DEFAULT NULL,
+  `id_maps_types` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `maps_island`
+--
+
+INSERT INTO `maps_island` (`x`, `y`, `id`, `id_maps_types`) VALUES
+(0, 0, 2, 4),
+(0, 1, 2, 4),
+(0, 2, 2, 4),
+(0, 3, 2, 3),
+(0, 4, 2, 4),
+(0, 5, 2, 4),
+(1, 0, 2, 1),
+(1, 1, 2, 1),
+(1, 2, 2, 1),
+(1, 3, 2, 3),
+(1, 4, 2, 4),
+(1, 5, 2, 4),
+(2, 0, 2, 1),
+(2, 1, 2, 1),
+(2, 2, 2, 1),
+(2, 3, 2, 3),
+(2, 4, 2, 4),
+(2, 5, 2, 4),
+(3, 0, 2, 1),
+(3, 1, 2, 2),
+(3, 2, 2, 2),
+(3, 3, 2, 3),
+(3, 4, 2, 4),
+(3, 5, 2, 4),
+(4, 0, 2, 1),
+(4, 1, 2, 2),
+(4, 2, 2, 2),
+(4, 3, 2, 3),
+(4, 4, 2, 3),
+(4, 5, 2, 3),
+(5, 0, 2, 1),
+(5, 1, 2, 1),
+(5, 2, 2, 2),
+(5, 3, 2, 2),
+(5, 4, 2, 3),
+(5, 5, 2, 3),
+(6, 0, 2, 1),
+(6, 2, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -774,18 +814,22 @@ CREATE TABLE IF NOT EXISTS `maps_types` (
   `id` int(11) NOT NULL,
   `name` varchar(25) DEFAULT NULL,
   `image` varchar(25) DEFAULT NULL,
-  `lvl` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `lvl` int(11) DEFAULT NULL,
+  `type` int(11) NOT NULL,
+  `id_island` int(11) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `maps_types`
 --
 
-INSERT INTO `maps_types` (`id`, `name`, `image`, `lvl`) VALUES
-(1, 'plaine', NULL, 1),
-(2, 'désert', NULL, 1),
-(3, 'plage', NULL, 10),
-(4, 'eau_peu_profonde', NULL, 10);
+INSERT INTO `maps_types` (`id`, `name`, `image`, `lvl`, `type`, `id_island`) VALUES
+(1, 'plaine', NULL, 1, 1, NULL),
+(2, 'désert', NULL, 1, 1, NULL),
+(3, 'plage', NULL, 10, 1, NULL),
+(4, 'eau_peu_profonde', NULL, 10, 1, NULL),
+(5, 'ocean', NULL, 10, 0, NULL),
+(6, 'Ile marine', NULL, 1, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -876,8 +920,11 @@ CREATE TABLE IF NOT EXISTS `monster_objects` (
 --
 
 INSERT INTO `monster_objects` (`id`, `id_objects`) VALUES
+(2, 1),
 (1, 3),
+(2, 3),
 (5, 3),
+(2, 4),
 (5, 4);
 
 -- --------------------------------------------------------
@@ -1220,15 +1267,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id_charactere` int(11) DEFAULT NULL,
   `id_crews_candidacy` int(11) DEFAULT NULL,
   `id_faction` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `users`
 --
 
 INSERT INTO `users` (`id`, `ban`, `pseudo`, `email`, `birthday`, `sexe`, `password`, `registration`, `last_action`, `ip`, `is_kick`, `messNumber`, `popularity`, `id_users_types`, `id_lost_pass`, `id_charactere`, `id_crews_candidacy`, `id_faction`) VALUES
-(5, 0, 'Dumbeldor', 'vincent.glize@live.fr', '0000-00-00', NULL, '$2y$10$YndPoTqiK4lEPrGHIpsdze.tlJ4LLAOQJCSgBLv7eJpu93p3IbiOm', 1453225764, 1454005511, '::1', 0, NULL, NULL, 24, NULL, 11, NULL, 2),
-(13, 0, 'Pandaman', 'pandaman@pandaman.panda', '2016-01-06', 0, '$2y$10$YndPoTqiK4lEPrGHIpsdze.tlJ4LLAOQJCSgBLv7eJpu93p3IbiOm', 1453225764, 1453225764, '0000000000', 0, 0, 0, 2, NULL, NULL, NULL, 1);
+(5, 0, 'Dumbeldor', 'vincent.glize@live.fr', '0000-00-00', NULL, '$2y$10$YndPoTqiK4lEPrGHIpsdze.tlJ4LLAOQJCSgBLv7eJpu93p3IbiOm', 1453225764, 1454883886, '::1', 0, NULL, NULL, 24, NULL, 11, NULL, 2),
+(13, 0, 'Pandaman', 'pandaman@pandaman.panda', '2016-01-06', 0, '$2y$10$YndPoTqiK4lEPrGHIpsdze.tlJ4LLAOQJCSgBLv7eJpu93p3IbiOm', 1453225764, 1453225764, '0000000000', 0, 0, 0, 2, NULL, NULL, NULL, 1),
+(14, 0, 'testdfgf', 'test123test@test.frfg', '0000-00-00', NULL, '$2y$10$0H2iY9.fYqiQOPFLJ27ECe8wYDG/amIWIfwCYrEOlG7GVG2MqQBhS', 1454370869, 1454370949, '::1', 0, NULL, NULL, 1, NULL, 13, NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -1334,7 +1382,10 @@ ALTER TABLE `charactere`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_charactere_id_objects` (`id_objects`),
   ADD KEY `FK_charactere_x` (`x`),
-  ADD KEY `FK_charactere_id_objects_1` (`id_objects_1`);
+  ADD KEY `FK_charactere_id_objects_1` (`id_objects_1`),
+  ADD KEY `FK_charactere_y_maps_island` (`y_maps_island`),
+  ADD KEY `FK_charactere_x_maps_island` (`x_maps_island`,`y_maps_island`),
+  ADD KEY `FK_charactere_id_maps_island` (`id_maps_island`);
 
 --
 -- Index pour la table `charactere_bags`
@@ -1369,19 +1420,6 @@ ALTER TABLE `chests_objects`
 --
 ALTER TABLE `chests_types`
   ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `city`
---
-ALTER TABLE `city`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `city_building`
---
-ALTER TABLE `city_building`
-  ADD PRIMARY KEY (`id`,`id_building`),
-  ADD KEY `FK_city_building_id_building` (`id_building`);
 
 --
 -- Index pour la table `coffres_comptes`
@@ -1499,7 +1537,8 @@ ALTER TABLE `forums_topics_types`
 -- Index pour la table `island`
 --
 ALTER TABLE `island`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_id_island_faction` (`id_faction`);
 
 --
 -- Index pour la table `jobs`
@@ -1526,8 +1565,15 @@ ALTER TABLE `lost_pass`
 ALTER TABLE `maps`
   ADD PRIMARY KEY (`x`,`y`),
   ADD KEY `FK_maps_id_island` (`id_island`),
-  ADD KEY `FK_maps_id_city` (`id_city`),
   ADD KEY `FK_maps_id` (`id`);
+
+--
+-- Index pour la table `maps_island`
+--
+ALTER TABLE `maps_island`
+  ADD PRIMARY KEY (`x`,`y`, `id`),
+  ADD KEY `FK_maps_island_id` (`id`),
+  ADD KEY `FK_maps_island_id_maps_typess` (`id_maps_types`);
 
 --
 -- Index pour la table `maps_types`
@@ -1720,12 +1766,12 @@ ALTER TABLE `users_types`
 -- AUTO_INCREMENT pour la table `bags`
 --
 ALTER TABLE `bags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `bags_objects`
 --
 ALTER TABLE `bags_objects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT pour la table `bags_types`
 --
@@ -1750,12 +1796,12 @@ ALTER TABLE `cages_types`
 -- AUTO_INCREMENT pour la table `captcha`
 --
 ALTER TABLE `captcha`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1649;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1654;
 --
 -- AUTO_INCREMENT pour la table `charactere`
 --
 ALTER TABLE `charactere`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT pour la table `chests`
 --
@@ -1766,11 +1812,6 @@ ALTER TABLE `chests`
 --
 ALTER TABLE `chests_types`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `city`
---
-ALTER TABLE `city`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `crews`
 --
@@ -1835,7 +1876,7 @@ ALTER TABLE `forums_topics_types`
 -- AUTO_INCREMENT pour la table `island`
 --
 ALTER TABLE `island`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pour la table `jobs`
 --
@@ -1855,7 +1896,7 @@ ALTER TABLE `lost_pass`
 -- AUTO_INCREMENT pour la table `maps_types`
 --
 ALTER TABLE `maps_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT pour la table `monster`
 --
@@ -1945,7 +1986,7 @@ ALTER TABLE `tickets_sujets`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT pour la table `users_types`
 --
@@ -1992,9 +2033,11 @@ ALTER TABLE `cages_pets`
 -- Contraintes pour la table `charactere`
 --
 ALTER TABLE `charactere`
+  ADD CONSTRAINT `FK_charactere_id_maps_island` FOREIGN KEY (`id_maps_island`) REFERENCES `maps_island` (`id`),
   ADD CONSTRAINT `FK_charactere_id_objects` FOREIGN KEY (`id_objects`) REFERENCES `objects` (`id`),
   ADD CONSTRAINT `FK_charactere_id_objects_1` FOREIGN KEY (`id_objects_1`) REFERENCES `objects` (`id`),
-  ADD CONSTRAINT `FK_charactere_x` FOREIGN KEY (`x`) REFERENCES `maps` (`x`);
+  ADD CONSTRAINT `FK_charactere_x` FOREIGN KEY (`x`) REFERENCES `maps` (`x`),
+  ADD CONSTRAINT `FK_charactere_x_maps_island` FOREIGN KEY (`x_maps_island`, `y_maps_island`) REFERENCES `maps_island` (`x`, `y`);
 
 --
 -- Contraintes pour la table `charactere_bags`
@@ -2022,13 +2065,6 @@ ALTER TABLE `chests`
 ALTER TABLE `chests_objects`
   ADD CONSTRAINT `FK_chests_objects_id` FOREIGN KEY (`id`) REFERENCES `chests` (`id`),
   ADD CONSTRAINT `FK_chests_objects_id_objects` FOREIGN KEY (`id_objects`) REFERENCES `objects` (`id`);
-
---
--- Contraintes pour la table `city_building`
---
-ALTER TABLE `city_building`
-  ADD CONSTRAINT `FK_city_building_id` FOREIGN KEY (`id`) REFERENCES `city` (`id`),
-  ADD CONSTRAINT `FK_city_building_id_building` FOREIGN KEY (`id_building`) REFERENCES `building` (`id`);
 
 --
 -- Contraintes pour la table `coffres_comptes`
@@ -2096,6 +2132,12 @@ ALTER TABLE `forums_topics_messages`
   ADD CONSTRAINT `FK_forums_topics_messages_id_users` FOREIGN KEY (`id_users`) REFERENCES `users` (`id`);
 
 --
+-- Contraintes pour la table `island`
+--
+ALTER TABLE `island`
+  ADD CONSTRAINT `FK_id_island_faction` FOREIGN KEY (`id_faction`) REFERENCES `faction` (`id`);
+
+--
 -- Contraintes pour la table `kick`
 --
 ALTER TABLE `kick`
@@ -2106,8 +2148,14 @@ ALTER TABLE `kick`
 --
 ALTER TABLE `maps`
   ADD CONSTRAINT `FK_maps_id` FOREIGN KEY (`id`) REFERENCES `maps_types` (`id`),
-  ADD CONSTRAINT `FK_maps_id_city` FOREIGN KEY (`id_city`) REFERENCES `city` (`id`),
   ADD CONSTRAINT `FK_maps_id_island` FOREIGN KEY (`id_island`) REFERENCES `island` (`id`);
+
+--
+-- Contraintes pour la table `maps_island`
+--
+ALTER TABLE `maps_island`
+  ADD CONSTRAINT `FK_maps_island_id` FOREIGN KEY (`id`) REFERENCES `island` (`id`),
+  ADD CONSTRAINT `FK_maps_island_id_maps_types` FOREIGN KEY (`id_maps_types`) REFERENCES `maps_types` (`id`);
 
 --
 -- Contraintes pour la table `maps_types_monster`

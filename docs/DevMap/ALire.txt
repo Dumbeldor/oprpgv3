@@ -1,0 +1,9 @@
+Déjà pour bien comprendre le système que j'ai mis en place il faut que vous allez voir le schéma mcd de la base de donnée.
+Ensuite pour faire simple on a une table maps qui correspond à la map des océans et maps_island pour les maps des îles.
+
+Maps et maps_island pointe vers maps_types.
+Maps_types: Définie le type de chaque case (Le nom de la case, son image, son lvl, son type, etc...)
+Maps_types.type = C'est le type de la map :
+                    0 = Type de case pour la map océan
+                    1 = type de case pour les maps des îles
+                    2 = type de case pour les maps océan qui représente une ile (Case pour rentrer sur l'ile)

@@ -23,16 +23,19 @@
     <img src="<?= base_url('assets/img/maps/' . $map['id'] . '.png'); ?>" alt="aa" title="test"></img>
     <br><br>
 
-    <?php if($map['in_island'] == 1) { //In island ?>
+    <?php if($map['type'] == 1) { //In island ?>
         <a href="<?= base_url('map/fight/') ?>">Combattre</a><br>
         <a href="<?= base_url('map/search/') ?>">Fouiller</a>
     <?php }
-    else if($map['in_island'] == 0) { //In ocean ?>
+    else if($map['type'] == 0) { //In ocean ?>
         <a href="<?= base_url('map/fight/') ?>">Combattre</a><br>
         <a href="<?= base_url('map/search/') ?>">Pecher</a>
     <?php }
-    else if($map['in_island'] == 2) { //In ocean and in case island?>
+    else if($map['type'] == 2) { //In ocean and in case island?>
         <a href="<?= base_url('map/enterCity') ?>">Rentrer sur l'ile</a><br>
+    <?php }
+    else if($map['type'] == 3) { //PORT?>
+        <a href="<?= base_url('map/leaveIsland')?>">Sortir de l'ile</a>
     <?php } ?>
 
     <div id="zoneMap" style="position: relative">

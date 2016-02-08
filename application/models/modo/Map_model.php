@@ -4,11 +4,12 @@ class Map_model extends CI_Model {
         $this->load->database();
     }
 	
-	public function addType($name, $lvl, $objects, $monsters, $inIsland) {
+	public function addType($name, $lvl, $objects, $monsters, $type, $addType) {
 		$this->db->insert('maps_types', array(
 			'name' => $name,
 			'lvl' => $lvl,
-			'in_island' => $inIsland
+			'type' => $type,
+			'id_island' => $addType
 		));
 		
 		$id = $this->db->insert_id();
@@ -39,12 +40,12 @@ class Map_model extends CI_Model {
 	}
 
 	public function getTypesOcean(){
-		$query = $this->db->query("SELECT id, name FROM maps_types WHERE in_island = 0 OR in_island = 2");
+		$query = $this->db->query("SELECT id, name FROM maps_types WHERE type = 0 OR type = 2");
 		return $query->result_array();
 	}
 
     public function getTypesInIsland(){
-        $query = $this->db->query("SELECT id, name FROM maps_types WHERE in_island = 1");
+        $query = $this->db->query("SELECT id, name FROM maps_types WHERE type = 1");
         return $query->result_array();
     }
 
@@ -58,18 +59,36 @@ class Map_model extends CI_Model {
 		return $query->result_array();
 	}
 
-	public function addMap($x, $y, $type) {
-		$this->db->insert('maps', array(
-			'x' => $x,
-			'y' => $y,
-			'id' => $type
-		));
+	public function addMap($x, $y, $type, $id) {
+        if(empty($id)) {
+            $this->db->insert('maps', array(
+                'x' => $x,
+                'y' => $y,
+                'id' => $type
+            ));
+        }
+        else {
+            $this->db->insert('maps_island', array(
+                'x' => $x,
+                'y' => $y,
+                'id' => $id,
+                'id_maps_types' => $type
+            ));
+        }
 	}
 
-	public function exist($x, $y) {
-		$nb = $this->db->where('x', $x)
-			->where('y', $y)
-			->count_all_results('maps');
+	public function exist($x, $y, $id) {
+        if(empty($id)) {
+            $nb = $this->db->where('x', $x)
+                ->where('y', $y)
+                ->count_all_results('maps');
+        }
+        else {
+            $nb = $this->db->where('x', $x)
+                ->where('y', $y)
+                ->where('id', $id)
+                ->count_all_results('maps_island');
+        }
 		if($nb > 0)
 			return true;
 		return false;

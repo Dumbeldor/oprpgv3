@@ -70,4 +70,13 @@ class Map extends MY_Controller {
         $this->map_model->deplace($x, $y);
         redirect('map/');
     }
+
+    public function enterCity(){
+        $map = $this->map_model->getMap();
+        if(empty($map['id_island']) OR $this->character->inIsland())
+            redirect('map');
+
+        $this->map_model->enterCity($map['id_island']);
+        redirect('map');
+    }
 }

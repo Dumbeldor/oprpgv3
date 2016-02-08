@@ -17,7 +17,8 @@ class Character
 {
     protected $id,
               $positionCity,
-              $inCity,
+              $inIsland,
+              $idIsland,
               $lvl,
               $berry,
               $avatar,
@@ -25,6 +26,8 @@ class Character
 			  $armor,
               $x,
               $y,
+              $xMapsIsland,
+              $yMapsIsland,
               $moveCase = 1, //Prévu pour plus tard ;)
 			  $vision = 5;
               
@@ -46,15 +49,23 @@ class Character
 	}
 	
 	public function getXMin() {
+        if($this->inIsland)
+            return $this->xMapsIsland - $this->vision;
 		return $this->x - $this->vision;
 	}
 	public function getXMax() {
+        if($this->inIsland)
+            return $this->xMapsIsland + $this->vision;
 		return $this->x + $this->vision;
 	}
 	public function getYMin() {
+        if($this->inIsland)
+            return $this->yMapsIsland - $this->vision;
 		return $this->y - $this->vision;
 	}
 	public function getYMax(){
+        if($this->inIsland)
+            return $this->yMapsIsland + $this->vision;
 		return $this->y + $this->vision;
 	}
 	
@@ -73,8 +84,8 @@ class Character
     public function getPositionCity() {
         return $this->positionCity;
     }
-    public function inCity() {
-        return $this->inCity;
+    public function inIsland() {
+        return $this->inIsland;
     }
     public function getLvl() {
         return $this->lvl;
@@ -92,16 +103,29 @@ class Character
 		return $this->armor;
 	}
     public function getX() {
+        if($this->inIsland)
+            return $this->xMapsIsland;
         return $this->x;
     }
     public function getY(){
+        if($this->inIsland)
+            return $this->yMapsIsland;
         return $this->y;
+    }
+    public function getXMapsIsland() {
+        return $this->xMapsIsland;
+    }
+    public function getYMapsIsland() {
+        return $this->yMapsIsland;
     }
     public function getMoveCase(){
         return $this->moveCase;
     }
 	public function getVision() {
         return $this->vision;
+    }
+    public function getIdIsland() {
+        return $this->idIsland;
     }
     
     
@@ -111,8 +135,11 @@ class Character
     public function setPositionCity($position){
         $this->positionCity = $position;
     }
-    public function setInCity($inCity){
-        $this->inCity = $inCity;
+    public function setInIsland($inIsland){
+        $this->inIsland = $inIsland;
+    }
+    public function setIdIsland($id) {
+        $this->idIsland = $id;
     }
     public function setLvl($lvl){
         $this->lvl = $lvl;
@@ -134,6 +161,12 @@ class Character
     }
     public function setY($y){
         $this->y = $y;
+    }
+    public function setXMapsIsland($xMapsIsland){
+        $this->xMapsIsland = $xMapsIsland;
+    }
+    public function setYMapsIsland($yMapsIsland){
+        $this->yMapsIsland = $yMapsIsland;
     }
     
     

@@ -41,8 +41,10 @@ class Map extends MY_Controller {
         if($this->form_validation->run() == FALSE) {
             $this->load->model('modo/object_model');
             $this->load->model('modo/monster_model');
+            $this->load->model('modo/island_model');
             $data['objects'] = $this->object_model->getObjectsIdName();
             $data['monsters'] = $this->monster_model->getMonstersIdNameLvl();
+            $data['islands'] = $this->island_model->getIslandsIdName();
             $this->construct_page('modo/map/createType.php', $data);
         }
         else {
@@ -74,12 +76,15 @@ class Map extends MY_Controller {
             $lvl = $this->input->post('lvl');
             $objects = $this->input->post('objects');
             $monsters = $this->input->post('monsters');
-            $inIsland = $this->input->post('island');
+            $type = $this->input->post('island');
+            $idIsland = $this->input->post('idIsland');
+            if($idIsland == 0)
+                $idIsland = null;
 
             if(empty($inIsland))
                $inIsland = 0;
 
-            $this->map_model->addType($name, $lvl, $objects, $monsters, $inIsland);
+            $this->map_model->addType($name, $lvl, $objects, $monsters, $type, $idIsland);
             $data['title'] = 'Ajout map type réussis';
             $this->construct_page('modo/map/reussis.php', $data);
         }
@@ -100,7 +105,7 @@ class Map extends MY_Controller {
 
         $this->construct_page('modo/map/map.php', $data);
     }
-    public function modify(){
+    public function modify($id=null){
         $data['title'] = 'Modo: Ajouter map';
 
         $this->load->helper('form');
@@ -114,13 +119,19 @@ class Map extends MY_Controller {
         $y = $this->input->post('y');
         $type = $this->input->post('type');
 
-        if($this->form_validation->run() == FALSE OR $this->map_model->exist($x, $y)) {
+        if($this->form_validation->run() == FALSE OR $this->map_model->exist($x, $y, $id)) {
             echo $x, $y;
-            $data['types'] = $this->map_model->getTypesOcean();
+            $data['id'] = $id;
+            if(empty($id))
+                $data['types'] = $this->map_model->getTypesOcean();
+            else {
+                $this->load->model('modo/island_model');
+                $data['types'] = $this->island_model->getTypes();
+            }
             $this->construct_page('modo/map/modify.php', $data);
         }
         else {
-            $this->map_model->addMap($x, $y, $type);
+            $this->map_model->addMap($x, $y, $type, $id);
             $this->construct_page('modo/map/reussis.php', $data);
         }
     }

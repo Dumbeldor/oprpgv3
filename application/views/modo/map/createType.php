@@ -25,6 +25,13 @@
                <option value="1">Sur une map d\'ile</option>
                <option value="2">Sur map océan mais pour indiquer que c\'est une ile</option>';
     echo '</select>';
+
+    echo "<strong>Si c'est une ile choisir l'ile :</strong><br>";
+    echo '<select name="idIsland">
+             <option value="0">Laisser cette option si aucune ile</option>';
+    foreach($islands AS $island){
+        echo '<option value="'.$island['id'].'">'.$island['name'].'</option>';
+    }
     ?>
     <br>
     <input id="send_button" type="submit" name="submit" class="btn btn-default" value="Ajouter" />

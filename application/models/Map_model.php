@@ -5,32 +5,30 @@ class Map_model extends CI_Model {
     }
     
     public function getMap(){
-       /* $query = $this->db->query("SELECT mt.in_island
-                                  FROM maps m
-                                  JOIN maps_types mt ON m.id = mt.id
-                                  WHERE x = ? AND y = ?", array($this->character->getX(), $this->character->getY()));
-        $island = $query->result_array()[0]['in_island'];
-
-
-        if($island == 1) {
-            //$query = $this->db->query("")
-        }
-        else if($island == 2) { //Si sur map océan sur case ILE
-            //
-            echo "OOO";
-        }
-        else {*/
-            $query = $this->db->query("SELECT mt.id, mt.name, mt.image, mt.lvl, mt.in_island
-                                      FROM maps m
-                                      JOIN maps_types mt ON m.id = mt.id
-                                      WHERE m.x = ? AND m.y = ?", array($this->character->getX(), $this->character->getY()));
+        if(!$this->character->inIsland()) {
+            $query = $this->db->query("SELECT mt.id, mt.name, mt.image, mt.lvl, mt.type, mt.id_island
+                                        FROM maps m
+                                        JOIN maps_types mt ON m.id = mt.id
+                                        WHERE m.x = ? AND m.y = ?", array($this->character->getX(), $this->character->getY()));
 
             return $query->result_array()[0];
-        //}
+        }
+        else {
+            $query = $this->db->query("SELECT mt.id, mt.name, mt.image, mt.lvl, mt.type, mt.id_island
+                                        FROM maps_island mi
+                                        JOIN maps_types mt ON mi.id_maps_types = mt.id
+                                        WHERE mi.id = ? AND mi.x = ? AND mi.y = ?", array($this->character->getIdIsland(), $this->character->getXMapsIsland(), $this->character->getYMapsIsland()));
+
+            return $query->result_array()[0];
+        }
+    }
+
+    public function getIdIsland($x, $y){
+        $query = $this->db->query("SELECT mt.id_island");
     }
     
     public function getMaps($x=null, $y=null){
-        if($x == null OR $y == null) {
+        if(!$this->character->inIsland()) {
             $query = $this->db->query("SELECT mt.id, mt.name, mt.lvl, m.x, m.y
                                       FROM maps m
                                       JOIN maps_types mt ON m.id = mt.id
@@ -40,12 +38,12 @@ class Map_model extends CI_Model {
             return $query->result_array();
         }
         else{
-            $query = $this->db->query("SELECT mt.id, mt.name, mt.lvl, m.x, m.y
-                                      FROM maps m
-                                      JOIN maps_types mt ON m.id = mt.id
-                                      WHERE x BETWEEN ? AND ?
+            $query = $this->db->query("SELECT mt.id, mt.name, mt.lvl, mi.x, mi.y
+                                      FROM maps_island mi
+                                      JOIN maps_types mt ON mi.id_maps_types = mt.id
+                                      WHERE mi.id = ? AND x BETWEEN ? AND ?
                                       AND y BETWEEN ? AND ? ORDER BY y, x",
-                array($x-100, $x+100, $y-100, $y+100));
+                array($this->character->getIdIsland(), $this->character->getXMin(), $this->character->getXMax(), $this->character->getYMin(), $this->character->getYMax()));
             return $query->result_array();
         }
     }
@@ -62,9 +60,26 @@ class Map_model extends CI_Model {
     }
 
     public function deplace($x, $y){
+        if($this->character->inIsland()){
+            $this->db->where('id', $this->character->getId())
+                ->set('x_maps_island', $x)
+                ->set('y_maps_island', $y)
+                ->update('charactere');
+        }
+        else {
+            $this->db->where('id', $this->character->getId())
+                ->set('x', $x)
+                ->set('y', $y)
+                ->update('charactere');
+        }
+    }
+
+    public function enterCity($id){
         $this->db->where('id', $this->character->getId())
-            ->set('x', $x)
-            ->set('y', $y)
+            ->set('x_maps_island', 0)
+            ->set('y_maps_island', 0)
+            ->set('id_maps_island', $id)
+            ->set('in_island', 1)
             ->update('charactere');
     }
 }
