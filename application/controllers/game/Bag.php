@@ -1,5 +1,5 @@
 <?php
-class Bag extends MY_Controller {
+class Bag extends MY_Game {
      /**
    * Default Constructor
    * ----------------------------------------------------------------------- */
@@ -8,6 +8,7 @@ class Bag extends MY_Controller {
     //If not connected member
     if(!$this->user->isAuthenticated())
       redirect(base_url('/home/accueil'));
+    $this->load->model('game/bag_model');
   }
 
   /**
@@ -16,8 +17,20 @@ class Bag extends MY_Controller {
   public function index()
   {
     $data['title'] = 'Mon sac';
-    $this->load->model('bag_model');
-    $data['bags'] = $this->bag_model->getObjects();
+    $data['bags'] = $this->bag_model->getBags();
     $this->construct_page('game/bag/index.php', $data);
+  }
+  public function inventory($id=0)
+  {
+    if($id == 0)
+      redirect('game/bag');
+    
+    $this->load->helper('objects');
+    
+    $data['title'] = 'Inventaire';
+    $data['items'] = $this->bag_model->inventory($id);
+    if(!$data['items'])
+      redirect('game/bag');
+    $this->construct_page('game/bag/inventory.php', $data);
   }
 }

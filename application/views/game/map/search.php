@@ -15,4 +15,4 @@
         echo 'Vous venez de trouver : '.$object['name'];
 ?>
     <br>
-    <a href="<?= base_url('map/')?>">Retour</a>
+    <a href="<?= base_url('game/map/')?>">Retour</a>

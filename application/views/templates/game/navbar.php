@@ -21,19 +21,13 @@
             <!-- Right Nav Section -->
             <ul class="right">
 
-                <li class="divider"></li>
-                <li><a href="<?php echo base_url('/game/map'); ?>">Jeu</a></li>
-                <li class="divider"></li>
-
               <li class="divider"></li>
-              <li><a href="<?php echo base_url('/home/index'); ?>">News</a></li>
+              <li><a href="<?php echo base_url('/game/map'); ?>">Map</a></li>
               <li class="divider"></li>
 
-              <li class="divider"></li>
-              <li><a href="<?php echo base_url('/forum') ?>">Forum</a></li>
-              <li class="divider"></li>
-              <li><a href="<?php echo base_url('/tchat') ?>">T'chat</a></li>
-              <li class="divider"></li>
+                <li class="divider"></li>
+                <li><a href="<?php echo base_url('/game/bag'); ?>">Sacs</a></li>
+                <li class="divider"></li>
 
                 <li><a href="<?php echo base_url('/crews') ?>">Équipage</a></li>
                 <li class="divider"></li>
@@ -41,36 +35,10 @@
                   <?php if($amountMP > 0)
                   echo '('.$amountMP.')'; ?>
                 </a></li>
-				
-				
-				<li class="has-dropdown">
-				  <a href="#">Fans</a>
-				  <ul class="dropdown">
-					<li><a href="<?php echo base_url('/pages/coming_soon'); ?>">Fanarts</a></li>
-                      <li><a href="<?php echo base_url('/pages/coming_soon'); ?>">Fanmovs</a></li>
-                      <li><a href="<?php echo base_url('/pages/coming_soon'); ?>">Fanfics</a></li>
-				  </ul>
-				</li>
-				<li class="has-dropdown">
-				  <a href="#">Le site</a>
-				  <ul class="dropdown">
-					<li><a href="<?php echo base_url('/users'); ?>">Annuaire</a></li>
-                      <li><a href="<?php echo base_url('/users/liste'); ?>">Connectés</a></li>
-                      <li><a href="<?= base_url('forum/t/21');?>">F.A.Q</a></li>
-				  </ul>
-				</li>
-				<li class="has-dropdown">
-				  <a href="#">Communauté</a>
-				  <ul class="dropdown">
-					<li><a href="<?php echo base_url('/pages/coming_soon'); ?>">Classement</a></li>
-                      <li><a href="<?php echo base_url('/pages/coming_soon'); ?>">Livre d'or</a></li>
-                      <li><a href="<?= base_url('users/staff/')?>">Le Staff</a></li>
-				  </ul>
-				</li>
-				
-				
-				
-				
+
+                <li class="divider"></li>
+                <li><a href="<?php echo base_url('/forum') ?>">Partie communauté</a></li>
+                <li class="divider"></li>
 				
 				
                 <li class="divider"></li>

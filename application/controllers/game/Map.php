@@ -6,7 +6,7 @@
  * @author Dumbeldor
  ******************************************************************************
  */
-class Map extends MY_Controller {
+class Map extends MY_Game {
     // ========================================================================
 	// CREATE PAGE
 	// ========================================================================
@@ -19,7 +19,7 @@ class Map extends MY_Controller {
 		if(!$this->user->isAuthenticated())
 			redirect(base_url('/home/accueil'));
 		// Loading models
-		$this->load->model('map_model');
+		$this->load->model('game/map_model');
 	}
     
     public function index() {
@@ -34,7 +34,7 @@ class Map extends MY_Controller {
     
     public function fight($x, $y){
         if($x==0 OR $y==0)
-            redirect('map/');
+            redirect('game/map/');
             
         /*
          *FIGHT
@@ -42,7 +42,7 @@ class Map extends MY_Controller {
     }
     
     public function search(){
-        $this->load->model('bag_model');
+        $this->load->model('game/bag_model');
         $data['title'] = 'Fouille';
         $data['object'] = $this->map_model->search();
         $reussis = false;
@@ -65,18 +65,18 @@ class Map extends MY_Controller {
         $diffY = abs($y - $uY);
 
         if($diffX+$diffY > $moveCase)
-            redirect('map/');
+            redirect('game/map/');
 
         $this->map_model->deplace($x, $y);
-        redirect('map/');
+        redirect('game/map/');
     }
 
     public function enterCity(){
         $map = $this->map_model->getMap();
         if(empty($map['id_island']) OR $this->character->inIsland())
-            redirect('map');
+            redirect('game/map');
 
         $this->map_model->enterCity($map['id_island']);
-        redirect('map');
+        redirect('game/map');
     }
 }

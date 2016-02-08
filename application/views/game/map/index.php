@@ -24,18 +24,18 @@
     <br><br>
 
     <?php if($map['type'] == 1) { //In island ?>
-        <a href="<?= base_url('map/fight/') ?>">Combattre</a><br>
-        <a href="<?= base_url('map/search/') ?>">Fouiller</a>
+        <a href="<?= base_url('game/map/fight/') ?>">Combattre</a><br>
+        <a href="<?= base_url('game/map/search/') ?>">Fouiller</a>
     <?php }
     else if($map['type'] == 0) { //In ocean ?>
-        <a href="<?= base_url('map/fight/') ?>">Combattre</a><br>
-        <a href="<?= base_url('map/search/') ?>">Pecher</a>
+        <a href="<?= base_url('game/map/fight/') ?>">Combattre</a><br>
+        <a href="<?= base_url('game/map/search/') ?>">Pecher</a>
     <?php }
     else if($map['type'] == 2) { //In ocean and in case island?>
-        <a href="<?= base_url('map/enterCity') ?>">Rentrer sur l'ile</a><br>
+        <a href="<?= base_url('game/map/enterCity') ?>">Rentrer sur l'ile</a><br>
     <?php }
     else if($map['type'] == 3) { //PORT?>
-        <a href="<?= base_url('map/leaveIsland')?>">Sortir de l'ile</a>
+        <a href="<?= base_url('game/map/leaveIsland')?>">Sortir de l'ile</a>
     <?php } ?>
 
     <div id="zoneMap" style="position: relative">
@@ -78,7 +78,7 @@
             $var_carte .= '<br />Vous êtes ici';
         else if($diffX+$diffY <= $this->character->getMoveCase())
             //<?= base_url('map/deplace/' . $m['x'] . '/' . $m['y'])
-            $var_carte .= "<br /><a href=\"".base_url('map/deplace/' . $carte['x'] . '/' . $carte['y'])."\">Se déplacer</a> ";
+            $var_carte .= "<br /><a href=\"".base_url('game/map/deplace/' . $carte['x'] . '/' . $carte['y'])."\">Se déplacer</a> ";
 //  Fin -->
 
         if (isset($joueur[$carte['x']][$carte['y']])) {
