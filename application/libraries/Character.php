@@ -16,12 +16,16 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Character
 {
     protected $id,
-              $positionCity,
               $inIsland,
+              $inFight,
               $idIsland,
               $lvl,
               $berry,
               $avatar,
+              $vitality,
+              $strength,
+              $speed,
+              $endurance,
               $weapon,
 			  $armor,
               $x,
@@ -68,6 +72,10 @@ class Character
             return $this->yMapsIsland + $this->vision;
 		return $this->y + $this->vision;
 	}
+
+    public function getMaxLife(){
+        return ($this->vitality * 5) + 10;
+    }
 	
 	/*
 	 *Getter
@@ -95,6 +103,18 @@ class Character
     }
     public function getAvatar() {
         return $this->avatar;
+    }
+    public function getVitality() {
+        return $this->vitality;
+    }
+    public function getStrength(){
+        return $this->strength;
+    }
+    public function getSpeed() {
+        return $this->speed;
+    }
+    public function getEndurance() {
+        return $this->endurance;
     }
     public function getWeapon() {
         return $this->weapon;
@@ -149,6 +169,18 @@ class Character
     }
     public function setAvatar($avatar){
         $this->avatar = $avatar;
+    }
+    public function setVitality($vitality) {
+        $this->vitality = $vitality;
+    }
+    public function setStrength($strength) {
+        $this->strength = $strength;
+    }
+    public function setSpeed($speed) {
+        $this->speed = $speed;
+    }
+    public function setEndurance($endurance) {
+        $this->endurance = $endurance;
     }
     public function setWeapon($id){
         $this->weapon = $id;
