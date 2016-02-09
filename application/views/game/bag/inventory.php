@@ -9,8 +9,12 @@
               echo "Attaque : ".$item['attack'].'<br>';
               echo "Vitesse d'attaque : ".$item['speed'].'<br>';
               echo "Défense : ".$item['defense'].'<br>';
-              ?><a href="<?= base_url('game/object/equip/'.$item['id'])?>">S'équiper</a>
-            <?php
+              echo "Attaque magique : ".$item['attackMag'].'<br>';
+              if($weapon == $item['id'] OR $armor == $item['id']) {?>
+                  <a href="<?= base_url('game/object/unEquip/'.$item['id'])?>">Désequiper</a>
+              <?php } else { ?>
+                  <a href="<?= base_url('game/object/equip/'.$item['id'])?>">S'équiper</a>
+            <?php }
         }
         else if($item['type'] == "potion"){
             echo "Vie redonnée : ".$item['addLife'].'<br>';

@@ -15,8 +15,9 @@ class Users_model extends CI_Model {
 	$this->user->hydrate($user[0]);
 	$this->user->setAuthenticated(true);
 	
-	$query = $this->db->query("SELECT life, in_island AS inIsland, in_fight AS inFight, lvl, berry, id_objects AS weapon, x, y, id_objects_1 AS armor,
-									  x_maps_island AS xMapsIsland, y_maps_island AS yMapsIsland, id_maps_island AS idIsland, vitality, strength, speed, endurance
+	$query = $this->db->query("SELECT life, energies, in_island AS inIsland, in_fight AS inFight, lvl, berry, id_objects AS weapon, x, y, id_objects_1 AS armor,
+									  x_maps_island AS xMapsIsland, y_maps_island AS yMapsIsland, id_maps_island AS idIsland, vitality, strength, speed, endurance,
+									  agility, energy, intelligence, resistance
 							  FROM charactere
 							  JOIN users ON users.id_charactere = charactere.id
 							  WHERE users.id = ?", array($this->user->getId()));

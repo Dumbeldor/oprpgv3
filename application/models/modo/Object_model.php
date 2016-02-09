@@ -34,19 +34,20 @@ class Object_model extends CI_Model
     public function addType($name) {
         $this->db->insert('objects_types', array('name' => $name));
     }
-    public function addObject($name, $description, $price, $attack, $speed, $defense, $addLife, $addHaki, $rarity, $type){
+    public function addObject($name, $description, $price, $attack, $speed, $defense, $attackMag, $addLife, $addHaki, $rarity, $type){
         $this->db->insert('objects', array('name' => $name, 'description' => $description,
                                             'price' => $price, 'attack' => $attack,
                                             'speed' => $speed, 'defense' => $defense,
-                                            'addLife' => $addLife, 'addHaki' => $addHaki,
+                                            'attackMag' => $attackMag, 'addLife' => $addLife, 'addHaki' => $addHaki,
                                             'rarity' => $rarity, 'id_objects_types' => $type));
     }
 
-    public function modifyObject($id, $name, $description, $price, $attack, $speed, $defense, $addLife, $addHaki, $rarity, $type, $is_block) {
+    public function modifyObject($id, $name, $description, $price, $attack, $speed, $defense, $attackMag, $addLife, $addHaki, $rarity, $type, $is_block) {
         $this->db->where('id', $id)
         ->update('objects', array('name' => $name, 'description' => $description,
             'price' => $price, 'attack' => $attack,
             'speed' => $speed, 'defense' => $defense,
+            'attackMag' => $attackMag,
             'addLife' => $addLife, 'addHaki' => $addHaki,
             'rarity' => $rarity, 'id_objects_types' => $type, 'is_block' => $is_block));
     }

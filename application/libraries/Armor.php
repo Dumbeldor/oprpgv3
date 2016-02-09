@@ -6,10 +6,14 @@ class Armor {
         $name,
         $attack,
         $speed,
-        $defense;
+        $defense,
+        $attackMag;
+
 
     public function __construct(){
         $this->CI =& get_instance();
+        $this->CI->load->model('game/armor_model');
+        $this->hydrate($this->CI->armor_model->hydrate());
     }
 
     public function hydrate(array $donnees)
@@ -102,5 +106,13 @@ class Armor {
     public function setDefense($defense)
     {
         $this->defense = $defense;
+    }
+    public function getAttackMag()
+    {
+        return $this->attackMag;
+    }
+    public function setAttackMag($attackMag)
+    {
+        $this->attackMag = $attackMag;
     }
 }

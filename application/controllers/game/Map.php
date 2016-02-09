@@ -23,6 +23,7 @@ class Map extends MY_Game {
 	}
     
     public function index() {
+        echo $this->character->getAttack();
         $data['title'] = 'Map';
         $data['map'] = $this->map_model->getMap();
 		$data['maps'] = $this->map_model->getMaps();

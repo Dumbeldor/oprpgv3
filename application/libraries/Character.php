@@ -16,6 +16,8 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Character
 {
     protected $id,
+              $life,
+              $energies,
               $inIsland,
               $inFight,
               $idIsland,
@@ -26,6 +28,10 @@ class Character
               $strength,
               $speed,
               $endurance,
+              $agility,
+              $energy,
+              $intelligence,
+              $resistance,
               $weapon,
 			  $armor,
               $x,
@@ -34,6 +40,7 @@ class Character
               $yMapsIsland,
               $moveCase = 1, //Prévu pour plus tard ;)
 			  $vision = 5;
+
               
     public function __construct(){
 		$this->CI =& get_instance();
@@ -72,9 +79,30 @@ class Character
             return $this->yMapsIsland + $this->vision;
 		return $this->y + $this->vision;
 	}
+    public function getStatRemaining(){
+        return ($this->lvl * 4) - ($this->vitality + $this->strength + $this->speed + $this->endurance + $this->agility + $this->energy + $this->intelligence + $this->resistance);
+    }
 
     public function getMaxLife(){
         return ($this->vitality * 5) + 10;
+    }
+    public function getMaxEnergy() {
+        return ($this->energy * 5) + 10;
+    }
+    public function getAttack() {
+        $this->CI->load->library('weapon');
+        $this->CI->load->library('armor');
+        return round(($this->CI->weapon->getAttack() + $this->CI->armor->getAttack()) * ($this->strength + 3)/4);
+    }
+    public function getDefense(){
+        $this->CI->load->library('armor');
+        $this->CI->load->library('weapon');
+        return round(($this->CI->armor->getDefense() + $this->CI->weapon->getDefense()) * ($this->resistance + 3)/4);
+    }
+    public function getAttackMag(){
+        $this->CI->load->library('armor');
+        $this->CI->load->library('weapon');
+        return round(($this->CI->armor->getAttackMag() + $this->CI->weapon->getAttackMag()) * ($this->intelligence + 3)/4);
     }
 	
 	/*
@@ -89,6 +117,13 @@ class Character
 	{
 		return $this->CI->session->userdata('characterId');
 	}
+    public function getLife()
+    {
+        return $this->life;
+    }
+    public function getEnergies() {
+        return $this->energies;
+    }
     public function getPositionCity() {
         return $this->positionCity;
     }
@@ -147,11 +182,47 @@ class Character
     public function getIdIsland() {
         return $this->idIsland;
     }
+    public function getInFight()
+    {
+        return $this->inFight;
+    }
+    public function getAgility()
+    {
+        return $this->agility;
+    }
+    public function getEnergy()
+    {
+        return $this->energy;
+    }
+    public function getIntelligence()
+    {
+        return $this->intelligence;
+    }
+    public function getResistance()
+    {
+        return $this->resistance;
+    }
     
     
     public function setId($id){
 		$this->CI->session->set_userdata('characterId', $id);
 	}
+    public function setLife($life) {
+        if($life >= $this->getMaxLife())
+            $this->life = $this->getMaxLife();
+        else if($life <= 0)
+            $this->life = 0;
+        else
+            $this->life = $life;
+    }
+    public function setEnergies($energie) {
+        if($energie >= $this->getMaxEnergy())
+            $this->energies = $this->getMaxEnergy();
+        else if($energie <= 0)
+            $this->energies = 0;
+        else
+            $this->energies = $energie;
+    }
     public function setPositionCity($position){
         $this->positionCity = $position;
     }
@@ -200,6 +271,24 @@ class Character
     public function setYMapsIsland($yMapsIsland){
         $this->yMapsIsland = $yMapsIsland;
     }
-    
-    
+    public function setInFight($inFight)
+    {
+        $this->inFight = $inFight;
+    }
+    public function setAgility($agility)
+    {
+        $this->agility = $agility;
+    }
+    public function setEnergy($energy)
+    {
+        $this->energy = $energy;
+    }
+    public function setIntelligence($intelligence)
+    {
+        $this->intelligence = $intelligence;
+    }
+    public function setResistance($resistance)
+    {
+        $this->resistance = $resistance;
+    }
 }

@@ -10,6 +10,7 @@
     echo '<strong>Attaque :</strong>'.form_input(array('type'=>'number', 'value' => $object['attack'], 'name' => 'attack')).'<br>';
     echo '<strong>Vitesse :</strong>'.form_input(array('type'=>'number', 'value' => $object['speed'], 'name' => 'speed')).'<br>';
     echo '<strong>Défense :</strong>'.form_input(array('type'=>'number', 'value' => $object['defense'], 'name' => 'defense')).'<br>';
+    echo '<strong>Attaque magique :</strong>'.form_input(array('type'=>'number', 'value' => 1, 'name' => 'attackMag')).'<br>';
     echo '<strong>Ajout en vie (potion) :</strong>'.form_input(array('type'=>'number', 'value' => $object['addLife'], 'name' => 'addLife')).'<br>';
     echo '<strong>Ajout Haki (potion) :</strong>'.form_input(array('type'=>'number', 'value' => $object['addHaki'], 'name' => 'addHaki')).'<br>';
     echo '<strong>Rareté (Entre 1 et 7) :</strong>'.form_input(array('type'=>'number', 'value' => $object['rarity'], 'name' => 'rarity')).'<br>';

@@ -36,6 +36,9 @@
     <?php }
     else if($map['type'] == 3) { //PORT?>
         <a href="<?= base_url('game/map/leaveIsland')?>">Sortir de l'ile</a>
+    <?php }
+    else if($map['type'] == 4) { //Entrainement?>
+        <a href="<?= base_url('game/training/')?>">Entrer dans la salle d'entrainement</a>
     <?php } ?>
 
     <div id="zoneMap" style="position: relative">

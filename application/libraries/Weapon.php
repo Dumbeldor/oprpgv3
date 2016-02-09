@@ -6,10 +6,13 @@ class Weapon {
             $name,
             $attack = 5,
             $speed,
-            $defense;
+            $defense,
+            $attackMag;
 
     public function __construct(){
         $this->CI =& get_instance();
+        $this->CI->load->model('game/weapon_model');
+        $this->hydrate($this->CI->weapon_model->hydrate());
     }
 
     public function hydrate(array $donnees)
@@ -61,7 +64,7 @@ class Weapon {
      */
     public function getAttack()
     {
-        return $this->attack * ($this->CI->character->getStrength() + 3)/3;
+        return $this->attack;
     }
 
     /**
@@ -102,6 +105,14 @@ class Weapon {
     public function setDefense($defense)
     {
         $this->defense = $defense;
+    }
+    public function getAttackMag()
+    {
+        return $this->attackMag;
+    }
+    public function setAttackMag($attackMag)
+    {
+        $this->attackMag = $attackMag;
     }
 
 }
