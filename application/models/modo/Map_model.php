@@ -93,4 +93,9 @@ class Map_model extends CI_Model {
 			return true;
 		return false;
 	}
+
+	public function getTypeIdName() {
+		$query = $this->db->query("SELECT id, name FROM types_maps");
+		return $query->result_array();
+	}
 }

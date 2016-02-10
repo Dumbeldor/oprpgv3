@@ -23,21 +23,21 @@
     <img src="<?= base_url('assets/img/maps/' . $map['id'] . '.png'); ?>" alt="aa" title="test"></img>
     <br><br>
 
-    <?php if($map['type'] == 1) { //In island ?>
+    <?php if($map['type'] == 2) { //In island ?>
         <a href="<?= base_url('game/map/fight/') ?>">Combattre</a><br>
         <a href="<?= base_url('game/map/search/') ?>">Fouiller</a>
     <?php }
-    else if($map['type'] == 0) { //In ocean ?>
+    else if($map['type'] == 1) { //In ocean ?>
         <a href="<?= base_url('game/map/fight/') ?>">Combattre</a><br>
         <a href="<?= base_url('game/map/search/') ?>">Pecher</a>
     <?php }
-    else if($map['type'] == 2) { //In ocean and in case island?>
+    else if($map['type'] == 3) { //In ocean and in case island?>
         <a href="<?= base_url('game/map/enterCity') ?>">Rentrer sur l'ile</a><br>
     <?php }
-    else if($map['type'] == 3) { //PORT?>
+    else if($map['type'] == 4) { //PORT?>
         <a href="<?= base_url('game/map/leaveIsland')?>">Sortir de l'ile</a>
     <?php }
-    else if($map['type'] == 4) { //Entrainement?>
+    else if($map['type'] == 5) { //Entrainement?>
         <a href="<?= base_url('game/training/')?>">Entrer dans la salle d'entrainement</a>
     <?php } ?>
 

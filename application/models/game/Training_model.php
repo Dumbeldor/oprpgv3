@@ -16,4 +16,19 @@ class Training_model extends CI_Model
         }
         return false;
     }
+
+    public function reset() {
+        $prime = $this->character->getStat()*5;
+        $this->db->where('id', $this->character->getId())
+                ->set('berry', "berry-($prime*5)", false)
+                ->set('vitality', 0)
+            ->set('strength', 0)
+            ->set('speed', 0)
+            ->set('endurance', 0)
+            ->set('agility', 0)
+            ->set('energy', 0)
+            ->set('intelligence', 0)
+            ->set('resistance', 0)
+            ->update('charactere');
+    }
 }

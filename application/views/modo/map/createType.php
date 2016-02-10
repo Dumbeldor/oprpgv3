@@ -19,11 +19,11 @@
         echo $monster['name'].' lvl '.$monster['lvl'].' '.form_checkbox(array('name' => 'objects[]', 'value' => $monster['id']))."<br>";
     }
 
-    echo "<strong>Emplacement map</strong><br>";
+    echo "<strong>Type de map (Va modifier le comportement de la case)</strong><br>";
     echo '<select name="island">';
-        echo '<option value="0">Map océan</option>
-               <option value="1">Sur une map d\'ile</option>
-               <option value="2">Sur map océan mais pour indiquer que c\'est une ile</option>';
+        foreach($types AS $type) {
+            echo '<option value="'.$type['id'].'">'.$type['name'].'</option>';
+        }
     echo '</select>';
 
     echo "<strong>Si c'est une ile choisir l'ile :</strong><br>";

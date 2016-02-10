@@ -3,6 +3,14 @@ class Map_model extends CI_Model {
     public function __construct() {
         $this->load->database();
     }
+
+    public function getType(){
+        $query = $this->db->query("SELECT type FROM maps_island mi
+                                  JOIN maps_types mt ON mi.id_maps_types = mt.id
+                                  WHERE mi.id = ? AND x = ? AND y = ?",
+                                  array($this->character->getIdIsland(), $this->character->getXMapsIsland(), $this->character->getYMapsIsland()));
+        return $query->result_array()[0]['type'];
+    }
     
     public function getMap(){
         if(!$this->character->inIsland()) {

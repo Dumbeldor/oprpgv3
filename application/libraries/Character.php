@@ -79,8 +79,11 @@ class Character
             return $this->yMapsIsland + $this->vision;
 		return $this->y + $this->vision;
 	}
+    public function getStat(){
+        return ($this->lvl * 4);
+    }
     public function getStatRemaining(){
-        return ($this->lvl * 4) - ($this->vitality + $this->strength + $this->speed + $this->endurance + $this->agility + $this->energy + $this->intelligence + $this->resistance);
+        return $this->getStat() - ($this->vitality + $this->strength + $this->speed + $this->endurance + $this->agility + $this->energy + $this->intelligence + $this->resistance);
     }
 
     public function getMaxLife(){

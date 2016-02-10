@@ -12,5 +12,5 @@
     Energie : <?= $this->character->getEnergy()?> <a href="<?= base_url('game/training/add/energy')?>">+1</a> <a href="<?= base_url('game/training/add/energy/2')?>">+2</a><br>
     Résistance : <?= $this->character->getResistance();?> <a href="<?= base_url('game/training/add/resistance')?>">+1</a> <a href="<?= base_url('game/training/add/resistance/2')?>">+2</a><br>
 
-    <a href="<?= base_url('game/map/')?>">Retour</a>
+    <a href="<?= base_url('game/training')?>">Retour</a>
 </div>

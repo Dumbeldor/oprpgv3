@@ -45,6 +45,7 @@ class Map extends MY_Controller {
             $data['objects'] = $this->object_model->getObjectsIdName();
             $data['monsters'] = $this->monster_model->getMonstersIdNameLvl();
             $data['islands'] = $this->island_model->getIslandsIdName();
+            $data['types'] = $this->map_model->getTypeIdName();
             $this->construct_page('modo/map/createType.php', $data);
         }
         else {
