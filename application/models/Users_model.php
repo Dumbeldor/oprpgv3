@@ -100,12 +100,15 @@ class Users_model extends CI_Model {
 	
 	$data = array(
 	  'position_city' => 1,
-	  'in_city' => 1,
+	  'in_island' => 1,
 	  'lvl' => 1,
 	  'berry' => $berry,
 	  'id_objects' => 1,
 	  'x' => 1,
 	  'y' => 1,
+		'x_maps_island'=>0,
+		'y_maps_island'=>0,
+		'id_maps_island' => 2,
 	  'id_objects_1' => 2
 	);
 	$this->db->insert('charactere', $data);
@@ -118,7 +121,7 @@ class Users_model extends CI_Model {
 	  $this->db->insert('bags_objects', array('id_bags' => $idBag, 'id_objects' => 3));
 
 	  $data = array(
-		  'id' => $idBag,
+		  'id_bags' => $idBag,
 		  'id_charactere' => $idCharactere
 	  );
 	  $this->db->insert('charactere_bags', $data);

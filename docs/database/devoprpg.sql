@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Dim 07 Février 2016 à 23:25
+-- Généré le :  Ven 12 Février 2016 à 00:49
 -- Version du serveur :  5.6.26
 -- Version de PHP :  5.6.12
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `bags` (
   `id` int(11) NOT NULL,
   `id_bags_types` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `bags`
@@ -38,7 +38,10 @@ CREATE TABLE IF NOT EXISTS `bags` (
 INSERT INTO `bags` (`id`, `id_bags_types`) VALUES
 (1, 1),
 (2, 1),
-(3, 1);
+(3, 1),
+(4, 1),
+(5, 1),
+(6, 1);
 
 -- --------------------------------------------------------
 
@@ -50,27 +53,18 @@ CREATE TABLE IF NOT EXISTS `bags_objects` (
   `id` int(11) NOT NULL,
   `id_bags` int(11) NOT NULL,
   `id_objects` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `bags_objects`
 --
 
 INSERT INTO `bags_objects` (`id`, `id_bags`, `id_objects`) VALUES
-(1, 1, 1),
-(2, 1, 1),
-(3, 1, 1),
-(4, 1, 2),
-(5, 1, 2),
-(6, 1, 1),
-(7, 1, 1),
-(8, 1, 1),
-(9, 1, 1),
-(10, 1, 2),
-(11, 1, 1),
-(12, 1, 1),
-(13, 2, 3),
-(14, 3, 3);
+(80, 1, 2),
+(81, 1, 2),
+(82, 1, 2),
+(95, 5, 3),
+(96, 6, 3);
 
 -- --------------------------------------------------------
 
@@ -91,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `bags_types` (
 --
 
 INSERT INTO `bags_types` (`id`, `name`, `size`, `file`, `is_block`) VALUES
-(1, 'Sac en paille', 12, 'test', 0);
+(1, 'Sac en paille', 5, 'test', 0);
 
 -- --------------------------------------------------------
 
@@ -172,18 +166,18 @@ CREATE TABLE IF NOT EXISTS `captcha` (
   `code` varchar(10) NOT NULL,
   `session_id` varchar(50) NOT NULL,
   `time` bigint(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=1654 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1659 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `captcha`
 --
 
 INSERT INTO `captcha` (`id`, `code`, `session_id`, `time`) VALUES
-(1649, '4393522', '825f066ae72830c2ae567c40176719c5af55230c', 1454370715),
-(1650, '4867718', '825f066ae72830c2ae567c40176719c5af55230c', 1454370792),
-(1651, '8698673', '825f066ae72830c2ae567c40176719c5af55230c', 1454370849),
-(1652, '3663854', '825f066ae72830c2ae567c40176719c5af55230c', 1454370869),
-(1653, '7372228', '343886bfb8ee54ceffcedb8dcdd560ecd40498d6', 1454370950);
+(1654, '2238824', '5fa9e636faf7539ad3da6d3f7d840e946a452029', 1455234135),
+(1655, '8423734', '5fa9e636faf7539ad3da6d3f7d840e946a452029', 1455234297),
+(1656, '1565435', '5fa9e636faf7539ad3da6d3f7d840e946a452029', 1455234327),
+(1657, '6657152', '5fa9e636faf7539ad3da6d3f7d840e946a452029', 1455234365),
+(1658, '9914222', '5fa9e636faf7539ad3da6d3f7d840e946a452029', 1455234406);
 
 -- --------------------------------------------------------
 
@@ -193,11 +187,22 @@ INSERT INTO `captcha` (`id`, `code`, `session_id`, `time`) VALUES
 
 CREATE TABLE IF NOT EXISTS `charactere` (
   `id` int(11) NOT NULL,
+  `life` int(11) NOT NULL,
+  `energies` int(11) NOT NULL,
   `position_city` int(11) DEFAULT NULL,
   `in_island` tinyint(1) NOT NULL DEFAULT '1',
+  `in_fight` tinyint(1) NOT NULL,
   `lvl` int(11) DEFAULT NULL,
   `berry` int(11) DEFAULT NULL,
   `avatar` text,
+  `vitality` int(11) NOT NULL,
+  `strength` int(11) NOT NULL,
+  `speed` int(11) NOT NULL,
+  `endurance` int(11) NOT NULL,
+  `agility` int(11) NOT NULL,
+  `energy` int(11) NOT NULL,
+  `intelligence` int(11) NOT NULL,
+  `resistance` int(11) NOT NULL,
   `id_objects` int(11) NOT NULL,
   `x` int(11) DEFAULT NULL,
   `y` int(11) DEFAULT NULL,
@@ -205,16 +210,18 @@ CREATE TABLE IF NOT EXISTS `charactere` (
   `id_maps_island` int(11) DEFAULT NULL,
   `x_maps_island` int(11) DEFAULT NULL,
   `y_maps_island` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `charactere`
 --
 
-INSERT INTO `charactere` (`id`, `position_city`, `in_island`, `lvl`, `berry`, `avatar`, `id_objects`, `x`, `y`, `id_objects_1`, `id_maps_island`, `x_maps_island`, `y_maps_island`) VALUES
-(11, 1, 1, 1, 1100, 'a:5:{s:4:"sexe";s:5:"Homme";s:4:"body";s:33:"assets/img/avatars/man/body/2.png";s:4:"eyes";s:34:"assets/img/avatars/man/eyes/11.png";s:6:"mouths";s:31:"assets/img/avatars/mouths/5.png";s:4:"hair";s:40:"assets/img/avatars/man/hair/blanc/27.png";}', 1, 4, 2, 2, 2, 1, 1),
-(12, 1, 1, 1, 1100, NULL, 1, 1, 1, 2, NULL, NULL, NULL),
-(13, 1, 1, 1, 1100, 'a:5:{s:4:"sexe";s:5:"Homme";s:4:"body";s:33:"assets/img/avatars/man/body/2.png";s:4:"eyes";s:33:"assets/img/avatars/man/eyes/1.png";s:6:"mouths";s:31:"assets/img/avatars/mouths/2.png";s:4:"hair";s:38:"assets/img/avatars/man/hair/noir/1.png";}', 1, 1, 1, 2, NULL, NULL, NULL);
+INSERT INTO `charactere` (`id`, `life`, `energies`, `position_city`, `in_island`, `in_fight`, `lvl`, `berry`, `avatar`, `vitality`, `strength`, `speed`, `endurance`, `agility`, `energy`, `intelligence`, `resistance`, `id_objects`, `x`, `y`, `id_objects_1`, `id_maps_island`, `x_maps_island`, `y_maps_island`) VALUES
+(11, 410, 160, 1, 1, 0, 100, 50, 'a:5:{s:4:"sexe";s:5:"Homme";s:4:"body";s:33:"assets/img/avatars/man/body/2.png";s:4:"eyes";s:34:"assets/img/avatars/man/eyes/11.png";s:6:"mouths";s:31:"assets/img/avatars/mouths/5.png";s:4:"hair";s:40:"assets/img/avatars/man/hair/blanc/27.png";}', 80, 26, 12, 18, 10, 90, 114, 50, 1, 4, 2, 2, 2, 8, 1),
+(12, 0, 0, 1, 1, 0, 1, 1100, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, NULL, NULL, NULL),
+(13, 0, 0, 1, 1, 0, 1, 1100, 'a:5:{s:4:"sexe";s:5:"Homme";s:4:"body";s:33:"assets/img/avatars/man/body/2.png";s:4:"eyes";s:33:"assets/img/avatars/man/eyes/1.png";s:6:"mouths";s:31:"assets/img/avatars/mouths/2.png";s:4:"hair";s:38:"assets/img/avatars/man/hair/noir/1.png";}', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, NULL, NULL, NULL),
+(15, 0, 0, 1, 1, 0, 1, 100, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 2, NULL, NULL),
+(16, 0, 0, 1, 1, 0, 1, 100, 'a:5:{s:4:"sexe";s:5:"Homme";s:4:"body";s:33:"assets/img/avatars/man/body/2.png";s:4:"eyes";s:33:"assets/img/avatars/man/eyes/2.png";s:6:"mouths";s:31:"assets/img/avatars/mouths/1.png";s:4:"hair";s:38:"assets/img/avatars/man/hair/noir/2.png";}', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -224,16 +231,19 @@ INSERT INTO `charactere` (`id`, `position_city`, `in_island`, `lvl`, `berry`, `a
 
 CREATE TABLE IF NOT EXISTS `charactere_bags` (
   `id` int(11) NOT NULL,
+  `id_bags` int(11) NOT NULL,
   `id_charactere` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `charactere_bags`
 --
 
-INSERT INTO `charactere_bags` (`id`, `id_charactere`) VALUES
-(1, 11),
-(3, 13);
+INSERT INTO `charactere_bags` (`id`, `id_bags`, `id_charactere`) VALUES
+(1, 1, 11),
+(3, 4, 11),
+(2, 3, 13),
+(4, 6, 16);
 
 -- --------------------------------------------------------
 
@@ -245,6 +255,24 @@ CREATE TABLE IF NOT EXISTS `character_jobs` (
   `id` int(11) NOT NULL,
   `id_charactere` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `character_tech`
+--
+
+CREATE TABLE IF NOT EXISTS `character_tech` (
+  `id` int(11) NOT NULL,
+  `id_tech` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `character_tech`
+--
+
+INSERT INTO `character_tech` (`id`, `id_tech`) VALUES
+(11, 2);
 
 -- --------------------------------------------------------
 
@@ -756,7 +784,7 @@ INSERT INTO `maps` (`x`, `y`, `id`, `id_island`) VALUES
 CREATE TABLE IF NOT EXISTS `maps_island` (
   `x` int(11) NOT NULL,
   `y` int(11) NOT NULL,
-  `id` int(11) DEFAULT NULL,
+  `id` int(11) NOT NULL DEFAULT '0',
   `id_maps_types` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -765,44 +793,51 @@ CREATE TABLE IF NOT EXISTS `maps_island` (
 --
 
 INSERT INTO `maps_island` (`x`, `y`, `id`, `id_maps_types`) VALUES
-(0, 0, 2, 4),
-(0, 1, 2, 4),
-(0, 2, 2, 4),
-(0, 3, 2, 3),
-(0, 4, 2, 4),
-(0, 5, 2, 4),
 (1, 0, 2, 1),
 (1, 1, 2, 1),
 (1, 2, 2, 1),
-(1, 3, 2, 3),
-(1, 4, 2, 4),
-(1, 5, 2, 4),
 (2, 0, 2, 1),
 (2, 1, 2, 1),
 (2, 2, 2, 1),
-(2, 3, 2, 3),
-(2, 4, 2, 4),
-(2, 5, 2, 4),
 (3, 0, 2, 1),
+(4, 0, 2, 1),
+(5, 0, 2, 1),
+(5, 1, 2, 1),
+(6, 0, 2, 1),
+(6, 2, 2, 1),
+(7, 0, 2, 1),
+(8, 0, 2, 1),
 (3, 1, 2, 2),
 (3, 2, 2, 2),
-(3, 3, 2, 3),
-(3, 4, 2, 4),
-(3, 5, 2, 4),
-(4, 0, 2, 1),
 (4, 1, 2, 2),
 (4, 2, 2, 2),
+(5, 2, 2, 2),
+(5, 3, 2, 2),
+(0, 3, 2, 3),
+(1, 3, 2, 3),
+(2, 3, 2, 3),
+(3, 3, 2, 3),
 (4, 3, 2, 3),
 (4, 4, 2, 3),
 (4, 5, 2, 3),
-(5, 0, 2, 1),
-(5, 1, 2, 1),
-(5, 2, 2, 2),
-(5, 3, 2, 2),
 (5, 4, 2, 3),
 (5, 5, 2, 3),
-(6, 0, 2, 1),
-(6, 2, 2, 1);
+(0, 1, 2, 4),
+(0, 2, 2, 4),
+(0, 4, 2, 4),
+(0, 5, 2, 4),
+(1, 4, 2, 4),
+(1, 5, 2, 4),
+(2, 4, 2, 4),
+(2, 5, 2, 4),
+(3, 4, 2, 4),
+(3, 5, 2, 4),
+(0, 0, 2, 7),
+(6, 1, 2, 8),
+(7, 1, 2, 9),
+(7, 2, 2, 9),
+(8, 1, 2, 10),
+(8, 2, 2, 11);
 
 -- --------------------------------------------------------
 
@@ -812,24 +847,29 @@ INSERT INTO `maps_island` (`x`, `y`, `id`, `id_maps_types`) VALUES
 
 CREATE TABLE IF NOT EXISTS `maps_types` (
   `id` int(11) NOT NULL,
-  `name` varchar(25) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
   `image` varchar(25) DEFAULT NULL,
   `lvl` int(11) DEFAULT NULL,
   `type` int(11) NOT NULL,
   `id_island` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `maps_types`
 --
 
 INSERT INTO `maps_types` (`id`, `name`, `image`, `lvl`, `type`, `id_island`) VALUES
-(1, 'plaine', NULL, 1, 1, NULL),
-(2, 'désert', NULL, 1, 1, NULL),
-(3, 'plage', NULL, 10, 1, NULL),
-(4, 'eau_peu_profonde', NULL, 10, 1, NULL),
-(5, 'ocean', NULL, 10, 0, NULL),
-(6, 'Ile marine', NULL, 1, 2, 2);
+(1, 'plaine', NULL, 1, 2, NULL),
+(2, 'désert', NULL, 1, 2, NULL),
+(3, 'plage', NULL, 10, 2, NULL),
+(4, 'eau_peu_profonde', NULL, 10, 2, NULL),
+(5, 'ocean', NULL, 10, 1, NULL),
+(6, 'Ile marine', NULL, 1, 3, 2),
+(7, 'Port', NULL, 1, 4, NULL),
+(8, 'Centre d''entrainement', NULL, 1, 5, NULL),
+(9, 'Magasin général', NULL, 1, 6, NULL),
+(10, 'Hopital', NULL, 1, 10, NULL),
+(11, 'Centre de perfectionnement', NULL, 1, 11, NULL);
 
 -- --------------------------------------------------------
 
@@ -870,10 +910,15 @@ CREATE TABLE IF NOT EXISTS `maps_types_objects` (
 INSERT INTO `maps_types_objects` (`id`, `id_objects`) VALUES
 (2, 1),
 (3, 1),
+(9, 1),
 (3, 2),
+(9, 2),
 (2, 3),
 (3, 3),
-(4, 3);
+(4, 3),
+(9, 3),
+(9, 4),
+(9, 5);
 
 -- --------------------------------------------------------
 
@@ -997,23 +1042,25 @@ CREATE TABLE IF NOT EXISTS `objects` (
   `attack` int(11) DEFAULT NULL,
   `speed` int(11) DEFAULT NULL,
   `defense` int(11) DEFAULT NULL,
+  `attackMag` int(11) NOT NULL,
   `addLife` int(11) DEFAULT NULL,
-  `addHaki` int(11) DEFAULT NULL,
+  `addEnergy` int(11) DEFAULT NULL,
   `rarity` int(11) DEFAULT NULL,
   `rate` int(11) NOT NULL DEFAULT '50',
   `is_block` tinyint(1) NOT NULL,
   `id_objects_types` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `objects`
 --
 
-INSERT INTO `objects` (`id`, `name`, `description`, `file`, `price`, `attack`, `speed`, `defense`, `addLife`, `addHaki`, `rarity`, `rate`, `is_block`, `id_objects_types`) VALUES
-(1, 'Épée en bois', 'Une simple épée en bois', '', 10, 5, 4, 1, 0, 0, 1, 86, 0, 1),
-(2, 'Armure en cuir', 'Une simple armure en cuire pour débutant', '', 10, 0, 2, 5, 0, 0, 1, 86, 0, 2),
-(3, 'Potion de vie débutant', 'une simple potion de vie pour débutant', '', 10, 0, 0, 0, 5, 0, 1, 20, 0, 3),
-(4, 'Potion de haki débutant', 'Une simple épée en bois', '', 10, 0, 0, 0, 0, 5, 1, 50, 0, 3);
+INSERT INTO `objects` (`id`, `name`, `description`, `file`, `price`, `attack`, `speed`, `defense`, `attackMag`, `addLife`, `addEnergy`, `rarity`, `rate`, `is_block`, `id_objects_types`) VALUES
+(1, 'Épée en bois', 'Une simple épée en bois', '', 10, 5, 4, 1, 0, 0, 0, 1, 86, 0, 1),
+(2, 'Armure en cuir', 'Une simple armure en cuire pour débutant', '', 10, 0, 2, 5, 0, 0, 0, 1, 86, 0, 2),
+(3, 'Potion de vie débutant', 'une simple potion de vie pour débutant', '', 10, 0, 0, 0, 0, 5, 0, 1, 20, 0, 3),
+(4, 'Potion de haki débutant', 'Une simple potion de haki pour débutant', '', 10, 0, 0, 0, 0, 0, 5, 1, 50, 0, 3),
+(5, 'Bâton', 'Un simple bâton en bois, utile pour les apprentis médecin.', '', 15, 4, 2, 5, 5, 0, 0, 1, 50, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -1169,8 +1216,23 @@ CREATE TABLE IF NOT EXISTS `tchats_types` (
 CREATE TABLE IF NOT EXISTS `tech` (
   `id` int(11) NOT NULL,
   `name` varchar(25) DEFAULT NULL,
+  `descr` varchar(255) NOT NULL,
+  `lvl` int(5) NOT NULL,
+  `price` int(10) NOT NULL,
+  `energy` int(5) NOT NULL,
+  `adding` int(5) NOT NULL,
+  `is_block` tinyint(1) NOT NULL,
   `id_tech_types` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `tech`
+--
+
+INSERT INTO `tech` (`id`, `name`, `descr`, `lvl`, `price`, `energy`, `adding`, `is_block`, `id_tech_types`) VALUES
+(1, 'ZiziCoptère', 'Vous prenez votre envole pour ensuite atterrire derrière votre ennemis.', 1, 150, 12, 10, 0, 1),
+(2, 'Bandage express', 'Un bandage express pour soigner les premiers hématome ', 1, 150, 15, 10, 0, 3),
+(3, 'Double puntch', 'Vous enchaînez rapidement 2 coup de poing bien placé', 1, 175, 14, 15, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -1203,7 +1265,16 @@ CREATE TABLE IF NOT EXISTS `tech_monster` (
 CREATE TABLE IF NOT EXISTS `tech_types` (
   `id` int(11) NOT NULL,
   `name` varchar(25) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `tech_types`
+--
+
+INSERT INTO `tech_types` (`id`, `name`) VALUES
+(1, 'physique'),
+(2, 'magique'),
+(3, 'soin');
 
 -- --------------------------------------------------------
 
@@ -1245,6 +1316,34 @@ CREATE TABLE IF NOT EXISTS `tickets_sujets` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `types_maps`
+--
+
+CREATE TABLE IF NOT EXISTS `types_maps` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `types_maps`
+--
+
+INSERT INTO `types_maps` (`id`, `name`) VALUES
+(1, 'Map Océan'),
+(2, 'Sur île'),
+(3, 'Ile sur océan'),
+(4, 'Port'),
+(5, 'Centre d''entrainement'),
+(6, 'Magasin'),
+(7, 'Magasin d''arme'),
+(8, 'Magasin d''armure'),
+(9, 'Magasin objet'),
+(10, 'hopital'),
+(11, 'salle perfectionnement');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `users`
 --
 
@@ -1267,16 +1366,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id_charactere` int(11) DEFAULT NULL,
   `id_crews_candidacy` int(11) DEFAULT NULL,
   `id_faction` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `users`
 --
 
 INSERT INTO `users` (`id`, `ban`, `pseudo`, `email`, `birthday`, `sexe`, `password`, `registration`, `last_action`, `ip`, `is_kick`, `messNumber`, `popularity`, `id_users_types`, `id_lost_pass`, `id_charactere`, `id_crews_candidacy`, `id_faction`) VALUES
-(5, 0, 'Dumbeldor', 'vincent.glize@live.fr', '0000-00-00', NULL, '$2y$10$YndPoTqiK4lEPrGHIpsdze.tlJ4LLAOQJCSgBLv7eJpu93p3IbiOm', 1453225764, 1454883886, '::1', 0, NULL, NULL, 24, NULL, 11, NULL, 2),
-(13, 0, 'Pandaman', 'pandaman@pandaman.panda', '2016-01-06', 0, '$2y$10$YndPoTqiK4lEPrGHIpsdze.tlJ4LLAOQJCSgBLv7eJpu93p3IbiOm', 1453225764, 1453225764, '0000000000', 0, 0, 0, 2, NULL, NULL, NULL, 1),
-(14, 0, 'testdfgf', 'test123test@test.frfg', '0000-00-00', NULL, '$2y$10$0H2iY9.fYqiQOPFLJ27ECe8wYDG/amIWIfwCYrEOlG7GVG2MqQBhS', 1454370869, 1454370949, '::1', 0, NULL, NULL, 1, NULL, 13, NULL, 2);
+(5, 0, 'Dumbeldor', 'vincent.glize@live.fr', '0000-00-00', NULL, '$2y$10$YndPoTqiK4lEPrGHIpsdze.tlJ4LLAOQJCSgBLv7eJpu93p3IbiOm', 1453225764, 1455234134, '::1', 0, NULL, NULL, 24, NULL, 11, NULL, 2),
+(13, 0, 'Pandaman', 'pandaman@pandaman.panda', '2016-01-06', 0, '$2y$10$YndPoTqiK4lEPrGHIpsdze.tlJ4LLAOQJCSgBLv7eJpu93p3IbiOm', 1453225764, 1453225764, '0000000000', 0, 0, 0, 2, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -1391,8 +1489,9 @@ ALTER TABLE `charactere`
 -- Index pour la table `charactere_bags`
 --
 ALTER TABLE `charactere_bags`
-  ADD PRIMARY KEY (`id`,`id_charactere`),
-  ADD KEY `FK_users_bag_id_charactere` (`id_charactere`);
+  ADD PRIMARY KEY (`id`,`id_bags`,`id_charactere`),
+  ADD KEY `FK_users_bag_id_charactere` (`id_charactere`),
+  ADD KEY `FK_users_bag_id_bags` (`id_bags`);
 
 --
 -- Index pour la table `character_jobs`
@@ -1400,6 +1499,13 @@ ALTER TABLE `charactere_bags`
 ALTER TABLE `character_jobs`
   ADD PRIMARY KEY (`id`,`id_charactere`),
   ADD KEY `FK_character_jobs_id_charactere` (`id_charactere`);
+
+--
+-- Index pour la table `character_tech`
+--
+ALTER TABLE `character_tech`
+  ADD PRIMARY KEY (`id_tech`,`id`),
+  ADD KEY `FK_id_charactere` (`id`);
 
 --
 -- Index pour la table `chests`
@@ -1571,7 +1677,7 @@ ALTER TABLE `maps`
 -- Index pour la table `maps_island`
 --
 ALTER TABLE `maps_island`
-  ADD PRIMARY KEY (`x`,`y`, `id`),
+  ADD PRIMARY KEY (`x`,`y`,`id`),
   ADD KEY `FK_maps_island_id` (`id`),
   ADD KEY `FK_maps_island_id_maps_typess` (`id_maps_types`);
 
@@ -1742,6 +1848,12 @@ ALTER TABLE `tickets_sujets`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `types_maps`
+--
+ALTER TABLE `types_maps`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `users`
 --
 ALTER TABLE `users`
@@ -1766,12 +1878,12 @@ ALTER TABLE `users_types`
 -- AUTO_INCREMENT pour la table `bags`
 --
 ALTER TABLE `bags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT pour la table `bags_objects`
 --
 ALTER TABLE `bags_objects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=97;
 --
 -- AUTO_INCREMENT pour la table `bags_types`
 --
@@ -1796,12 +1908,17 @@ ALTER TABLE `cages_types`
 -- AUTO_INCREMENT pour la table `captcha`
 --
 ALTER TABLE `captcha`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1654;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1659;
 --
 -- AUTO_INCREMENT pour la table `charactere`
 --
 ALTER TABLE `charactere`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT pour la table `charactere_bags`
+--
+ALTER TABLE `charactere_bags`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pour la table `chests`
 --
@@ -1896,7 +2013,7 @@ ALTER TABLE `lost_pass`
 -- AUTO_INCREMENT pour la table `maps_types`
 --
 ALTER TABLE `maps_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT pour la table `monster`
 --
@@ -1916,7 +2033,7 @@ ALTER TABLE `news_comments`
 -- AUTO_INCREMENT pour la table `objects`
 --
 ALTER TABLE `objects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pour la table `objects_types`
 --
@@ -1956,7 +2073,7 @@ ALTER TABLE `tchats_types`
 -- AUTO_INCREMENT pour la table `tech`
 --
 ALTER TABLE `tech`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `tech_monster`
 --
@@ -1966,7 +2083,7 @@ ALTER TABLE `tech_monster`
 -- AUTO_INCREMENT pour la table `tech_types`
 --
 ALTER TABLE `tech_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `test`
 --
@@ -1983,10 +2100,15 @@ ALTER TABLE `tickets_messages`
 ALTER TABLE `tickets_sujets`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT pour la table `types_maps`
+--
+ALTER TABLE `types_maps`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+--
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT pour la table `users_types`
 --
@@ -2043,7 +2165,7 @@ ALTER TABLE `charactere`
 -- Contraintes pour la table `charactere_bags`
 --
 ALTER TABLE `charactere_bags`
-  ADD CONSTRAINT `FK_users_bag_id` FOREIGN KEY (`id`) REFERENCES `bags` (`id`),
+  ADD CONSTRAINT `FK_users_bag_id_bags` FOREIGN KEY (`id_bags`) REFERENCES `bags` (`id`),
   ADD CONSTRAINT `FK_users_bag_id_charactere` FOREIGN KEY (`id_charactere`) REFERENCES `charactere` (`id`);
 
 --
@@ -2052,6 +2174,13 @@ ALTER TABLE `charactere_bags`
 ALTER TABLE `character_jobs`
   ADD CONSTRAINT `FK_character_jobs_id` FOREIGN KEY (`id`) REFERENCES `jobs` (`id`),
   ADD CONSTRAINT `FK_character_jobs_id_charactere` FOREIGN KEY (`id_charactere`) REFERENCES `charactere` (`id`);
+
+--
+-- Contraintes pour la table `character_tech`
+--
+ALTER TABLE `character_tech`
+  ADD CONSTRAINT `FK_id_charactere` FOREIGN KEY (`id`) REFERENCES `charactere` (`id`),
+  ADD CONSTRAINT `FK_id_tech` FOREIGN KEY (`id_tech`) REFERENCES `tech` (`id`);
 
 --
 -- Contraintes pour la table `chests`

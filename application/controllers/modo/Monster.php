@@ -52,7 +52,7 @@ class Monster extends MY_Controller
 
             $data['title'] = "Ajout d'un monstre";
             $data['objects'] = $this->object_model->getObjects();
-            $data['techs'] = $this->monster_model->getTechs();
+            $data['techs'] = $this->tech_model->getTechsIdNameLvl();
             $data['mapsTypes'] = $this->tech_model->getTypes();
             $this->construct_page('modo/monster/add', $data);
         }
