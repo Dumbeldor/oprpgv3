@@ -39,6 +39,9 @@
     <?php }
     else if($map['type'] == 5) { //Entrainement?>
         <a href="<?= base_url('game/training/')?>">Entrer dans la salle d'entrainement</a>
+    <?php }
+    else if($map['type'] == 6) { //Shop ?>
+        <a href="<?= base_url('game/shop/')?>">Entrer dans le magasin</a>
     <?php } ?>
 
     <div id="zoneMap" style="position: relative">

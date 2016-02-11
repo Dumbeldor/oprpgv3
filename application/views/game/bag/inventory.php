@@ -18,6 +18,7 @@
         }
         else if($item['type'] == "potion"){
             echo "Vie redonnée : ".$item['addLife'].'<br>';
+            echo "Energie redonnée : ".$item['addEnergy'].'<br>';
             ?><a href="<?= base_url('game/object/use/'.$item['id'])?>">Utiliser</a>
             
             <?php

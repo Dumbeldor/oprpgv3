@@ -12,7 +12,7 @@
     echo '<strong>Défense :</strong>'.form_input(array('type'=>'number', 'value' => 1, 'name' => 'defense')).'<br>';
     echo '<strong>Attaque magique :</strong>'.form_input(array('type'=>'number', 'value' => 1, 'name' => 'attackMag')).'<br>';
     echo '<strong>Ajout en vie (potion) :</strong>'.form_input(array('type'=>'number', 'value' => 1, 'name' => 'addLife')).'<br>';
-    echo '<strong>Ajout Haki (potion) :</strong>'.form_input(array('type'=>'number', 'value' => 1, 'name' => 'addHaki')).'<br>';
+    echo '<strong>Ajout Energie (potion) :</strong>'.form_input(array('type'=>'number', 'value' => 1, 'name' => 'addEnergy')).'<br>';
     echo '<strong>Rareté (Entre 1 et 7) :</strong>'.form_input(array('type'=>'number', 'value' => 1, 'name' => 'rarity')).'<br>';
     echo '<strong>Image (.PNG):</strong><br> <input type="file" name="userfile" size="20" /><br>';
 

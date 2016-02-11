@@ -83,11 +83,11 @@ class Object extends MY_Controller {
                 $defense = $this->input->post('defense');
                 $attackMag = $this->input->post('attackMag');
                 $addLife = $this->input->post('addLife');
-                $addHaki = $this->input->post('addHaki');
+                $addEnergy = $this->input->post('addEnergy');
                 $rarity = $this->input->post('rarity');
                 $type = $this->input->post('type');
 
-                $this->object_model->addObject($name, $description, $price, $attack, $speed, $defense, $attackMag, $addLife, $addHaki, $rarity, $type);
+                $this->object_model->addObject($name, $description, $price, $attack, $speed, $defense, $attackMag, $addLife, $addEnergy, $rarity, $type);
 
                 $data['title'] = "Enregistrement réussis";
                 $data['sauv'] = " de l'objet : $name";
@@ -138,12 +138,12 @@ class Object extends MY_Controller {
                 $defense = $this->input->post('defense');
                 $attackMag = $this->input->post('attackMag');
                 $addLife = $this->input->post('addLife');
-                $addHaki = $this->input->post('addHaki');
+                $addEnergy = $this->input->post('addEnergy');
                 $rarity = $this->input->post('rarity');
                 $type = $this->input->post('type');
                 $is_block = $this->input->post('is_block');
 
-                $this->object_model->modifyObject($id, $name, $description, $price, $attack, $speed, $defense, $attackMag, $addLife, $addHaki, $rarity, $type, $is_block);
+                $this->object_model->modifyObject($id, $name, $description, $price, $attack, $speed, $defense, $attackMag, $addLife, $addEnergy, $rarity, $type, $is_block);
 
                 $data['title'] = "Enregistrement réussis";
                 $data['sauv'] = " de l'objet : $name";
