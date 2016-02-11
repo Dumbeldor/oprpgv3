@@ -1,6 +1,8 @@
 <div class="row pageNormale">
     <h2><?= $title?></h2><br><br>
-    Vous êtes dans la boutique des armes, trouvez votre bonheur !<br><br>
+    Vous êtes dans la boutique des armes, trouvez votre bonheur !<br>
+    Vous voulez peut être vendre ? <a href="<?= base_url('game/shop/sell')?>">Cliquez ici.</a><br>
+    <a href="<?= base_url('game/shop/')?>">Retour</a> <br><br>
 
     <?php
     foreach($weapons as $weapon) {

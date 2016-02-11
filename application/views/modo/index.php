@@ -4,7 +4,7 @@
     <a href="<?= base_url('modo/map/')?>">Gestion de map</a><br>
     <a href="<?= base_url('modo/object')?>">Gestion objets</a><br>
     <a href="<?= base_url('modo/monster')?>">Gestion monstres</a><br>
-    <a href="<?= base_url('modo/techn')?>">Gestion techniques</a><br>
+    <a href="<?= base_url('modo/tech')?>">Gestion techniques</a><br>
     <a href="<?= base_url('modo/pet')?>">Gestion animaux(pet)</a><br>
 
     <h2>Communauté</h2><br>

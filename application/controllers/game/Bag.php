@@ -37,7 +37,7 @@ class Bag extends MY_Game
         $data['weapon'] = $this->weapon->getId();
         $data['armor'] = $this->armor->getId();
         $data['items'] = $this->bag_model->inventory($id);
-        if (!$data['items'])
+        if ($data['items'] == false)
             redirect('game/bag');
         $this->construct_page('game/bag/inventory.php', $data);
     }

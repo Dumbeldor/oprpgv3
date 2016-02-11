@@ -11,7 +11,7 @@ class Shop_model extends CI_Model
                                     FROM maps_types_objects mto
                                     JOIN objects o ON mto.id_objects = o.id
                                     JOIN objects_types ot ON o.id_objects_types = ot.id
-                                    WHERE mto.id = (SELECT mt.id FROM maps_island mi JOIN maps_types mt ON mi.id_maps_types = mt.id WHERE mi.id = ? AND mi.x = ? AND mi.y = ? LIMIT 1)
+                                    WHERE ot.id = 1 AND mto.id = (SELECT mt.id FROM maps_island mi JOIN maps_types mt ON mi.id_maps_types = mt.id WHERE mi.id = ? AND mi.x = ? AND mi.y = ? LIMIT 1)
                                     AND ot.is_block = 0 AND o.is_block = 0", array($this->character->getIdIsland(), $this->character->getXMapsIsland(), $this->character->getYMapsIsland()));
         return $query->result_array();
     }

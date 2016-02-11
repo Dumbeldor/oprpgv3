@@ -68,7 +68,7 @@ class Shop extends MY_Game
         $type = $this->map_model->getType();
         $object = $this->object_model->getTypeBerryName($id);
         $typeObject = $object['type'];
-        if(($typeObject == 1 && $type != 6 AND $type != 7) || ($typeObject == 2 && $type != 6 AND $type != 8) || ($type != 6 AND $typeObject != 1 AND $typeObject != 2))
+        if($id == 0 OR ($typeObject == 1 && $type != 6 AND $type != 7) || ($typeObject == 2 && $type != 6 AND $type != 8) || ($type != 6 AND $typeObject != 1 AND $typeObject != 2))
             redirect('game/shop/');
 
         $data['title'] = "Boutique";
@@ -92,6 +92,44 @@ class Shop extends MY_Game
                 $this->character_model->setBerry($this->character->getBerry() - $object['price']);
                 $this->construct_page('game/shop/reussis', $data);
             }
+        }
+    }
+
+    public function sell($id=0, $reussis="")
+    {
+        $this->load->model('game/map_model');
+        $data['sell'] = "";
+
+        $type = $this->map_model->getType();
+        if(!($type == 6 OR $type == 7 OR $type == 8))
+            redirect('game/map');
+        if($id == 0) {
+            $this->load->library('weapon');
+            $this->load->library('armor');
+            $this->load->model('game/bag_model');
+            $data['title'] = 'Vente d\'objets';
+            $data['items'] = $this->bag_model->getAllInventory();
+            $data['weapon'] = $this->weapon->getId();
+            $data['armor'] = $this->armor->getId();
+            $data['sell'] = $reussis;
+            $this->construct_page('game/shop/sell', $data);
+        }
+        else {
+            $this->load->model('game/bag_model');
+            $this->load->model('game/object_model');
+            $this->load->model('game/character_model');
+
+            $idO = $this->bag_model->removeObject($id);
+            if($idO == 0)
+                redirect('game/shop/sell');
+
+            $price = $this->object_model->getPrice($idO);
+            $price = $price * 0.80;
+            $berry = $this->character->getBerry() + $price;
+            $this->character->setBerry($berry);
+            $this->character_model->setBerry($berry);
+            $data['sell'] = "Vous venez de vendre un objet pour $price berrys vous avez $berry berrys";
+            $this->sell(0, $data['sell']);
         }
     }
 }

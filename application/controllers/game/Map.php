@@ -23,7 +23,6 @@ class Map extends MY_Game {
 	}
     
     public function index() {
-        echo $this->character->getAttack();
         $data['title'] = 'Map';
         $data['map'] = $this->map_model->getMap();
 		$data['maps'] = $this->map_model->getMaps();
@@ -46,8 +45,8 @@ class Map extends MY_Game {
         $this->load->model('game/bag_model');
         $data['title'] = 'Fouille';
         $data['object'] = $this->map_model->search();
-        $reussis = false;
-        if(isset($data['object']))
+        $reussis = true;
+        if($data['object'] != "rien")
             $reussis = $this->bag_model->addObject($data['object']['id']);
         else
             $data['error'] = 'Rien trouvé';

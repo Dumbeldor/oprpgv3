@@ -25,4 +25,22 @@
     Attaque physique total : <?= $this->character->getAttack()?><br>
     Attaque magique total : <?= $this->character->getAttackMag()?><br>
     Défense total : <?= $this->character->getDefense()?><br>
+
+    <strong>Techniques maitrisées</strong><br>
+    <?php
+    foreach($techs as $tech) {
+        echo $tech['name'].'<br>';
+        echo $tech['descr'].'<br>';
+        echo 'lvl '.$tech['lvl'].'<br>';
+        echo 'Energie demandé :'.$tech['energy'].'<br>';
+        if($tech['type'] == 1)
+            echo 'Attaque physique ajouté '.$tech['adding'].'<br>';
+        else if($tech['type'] == 2)
+            echo 'Attaque magique ajouté '.$tech['adding'].'<br>';
+        else if($tech['type'] == 3)
+            echo 'Soigne '.$tech['adding'].' points de vie <br>';
+
+        echo '-------------------------------------------------------------------<br><br>';
+    }
+    ?>
 </div>

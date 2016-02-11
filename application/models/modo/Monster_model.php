@@ -24,11 +24,6 @@ class Monster_model extends CI_Model
         return $query->result_array()[0];
     }
 
-    public function getTechs(){
-        $query = $this->db->query("SELECT name FROM tech_types");
-        return $query->result_array();
-    }
-
 
     public function addMonster($name, $description, $life, $lvl, $xp, $attack, $defense, $speed, $escape, $maps, $objects, $techs){
         $this->db->insert('monster', array(

@@ -40,10 +40,13 @@
     else if($map['type'] == 5) { //Entrainement?>
         <a href="<?= base_url('game/training/')?>">Entrer dans la salle d'entrainement</a>
     <?php }
-    else if($map['type'] == 6) { //Shop ?>
+    else if($map['type'] == 6 || $map['type'] == 7 || $map['type'] == 8 || $map['type'] == 9) { //Shop ?>
         <a href="<?= base_url('game/shop/')?>">Entrer dans le magasin</a>
+    <?php } else if($map['type'] == 10) { //HOPITAL  ?>
+        <a href="<?= base_url('game/hospital/')?>">Rentrer dans l'hopital</a>
+    <?php } else if($map['type'] == 11) { //Centre perfectionnement ?>
+        <a href="<?= base_url('game/trainingCenter/')?>">Rentrer dans le centre</a>
     <?php } ?>
-
     <div id="zoneMap" style="position: relative">
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <?php
@@ -80,11 +83,23 @@
 // <!-- Affichage avatar et lien déplacement
         $diffX = abs($carte['x'] - $uX);
         $diffY = abs($carte['y'] - $uY);
+        $yDiff = $carte['y'] - $uY;
+        $xDiff = $carte['x'] - $uX;
         if($carte['x'] == $uX AND $carte['y'] == $uY)
-            $var_carte .= '<br />Vous êtes ici';
-        else if($diffX+$diffY <= $this->character->getMoveCase())
-            //<?= base_url('map/deplace/' . $m['x'] . '/' . $m['y'])
-            $var_carte .= "<br /><a href=\"".base_url('game/map/deplace/' . $carte['x'] . '/' . $carte['y'])."\">Se déplacer</a> ";
+            $var_carte .= "<br /><img src=\"".base_url('assets/img/maps/character/character.png')."\">";
+        else if($diffX+$diffY <= $this->character->getMoveCase()) {
+            $var_carte .= "<br /><a href=\"" . base_url('game/map/deplace/' . $carte['x'] . '/' . $carte['y']) . "\">";
+            if($yDiff == -1)
+                $var_carte .= "<img src=\"" . base_url('assets/img/maps/character/top.png') . "\">";
+            else if($yDiff == 1)
+                $var_carte .= "<img src=\"" . base_url('assets/img/maps/character/bottom.png') . "\">";
+            else if($xDiff == -1)
+                $var_carte .= "<img src=\"" . base_url('assets/img/maps/character/left.png') . "\">";
+            else if($xDiff == 1)
+                $var_carte .= "<img src=\"" . base_url('assets/img/maps/character/right.png') . "\">";
+            $var_carte .= "</a>";
+        }
+
 //  Fin -->
 
         if (isset($joueur[$carte['x']][$carte['y']])) {

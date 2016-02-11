@@ -17,7 +17,9 @@ class Account extends MY_Game{
     public function index() {
         $this->load->library('weapon');
         $this->load->library('armor');
+        $this->load->model('game/tech_model');
         $data['title'] = "Votre personnage";
+        $data['techs'] = $this->tech_model->getTechs($this->character->getId());
 
         $this->construct_page('game/account/index.php', $data);
      }

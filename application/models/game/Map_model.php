@@ -64,7 +64,7 @@ class Map_model extends CI_Model {
                                        ORDER BY rate ASC LIMIT 1");
             return $query->result_array()[0];
         }
-        return null;
+        return "rien";
     }
 
     public function deplace($x, $y){

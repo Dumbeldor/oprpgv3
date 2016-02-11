@@ -22,7 +22,7 @@ class Island_model extends CI_Model
     }
 
     public function getTypes() {
-        $query = $this->db->query("SELECT id, name FROM maps_types WHERE type != 0 AND type != 2");
+        $query = $this->db->query("SELECT id, name FROM maps_types WHERE type != 1 AND type != 3");
         return $query->result_array();
     }
 

@@ -30,8 +30,17 @@ class Object_model extends CI_Model
         return $name;
     }
 
+    public function getInventory() {
+
+    }
+
     public function getTypeBerryName($id) {
         $query = $this->db->query("SELECT name, price, id_objects_types AS type FROM objects WHERE id = ?", array($id));
         return $query->result_array()[0];
+    }
+
+    public function getPrice($id) {
+        $query = $this->db->query('SELECT price FROM objects WHERE id = ?', array($id));
+        return $query->result_array()[0]['price'];
     }
 }

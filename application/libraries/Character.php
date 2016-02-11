@@ -95,17 +95,16 @@ class Character
     public function getAttack() {
         $this->CI->load->library('weapon');
         $this->CI->load->library('armor');
-        return round(($this->CI->weapon->getAttack() + $this->CI->armor->getAttack()) * ($this->strength + 3)/4);
+        return round(($this->CI->weapon->getAttack() + $this->CI->armor->getAttack() + 1) * ($this->strength + 3)/4);
     }
     public function getDefense(){
         $this->CI->load->library('armor');
         $this->CI->load->library('weapon');
-        return round(($this->CI->armor->getDefense() + $this->CI->weapon->getDefense()) * ($this->resistance + 3)/4);
+        return round(($this->CI->armor->getDefense() + $this->CI->weapon->getDefense() + 1) * ($this->resistance + 3)/4);
     }
     public function getAttackMag(){
         $this->CI->load->library('armor');
-        $this->CI->load->library('weapon');
-        return round(($this->CI->armor->getAttackMag() + $this->CI->weapon->getAttackMag()) * ($this->intelligence + 3)/4);
+        return round(($this->CI->armor->getAttackMag() + $this->CI->weapon->getAttackMag() + 1) * ($this->intelligence + 3)/4);
     }
 	
 	/*
