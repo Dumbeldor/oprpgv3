@@ -73,6 +73,8 @@ class Map_model extends CI_Model {
                 ->set('x_maps_island', $x)
                 ->set('y_maps_island', $y)
                 ->update('charactere');
+            $this->character->setXMapsIsland($x);
+            $this->character->setYMapsIsland($y);
         }
         else {
             $this->db->where('id', $this->character->getId())

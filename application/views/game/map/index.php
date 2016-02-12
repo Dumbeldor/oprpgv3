@@ -17,12 +17,13 @@
 
 <div class="row pageNormale">
     <h2>Map</h2><br><br>
+    <a id="test" href="javascript:void(0)">Gauche</a><br>
     <?php
-    echo "Vous êtes actuellement en : " . $uX . ":" . $uY . " Map " . $map['name'] . "<br>";
+    echo "Vous êtes actuellement en : <div id=\"coordonnee\">" . $uX . ":" . $uY . " Map " . $map['name'] . "</div><br>";
     ?>
-    <img src="<?= base_url('assets/img/maps/' . $map['id'] . '.png'); ?>" alt="aa" title="test"></img>
+    <div id="imageMap"><img src="<?= base_url('assets/img/maps/' . $map['id'] . '.png'); ?>" alt="aa" title="test"></img></div>
     <br><br>
-
+    <div id="action">
     <?php if($map['type'] == 2) { //In island ?>
         <a href="<?= base_url('game/map/fight/') ?>">Combattre</a><br>
         <a href="<?= base_url('game/map/search/') ?>">Fouiller</a>
@@ -47,6 +48,7 @@
     <?php } else if($map['type'] == 11) { //Centre perfectionnement ?>
         <a href="<?= base_url('game/trainingCenter/')?>">Rentrer dans le centre</a>
     <?php } ?>
+    </div>
     <div id="zoneMap" style="position: relative">
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <?php
@@ -88,15 +90,15 @@
         if($carte['x'] == $uX AND $carte['y'] == $uY)
             $var_carte .= "<br /><img src=\"".base_url('assets/img/maps/character/character.png')."\">";
         else if($diffX+$diffY <= $this->character->getMoveCase()) {
-            $var_carte .= "<br /><a href=\"" . base_url('game/map/deplace/' . $carte['x'] . '/' . $carte['y']) . "\">";
+            $var_carte .= "<br /><a href=\"javascript:void(0)\">";
             if($yDiff == -1)
-                $var_carte .= "<img src=\"" . base_url('assets/img/maps/character/top.png') . "\">";
+                $var_carte .= "<img id=\"flecheTop\" src=\"" . base_url('assets/img/maps/character/top.png') . "\">";
             else if($yDiff == 1)
-                $var_carte .= "<img src=\"" . base_url('assets/img/maps/character/bottom.png') . "\">";
+                $var_carte .= "<img id=\"bottom\" src=\"" . base_url('assets/img/maps/character/bottom.png') . "\">";
             else if($xDiff == -1)
-                $var_carte .= "<img src=\"" . base_url('assets/img/maps/character/left.png') . "\">";
+                $var_carte .= "<img id=\"left\" src=\"" . base_url('assets/img/maps/character/left.png') . "\">";
             else if($xDiff == 1)
-                $var_carte .= "<img src=\"" . base_url('assets/img/maps/character/right.png') . "\">";
+                $var_carte .= "<img id=\"right\" src=\"" . base_url('assets/img/maps/character/right.png') . "\">";
             $var_carte .= "</a>";
         }
 
@@ -113,7 +115,7 @@
 
     ?>
 
-        <div id=“carte”>
+        <div id="map">
             <!– On génére la carte hexa –>
             <?php echo $var_carte;?>
         </div>
@@ -126,3 +128,15 @@
     </div>
 
 </div>
+<div id="scriptMap">
+<script>
+    var uX = <?= $uX?>;
+    var uY = <?= $uY?>;
+    var urlImgMap = "<?= base_url('assets/img/maps/'); ?>";
+    var urlGame = "<?= base_url('game/')?>";
+    var moveCase = <?= $this->character->getMoveCase()?>;
+</script>
+<script
+    src="<?php echo base_url('assets/js/map/move.js');?>">
+</script>
+    </div>

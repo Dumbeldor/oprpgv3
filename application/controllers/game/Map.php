@@ -71,6 +71,28 @@ class Map extends MY_Game {
         redirect('game/map/');
     }
 
+    public function deplaceJSON($x, $y) {
+        $uX = $this->character->getX();
+        $uY = $this->character->getY();
+        $moveCase = $this->character->getMoveCase();
+        $diffX = abs($x - $uX);
+        $diffY = abs($y - $uY);
+
+        if($diffX+$diffY > $moveCase)
+            redirect('game/map/');
+
+        $this->map_model->deplace($x, $y);
+
+        $map = $this->map_model->getMap();
+        $maps = $this->map_model->getMaps();
+        $uX = $y;
+        $uY = $y;
+        $data = array('map' => $map, 'maps' => $maps, 'uX' => $uX, 'uY' => $uY);
+        $json = json_encode($data);
+
+        echo $json;
+    }
+
     public function enterCity(){
         $map = $this->map_model->getMap();
         if(empty($map['id_island']) OR $this->character->inIsland())
