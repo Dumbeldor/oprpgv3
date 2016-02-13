@@ -11,6 +11,7 @@ class Shop extends MY_Game
         //If not connected member
         if (!$this->user->isAuthenticated())
             redirect(base_url('/home/accueil'));
+        $this->load->library('character');
         $this->load->model('game/shop_model');
     }
 

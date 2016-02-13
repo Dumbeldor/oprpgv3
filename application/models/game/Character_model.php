@@ -4,6 +4,15 @@ class Character_model extends CI_Model {
         $this->load->database();
     }
 
+    public function hydrate($id) {
+        $query = $this->db->query("SELECT in_island AS inIsland, in_fight AS inFight, lvl, berry, id_objects AS weapon, x, y, id_objects_1 AS armor,
+									  x_maps_island AS xMapsIsland, y_maps_island AS yMapsIsland, id_maps_island AS idIsland, vitality, strength, speed, endurance,
+									  agility, energy, intelligence, resistance, life, energies
+							  FROM charactere
+							  WHERE id = ?", array($id));
+        return $query->result_array()[0];
+    }
+
     public function setBerry($berry){
         $this->db->where('id', $this->character->getId())
             ->set('berry', $berry)

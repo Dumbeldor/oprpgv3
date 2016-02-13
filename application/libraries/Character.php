@@ -45,6 +45,8 @@ class Character
     public function __construct(){
 		$this->CI =& get_instance();
 		$this->id = $this->getId(); // Update id (Id in session)
+        $this->CI->load->model('game/character_model');
+        $this->hydrate($this->CI->character_model->hydrate($this->id));
 	}
 
 	public function hydrate(array $donnees)

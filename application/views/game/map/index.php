@@ -15,7 +15,7 @@
 
 <div class="row pageNormale" id="page">
     <h2>Map</h2><br><br>
-    <a id="test" href="javascript:void(0)">Gauche</a><br>
+    <strong id="msg"></strong><br>
     <?php
     echo "Vous êtes actuellement en : <div id=\"coordonnee\">" . $uX . ":" . $uY . " Map " . $map['name'] . "</div><br>";
     ?>
@@ -24,7 +24,7 @@
     <div id="action">
     <?php if($map['type'] == 2) { //In island ?>
         <a href="<?= base_url('game/map/fight/') ?>">Combattre</a><br>
-        <a href="<?= base_url('game/map/search/') ?>">Fouiller</a>
+        <a id="fouille" href="<?= base_url('game/map/search/') ?>">Fouiller</a>
     <?php }
     else if($map['type'] == 1) { //In ocean ?>
         <a href="<?= base_url('game/map/fight/') ?>">Combattre</a><br>

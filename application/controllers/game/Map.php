@@ -19,6 +19,7 @@ class Map extends MY_Game {
 		if(!$this->user->isAuthenticated())
 			redirect(base_url('/home/accueil'));
 		// Loading models
+        $this->load->library('character');
 		$this->load->model('game/map_model');
 	}
     
@@ -30,6 +31,7 @@ class Map extends MY_Game {
         $data['uY'] = $this->character->getY();
 
         $data['scripts'][] = base_url('assets/js/map/move.js');
+        $data['scripts'][] = base_url('assets/js/map/fouille.js');
         
         $this->construct_page('game/map/index.php', $data);
     }
@@ -46,17 +48,39 @@ class Map extends MY_Game {
     public function search(){
         $this->load->model('game/bag_model');
         $data['title'] = 'Fouille';
-        $data['object'] = $this->map_model->search();
+        $object = $this->map_model->search();
         $reussis = true;
-        if($data['object'] != "rien")
-            $reussis = $this->bag_model->addObject($data['object']['id']);
-        else
-            $data['error'] = 'Rien trouvé';
-        if(!$reussis)
-            $data['error'] = 'Votre sac est plein';
 
-        
-        $this->construct_page('game/map/search.php', $data);    
+        //If request AJAX
+        if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) AND $_SERVER['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"){
+            if($object != "rien") {
+                $reussis = $this->bag_model->addObject($object['id']);
+                if($reussis)
+                    echo $object['name'];
+                else {
+                    header('500 Internal Server Error', true, 500);
+                    die("Votre sac est plein... Vous êtes obliger de jeter ".$object['name']);
+                }
+
+            }
+            else {
+                header('500 Internal Server Error', true, 500);
+                die("Aucun objet trouvé...");
+            }
+
+        }
+        else {
+            $data['object'] = $object;
+            if ($data['object'] != "rien")
+                $reussis = $this->bag_model->addObject($data['object']['id']);
+            else
+                $data['error'] = 'Rien trouvé';
+            if (!$reussis)
+                $data['error'] = 'Votre sac est plein';
+
+
+            $this->construct_page('game/map/search.php', $data);
+        }
     }
 
     public function deplace($x, $y){

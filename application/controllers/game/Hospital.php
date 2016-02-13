@@ -12,6 +12,7 @@ class Hospital extends MY_Game
         if (!$this->user->isAuthenticated())
             redirect(base_url('/home/accueil'));
         $this->load->model('game/map_model');
+        $this->load->library('character');
         if(!$this->character->inIsland() || $this->map_model->getType() != 10)
             redirect('game/map');
         $this->load->model('game/hospital_model');

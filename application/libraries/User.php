@@ -28,6 +28,9 @@ class User
 	public function __construct(){
 		$this->CI =& get_instance();
 		$this->id = $this->getId(); // Update id (Id in session)
+		$this->setAuthenticated(true);
+		$this->CI->load->model('users_model');
+		$this->hydrate($this->CI->users_model->hydrate($this->id));
 	}
 	 
 	public function logout()

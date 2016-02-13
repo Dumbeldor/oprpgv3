@@ -4,30 +4,18 @@ class Users_model extends CI_Model {
     $this->load->database();
   }
   
-  public function updateSession() {
+  public function hydrate($id) {
+	  //Update last action
+	  $this->db->where('id', $id)
+		  ->set('last_action', time())
+		  ->update('users');
+
 	$query = $this->db->query("SELECT ban, is_kick, lvl, id_users_types, users_types.name AS rank
 							  FROM users
 							  JOIN users_types ON users_types.id = id_users_types
 							  JOIN charactere ON users.id_charactere = charactere.id
-							  WHERE users.id = ?", array($this->user->getId()));
-    $user = $query->result_array();
-	
-	$this->user->hydrate($user[0]);
-	$this->user->setAuthenticated(true);
-	
-	$query = $this->db->query("SELECT in_island AS inIsland, in_fight AS inFight, lvl, berry, id_objects AS weapon, x, y, id_objects_1 AS armor,
-									  x_maps_island AS xMapsIsland, y_maps_island AS yMapsIsland, id_maps_island AS idIsland, vitality, strength, speed, endurance,
-									  agility, energy, intelligence, resistance, life, energies
-							  FROM charactere
-							  JOIN users ON users.id_charactere = charactere.id
-							  WHERE users.id = ?", array($this->user->getId()));
-	$character = $query->result_array()[0];
-	$this->character->hydrate($character);
-	
-	//Update last action
-	$this->db->where('id', $this->user->getId())
-				  ->set('last_action', time())
-				  ->update('users');
+							  WHERE users.id = ?", array($id));
+    return $query->result_array()[0];
   }
   
   public function getEmail() {

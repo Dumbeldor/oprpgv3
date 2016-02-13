@@ -1,8 +1,9 @@
 (function($){
 
-    $('#page').on('click', '#urlMove', function(e){
+    $('#zoneMap').on('click', '#urlMove', function(e){
 
         e.preventDefault();
+        $("#msg").html("");
 
         var $a = $(this);
         var url = $a.attr('href');
@@ -54,7 +55,7 @@
     function afficherAction(type) {
         var msg = "";
         if (type == 2) {//In island
-            msg = "<a href=\"" + urlGame + "/map/fight/\">Combattre</a><br>" +
+            msg = "<a id=\"fouille\" href=\"" + urlGame + "/map/fight/\">Combattre</a><br>" +
                 "<a href=\"" + urlGame + "/map/search/\">Fouiller</a>";
         }
         if (type == 1) {

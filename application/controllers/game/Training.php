@@ -14,6 +14,7 @@ class Training extends MY_Game
         $this->load->model('game/map_model');
         if(!$this->character->inIsland() || $this->map_model->getType() != 5)
             redirect('game/map');
+        $this->load->library('character');
         $this->load->model('game/training_model');
     }
 
