@@ -10,12 +10,10 @@
         margin-top:0px;
     }
     div#carte {
-        position:absolute;
-        padding-bottom:40em;
     }
 </style>
 
-<div class="row pageNormale">
+<div class="row pageNormale" id="page">
     <h2>Map</h2><br><br>
     <a id="test" href="javascript:void(0)">Gauche</a><br>
     <?php
@@ -90,7 +88,7 @@
         if($carte['x'] == $uX AND $carte['y'] == $uY)
             $var_carte .= "<br /><img src=\"".base_url('assets/img/maps/character/character.png')."\">";
         else if($diffX+$diffY <= $this->character->getMoveCase()) {
-            $var_carte .= "<br /><a href=\"javascript:void(0)\">";
+            $var_carte .= "<br /><a id=\"urlMove\" href=\"". base_url('game/map/deplaceJSON/'.$carte['x'].'/'.$carte['y']) ."\">";
             if($yDiff == -1)
                 $var_carte .= "<img id=\"flecheTop\" src=\"" . base_url('assets/img/maps/character/top.png') . "\">";
             else if($yDiff == 1)
@@ -114,10 +112,11 @@
     } // fin While
 
     ?>
-
         <div id="map">
-            <!– On génére la carte hexa –>
-            <?php echo $var_carte;?>
+            <div id="mapJs">
+                <!– On génére la carte hexa –>
+                <?php echo $var_carte;?>
+            </div>
         </div>
     </div>
     <?php
@@ -136,7 +135,5 @@
     var urlGame = "<?= base_url('game/')?>";
     var moveCase = <?= $this->character->getMoveCase()?>;
 </script>
-<script
-    src="<?php echo base_url('assets/js/map/move.js');?>">
-</script>
+
     </div>

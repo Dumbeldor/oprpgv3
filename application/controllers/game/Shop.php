@@ -104,13 +104,9 @@ class Shop extends MY_Game
         if(!($type == 6 OR $type == 7 OR $type == 8))
             redirect('game/map');
         if($id == 0) {
-            $this->load->library('weapon');
-            $this->load->library('armor');
             $this->load->model('game/bag_model');
             $data['title'] = 'Vente d\'objets';
             $data['items'] = $this->bag_model->getAllInventory();
-            $data['weapon'] = $this->weapon->getId();
-            $data['armor'] = $this->armor->getId();
             $data['sell'] = $reussis;
             $this->construct_page('game/shop/sell', $data);
         }

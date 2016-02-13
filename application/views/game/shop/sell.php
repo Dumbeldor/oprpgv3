@@ -1,5 +1,7 @@
 <div class="row pageNormale">
-    <h2><?= $title ?></h2><br><br>
+    <h2><?= $title ?></h2><br>
+    Vous avez <strong id="berry"><?= $this->character->getBerry()?> berrys</strong>.
+    <br><br>
     <?php
     if(isset($sell))
         echo $sell.'<br><br>';
@@ -13,11 +15,7 @@
             echo "Vitesse d'attaque : ".$item['speed'].'<br>';
             echo "Défense : ".$item['defense'].'<br>';
             echo "Attaque magique : ".$item['attackMag'].'<br>';
-            if($weapon == $item['id'] OR $armor == $item['id']) {?>
-                <a href="<?= base_url('game/object/unEquip/'.$item['id'])?>">Désequiper</a>
-            <?php } else { ?>
-                <a href="<?= base_url('game/shop/sell/'.$item['idBagObject'])?>">Vendre</a>
-            <?php }
+            echo "<a href=\"". base_url('game/shop/sell/'.$item['idBagObject'])."\">Vendre</a>";
         }
         else{
             echo "Vie redonnée : ".$item['addLife'].'<br>';

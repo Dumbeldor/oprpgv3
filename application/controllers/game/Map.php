@@ -28,6 +28,8 @@ class Map extends MY_Game {
 		$data['maps'] = $this->map_model->getMaps();
         $data['uX'] = $this->character->getX();
         $data['uY'] = $this->character->getY();
+
+        $data['scripts'][] = base_url('assets/js/map/move.js');
         
         $this->construct_page('game/map/index.php', $data);
     }
@@ -85,7 +87,7 @@ class Map extends MY_Game {
 
         $map = $this->map_model->getMap();
         $maps = $this->map_model->getMaps();
-        $uX = $y;
+        $uX =  $x;
         $uY = $y;
         $data = array('map' => $map, 'maps' => $maps, 'uX' => $uX, 'uY' => $uY);
         $json = json_encode($data);
