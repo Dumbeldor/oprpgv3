@@ -14,6 +14,7 @@ class Users extends MY_Controller {
     $this->load->model('users_model');
     $this->load->model('personnages_model');
 	$this->load->library('crew');
+      $this->load->library('character');
   }
     
   /**

@@ -12,9 +12,9 @@ class TrainingCenter extends MY_Game
         if (!$this->user->isAuthenticated())
             redirect(base_url('/home/accueil'));
         $this->load->model('game/map_model');
+        $this->load->library('character');
         if(!$this->character->inIsland() || $this->map_model->getType() != 11)
             redirect('game/map');
-        $this->load->library('character');
         $this->load->model('game/trainingCenter_model');
     }
 

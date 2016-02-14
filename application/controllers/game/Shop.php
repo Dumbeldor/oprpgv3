@@ -100,6 +100,7 @@ class Shop extends MY_Game
     {
         $this->load->model('game/map_model');
         $data['sell'] = "";
+        $data['scripts'][] = base_url('assets/js/game/shop/sell.js');
 
         $type = $this->map_model->getType();
         if(!($type == 6 OR $type == 7 OR $type == 8))
@@ -117,6 +118,13 @@ class Shop extends MY_Game
             $this->load->model('game/character_model');
 
             $idO = $this->bag_model->removeObject($id);
+
+            //If request AJAX
+            if($idO == 0 AND isset($_SERVER['HTTP_X_REQUESTED_WITH']) AND $_SERVER['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"){
+                header('500 Internal Server Error', true, 500);
+                die("L'objet que vous voulez vendre n'existe pas...");
+            }
+
             if($idO == 0)
                 redirect('game/shop/sell');
 
@@ -125,8 +133,16 @@ class Shop extends MY_Game
             $berry = $this->character->getBerry() + $price;
             $this->character->setBerry($berry);
             $this->character_model->setBerry($berry);
-            $data['sell'] = "Vous venez de vendre un objet pour $price berrys vous avez $berry berrys";
-            $this->sell(0, $data['sell']);
+            //If request AJAX
+            if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) AND $_SERVER['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"){
+                $data = array('price' => $price, 'berry'=>$berry);
+                $json = json_encode($data);
+                echo $json;
+            }
+            else {
+                $data['sell'] = "Vous venez de vendre un objet pour $price berrys vous avez $berry berrys";
+                $this->sell(0, $data['sell']);
+            }
         }
     }
 }

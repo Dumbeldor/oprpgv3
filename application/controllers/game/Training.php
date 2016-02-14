@@ -12,9 +12,9 @@ class Training extends MY_Game
         if (!$this->user->isAuthenticated())
             redirect(base_url('/home/accueil'));
         $this->load->model('game/map_model');
+        $this->load->library('character');
         if(!$this->character->inIsland() || $this->map_model->getType() != 5)
             redirect('game/map');
-        $this->load->library('character');
         $this->load->model('game/training_model');
     }
 
@@ -24,6 +24,7 @@ class Training extends MY_Game
     }
 
     public function add($attribut="", $nb=1){
+        $data['scripts'][] = base_url('assets/js/game/training/add.js');
         if($attribut == "" || ($this->character->getStatRemaining() - $nb) < 0){
             $data['title'] = "Ajout de point dans les stats";
             $this->construct_page('game/training/add', $data);

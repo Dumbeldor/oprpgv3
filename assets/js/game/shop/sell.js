@@ -1,15 +1,20 @@
 (function($) {
 
-    $('#action').on('click', '#fouille', function (e) {
+    $('#sell').on('click', '#sellObject', function (e) {
         e.preventDefault();
 
         var $a = $(this);
         var url = $a.attr('href');
 
+        $($a).parents('#object').fadeOut();
+
         $.ajax(url)
             .done(function(data, text, response){
-                $mess = "Vous venez de trouver " + response.responseText;
+                var msg = JSON.parse(response.responseText);
+                $mess = "Vous venez de vendre un objet pour " + msg.price + " berrys";
                 $("#msg").html($mess);
+                berry = ""+msg.berry;
+                $("#berry").html(berry);
             })
             .fail(function(data, text, response){
                 $("#msg").html(data.responseText);
