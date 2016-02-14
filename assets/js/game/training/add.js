@@ -6,13 +6,15 @@
         var $a = $(this);
         var url = $a.attr('href');
 
-        console.log(url);
-        var actuel = $("#"+url).html();
-        actuel++;
-        $("#"+url).html(actuel);
         var stats = $("#stats").html();
-        stats--;
-        $("#stats").html(stats);
+        if(stats > 0) {
+            stats--;
+            $("#stats").html(stats);
+
+            var actuel = $("#" + url).html();
+            actuel++;
+            $("#" + url).html(actuel);
+        }
     });
 
     $('#sauv').on('click', function(e) {
