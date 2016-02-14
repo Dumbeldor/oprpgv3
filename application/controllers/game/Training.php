@@ -23,13 +23,34 @@ class Training extends MY_Game
         $this->construct_page('game/training/index.php', $data);
     }
 
+    public function addJson() {
+        if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) AND $_SERVER['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest"){
+            $result = json_decode($_POST['test'], true);
+            $total = 0;
+            foreach($result as $r){
+                $total += $r;
+            }
+            if($total > $this->character->getStat()){
+                $this->training_model->reset();
+                die("Script anti triche, reset de vos stats...");
+            }
+            $reussis = $this->training_model->addJson($result);
+            if($reussis)
+                echo "Problème lors de l'ajout de vos stats, rechargez la page...<br>";
+            else
+                echo "Stat bien enregistré !<br>";
+        }
+        else {
+            redirect('game/training/add');
+        }
+    }
+
     public function add($attribut="", $nb=1){
         $data['scripts'][] = base_url('assets/js/game/training/add.js');
         if($attribut == "" || ($this->character->getStatRemaining() - $nb) < 0){
             $data['title'] = "Ajout de point dans les stats";
             $this->construct_page('game/training/add', $data);
         } else {
-            echo "fdsfds";
             $reussis = $this->training_model->add($attribut, $nb);
             if($reussis)
                 redirect('game/training/add');

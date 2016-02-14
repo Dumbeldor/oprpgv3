@@ -17,6 +17,11 @@ class Training_model extends CI_Model
         return false;
     }
 
+    public function addJson($tab) {
+        $this->db->where('id', $this->character->getId())
+                ->update('charactere', $tab);
+    }
+
     public function reset() {
         $prime = $this->character->getStat()*5;
         $this->db->where('id', $this->character->getId())

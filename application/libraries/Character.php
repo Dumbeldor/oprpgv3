@@ -86,7 +86,11 @@ class Character
         return ($this->lvl * 4);
     }
     public function getStatRemaining(){
-        return $this->getStat() - ($this->vitality + $this->strength + $this->speed + $this->endurance + $this->agility + $this->energy + $this->intelligence + $this->resistance);
+        return $this->getStat() - $this->getStatTotal();
+    }
+
+    public function getStatTotal(){
+        return $this->vitality + $this->strength + $this->speed + $this->endurance + $this->agility + $this->energy + $this->intelligence + $this->resistance;
     }
 
     public function getMaxLife(){
