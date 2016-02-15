@@ -55,7 +55,7 @@
     function afficherAction(type) {
         var msg = "";
         if (type == 2) {//In island
-            msg = "<a href=\"" + urlGame + "/map/fight/\">Combattre</a><br>" +
+            msg = "<a id=\"fightMonster\" href=\"" + urlGame + "/fight/initFight/\">Combattre</a><br>" +
                 "<a id=\"fouille\" href=\"" + urlGame + "/map/search/\">Fouiller</a>";
         }
         if (type == 1) {

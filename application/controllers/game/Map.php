@@ -32,17 +32,9 @@ class Map extends MY_Game {
 
         $data['scripts'][] = base_url('assets/js/map/move.js');
         $data['scripts'][] = base_url('assets/js/map/fouille.js');
+        $data['scripts'][] = base_url('assets/js/game/fight.js');
         
         $this->construct_page('game/map/index.php', $data);
-    }
-    
-    public function fight($x, $y){
-        if($x==0 OR $y==0)
-            redirect('game/map/');
-            
-        /*
-         *FIGHT
-         */
     }
     
     public function search(){

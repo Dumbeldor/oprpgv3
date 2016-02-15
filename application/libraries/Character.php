@@ -39,7 +39,8 @@ class Character
               $xMapsIsland,
               $yMapsIsland,
               $moveCase = 1, //Prévu pour plus tard ;)
-			  $vision = 5;
+			  $vision = 5,
+              $lastAction;
 
               
     public function __construct(){
@@ -61,6 +62,10 @@ class Character
 			}
 		}
 	}
+
+    public function getAll() {
+
+    }
 	
 	public function getXMin() {
         if($this->inIsland)
@@ -110,9 +115,22 @@ class Character
         return round(($this->CI->armor->getDefense() + $this->CI->weapon->getDefense() + 1) * ($this->resistance + 3)/4);
     }
     public function getAttackMag(){
+        $this->CI->load->library('weapon');
         $this->CI->load->library('armor');
         return round(($this->CI->armor->getAttackMag() + $this->CI->weapon->getAttackMag() + 1) * ($this->intelligence + 3)/4);
     }
+    public function getWaiting(){
+        return round(8 - (($this->speed + 3)/4));
+    }
+    public function isReadyAction() {
+        if(time() - $this->getLastAction() >= $this->getWaiting())
+            return true;
+        return false;
+    }
+    public function degat() {
+        return round((($this->getAttack() + $this->getAttackMag()*0.30)/2) + rand(0, 5));
+    }
+
 	
 	/*
 	 *Getter
@@ -211,6 +229,10 @@ class Character
     {
         return $this->resistance;
     }
+    public function getLastAction()
+    {
+        return $this->CI->session->userdata('lastActionCombat');
+    }
     
     
     public function setId($id){
@@ -299,5 +321,8 @@ class Character
     public function setResistance($resistance)
     {
         $this->resistance = $resistance;
+    }
+    public function setLastAction($lastAction){
+        $this->CI->session->set_userdata('lastActionCombat', $lastAction);
     }
 }

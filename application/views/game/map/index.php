@@ -23,7 +23,7 @@
     <br><br>
     <div id="action">
     <?php if($map['type'] == 2) { //In island ?>
-        <a href="<?= base_url('game/map/fight/') ?>">Combattre</a><br>
+        <a id="fightMonster" href="<?= base_url('game/fight/initFight/') ?>">Combattre</a><br>
         <a id="fouille" href="<?= base_url('game/map/search/') ?>">Fouiller</a>
     <?php }
     else if($map['type'] == 1) { //In ocean ?>
@@ -132,6 +132,7 @@
     var uX = <?= $uX?>;
     var uY = <?= $uY?>;
     var urlImgMap = "<?= base_url('assets/img/maps/'); ?>";
+    var avatar = "<?= base_url('assets/img/avatarsJoueurs/'.$this->user->getId())?>"
     var urlGame = "<?= base_url('game/')?>";
     var moveCase = <?= $this->character->getMoveCase()?>;
 </script>
