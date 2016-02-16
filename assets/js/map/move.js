@@ -75,7 +75,7 @@
             msg = "<a href=\"" + urlGame + "/shop/\">Entrer dans le magasin</a><br>";
         }
         if (type == 10) {
-            msg = "<a href=\"" + urlGame + "/hopital/\">Rentrer dans l'hopital</a><br>";
+            msg = "<a href=\"" + urlGame + "/hospital/\">Rentrer dans l'hopital</a><br>";
         }
         if (type ==  11) {
             msg = "<a href=\"" + urlGame + "/trainingCenter/\">Rentrer dans le centre</a><br>";
