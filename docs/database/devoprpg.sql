@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Ven 12 Février 2016 à 00:49
+-- Généré le :  Mer 17 Février 2016 à 00:46
 -- Version du serveur :  5.6.26
 -- Version de PHP :  5.6.12
 
@@ -53,18 +53,16 @@ CREATE TABLE IF NOT EXISTS `bags_objects` (
   `id` int(11) NOT NULL,
   `id_bags` int(11) NOT NULL,
   `id_objects` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `bags_objects`
 --
 
 INSERT INTO `bags_objects` (`id`, `id_bags`, `id_objects`) VALUES
-(80, 1, 2),
-(81, 1, 2),
-(82, 1, 2),
 (95, 5, 3),
-(96, 6, 3);
+(96, 6, 3),
+(114, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -193,6 +191,7 @@ CREATE TABLE IF NOT EXISTS `charactere` (
   `in_island` tinyint(1) NOT NULL DEFAULT '1',
   `in_fight` tinyint(1) NOT NULL,
   `lvl` int(11) DEFAULT NULL,
+  `xp` int(11) NOT NULL DEFAULT '0',
   `berry` int(11) DEFAULT NULL,
   `avatar` text,
   `vitality` int(11) NOT NULL,
@@ -216,12 +215,12 @@ CREATE TABLE IF NOT EXISTS `charactere` (
 -- Contenu de la table `charactere`
 --
 
-INSERT INTO `charactere` (`id`, `life`, `energies`, `position_city`, `in_island`, `in_fight`, `lvl`, `berry`, `avatar`, `vitality`, `strength`, `speed`, `endurance`, `agility`, `energy`, `intelligence`, `resistance`, `id_objects`, `x`, `y`, `id_objects_1`, `id_maps_island`, `x_maps_island`, `y_maps_island`) VALUES
-(11, 410, 160, 1, 1, 0, 100, 50, 'a:5:{s:4:"sexe";s:5:"Homme";s:4:"body";s:33:"assets/img/avatars/man/body/2.png";s:4:"eyes";s:34:"assets/img/avatars/man/eyes/11.png";s:6:"mouths";s:31:"assets/img/avatars/mouths/5.png";s:4:"hair";s:40:"assets/img/avatars/man/hair/blanc/27.png";}', 80, 26, 12, 18, 10, 90, 114, 50, 1, 4, 2, 2, 2, 8, 1),
-(12, 0, 0, 1, 1, 0, 1, 1100, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, NULL, NULL, NULL),
-(13, 0, 0, 1, 1, 0, 1, 1100, 'a:5:{s:4:"sexe";s:5:"Homme";s:4:"body";s:33:"assets/img/avatars/man/body/2.png";s:4:"eyes";s:33:"assets/img/avatars/man/eyes/1.png";s:6:"mouths";s:31:"assets/img/avatars/mouths/2.png";s:4:"hair";s:38:"assets/img/avatars/man/hair/noir/1.png";}', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, NULL, NULL, NULL),
-(15, 0, 0, 1, 1, 0, 1, 100, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 2, NULL, NULL),
-(16, 0, 0, 1, 1, 0, 1, 100, 'a:5:{s:4:"sexe";s:5:"Homme";s:4:"body";s:33:"assets/img/avatars/man/body/2.png";s:4:"eyes";s:33:"assets/img/avatars/man/eyes/2.png";s:6:"mouths";s:31:"assets/img/avatars/mouths/1.png";s:4:"hair";s:38:"assets/img/avatars/man/hair/noir/2.png";}', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 0, 0);
+INSERT INTO `charactere` (`id`, `life`, `energies`, `position_city`, `in_island`, `in_fight`, `lvl`, `xp`, `berry`, `avatar`, `vitality`, `strength`, `speed`, `endurance`, `agility`, `energy`, `intelligence`, `resistance`, `id_objects`, `x`, `y`, `id_objects_1`, `id_maps_island`, `x_maps_island`, `y_maps_island`) VALUES
+(11, 550, 160, 1, 1, 0, 6, 15, 167, 'a:5:{s:4:"sexe";s:5:"Homme";s:4:"body";s:33:"assets/img/avatars/man/body/2.png";s:4:"eyes";s:34:"assets/img/avatars/man/eyes/11.png";s:6:"mouths";s:31:"assets/img/avatars/mouths/5.png";s:4:"hair";s:40:"assets/img/avatars/man/hair/blanc/27.png";}', 100, 50, 0, 0, 0, 0, 0, 0, 5, 4, 2, 2, 2, 7, 0),
+(12, 0, 0, 1, 1, 0, 1, 0, 1100, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, NULL, NULL, NULL),
+(13, 0, 0, 1, 1, 0, 1, 0, 1100, 'a:5:{s:4:"sexe";s:5:"Homme";s:4:"body";s:33:"assets/img/avatars/man/body/2.png";s:4:"eyes";s:33:"assets/img/avatars/man/eyes/1.png";s:6:"mouths";s:31:"assets/img/avatars/mouths/2.png";s:4:"hair";s:38:"assets/img/avatars/man/hair/noir/1.png";}', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, NULL, NULL, NULL),
+(15, 0, 0, 1, 1, 0, 1, 0, 100, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 2, NULL, NULL),
+(16, 0, 0, 1, 1, 0, 1, 0, 100, 'a:5:{s:4:"sexe";s:5:"Homme";s:4:"body";s:33:"assets/img/avatars/man/body/2.png";s:4:"eyes";s:33:"assets/img/avatars/man/eyes/2.png";s:6:"mouths";s:31:"assets/img/avatars/mouths/1.png";s:4:"hair";s:38:"assets/img/avatars/man/hair/noir/2.png";}', 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -908,9 +907,11 @@ CREATE TABLE IF NOT EXISTS `maps_types_objects` (
 --
 
 INSERT INTO `maps_types_objects` (`id`, `id_objects`) VALUES
+(1, 1),
 (2, 1),
 (3, 1),
 (9, 1),
+(1, 2),
 (3, 2),
 (9, 2),
 (2, 3),
@@ -1366,14 +1367,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id_charactere` int(11) DEFAULT NULL,
   `id_crews_candidacy` int(11) DEFAULT NULL,
   `id_faction` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `users`
 --
 
 INSERT INTO `users` (`id`, `ban`, `pseudo`, `email`, `birthday`, `sexe`, `password`, `registration`, `last_action`, `ip`, `is_kick`, `messNumber`, `popularity`, `id_users_types`, `id_lost_pass`, `id_charactere`, `id_crews_candidacy`, `id_faction`) VALUES
-(5, 0, 'Dumbeldor', 'vincent.glize@live.fr', '0000-00-00', NULL, '$2y$10$YndPoTqiK4lEPrGHIpsdze.tlJ4LLAOQJCSgBLv7eJpu93p3IbiOm', 1453225764, 1455234134, '::1', 0, NULL, NULL, 24, NULL, 11, NULL, 2),
+(5, 0, 'Dumbeldor', 'vincent.glize@live.fr', '0000-00-00', NULL, '$2y$10$YndPoTqiK4lEPrGHIpsdze.tlJ4LLAOQJCSgBLv7eJpu93p3IbiOm', 1453225764, 1455664953, '::1', 0, NULL, NULL, 24, NULL, 11, NULL, 2),
 (13, 0, 'Pandaman', 'pandaman@pandaman.panda', '2016-01-06', 0, '$2y$10$YndPoTqiK4lEPrGHIpsdze.tlJ4LLAOQJCSgBLv7eJpu93p3IbiOm', 1453225764, 1453225764, '0000000000', 0, 0, 0, 2, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
@@ -1883,7 +1884,7 @@ ALTER TABLE `bags`
 -- AUTO_INCREMENT pour la table `bags_objects`
 --
 ALTER TABLE `bags_objects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=97;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=115;
 --
 -- AUTO_INCREMENT pour la table `bags_types`
 --
@@ -2108,7 +2109,7 @@ ALTER TABLE `types_maps`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT pour la table `users_types`
 --
