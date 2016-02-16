@@ -17,8 +17,16 @@ class Monster_model extends CI_Model
         return $query->result_array();
     }
 
-    public function attack() {
-
+    public function loot($idMonster) {
+        $rand = mt_rand(0, 100);
+        if($rand > 15) {
+            $query = $this->db->query("SELECT RAND()*rarity as rate, o.id, name, description, file FROM objects o
+                                        JOIN monster_objects mo ON mo.id_objects = o.id
+                                        WHERE mo.id = ? AND is_block = 0
+                                       ORDER BY rate ASC LIMIT 1", array($idMonster));
+            return $query->result_array()[0];
+        }
+        return "rien";
     }
 
 }

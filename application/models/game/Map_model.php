@@ -60,9 +60,18 @@ class Map_model extends CI_Model {
     public function search(){
         $rand = mt_rand(0, 100);
         if($rand > 15) {
-            $query = $this->db->query("SELECT RAND()*rarity as rate, id, name, description, file FROM objects WHERE is_block = 0
-                                       ORDER BY rate ASC LIMIT 1");
-            return $query->result_array()[0];
+            $query = $this->db->query("SELECT RAND()*rarity as rate, o.id, name, description, file
+                                       FROM objects o
+                                       JOIN maps_types_objects mto ON mto.id_objects = o.id
+                                       WHERE mto.id =
+                                       (SELECT mi.id_maps_types FROM maps_island mi WHERE mi.id = ? AND mi.x = ? AND mi.y = ?)
+                                       AND is_block = 0
+                                       ORDER BY rate ASC LIMIT 1",
+                                        array($this->character->getIdIsland(), $this->character->getXMapsIsland(), $this->character->getYMapsIsland()));
+            $result = $query->result_array();
+            if(empty($result))
+                return "rien";
+            return $result[0];
         }
         return "rien";
     }

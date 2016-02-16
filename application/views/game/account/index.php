@@ -2,6 +2,7 @@
     <h2><?= $title?></h2><br><br>
     Pseudo : <?= $this->user->getPseudo() ?><br>
     lvl : <?= $this->character->getLvl()?> <br>
+    Expérience : <?= $this->character->getXp()?>/<?= $this->character->getMaxXp()?><br>
     Berry : <?= $this->character->getBerry()?> <br>
     Vie : <?= $this->character->getLife()?> / <?= $this->character->getMaxLife()?><br>
     Énergie : <?= $this->character->getEnergies()?> / <?= $this->character->getMaxEnergy()?><br>

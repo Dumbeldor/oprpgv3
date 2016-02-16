@@ -22,6 +22,7 @@ class Character
               $inFight,
               $idIsland,
               $lvl,
+              $xp,
               $berry,
               $avatar,
               $vitality,
@@ -128,7 +129,33 @@ class Character
         return false;
     }
     public function degat() {
-        return round((($this->getAttack() + $this->getAttackMag()*0.30)/2) + rand(0, 5));
+        return round(($this->getAttack() + $this->getAttackMag()*0.30) + rand(0, ($this->agility / 2.5)));
+    }
+    public function maxCritical(){
+        return $this->agility / 2.5;
+    }
+    public function receiveDamage($damage){
+        $damage = ($damage - ($this->getDefense() / 4));
+        if($damage <= 0){
+            $damage = 0;
+        }
+        $this->setLife($this->getLife() - $damage);
+        return $damage;
+    }
+    public function getMaxXp(){
+        return ($this->getLvl()*10) + 10;
+    }
+    public function addXp($xp) {
+        $this->xp += $xp;
+        if($this->xp >= $this->getMaxXp()){
+            $xp = $this->xp - $this->getMaxXp();
+            $this->setXp($xp);
+            $this->setLvl($this->lvl + 1);
+            $this->CI->character_model->lvlUp();
+        }
+        else {
+            $this->CI->character_model->addXp();
+        }
     }
 
 	
@@ -159,6 +186,9 @@ class Character
     }
     public function getLvl() {
         return $this->lvl;
+    }
+    public function getXp() {
+        return $this->xp;
     }
     public function getBerry() {
         return $this->berry;
@@ -265,6 +295,9 @@ class Character
     }
     public function setLvl($lvl){
         $this->lvl = $lvl;
+    }
+    public function setXp($xp) {
+        $this->xp = $xp;
     }
     public function setBerry($berry){
         $this->berry = $berry;
