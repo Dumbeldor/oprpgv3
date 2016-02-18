@@ -45,6 +45,8 @@
         <a href="<?= base_url('game/hospital/')?>">Rentrer dans l'hopital</a>
     <?php } else if($map['type'] == 11) { //Centre perfectionnement ?>
         <a href="<?= base_url('game/trainingCenter/')?>">Rentrer dans le centre</a>
+    <?php } else if($map['type'] == 12) { //AUBERGE ?>
+        <a href="<?= base_url('game/hostel/')?>">Rentrer dans l'auberge</a>
     <?php } ?>
     </div>
     <div id="zoneMap" style="position: relative">

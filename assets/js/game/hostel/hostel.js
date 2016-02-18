@@ -1,6 +1,6 @@
 (function($) {
 
-    $('#action').on('click', '#fouille', function (e) {
+    $('#sleep').on('click', function (e) {
         e.preventDefault();
 
         var $a = $(this);
@@ -8,8 +8,7 @@
 
         $.ajax(url)
             .done(function(data, text, response){
-                $mess = "Vous venez de trouver " + response.responseText;
-                $("#msg").html($mess);
+                $("#msg").html(response.responseText);
             })
             .fail(function(data, text, response){
                 $("#msg").html(data.responseText);

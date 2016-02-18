@@ -1,5 +1,4 @@
 (function($){
-
     $('#zoneMap').on('click', '#urlMove', function(e){
 
         e.preventDefault();
@@ -14,10 +13,15 @@
                 var x = maps.uX;
                 var y = maps.uY;
 
-                constructMap(maps, x, y);
+                if(maps.attack == true){
+                    spamMob(maps);
+                }
+                else {
+                    constructMap(maps, x, y);
+                }
             })
             .fail(function(data, text, reponse){
-                alert("error");
+                alert(data.responseText);
             })
     });
 
@@ -58,28 +62,30 @@
             msg = "<a id=\"fightMonster\" href=\"" + urlGame + "/fight/initFight/\">Combattre</a><br>" +
                 "<a id=\"fouille\" href=\"" + urlGame + "/map/search/\">Fouiller</a>";
         }
-        if (type == 1) {
+        else if (type == 1) {
             msg = "<a href=\"" + urlGame + "/map/fight/\">Combattre</a><br>" +
             "<a href=\"" + urlGame + "/map/search/\">Pêcher</a>";
         }
-        if (type == 3) {
+        else if (type == 3) {
             msg = "<a href=\"" + urlGame + "/map/enterCity/\">Rentrer sur l'ile</a><br>";
         }
-        if (type == 4) {
+        else if (type == 4) {
             msg = "<a href=\"" + urlGame + "/map/leaveIsland/\">Sortir de l'ile</a><br>";
         }
-        if (type == 5) {
+        else if (type == 5) {
             msg = "<a href=\"" + urlGame + "/training/\">Entrer dans la salle d'entrainement</a><br>";
         }
-        if (type == 6 || type == 7 || type == 8 || type == 9) {
+        else if (type == 6 || type == 7 || type == 8 || type == 9) {
             msg = "<a href=\"" + urlGame + "/shop/\">Entrer dans le magasin</a><br>";
         }
-        if (type == 10) {
+        else if (type == 10) {
             msg = "<a href=\"" + urlGame + "/hospital/\">Rentrer dans l'hopital</a><br>";
         }
-        if (type ==  11) {
+        else if (type ==  11) {
             msg = "<a href=\"" + urlGame + "/trainingCenter/\">Rentrer dans le centre</a><br>";
         }
+        else if (type == 12)
+            msg = "<a href=\"" + urlGame + "/hostel/\">Rentrer dans l'auberge</a><br>";
         document.getElementById("action").innerHTML = msg;
     }
 

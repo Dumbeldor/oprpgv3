@@ -22,7 +22,7 @@ class Bag_model extends CI_Model {
     if($nb == 0)
         return false;
 
-    $query = $this->db->query("SELECT o.id, o.name, o.description, o.file, o.price, o.attack, o.speed, o.defense, o.attackMag, o.addLife, o.addEnergy, o.rarity, ot.name AS type
+    $query = $this->db->query("SELECT bo.id, o.id AS idO, o.name, o.description, o.file, o.price, o.attack, o.speed, o.defense, o.attackMag, o.addLife, o.addEnergy, o.rarity, ot.name AS type
 							  FROM bags_objects bo
 							  JOIN objects o ON bo.id_objects = o.id
 							  JOIN objects_types ot ON o.id_objects_types = ot.id

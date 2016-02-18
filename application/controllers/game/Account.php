@@ -19,6 +19,8 @@ class Account extends MY_Game{
         $this->load->library('weapon');
         $this->load->library('armor');
         $this->load->model('game/tech_model');
+
+        $data['scripts'][] = base_url('assets/js/game/account/account.js');
         $data['title'] = "Votre personnage";
         $data['techs'] = $this->tech_model->getTechs($this->character->getId());
 

@@ -14,21 +14,13 @@ class Fight extends MY_Game
         $this->load->library('character');
     }
 
-    public function initFight()
+    public function initFight($inMove = false)
     {
-        //if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) AND $_SERVER['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest") {
-            $this->load->model('game/monster_model');
-            $monster = $this->monster_model->getMonster()[0];
-            if (!isset($monster)) {
-                header('500 Internal Server Error', true, 500);
-                die("Aucun monstre trouvé");
-            }
-            $this->load->library('monster');
-            $monster['lastAction'] = time();
-            $this->monster->hydrate($monster);
-            $monster['waiting'] = $this->monster->getWaiting();
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) AND $_SERVER['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest") {
+            $this->load->helper('monster');
+            $monster = getMonster();
             echo json_encode($monster);
-        //}
+        }
     }
 
     public function infoCharacter()

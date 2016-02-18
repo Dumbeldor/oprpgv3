@@ -85,7 +85,6 @@ class Users_model extends CI_Model {
 	  //marine
 	  $faction = 2;
 	}
-	
 	$data = array(
 	  'position_city' => 1,
 	  'in_island' => 1,

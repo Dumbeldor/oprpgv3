@@ -157,6 +157,12 @@ class Character
             $this->CI->character_model->addXp();
         }
     }
+    public function addLife($life) {
+        $this->setLife($this->life + $life);
+    }
+    public function removeEnergies($energies){
+        $this->setEnergies($this->energies - $energies);
+    }
 
 	
 	/*

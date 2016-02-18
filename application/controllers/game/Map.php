@@ -30,9 +30,9 @@ class Map extends MY_Game {
         $data['uX'] = $this->character->getX();
         $data['uY'] = $this->character->getY();
 
+        $data['scripts'][] = base_url('assets/js/game/fight.js');
         $data['scripts'][] = base_url('assets/js/map/move.js');
         $data['scripts'][] = base_url('assets/js/map/fouille.js');
-        $data['scripts'][] = base_url('assets/js/game/fight.js');
         
         $this->construct_page('game/map/index.php', $data);
     }
@@ -105,10 +105,23 @@ class Map extends MY_Game {
         $maps = $this->map_model->getMaps();
         $uX =  $x;
         $uY = $y;
-        $data = array('map' => $map, 'maps' => $maps, 'uX' => $uX, 'uY' => $uY);
-        $json = json_encode($data);
 
-        echo $json;
+        //Mob attack
+        $r = rand(0, 100);
+        if($r > 75) {
+            $this->load->helper('monster');
+            $monster = getMonster(true);
+
+            if($monster)
+                echo json_encode($monster);
+        }
+
+        if(empty($monster) OR !$monster) {
+            //Mob not attack
+            $data = array('attack' => false, 'map' => $map, 'maps' => $maps, 'uX' => $uX, 'uY' => $uY);
+            $json = json_encode($data);
+            echo $json;
+        }
     }
 
     public function enterCity(){

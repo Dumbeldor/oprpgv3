@@ -20,6 +20,17 @@ class Tech_model extends CI_Model
         return $query->result_array();
     }
 
+    public function getTech($id) {
+        $query = $this->db->query("SELECT t.name, t.price, t.energy, t.adding, t.id_tech_types AS type
+                                    FROM tech t
+                                    INNER JOIN character_tech ct ON ct.id_tech = t.id
+                                    WHERE ct.id = ? AND t.id = ?", array($this->character->getId(), $id));
+        $result = $query->result_array()[0];
+        if(empty($result))
+            return false;
+        return $result;
+    }
+
     public function getTechPriceLvlName($id) {
         $query = $this->db->query('SELECT price, lvl, name FROM tech WHERE id = ?', array($id));
         return $query->result_array()[0];
@@ -37,6 +48,12 @@ class Tech_model extends CI_Model
         $data = array('id' => $this->character->getId(),
                       'id_tech' => $id);
         $this->db->insert('character_tech', $data);
+    }
+    public function heal() {
+        $this->db->where('id', $this->character->getId())
+                ->set('life', $this->character->getLife())
+                ->set('energies', $this->character->getEnergies())
+                ->update('charactere');
     }
 
 }

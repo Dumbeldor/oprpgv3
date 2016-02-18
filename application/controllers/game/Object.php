@@ -26,4 +26,15 @@ class Object extends MY_Game
         $data['name'] = $name;
         $this->construct_page('game/object/equip', $data);
     }
+
+    public function unequip($id=0) {
+        //if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) AND $_SERVER['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest") {
+            if ($id == 0) {
+                header('500 Internal Server Error', true, 500);
+                die("");
+            }
+            $this->object_model->unequip($id);
+            echo "Vous vous êtes bien déséquiper du stuff.";
+        //}
+    }
 }
