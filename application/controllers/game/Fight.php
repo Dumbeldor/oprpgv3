@@ -39,6 +39,7 @@ class Fight extends MY_Game
 
     public function attack()
     {
+        $data['fight'] = true;
        // if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) AND $_SERVER['HTTP_X_REQUESTED_WITH'] == "XMLHttpRequest") {
             $this->load->model('game/monster_model');
             $this->load->library('monster');
@@ -61,6 +62,7 @@ class Fight extends MY_Game
              * Player DEAD
              */
             if($this->character->getLife() <= 0){
+                $this->character->setInFight(false);
                 header('500 Internal Server Error', true, 500);
                 $this->character_model->setLife($this->character->getLife());
                 $data = array('type' => 3);
@@ -82,6 +84,7 @@ class Fight extends MY_Game
              * MONSTER DEAD
              */
             if($_SESSION['lifeMonster'] <= 0) {
+                $this->character->setInFight(false);
                 header('500 Internal Server Error', true, 500);
                 $this->character->addXp($this->monster->getXp());
                 //LOOT

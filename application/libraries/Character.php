@@ -245,7 +245,7 @@ class Character
     public function getIdIsland() {
         return $this->idIsland;
     }
-    public function getInFight()
+    public function InFight()
     {
         return $this->inFight;
     }
@@ -343,6 +343,7 @@ class Character
     }
     public function setInFight($inFight)
     {
+        $this->CI->character_model->setInFight($inFight, $this->getId());
         $this->inFight = $inFight;
     }
     public function setAgility($agility)

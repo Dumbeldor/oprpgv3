@@ -11,6 +11,7 @@ function getMonster($inMove = false){
         die("Aucun monstre trouvé");
     }
     else {
+        $CI->character->setInFight(true);
         $CI->load->library('monster');
         $monster = $monster[0];
         $monster['lastAction'] = time();

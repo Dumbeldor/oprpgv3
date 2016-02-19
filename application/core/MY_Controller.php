@@ -8,6 +8,10 @@ class MY_Game extends MY_Controller {
     }
     public function template($page, $data)
     {
+        if(empty($data['fight']) AND $this->character->inFight())
+            redirect('game/antiCheat/leaveFight');
+        if(empty($data['dead']) AND $this->character->getLife() <= 0)
+            redirect('game/game/dead');
         $this->load->view('templates/game/header', $data);
         $this->load->view('templates/game/navbar', $data);
         $this->load->view('templates/game/sidebar');

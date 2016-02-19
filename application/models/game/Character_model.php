@@ -42,5 +42,21 @@ class Character_model extends CI_Model {
                 ->set('lvl', $this->character->getLvl())
                 ->update('charactere');
     }
+    public function setInFight($bool, $id) {
+        $this->db->where('id', $id)
+                ->set('in_fight', $bool)
+                ->update('charactere');
+    }
+    public function dead(){
+        $this->db->where('id', $this->character->getId())
+                    ->set('life', 0)
+                    ->update('charactere');
+    }
+    public function resurrected(){
+        $this->db->where('id', $this->character->getId())
+                ->set('life', $this->character->getMaxLife()/5)
+                ->set('xp', 0)
+                ->update('charactere');
+    }
 
 }
